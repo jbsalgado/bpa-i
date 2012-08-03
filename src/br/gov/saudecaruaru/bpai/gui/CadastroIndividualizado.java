@@ -18,6 +18,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
     public CadastroIndividualizado() {
         initComponents();
         myInitComponents();
+        //seta o estado do frame para ocupar toda a tela
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     
