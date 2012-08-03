@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Junior Pires
  */
 @Entity
-@Table(name = "S_CDN", catalog = "", schema = "")
+@Table(name = "S_CDN")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SCdn.findAll", query = "SELECT s FROM SCdn s"),
@@ -25,7 +25,7 @@ public class SCdn implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected SCdnPK sCdnPK;
-    @Column(name = "CDN_DSCR", length = 40)
+    @Column(name = "CDN_DSCR")
     private String cdnDscr;
     @Column(name = "CDN_AUX")
     private Character cdnAux;

@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Junior Pires
  */
 @Entity
-@Table(name = "APLICAC", catalog = "", schema = "")
+@Table(name = "APLICAC")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Aplicac.findAll", query = "SELECT a FROM Aplicac a"),
@@ -25,7 +25,7 @@ public class Aplicac implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected AplicacPK aplicacPK;
-    @Column(name = "DESCRICAO", length = 40)
+    @Column(name = "DESCRICAO")
     private String descricao;
 
     public Aplicac() {

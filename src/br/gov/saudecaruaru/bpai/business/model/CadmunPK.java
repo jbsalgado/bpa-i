@@ -16,10 +16,10 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class CadmunPK implements Serializable {
     @Basic(optional = false)
-    @Column(name = "CODUF", nullable = false, length = 2)
+    @Column(name = "CODUF")
     private String coduf;
     @Basic(optional = false)
-    @Column(name = "CODMUNIC", nullable = false, length = 4)
+    @Column(name = "CODMUNIC")
     private String codmunic;
 
     public CadmunPK() {

@@ -16,13 +16,13 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class AplicacPK implements Serializable {
     @Basic(optional = false)
-    @Column(name = "MODULO", nullable = false, length = 10)
+    @Column(name = "MODULO")
     private String modulo;
     @Basic(optional = false)
-    @Column(name = "ROTINA", nullable = false, length = 10)
+    @Column(name = "ROTINA")
     private String rotina;
     @Basic(optional = false)
-    @Column(name = "FUNCAO", nullable = false, length = 10)
+    @Column(name = "FUNCAO")
     private String funcao;
 
     public AplicacPK() {

@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Junior Pires
  */
 @Entity
-@Table(name = "SYSUAF", catalog = "", schema = "")
+@Table(name = "SYSUAF")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Sysuaf.findAll", query = "SELECT s FROM Sysuaf s"),
@@ -23,10 +23,10 @@ public class Sysuaf implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "USERNAME", nullable = false, length = 15)
+    @Column(name = "USERNAME")
     private String username;
     @Basic(optional = false)
-    @Column(name = "SENHA", nullable = false, length = 45)
+    @Column(name = "SENHA")
     private String senha;
 
     public Sysuaf() {

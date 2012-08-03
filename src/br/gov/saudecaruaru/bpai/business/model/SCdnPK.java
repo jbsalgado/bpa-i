@@ -16,10 +16,10 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class SCdnPK implements Serializable {
     @Basic(optional = false)
-    @Column(name = "CDN_TB", nullable = false, length = 2)
+    @Column(name = "CDN_TB")
     private String cdnTb;
     @Basic(optional = false)
-    @Column(name = "CDN_IT", nullable = false, length = 8)
+    @Column(name = "CDN_IT")
     private String cdnIt;
 
     public SCdnPK() {
