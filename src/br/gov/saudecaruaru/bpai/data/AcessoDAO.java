@@ -40,7 +40,7 @@ public class AcessoDAO extends GenericDAO<Acesso> implements BasicDAO<Acesso> {
     @Override
     public List<Acesso> findAll() {
         try {
-            return this.findAll();
+            return super.findAll();
         } catch (Exception ex) {
             Logger.getLogger(AcessoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return new ArrayList<Acesso>();

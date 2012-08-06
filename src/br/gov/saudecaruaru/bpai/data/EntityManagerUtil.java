@@ -14,7 +14,7 @@ import javax.persistence.Persistence;
  */
 public class EntityManagerUtil {
     
-    public static final String ENTITY_MANAGER_BPA_IPU="BPAIPU";
+    public static final String ENTITY_MANAGER_BPA_IPU="bpa";
      private static EntityManagerFactory emf;
 
          public static EntityManager getEntityManager() {
