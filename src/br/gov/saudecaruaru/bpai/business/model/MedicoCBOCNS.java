@@ -20,27 +20,27 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CadmedCboCnes.findByMedCns", query = "SELECT c FROM CadmedCboCnes c WHERE c.cadmedCboCnesPK.medCns = :medCns"),
     @NamedQuery(name = "CadmedCboCnes.findByMedCbo", query = "SELECT c FROM CadmedCboCnes c WHERE c.cadmedCboCnesPK.medCbo = :medCbo"),
     @NamedQuery(name = "CadmedCboCnes.findByMedCnes", query = "SELECT c FROM CadmedCboCnes c WHERE c.cadmedCboCnesPK.medCnes = :medCnes")})
-public class CadmedCboCnes implements Serializable {
+public class MedicoCBOCNS implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected CadmedCboCnesPK cadmedCboCnesPK;
+    protected MedicoCBOCNSPK cadmedCboCnesPK;
 
-    public CadmedCboCnes() {
+    public MedicoCBOCNS() {
     }
 
-    public CadmedCboCnes(CadmedCboCnesPK cadmedCboCnesPK) {
+    public MedicoCBOCNS(MedicoCBOCNSPK cadmedCboCnesPK) {
         this.cadmedCboCnesPK = cadmedCboCnesPK;
     }
 
-    public CadmedCboCnes(String medCns, String medCbo, String medCnes) {
-        this.cadmedCboCnesPK = new CadmedCboCnesPK(medCns, medCbo, medCnes);
+    public MedicoCBOCNS(String medCns, String medCbo, String medCnes) {
+        this.cadmedCboCnesPK = new MedicoCBOCNSPK(medCns, medCbo, medCnes);
     }
 
-    public CadmedCboCnesPK getCadmedCboCnesPK() {
+    public MedicoCBOCNSPK getCadmedCboCnesPK() {
         return cadmedCboCnesPK;
     }
 
-    public void setCadmedCboCnesPK(CadmedCboCnesPK cadmedCboCnesPK) {
+    public void setCadmedCboCnesPK(MedicoCBOCNSPK cadmedCboCnesPK) {
         this.cadmedCboCnesPK = cadmedCboCnesPK;
     }
 
@@ -54,10 +54,10 @@ public class CadmedCboCnes implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CadmedCboCnes)) {
+        if (!(object instanceof MedicoCBOCNS)) {
             return false;
         }
-        CadmedCboCnes other = (CadmedCboCnes) object;
+        MedicoCBOCNS other = (MedicoCBOCNS) object;
         if ((this.cadmedCboCnesPK == null && other.cadmedCboCnesPK != null) || (this.cadmedCboCnesPK != null && !this.cadmedCboCnesPK.equals(other.cadmedCboCnesPK))) {
             return false;
         }

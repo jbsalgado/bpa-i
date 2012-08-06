@@ -21,31 +21,31 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SPacid.findByPacidCid", query = "SELECT s FROM SPacid s WHERE s.sPacidPK.pacidCid = :pacidCid"),
     @NamedQuery(name = "SPacid.findByPacidAux", query = "SELECT s FROM SPacid s WHERE s.pacidAux = :pacidAux"),
     @NamedQuery(name = "SPacid.findByPacidCmp", query = "SELECT s FROM SPacid s WHERE s.pacidCmp = :pacidCmp")})
-public class SPacid implements Serializable {
+public class ProcedimentoCID implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected SPacidPK sPacidPK;
+    protected ProcedimentoCIDPK sPacidPK;
     @Column(name = "PACID_AUX")
     private Character pacidAux;
     @Column(name = "PACID_CMP")
     private String pacidCmp;
 
-    public SPacid() {
+    public ProcedimentoCID() {
     }
 
-    public SPacid(SPacidPK sPacidPK) {
+    public ProcedimentoCID(ProcedimentoCIDPK sPacidPK) {
         this.sPacidPK = sPacidPK;
     }
 
-    public SPacid(String pacidPa, String pacidCid) {
-        this.sPacidPK = new SPacidPK(pacidPa, pacidCid);
+    public ProcedimentoCID(String pacidPa, String pacidCid) {
+        this.sPacidPK = new ProcedimentoCIDPK(pacidPa, pacidCid);
     }
 
-    public SPacidPK getSPacidPK() {
+    public ProcedimentoCIDPK getSPacidPK() {
         return sPacidPK;
     }
 
-    public void setSPacidPK(SPacidPK sPacidPK) {
+    public void setSPacidPK(ProcedimentoCIDPK sPacidPK) {
         this.sPacidPK = sPacidPK;
     }
 
@@ -75,10 +75,10 @@ public class SPacid implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SPacid)) {
+        if (!(object instanceof ProcedimentoCID)) {
             return false;
         }
-        SPacid other = (SPacid) object;
+        ProcedimentoCID other = (ProcedimentoCID) object;
         if ((this.sPacidPK == null && other.sPacidPK != null) || (this.sPacidPK != null && !this.sPacidPK.equals(other.sPacidPK))) {
             return false;
         }

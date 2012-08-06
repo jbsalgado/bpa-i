@@ -22,10 +22,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SPapa.findByPapaPrinc", query = "SELECT s FROM SPapa s WHERE s.papaPrinc = :papaPrinc"),
     @NamedQuery(name = "SPapa.findByPapaSecun", query = "SELECT s FROM SPapa s WHERE s.papaSecun = :papaSecun"),
     @NamedQuery(name = "SPapa.findByPapaQtmax", query = "SELECT s FROM SPapa s WHERE s.papaQtmax = :papaQtmax")})
-public class SPapa implements Serializable {
+public class ProcedimentoProcedimento implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected SPapaPK sPapaPK;
+    protected ProcedimentoProcedimentoPK sPapaPK;
     @Column(name = "PAPA_PRINC")
     private String papaPrinc;
     @Column(name = "PAPA_SECUN")
@@ -33,22 +33,22 @@ public class SPapa implements Serializable {
     @Column(name = "PAPA_QTMAX")
     private String papaQtmax;
 
-    public SPapa() {
+    public ProcedimentoProcedimento() {
     }
 
-    public SPapa(SPapaPK sPapaPK) {
+    public ProcedimentoProcedimento(ProcedimentoProcedimentoPK sPapaPK) {
         this.sPapaPK = sPapaPK;
     }
 
-    public SPapa(String papaCmp, String papaTrat) {
-        this.sPapaPK = new SPapaPK(papaCmp, papaTrat);
+    public ProcedimentoProcedimento(String papaCmp, String papaTrat) {
+        this.sPapaPK = new ProcedimentoProcedimentoPK(papaCmp, papaTrat);
     }
 
-    public SPapaPK getSPapaPK() {
+    public ProcedimentoProcedimentoPK getSPapaPK() {
         return sPapaPK;
     }
 
-    public void setSPapaPK(SPapaPK sPapaPK) {
+    public void setSPapaPK(ProcedimentoProcedimentoPK sPapaPK) {
         this.sPapaPK = sPapaPK;
     }
 
@@ -86,10 +86,10 @@ public class SPapa implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SPapa)) {
+        if (!(object instanceof ProcedimentoProcedimento)) {
             return false;
         }
-        SPapa other = (SPapa) object;
+        ProcedimentoProcedimento other = (ProcedimentoProcedimento) object;
         if ((this.sPapaPK == null && other.sPapaPK != null) || (this.sPapaPK != null && !this.sPapaPK.equals(other.sPapaPK))) {
             return false;
         }

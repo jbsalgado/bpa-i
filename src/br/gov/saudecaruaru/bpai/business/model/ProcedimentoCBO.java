@@ -21,31 +21,31 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SPacbo.findByPacboCbo", query = "SELECT s FROM SPacbo s WHERE s.sPacboPK.pacboCbo = :pacboCbo"),
     @NamedQuery(name = "SPacbo.findByPacboAux", query = "SELECT s FROM SPacbo s WHERE s.pacboAux = :pacboAux"),
     @NamedQuery(name = "SPacbo.findByPacboCmp", query = "SELECT s FROM SPacbo s WHERE s.pacboCmp = :pacboCmp")})
-public class SPacbo implements Serializable {
+public class ProcedimentoCBO implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected SPacboPK sPacboPK;
+    protected ProcedimentoCBOPK sPacboPK;
     @Column(name = "PACBO_AUX")
     private Character pacboAux;
     @Column(name = "PACBO_CMP")
     private String pacboCmp;
 
-    public SPacbo() {
+    public ProcedimentoCBO() {
     }
 
-    public SPacbo(SPacboPK sPacboPK) {
+    public ProcedimentoCBO(ProcedimentoCBOPK sPacboPK) {
         this.sPacboPK = sPacboPK;
     }
 
-    public SPacbo(String pacboPa, String pacboCbo) {
-        this.sPacboPK = new SPacboPK(pacboPa, pacboCbo);
+    public ProcedimentoCBO(String pacboPa, String pacboCbo) {
+        this.sPacboPK = new ProcedimentoCBOPK(pacboPa, pacboCbo);
     }
 
-    public SPacboPK getSPacboPK() {
+    public ProcedimentoCBOPK getSPacboPK() {
         return sPacboPK;
     }
 
-    public void setSPacboPK(SPacboPK sPacboPK) {
+    public void setSPacboPK(ProcedimentoCBOPK sPacboPK) {
         this.sPacboPK = sPacboPK;
     }
 
@@ -75,10 +75,10 @@ public class SPacbo implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SPacbo)) {
+        if (!(object instanceof ProcedimentoCBO)) {
             return false;
         }
-        SPacbo other = (SPacbo) object;
+        ProcedimentoCBO other = (ProcedimentoCBO) object;
         if ((this.sPacboPK == null && other.sPacboPK != null) || (this.sPacboPK != null && !this.sPacboPK.equals(other.sPacboPK))) {
             return false;
         }

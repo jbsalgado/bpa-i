@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SCid.findByEstadio", query = "SELECT s FROM SCid s WHERE s.estadio = :estadio"),
     @NamedQuery(name = "SCid.findByRepeteRad", query = "SELECT s FROM SCid s WHERE s.repeteRad = :repeteRad"),
     @NamedQuery(name = "SCid.findByAux", query = "SELECT s FROM SCid s WHERE s.aux = :aux")})
-public class SCid implements Serializable {
+public class CID implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -52,10 +52,10 @@ public class SCid implements Serializable {
     @Column(name = "AUX")
     private Character aux;
 
-    public SCid() {
+    public CID() {
     }
 
-    public SCid(String cdCod) {
+    public CID(String cdCod) {
         this.cdCod = cdCod;
     }
 
@@ -149,10 +149,10 @@ public class SCid implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SCid)) {
+        if (!(object instanceof CID)) {
             return false;
         }
-        SCid other = (SCid) object;
+        CID other = (CID) object;
         if ((this.cdCod == null && other.cdCod != null) || (this.cdCod != null && !this.cdCod.equals(other.cdCod))) {
             return false;
         }

@@ -14,110 +14,111 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "S_PA")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "SPa.findAll", query = "SELECT s FROM SPa s"),
-    @NamedQuery(name = "SPa.findByPaId", query = "SELECT s FROM SPa s WHERE s.paId = :paId"),
-    @NamedQuery(name = "SPa.findByPaDv", query = "SELECT s FROM SPa s WHERE s.paDv = :paDv"),
-    @NamedQuery(name = "SPa.findByPaTotal", query = "SELECT s FROM SPa s WHERE s.paTotal = :paTotal"),
-    @NamedQuery(name = "SPa.findByPaDc", query = "SELECT s FROM SPa s WHERE s.paDc = :paDc"),
-    @NamedQuery(name = "SPa.findByPaRub", query = "SELECT s FROM SPa s WHERE s.paRub = :paRub"),
-    @NamedQuery(name = "SPa.findByPaTpcc", query = "SELECT s FROM SPa s WHERE s.paTpcc = :paTpcc"),
-    @NamedQuery(name = "SPa.findByPaAux", query = "SELECT s FROM SPa s WHERE s.paAux = :paAux"),
-    @NamedQuery(name = "SPa.findByPaSp", query = "SELECT s FROM SPa s WHERE s.paSp = :paSp"),
-    @NamedQuery(name = "SPa.findByPaSa", query = "SELECT s FROM SPa s WHERE s.paSa = :paSa"),
-    @NamedQuery(name = "SPa.findByPaCpx", query = "SELECT s FROM SPa s WHERE s.paCpx = :paCpx"),
-    @NamedQuery(name = "SPa.findByPaCtf", query = "SELECT s FROM SPa s WHERE s.paCtf = :paCtf"),
-    @NamedQuery(name = "SPa.findByPaDoc", query = "SELECT s FROM SPa s WHERE s.paDoc = :paDoc"),
-    @NamedQuery(name = "SPa.findByPaIdademx", query = "SELECT s FROM SPa s WHERE s.paIdademx = :paIdademx"),
-    @NamedQuery(name = "SPa.findByPaIdademn", query = "SELECT s FROM SPa s WHERE s.paIdademn = :paIdademn"),
-    @NamedQuery(name = "SPa.findByPaSexo", query = "SELECT s FROM SPa s WHERE s.paSexo = :paSexo"),
-    @NamedQuery(name = "SPa.findByPaQtdmax", query = "SELECT s FROM SPa s WHERE s.paQtdmax = :paQtdmax"),
-    @NamedQuery(name = "SPa.findByPaIdebpa", query = "SELECT s FROM SPa s WHERE s.paIdebpa = :paIdebpa"),
-    @NamedQuery(name = "SPa.findByPaCnspcn", query = "SELECT s FROM SPa s WHERE s.paCnspcn = :paCnspcn"),
-    @NamedQuery(name = "SPa.findByPaCnrac", query = "SELECT s FROM SPa s WHERE s.paCnrac = :paCnrac"),
-    @NamedQuery(name = "SPa.findByPa6meses", query = "SELECT s FROM SPa s WHERE s.pa6meses = :pa6meses"),
-    @NamedQuery(name = "SPa.findByPaExigcbo", query = "SELECT s FROM SPa s WHERE s.paExigcbo = :paExigcbo"),
-    @NamedQuery(name = "SPa.findByPaCmp", query = "SELECT s FROM SPa s WHERE s.paCmp = :paCmp")})
-public class SPa implements Serializable {
+public class Procedimento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "PA_ID")
-    private String paId;
+    private String id;
+    
+    @Id
     @Basic(optional = false)
     @Column(name = "PA_DV")
-    private char paDv;
+    private char digitoVerificador;
+    
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "PA_TOTAL")
     private Double paTotal;
+    
+    @Id
+    @Basic(optional = false)
     @Column(name = "PA_DC")
-    private String paDc;
+    private String descricao;
+    
     @Column(name = "PA_RUB")
     private String paRub;
+    
     @Column(name = "PA_TPCC")
     private Character paTpcc;
+    
     @Column(name = "PA_AUX")
     private String paAux;
+    
     @Column(name = "PA_SP")
     private Double paSp;
+    
     @Column(name = "PA_SA")
     private Double paSa;
+    
     @Column(name = "PA_CPX")
     private String paCpx;
+    
     @Column(name = "PA_CTF")
     private String paCtf;
+    
     @Column(name = "PA_DOC")
-    private Character paDoc;
+    private Character tipoDocumento
+            ;
+    
     @Column(name = "PA_IDADEMX")
-    private Short paIdademx;
+    private Short idadeMaximaPaciente;
+    
     @Column(name = "PA_IDADEMN")
-    private Short paIdademn;
+    private Short idadeMinimaPaciente;
+    
     @Column(name = "PA_SEXO")
-    private Character paSexo;
+    private Character sexo;
+    
     @Column(name = "PA_QTDMAX")
-    private Double paQtdmax;
+    private Double quantidadeMaximaExecucao;
+    
     @Column(name = "PA_IDEBPA")
     private Character paIdebpa;
+    
     @Column(name = "PA_CNSPCN")
     private Character paCnspcn;
+    
     @Column(name = "PA_CNRAC")
     private Character paCnrac;
+    
     @Column(name = "PA_6MESES")
-    private Character pa6meses;
+    private Character maisDeSeisMeses;
+    
     @Column(name = "PA_EXIGCBO")
-    private Character paExigcbo;
+    private Character exigeCBO;
+    
+    @Id
     @Basic(optional = false)
     @Column(name = "PA_CMP")
     private String paCmp;
 
-    public SPa() {
+    public Procedimento() {
     }
 
-    public SPa(String paId) {
-        this.paId = paId;
+    public Procedimento(String paId) {
+        this.id = paId;
     }
 
-    public SPa(String paId, char paDv, String paCmp) {
-        this.paId = paId;
-        this.paDv = paDv;
+    public Procedimento(String paId, char paDv, String paCmp) {
+        this.id = paId;
+        this.digitoVerificador = paDv;
         this.paCmp = paCmp;
     }
 
     public String getPaId() {
-        return paId;
+        return id;
     }
 
     public void setPaId(String paId) {
-        this.paId = paId;
+        this.id = paId;
     }
 
     public char getPaDv() {
-        return paDv;
+        return digitoVerificador;
     }
 
     public void setPaDv(char paDv) {
-        this.paDv = paDv;
+        this.digitoVerificador = paDv;
     }
 
     public Double getPaTotal() {
@@ -129,11 +130,11 @@ public class SPa implements Serializable {
     }
 
     public String getPaDc() {
-        return paDc;
+        return descricao;
     }
 
     public void setPaDc(String paDc) {
-        this.paDc = paDc;
+        this.descricao = paDc;
     }
 
     public String getPaRub() {
@@ -193,43 +194,43 @@ public class SPa implements Serializable {
     }
 
     public Character getPaDoc() {
-        return paDoc;
+        return tipoDocumento;
     }
 
     public void setPaDoc(Character paDoc) {
-        this.paDoc = paDoc;
+        this.tipoDocumento = paDoc;
     }
 
     public Short getPaIdademx() {
-        return paIdademx;
+        return idadeMaximaPaciente;
     }
 
     public void setPaIdademx(Short paIdademx) {
-        this.paIdademx = paIdademx;
+        this.idadeMaximaPaciente = paIdademx;
     }
 
     public Short getPaIdademn() {
-        return paIdademn;
+        return idadeMinimaPaciente;
     }
 
     public void setPaIdademn(Short paIdademn) {
-        this.paIdademn = paIdademn;
+        this.idadeMinimaPaciente = paIdademn;
     }
 
     public Character getPaSexo() {
-        return paSexo;
+        return sexo;
     }
 
     public void setPaSexo(Character paSexo) {
-        this.paSexo = paSexo;
+        this.sexo = paSexo;
     }
 
     public Double getPaQtdmax() {
-        return paQtdmax;
+        return quantidadeMaximaExecucao;
     }
 
     public void setPaQtdmax(Double paQtdmax) {
-        this.paQtdmax = paQtdmax;
+        this.quantidadeMaximaExecucao = paQtdmax;
     }
 
     public Character getPaIdebpa() {
@@ -257,19 +258,19 @@ public class SPa implements Serializable {
     }
 
     public Character getPa6meses() {
-        return pa6meses;
+        return maisDeSeisMeses;
     }
 
     public void setPa6meses(Character pa6meses) {
-        this.pa6meses = pa6meses;
+        this.maisDeSeisMeses = pa6meses;
     }
 
     public Character getPaExigcbo() {
-        return paExigcbo;
+        return exigeCBO;
     }
 
     public void setPaExigcbo(Character paExigcbo) {
-        this.paExigcbo = paExigcbo;
+        this.exigeCBO = paExigcbo;
     }
 
     public String getPaCmp() {
@@ -283,18 +284,18 @@ public class SPa implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (paId != null ? paId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SPa)) {
+        if (!(object instanceof Procedimento)) {
             return false;
         }
-        SPa other = (SPa) object;
-        if ((this.paId == null && other.paId != null) || (this.paId != null && !this.paId.equals(other.paId))) {
+        Procedimento other = (Procedimento) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -302,7 +303,7 @@ public class SPa implements Serializable {
 
     @Override
     public String toString() {
-        return "br.gov.saudecaruaru.bpai.business.model.SPa[ paId=" + paId + " ]";
+        return "br.gov.saudecaruaru.bpai.business.model.SPa[ paId=" + id + " ]";
     }
     
 }

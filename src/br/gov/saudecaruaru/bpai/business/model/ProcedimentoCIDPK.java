@@ -14,7 +14,7 @@ import javax.persistence.Embeddable;
  * @author Junior Pires
  */
 @Embeddable
-public class SPacidPK implements Serializable {
+public class ProcedimentoCIDPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "PACID_PA")
     private String pacidPa;
@@ -22,10 +22,10 @@ public class SPacidPK implements Serializable {
     @Column(name = "PACID_CID")
     private String pacidCid;
 
-    public SPacidPK() {
+    public ProcedimentoCIDPK() {
     }
 
-    public SPacidPK(String pacidPa, String pacidCid) {
+    public ProcedimentoCIDPK(String pacidPa, String pacidCid) {
         this.pacidPa = pacidPa;
         this.pacidCid = pacidCid;
     }
@@ -57,10 +57,10 @@ public class SPacidPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SPacidPK)) {
+        if (!(object instanceof ProcedimentoCIDPK)) {
             return false;
         }
-        SPacidPK other = (SPacidPK) object;
+        ProcedimentoCIDPK other = (ProcedimentoCIDPK) object;
         if ((this.pacidPa == null && other.pacidPa != null) || (this.pacidPa != null && !this.pacidPa.equals(other.pacidPa))) {
             return false;
         }
