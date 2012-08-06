@@ -31,6 +31,9 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         //desabilita alguns campos do procedimento
         jTextFieldProcDescricao1.setEditable(false);
         jTextFieldProcDescriDoenca.setEditable(false);
+        
+        //atribui validadores
+        jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this,"CNS"));
     }
 
     /**
