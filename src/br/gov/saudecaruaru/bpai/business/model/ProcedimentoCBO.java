@@ -14,13 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "S_PACBO")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "SPacbo.findAll", query = "SELECT s FROM SPacbo s"),
-    @NamedQuery(name = "SPacbo.findByPacboPa", query = "SELECT s FROM SPacbo s WHERE s.sPacboPK.pacboPa = :pacboPa"),
-    @NamedQuery(name = "SPacbo.findByPacboCbo", query = "SELECT s FROM SPacbo s WHERE s.sPacboPK.pacboCbo = :pacboCbo"),
-    @NamedQuery(name = "SPacbo.findByPacboAux", query = "SELECT s FROM SPacbo s WHERE s.pacboAux = :pacboAux"),
-    @NamedQuery(name = "SPacbo.findByPacboCmp", query = "SELECT s FROM SPacbo s WHERE s.pacboCmp = :pacboCmp")})
 public class ProcedimentoCBO implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId

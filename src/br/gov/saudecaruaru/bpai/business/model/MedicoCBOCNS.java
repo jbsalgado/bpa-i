@@ -14,12 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "CADMED_CBO_CNES")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "CadmedCboCnes.findAll", query = "SELECT c FROM CadmedCboCnes c"),
-    @NamedQuery(name = "CadmedCboCnes.findByMedCns", query = "SELECT c FROM CadmedCboCnes c WHERE c.cadmedCboCnesPK.medCns = :medCns"),
-    @NamedQuery(name = "CadmedCboCnes.findByMedCbo", query = "SELECT c FROM CadmedCboCnes c WHERE c.cadmedCboCnesPK.medCbo = :medCbo"),
-    @NamedQuery(name = "CadmedCboCnes.findByMedCnes", query = "SELECT c FROM CadmedCboCnes c WHERE c.cadmedCboCnesPK.medCnes = :medCnes")})
 public class MedicoCBOCNS implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId

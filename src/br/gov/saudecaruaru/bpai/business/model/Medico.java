@@ -14,11 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "CADMED")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Cadmed.findAll", query = "SELECT c FROM Cadmed c"),
-    @NamedQuery(name = "Cadmed.findByCadmedCns", query = "SELECT c FROM Cadmed c WHERE c.cadmedCns = :cadmedCns"),
-    @NamedQuery(name = "Cadmed.findByCadmedNome", query = "SELECT c FROM Cadmed c WHERE c.cadmedNome = :cadmedNome")})
 public class Medico implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

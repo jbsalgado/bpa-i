@@ -14,14 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "S_PAPA")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "SPapa.findAll", query = "SELECT s FROM SPapa s"),
-    @NamedQuery(name = "SPapa.findByPapaCmp", query = "SELECT s FROM SPapa s WHERE s.sPapaPK.papaCmp = :papaCmp"),
-    @NamedQuery(name = "SPapa.findByPapaTrat", query = "SELECT s FROM SPapa s WHERE s.sPapaPK.papaTrat = :papaTrat"),
-    @NamedQuery(name = "SPapa.findByPapaPrinc", query = "SELECT s FROM SPapa s WHERE s.papaPrinc = :papaPrinc"),
-    @NamedQuery(name = "SPapa.findByPapaSecun", query = "SELECT s FROM SPapa s WHERE s.papaSecun = :papaSecun"),
-    @NamedQuery(name = "SPapa.findByPapaQtmax", query = "SELECT s FROM SPapa s WHERE s.papaQtmax = :papaQtmax")})
 public class ProcedimentoProcedimento implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId

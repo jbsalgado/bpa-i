@@ -14,23 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "CADCNS")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Cadcns.findAll", query = "SELECT c FROM Cadcns c"),
-    @NamedQuery(name = "Cadcns.findByCns", query = "SELECT c FROM Cadcns c WHERE c.cns = :cns"),
-    @NamedQuery(name = "Cadcns.findByNome", query = "SELECT c FROM Cadcns c WHERE c.nome = :nome"),
-    @NamedQuery(name = "Cadcns.findByDtnasc", query = "SELECT c FROM Cadcns c WHERE c.dtnasc = :dtnasc"),
-    @NamedQuery(name = "Cadcns.findBySexo", query = "SELECT c FROM Cadcns c WHERE c.sexo = :sexo"),
-    @NamedQuery(name = "Cadcns.findByRaca", query = "SELECT c FROM Cadcns c WHERE c.raca = :raca"),
-    @NamedQuery(name = "Cadcns.findByMaepcn", query = "SELECT c FROM Cadcns c WHERE c.maepcn = :maepcn"),
-    @NamedQuery(name = "Cadcns.findByLogpcn", query = "SELECT c FROM Cadcns c WHERE c.logpcn = :logpcn"),
-    @NamedQuery(name = "Cadcns.findByNumpcn", query = "SELECT c FROM Cadcns c WHERE c.numpcn = :numpcn"),
-    @NamedQuery(name = "Cadcns.findByCplpcn", query = "SELECT c FROM Cadcns c WHERE c.cplpcn = :cplpcn"),
-    @NamedQuery(name = "Cadcns.findByCeppcn", query = "SELECT c FROM Cadcns c WHERE c.ceppcn = :ceppcn"),
-    @NamedQuery(name = "Cadcns.findByNmres", query = "SELECT c FROM Cadcns c WHERE c.nmres = :nmres"),
-    @NamedQuery(name = "Cadcns.findByIbge", query = "SELECT c FROM Cadcns c WHERE c.ibge = :ibge"),
-    @NamedQuery(name = "Cadcns.findByEtnia", query = "SELECT c FROM Cadcns c WHERE c.etnia = :etnia"),
-    @NamedQuery(name = "Cadcns.findByNacionalidade", query = "SELECT c FROM Cadcns c WHERE c.nacionalidade = :nacionalidade")})
 public class Paciente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

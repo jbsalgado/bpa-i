@@ -6,6 +6,7 @@ package br.gov.saudecaruaru.bpai.data;
 
 import java.io.Serializable;
 import java.util.List;
+import net.priuli.filter.Filter;
 
 /**
  *
@@ -13,14 +14,18 @@ import java.util.List;
  */
 public interface BasicDAO<T extends Serializable> {
     
-    public void salvar(T object);
+    public void salve(T object);
     
-    public void find(T object);
+    public T encontre(T object);
     
-    public void atualizar(T object);
+    public void atualize(T object);
     
-    public void deletar(T object);
+    public void exclua(T object);
     
-    public List<T> findAll();
+    public List<T> encontreTodos();
+    
+    public List<T> encontreTodos(Filter filter);
+    
+    public T encontre(Filter filter);
     
 }

@@ -14,15 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "CADMUN")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Cadmun.findAll", query = "SELECT c FROM Cadmun c"),
-    @NamedQuery(name = "Cadmun.findByCoduf", query = "SELECT c FROM Cadmun c WHERE c.cadmunPK.coduf = :coduf"),
-    @NamedQuery(name = "Cadmun.findByCodmunic", query = "SELECT c FROM Cadmun c WHERE c.cadmunPK.codmunic = :codmunic"),
-    @NamedQuery(name = "Cadmun.findByNome", query = "SELECT c FROM Cadmun c WHERE c.nome = :nome"),
-    @NamedQuery(name = "Cadmun.findByCondic", query = "SELECT c FROM Cadmun c WHERE c.condic = :condic"),
-    @NamedQuery(name = "Cadmun.findByDthabil", query = "SELECT c FROM Cadmun c WHERE c.dthabil = :dthabil"),
-    @NamedQuery(name = "Cadmun.findByAux", query = "SELECT c FROM Cadmun c WHERE c.aux = :aux")})
 public class Municipio implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId

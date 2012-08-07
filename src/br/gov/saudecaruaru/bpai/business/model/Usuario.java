@@ -14,11 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "SYSUAF")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Sysuaf.findAll", query = "SELECT s FROM Sysuaf s"),
-    @NamedQuery(name = "Sysuaf.findByUsername", query = "SELECT s FROM Sysuaf s WHERE s.username = :username"),
-    @NamedQuery(name = "Sysuaf.findBySenha", query = "SELECT s FROM Sysuaf s WHERE s.senha = :senha")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

@@ -30,8 +30,6 @@ public class Procedimento implements Serializable {
     @Column(name = "PA_TOTAL")
     private Double paTotal;
     
-    @Id
-    @Basic(optional = false)
     @Column(name = "PA_DC")
     private String descricao;
     
@@ -90,7 +88,7 @@ public class Procedimento implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "PA_CMP")
-    private String paCmp;
+    private String competencia;
 
     public Procedimento() {
     }
@@ -102,55 +100,71 @@ public class Procedimento implements Serializable {
     public Procedimento(String paId, char paDv, String paCmp) {
         this.id = paId;
         this.digitoVerificador = paDv;
-        this.paCmp = paCmp;
+        this.competencia = paCmp;
     }
 
-    public String getPaId() {
-        return id;
+    public String getCompetencia() {
+        return competencia;
     }
 
-    public void setPaId(String paId) {
-        this.id = paId;
+    public void setCompetencia(String competencia) {
+        this.competencia = competencia;
     }
 
-    public char getPaDv() {
-        return digitoVerificador;
-    }
-
-    public void setPaDv(char paDv) {
-        this.digitoVerificador = paDv;
-    }
-
-    public Double getPaTotal() {
-        return paTotal;
-    }
-
-    public void setPaTotal(Double paTotal) {
-        this.paTotal = paTotal;
-    }
-
-    public String getPaDc() {
+    public String getDescricao() {
         return descricao;
     }
 
-    public void setPaDc(String paDc) {
-        this.descricao = paDc;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public String getPaRub() {
-        return paRub;
+    public char getDigitoVerificador() {
+        return digitoVerificador;
     }
 
-    public void setPaRub(String paRub) {
-        this.paRub = paRub;
+    public void setDigitoVerificador(char digitoVerificador) {
+        this.digitoVerificador = digitoVerificador;
     }
 
-    public Character getPaTpcc() {
-        return paTpcc;
+    public Character getExigeCBO() {
+        return exigeCBO;
     }
 
-    public void setPaTpcc(Character paTpcc) {
-        this.paTpcc = paTpcc;
+    public void setExigeCBO(Character exigeCBO) {
+        this.exigeCBO = exigeCBO;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Short getIdadeMaximaPaciente() {
+        return idadeMaximaPaciente;
+    }
+
+    public void setIdadeMaximaPaciente(Short idadeMaximaPaciente) {
+        this.idadeMaximaPaciente = idadeMaximaPaciente;
+    }
+
+    public Short getIdadeMinimaPaciente() {
+        return idadeMinimaPaciente;
+    }
+
+    public void setIdadeMinimaPaciente(Short idadeMinimaPaciente) {
+        this.idadeMinimaPaciente = idadeMinimaPaciente;
+    }
+
+    public Character getMaisDeSeisMeses() {
+        return maisDeSeisMeses;
+    }
+
+    public void setMaisDeSeisMeses(Character maisDeSeisMeses) {
+        this.maisDeSeisMeses = maisDeSeisMeses;
     }
 
     public String getPaAux() {
@@ -161,20 +175,20 @@ public class Procedimento implements Serializable {
         this.paAux = paAux;
     }
 
-    public Double getPaSp() {
-        return paSp;
+    public Character getPaCnrac() {
+        return paCnrac;
     }
 
-    public void setPaSp(Double paSp) {
-        this.paSp = paSp;
+    public void setPaCnrac(Character paCnrac) {
+        this.paCnrac = paCnrac;
     }
 
-    public Double getPaSa() {
-        return paSa;
+    public Character getPaCnspcn() {
+        return paCnspcn;
     }
 
-    public void setPaSa(Double paSa) {
-        this.paSa = paSa;
+    public void setPaCnspcn(Character paCnspcn) {
+        this.paCnspcn = paCnspcn;
     }
 
     public String getPaCpx() {
@@ -193,46 +207,6 @@ public class Procedimento implements Serializable {
         this.paCtf = paCtf;
     }
 
-    public Character getPaDoc() {
-        return tipoDocumento;
-    }
-
-    public void setPaDoc(Character paDoc) {
-        this.tipoDocumento = paDoc;
-    }
-
-    public Short getPaIdademx() {
-        return idadeMaximaPaciente;
-    }
-
-    public void setPaIdademx(Short paIdademx) {
-        this.idadeMaximaPaciente = paIdademx;
-    }
-
-    public Short getPaIdademn() {
-        return idadeMinimaPaciente;
-    }
-
-    public void setPaIdademn(Short paIdademn) {
-        this.idadeMinimaPaciente = paIdademn;
-    }
-
-    public Character getPaSexo() {
-        return sexo;
-    }
-
-    public void setPaSexo(Character paSexo) {
-        this.sexo = paSexo;
-    }
-
-    public Double getPaQtdmax() {
-        return quantidadeMaximaExecucao;
-    }
-
-    public void setPaQtdmax(Double paQtdmax) {
-        this.quantidadeMaximaExecucao = paQtdmax;
-    }
-
     public Character getPaIdebpa() {
         return paIdebpa;
     }
@@ -241,65 +215,102 @@ public class Procedimento implements Serializable {
         this.paIdebpa = paIdebpa;
     }
 
-    public Character getPaCnspcn() {
-        return paCnspcn;
+    public String getPaRub() {
+        return paRub;
     }
 
-    public void setPaCnspcn(Character paCnspcn) {
-        this.paCnspcn = paCnspcn;
+    public void setPaRub(String paRub) {
+        this.paRub = paRub;
     }
 
-    public Character getPaCnrac() {
-        return paCnrac;
+    public Double getPaSa() {
+        return paSa;
     }
 
-    public void setPaCnrac(Character paCnrac) {
-        this.paCnrac = paCnrac;
+    public void setPaSa(Double paSa) {
+        this.paSa = paSa;
     }
 
-    public Character getPa6meses() {
-        return maisDeSeisMeses;
+    public Double getPaSp() {
+        return paSp;
     }
 
-    public void setPa6meses(Character pa6meses) {
-        this.maisDeSeisMeses = pa6meses;
+    public void setPaSp(Double paSp) {
+        this.paSp = paSp;
     }
 
-    public Character getPaExigcbo() {
-        return exigeCBO;
+    public Double getPaTotal() {
+        return paTotal;
     }
 
-    public void setPaExigcbo(Character paExigcbo) {
-        this.exigeCBO = paExigcbo;
+    public void setPaTotal(Double paTotal) {
+        this.paTotal = paTotal;
     }
 
-    public String getPaCmp() {
-        return paCmp;
+    public Character getPaTpcc() {
+        return paTpcc;
     }
 
-    public void setPaCmp(String paCmp) {
-        this.paCmp = paCmp;
+    public void setPaTpcc(Character paTpcc) {
+        this.paTpcc = paTpcc;
+    }
+
+    public Double getQuantidadeMaximaExecucao() {
+        return quantidadeMaximaExecucao;
+    }
+
+    public void setQuantidadeMaximaExecucao(Double quantidadeMaximaExecucao) {
+        this.quantidadeMaximaExecucao = quantidadeMaximaExecucao;
+    }
+
+    public Character getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Character sexo) {
+        this.sexo = sexo;
+    }
+
+    public Character getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(Character tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Procedimento)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Procedimento other = (Procedimento) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Procedimento other = (Procedimento) obj;
+        if ((this.id == null) ? (other.id != null) : !this.id.equals(other.id)) {
+            return false;
+        }
+        if (this.digitoVerificador != other.digitoVerificador) {
+            return false;
+        }
+        if ((this.descricao == null) ? (other.descricao != null) : !this.descricao.equals(other.descricao)) {
             return false;
         }
         return true;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 97 * hash + this.digitoVerificador;
+        hash = 97 * hash + (this.descricao != null ? this.descricao.hashCode() : 0);
+        return hash;
+    }
+
+    
+
 
     @Override
     public String toString() {

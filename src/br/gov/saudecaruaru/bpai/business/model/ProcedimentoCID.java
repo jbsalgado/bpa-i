@@ -14,13 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "S_PACID")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "SPacid.findAll", query = "SELECT s FROM SPacid s"),
-    @NamedQuery(name = "SPacid.findByPacidPa", query = "SELECT s FROM SPacid s WHERE s.sPacidPK.pacidPa = :pacidPa"),
-    @NamedQuery(name = "SPacid.findByPacidCid", query = "SELECT s FROM SPacid s WHERE s.sPacidPK.pacidCid = :pacidCid"),
-    @NamedQuery(name = "SPacid.findByPacidAux", query = "SELECT s FROM SPacid s WHERE s.pacidAux = :pacidAux"),
-    @NamedQuery(name = "SPacid.findByPacidCmp", query = "SELECT s FROM SPacid s WHERE s.pacidCmp = :pacidCmp")})
 public class ProcedimentoCID implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId

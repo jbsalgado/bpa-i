@@ -14,13 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "S_CDN")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "SCdn.findAll", query = "SELECT s FROM SCdn s"),
-    @NamedQuery(name = "SCdn.findByCdnTb", query = "SELECT s FROM SCdn s WHERE s.sCdnPK.cdnTb = :cdnTb"),
-    @NamedQuery(name = "SCdn.findByCdnIt", query = "SELECT s FROM SCdn s WHERE s.sCdnPK.cdnIt = :cdnIt"),
-    @NamedQuery(name = "SCdn.findByCdnDscr", query = "SELECT s FROM SCdn s WHERE s.cdnDscr = :cdnDscr"),
-    @NamedQuery(name = "SCdn.findByCdnAux", query = "SELECT s FROM SCdn s WHERE s.cdnAux = :cdnAux")})
 public class Diversas implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
