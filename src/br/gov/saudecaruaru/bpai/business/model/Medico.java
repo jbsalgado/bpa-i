@@ -19,62 +19,66 @@ public class Medico implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "CADMED_CNS")
-    private String cadmedCns;
+    private String cns;
     @Basic(optional = false)
     @Column(name = "CADMED_NOME")
-    private String cadmedNome;
+    private String nome;
 
     public Medico() {
     }
 
-    public Medico(String cadmedCns) {
-        this.cadmedCns = cadmedCns;
+    public String getCns() {
+        return cns;
     }
 
-    public Medico(String cadmedCns, String cadmedNome) {
-        this.cadmedCns = cadmedCns;
-        this.cadmedNome = cadmedNome;
+    public void setCns(String cns) {
+        this.cns = cns;
     }
 
-    public String getCadmedCns() {
-        return cadmedCns;
+    public String getNome() {
+        return nome;
     }
 
-    public void setCadmedCns(String cadmedCns) {
-        this.cadmedCns = cadmedCns;
-    }
-
-    public String getCadmedNome() {
-        return cadmedNome;
-    }
-
-    public void setCadmedNome(String cadmedNome) {
-        this.cadmedNome = cadmedNome;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (cadmedCns != null ? cadmedCns.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Medico)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Medico other = (Medico) object;
-        if ((this.cadmedCns == null && other.cadmedCns != null) || (this.cadmedCns != null && !this.cadmedCns.equals(other.cadmedCns))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Medico other = (Medico) obj;
+        if ((this.cns == null) ? (other.cns != null) : !this.cns.equals(other.cns)) {
             return false;
         }
         return true;
     }
 
     @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + (this.cns != null ? this.cns.hashCode() : 0);
+        return hash;
+    }
+
+    public Medico(String cns) {
+        this.cns = cns;
+    }
+
+    public Medico(String cns, String nome) {
+        this.cns = cns;
+        this.nome = nome;
+    }
+
+    
+
+    @Override
     public String toString() {
-        return "br.gov.saudecaruaru.bpai.business.model.Cadmed[ cadmedCns=" + cadmedCns + " ]";
+        return this.nome;
     }
     
 }

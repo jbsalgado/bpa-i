@@ -16,66 +16,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "S_PRD")
 public class ProcedimentoRealizado implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "PRD_UID")
-    private String cnesUnidade;
     
-    @Id
-    @Basic(optional = false)
-    @Column(name = "PRD_CMP")
-    private String competencia;
-    
-    @Id
-    @Basic(optional = false)
-    @Column(name = "PRD_CNSMED")
-    private String cnsMedico;
-    
-    @Column(name = "PRD_CBO")
-    private String cboMedico;
-    
-    @Id
-    @Basic(optional = false)
-    @Column(name = "PRD_FLH")
-    private String numeroFolha;
-    
-    @Id
-    @Basic(optional = false)
-    @Column(name = "PRD_SEQ")
-    private String sequenciaFolha;
-    
-    @Id
-    @Basic(optional = false)
-    @Column(name = "PRD_PA")
-    private String codigoProcedimento;
+    @EmbeddedId
+    private ProcedimentoRealizadoPK procedimentoRealizadoPK;
     
     @Column(name = "PRD_CNSPAC")
     private String cnsPaciente;
     
-    @Id
     @Basic(optional = false)
     @Column(name = "PRD_NMPAC")
     private String nomePaciente;
     
-    @Id
     @Basic(optional = false)
     @Column(name = "PRD_DTNASC")
     private String dataNascimentoPaciente;
     
-    @Id
     @Basic(optional = false)
     @Column(name = "PRD_SEXO")
     private String sexoPaciente;
     
-    @Id
+    
     @Basic(optional = false)
     @Column(name = "PRD_IBGE")
     private String codigoIBGECidadePaciente;
     
-    @Id
-    @Basic(optional = false)
-    @Column(name = "PRD_DTATEN")
-    private String dataAtendimento;
     
     @Column(name = "PRD_CID")
     private String cidDoencaprocedimento;
@@ -84,12 +48,12 @@ public class ProcedimentoRealizado implements Serializable {
     private String idadePaciente;
     
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
+    
     @Basic(optional = false)
     @Column(name = "PRD_QT_P")
     private Double quantidadeRealizada;
     
-    @Id
+    
     @Basic(optional = false)
     @Column(name = "PRD_CATEN")
     private String caracterizacaoAtendimento;
@@ -120,7 +84,7 @@ public class ProcedimentoRealizado implements Serializable {
     @Column(name = "PRD_FLCID")
     private String prdFlcid;
     
-    @Id
+    
     @Basic(optional = false)
     @Column(name = "PRD_RACA")
     private String racaPaciente;
@@ -128,7 +92,7 @@ public class ProcedimentoRealizado implements Serializable {
     @Column(name = "PRD_ETNIA")
     private String etniaPaciente;
     
-    @Id
+    
     @Basic(optional = false)
     @Column(name = "PRD_NAC")
     private String nacionalidadePaciente;
@@ -139,10 +103,51 @@ public class ProcedimentoRealizado implements Serializable {
     public ProcedimentoRealizado() {
     }
 
-    public ProcedimentoRealizado(String prdUid) {
-        this.cnesUnidade = prdUid;
+    public ProcedimentoRealizado(ProcedimentoRealizadoPK procedimentoRealizadoPK) {
+        this.procedimentoRealizadoPK = procedimentoRealizadoPK;
     }
 
+    public ProcedimentoRealizado(ProcedimentoRealizadoPK procedimentoRealizadoPK, String cnsPaciente, String nomePaciente, String dataNascimentoPaciente, String sexoPaciente, String codigoIBGECidadePaciente, String cidDoencaprocedimento, String idadePaciente, Double quantidadeRealizada, String caracterizacaoAtendimento, String numeroAutorizacao, String prdOrg, String prdMvm, String prdFlpa, String prdFlcbo, String prdFlca, String prdFlida, String prdFlqt, String prdFler, String prdFlmun, String prdFlcid, String racaPaciente, String etniaPaciente, String nacionalidadePaciente, String prdAdvqt) {
+        this.procedimentoRealizadoPK = procedimentoRealizadoPK;
+        this.cnsPaciente = cnsPaciente;
+        this.nomePaciente = nomePaciente;
+        this.dataNascimentoPaciente = dataNascimentoPaciente;
+        this.sexoPaciente = sexoPaciente;
+        this.codigoIBGECidadePaciente = codigoIBGECidadePaciente;
+        this.cidDoencaprocedimento = cidDoencaprocedimento;
+        this.idadePaciente = idadePaciente;
+        this.quantidadeRealizada = quantidadeRealizada;
+        this.caracterizacaoAtendimento = caracterizacaoAtendimento;
+        this.numeroAutorizacao = numeroAutorizacao;
+        this.prdOrg = prdOrg;
+        this.prdMvm = prdMvm;
+        this.prdFlpa = prdFlpa;
+        this.prdFlcbo = prdFlcbo;
+        this.prdFlca = prdFlca;
+        this.prdFlida = prdFlida;
+        this.prdFlqt = prdFlqt;
+        this.prdFler = prdFler;
+        this.prdFlmun = prdFlmun;
+        this.prdFlcid = prdFlcid;
+        this.racaPaciente = racaPaciente;
+        this.etniaPaciente = etniaPaciente;
+        this.nacionalidadePaciente = nacionalidadePaciente;
+        this.prdAdvqt = prdAdvqt;
+    }
+
+    public void setPaciente(Paciente paciente){
+        this.cnsPaciente=paciente.getCns();
+        this.nomePaciente=paciente.getNome();
+        this.dataNascimentoPaciente=paciente.getDataNascimento();
+        this.sexoPaciente=paciente.getSexo().toString();
+        this.codigoIBGECidadePaciente=paciente.getCodigoIbgeCidade();
+        this.racaPaciente=paciente.getRaca();
+        this.etniaPaciente=paciente.getEtnia();
+        this.nacionalidadePaciente=paciente.getNacionalidade();
+       // this.idadePaciente
+    }
+    
+    
     public String getCaracterizacaoAtendimento() {
         return caracterizacaoAtendimento;
     }
@@ -151,36 +156,12 @@ public class ProcedimentoRealizado implements Serializable {
         this.caracterizacaoAtendimento = caracterizacaoAtendimento;
     }
 
-    public String getCboMedico() {
-        return cboMedico;
-    }
-
-    public void setCboMedico(String cboMedico) {
-        this.cboMedico = cboMedico;
-    }
-
     public String getCidDoencaprocedimento() {
         return cidDoencaprocedimento;
     }
 
     public void setCidDoencaprocedimento(String cidDoencaprocedimento) {
         this.cidDoencaprocedimento = cidDoencaprocedimento;
-    }
-
-    public String getCnesUnidade() {
-        return cnesUnidade;
-    }
-
-    public void setCnesUnidade(String cnesUnidade) {
-        this.cnesUnidade = cnesUnidade;
-    }
-
-    public String getCnsMedico() {
-        return cnsMedico;
-    }
-
-    public void setCnsMedico(String cnsMedico) {
-        this.cnsMedico = cnsMedico;
     }
 
     public String getCnsPaciente() {
@@ -197,30 +178,6 @@ public class ProcedimentoRealizado implements Serializable {
 
     public void setCodigoIBGECidadePaciente(String codigoIBGECidadePaciente) {
         this.codigoIBGECidadePaciente = codigoIBGECidadePaciente;
-    }
-
-    public String getCodigoProcedimento() {
-        return codigoProcedimento;
-    }
-
-    public void setCodigoProcedimento(String codigoProcedimento) {
-        this.codigoProcedimento = codigoProcedimento;
-    }
-
-    public String getCompetencia() {
-        return competencia;
-    }
-
-    public void setCompetencia(String competencia) {
-        this.competencia = competencia;
-    }
-
-    public String getDataAtendimento() {
-        return dataAtendimento;
-    }
-
-    public void setDataAtendimento(String dataAtendimento) {
-        this.dataAtendimento = dataAtendimento;
     }
 
     public String getDataNascimentoPaciente() {
@@ -269,14 +226,6 @@ public class ProcedimentoRealizado implements Serializable {
 
     public void setNumeroAutorizacao(String numeroAutorizacao) {
         this.numeroAutorizacao = numeroAutorizacao;
-    }
-
-    public String getNumeroFolha() {
-        return numeroFolha;
-    }
-
-    public void setNumeroFolha(String numeroFolha) {
-        this.numeroFolha = numeroFolha;
     }
 
     public String getPrdAdvqt() {
@@ -367,6 +316,14 @@ public class ProcedimentoRealizado implements Serializable {
         this.prdOrg = prdOrg;
     }
 
+    public ProcedimentoRealizadoPK getProcedimentoRealizadoPK() {
+        return procedimentoRealizadoPK;
+    }
+
+    public void setProcedimentoRealizadoPK(ProcedimentoRealizadoPK procedimentoRealizadoPK) {
+        this.procedimentoRealizadoPK = procedimentoRealizadoPK;
+    }
+
     public Double getQuantidadeRealizada() {
         return quantidadeRealizada;
     }
@@ -381,14 +338,6 @@ public class ProcedimentoRealizado implements Serializable {
 
     public void setRacaPaciente(String racaPaciente) {
         this.racaPaciente = racaPaciente;
-    }
-
-    public String getSequenciaFolha() {
-        return sequenciaFolha;
-    }
-
-    public void setSequenciaFolha(String sequenciaFolha) {
-        this.sequenciaFolha = sequenciaFolha;
     }
 
     public String getSexoPaciente() {
@@ -408,49 +357,7 @@ public class ProcedimentoRealizado implements Serializable {
             return false;
         }
         final ProcedimentoRealizado other = (ProcedimentoRealizado) obj;
-        if ((this.cnesUnidade == null) ? (other.cnesUnidade != null) : !this.cnesUnidade.equals(other.cnesUnidade)) {
-            return false;
-        }
-        if ((this.competencia == null) ? (other.competencia != null) : !this.competencia.equals(other.competencia)) {
-            return false;
-        }
-        if ((this.cnsMedico == null) ? (other.cnsMedico != null) : !this.cnsMedico.equals(other.cnsMedico)) {
-            return false;
-        }
-        if ((this.numeroFolha == null) ? (other.numeroFolha != null) : !this.numeroFolha.equals(other.numeroFolha)) {
-            return false;
-        }
-        if ((this.sequenciaFolha == null) ? (other.sequenciaFolha != null) : !this.sequenciaFolha.equals(other.sequenciaFolha)) {
-            return false;
-        }
-        if ((this.codigoProcedimento == null) ? (other.codigoProcedimento != null) : !this.codigoProcedimento.equals(other.codigoProcedimento)) {
-            return false;
-        }
-        if ((this.nomePaciente == null) ? (other.nomePaciente != null) : !this.nomePaciente.equals(other.nomePaciente)) {
-            return false;
-        }
-        if ((this.dataNascimentoPaciente == null) ? (other.dataNascimentoPaciente != null) : !this.dataNascimentoPaciente.equals(other.dataNascimentoPaciente)) {
-            return false;
-        }
-        if ((this.sexoPaciente == null) ? (other.sexoPaciente != null) : !this.sexoPaciente.equals(other.sexoPaciente)) {
-            return false;
-        }
-        if ((this.codigoIBGECidadePaciente == null) ? (other.codigoIBGECidadePaciente != null) : !this.codigoIBGECidadePaciente.equals(other.codigoIBGECidadePaciente)) {
-            return false;
-        }
-        if ((this.dataAtendimento == null) ? (other.dataAtendimento != null) : !this.dataAtendimento.equals(other.dataAtendimento)) {
-            return false;
-        }
-        if (this.quantidadeRealizada != other.quantidadeRealizada && (this.quantidadeRealizada == null || !this.quantidadeRealizada.equals(other.quantidadeRealizada))) {
-            return false;
-        }
-        if ((this.caracterizacaoAtendimento == null) ? (other.caracterizacaoAtendimento != null) : !this.caracterizacaoAtendimento.equals(other.caracterizacaoAtendimento)) {
-            return false;
-        }
-        if ((this.racaPaciente == null) ? (other.racaPaciente != null) : !this.racaPaciente.equals(other.racaPaciente)) {
-            return false;
-        }
-        if ((this.nacionalidadePaciente == null) ? (other.nacionalidadePaciente != null) : !this.nacionalidadePaciente.equals(other.nacionalidadePaciente)) {
+        if (this.procedimentoRealizadoPK != other.procedimentoRealizadoPK && (this.procedimentoRealizadoPK == null || !this.procedimentoRealizadoPK.equals(other.procedimentoRealizadoPK))) {
             return false;
         }
         return true;
@@ -458,31 +365,17 @@ public class ProcedimentoRealizado implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 19 * hash + (this.cnesUnidade != null ? this.cnesUnidade.hashCode() : 0);
-        hash = 19 * hash + (this.competencia != null ? this.competencia.hashCode() : 0);
-        hash = 19 * hash + (this.numeroFolha != null ? this.numeroFolha.hashCode() : 0);
-        hash = 19 * hash + (this.sequenciaFolha != null ? this.sequenciaFolha.hashCode() : 0);
-        hash = 19 * hash + (this.codigoProcedimento != null ? this.codigoProcedimento.hashCode() : 0);
-        hash = 19 * hash + (this.nomePaciente != null ? this.nomePaciente.hashCode() : 0);
-        hash = 19 * hash + (this.dataNascimentoPaciente != null ? this.dataNascimentoPaciente.hashCode() : 0);
-        hash = 19 * hash + (this.sexoPaciente != null ? this.sexoPaciente.hashCode() : 0);
-        hash = 19 * hash + (this.codigoIBGECidadePaciente != null ? this.codigoIBGECidadePaciente.hashCode() : 0);
-        hash = 19 * hash + (this.dataAtendimento != null ? this.dataAtendimento.hashCode() : 0);
-        hash = 19 * hash + (this.quantidadeRealizada != null ? this.quantidadeRealizada.hashCode() : 0);
-        hash = 19 * hash + (this.caracterizacaoAtendimento != null ? this.caracterizacaoAtendimento.hashCode() : 0);
-        hash = 19 * hash + (this.racaPaciente != null ? this.racaPaciente.hashCode() : 0);
-        hash = 19 * hash + (this.nacionalidadePaciente != null ? this.nacionalidadePaciente.hashCode() : 0);
+        int hash = 7;
+        hash = 79 * hash + (this.procedimentoRealizadoPK != null ? this.procedimentoRealizadoPK.hashCode() : 0);
         return hash;
     }
 
-
-
+   
  
 
     @Override
     public String toString() {
-        return "Procedimento: "+this.codigoProcedimento+"\nPaciente: "+this.nomePaciente+"\nUnidade: "+this.cnesUnidade;
+        return "Procedimento: "+this.procedimentoRealizadoPK.getCodigoProcedimento()+"\nPaciente: "+this.nomePaciente+"\nUnidade: "+this.procedimentoRealizadoPK.getCnesUnidade();
     }
     
 }

@@ -20,31 +20,44 @@ public class Paciente implements Serializable {
     @Basic(optional = false)
     @Column(name = "CNS")
     private String cns;
+    
     @Basic(optional = false)
     @Column(name = "NOME")
     private String nome;
+    
     @Column(name = "DTNASC")
-    private String dtnasc;
+    private String dataNascimento;
+    
     @Column(name = "SEXO")
     private Character sexo;
+    
     @Column(name = "RACA")
     private String raca;
+    
     @Column(name = "MAEPCN")
-    private String maepcn;
+    private String nomeMae;
+    
     @Column(name = "LOGPCN")
-    private String logpcn;
+    private String logradouro;
+    
     @Column(name = "NUMPCN")
-    private String numpcn;
+    private String numeroPaciente;
+    
     @Column(name = "CPLPCN")
-    private String cplpcn;
+    private String complemento;
+    
     @Column(name = "CEPPCN")
-    private String ceppcn;
+    private String cep;
+    
     @Column(name = "NMRES")
-    private String nmres;
+    private String numeroResidencia;
+    
     @Column(name = "IBGE")
-    private String ibge;
+    private String codigoIbgeCidade;
+    
     @Column(name = "ETNIA")
     private String etnia;
+    
     @Column(name = "NACIONALIDADE")
     private String nacionalidade;
 
@@ -76,84 +89,36 @@ public class Paciente implements Serializable {
         this.nome = nome;
     }
 
-    public String getDtnasc() {
-        return dtnasc;
+    public String getCep() {
+        return cep;
     }
 
-    public void setDtnasc(String dtnasc) {
-        this.dtnasc = dtnasc;
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
-    public Character getSexo() {
-        return sexo;
+    public String getCodigoIbgeCidade() {
+        return codigoIbgeCidade;
     }
 
-    public void setSexo(Character sexo) {
-        this.sexo = sexo;
+    public void setCodigoIbgeCidade(String codigoIbgeCidade) {
+        this.codigoIbgeCidade = codigoIbgeCidade;
     }
 
-    public String getRaca() {
-        return raca;
+    public String getComplemento() {
+        return complemento;
     }
 
-    public void setRaca(String raca) {
-        this.raca = raca;
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
-    public String getMaepcn() {
-        return maepcn;
+    public String getDataNascimento() {
+        return dataNascimento;
     }
 
-    public void setMaepcn(String maepcn) {
-        this.maepcn = maepcn;
-    }
-
-    public String getLogpcn() {
-        return logpcn;
-    }
-
-    public void setLogpcn(String logpcn) {
-        this.logpcn = logpcn;
-    }
-
-    public String getNumpcn() {
-        return numpcn;
-    }
-
-    public void setNumpcn(String numpcn) {
-        this.numpcn = numpcn;
-    }
-
-    public String getCplpcn() {
-        return cplpcn;
-    }
-
-    public void setCplpcn(String cplpcn) {
-        this.cplpcn = cplpcn;
-    }
-
-    public String getCeppcn() {
-        return ceppcn;
-    }
-
-    public void setCeppcn(String ceppcn) {
-        this.ceppcn = ceppcn;
-    }
-
-    public String getNmres() {
-        return nmres;
-    }
-
-    public void setNmres(String nmres) {
-        this.nmres = nmres;
-    }
-
-    public String getIbge() {
-        return ibge;
-    }
-
-    public void setIbge(String ibge) {
-        this.ibge = ibge;
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public String getEtnia() {
@@ -164,6 +129,14 @@ public class Paciente implements Serializable {
         this.etnia = etnia;
     }
 
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
     public String getNacionalidade() {
         return nacionalidade;
     }
@@ -171,6 +144,47 @@ public class Paciente implements Serializable {
     public void setNacionalidade(String nacionalidade) {
         this.nacionalidade = nacionalidade;
     }
+
+    public String getNomeMae() {
+        return nomeMae;
+    }
+
+    public void setNomeMae(String nomeMae) {
+        this.nomeMae = nomeMae;
+    }
+
+    public String getNumeroPaciente() {
+        return numeroPaciente;
+    }
+
+    public void setNumeroPaciente(String numeroPaciente) {
+        this.numeroPaciente = numeroPaciente;
+    }
+
+    public String getNumeroResidencia() {
+        return numeroResidencia;
+    }
+
+    public void setNumeroResidencia(String numeroResidencia) {
+        this.numeroResidencia = numeroResidencia;
+    }
+
+    public String getRaca() {
+        return raca;
+    }
+
+    public void setRaca(String raca) {
+        this.raca = raca;
+    }
+
+    public Character getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Character sexo) {
+        this.sexo = sexo;
+    }
+
 
     @Override
     public int hashCode() {
@@ -194,7 +208,7 @@ public class Paciente implements Serializable {
 
     @Override
     public String toString() {
-        return "br.gov.saudecaruaru.bpai.business.model.Cadcns[ cns=" + cns + " ]";
+        return this.nome;
     }
     
 }
