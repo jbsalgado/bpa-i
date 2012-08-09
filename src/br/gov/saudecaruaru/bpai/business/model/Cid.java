@@ -19,102 +19,52 @@ public class Cid implements Serializable {
     @Basic(optional = false)
     @Column(name = "CD_COD")
     private String codigo;
+    
     @Column(name = "OPC")
-    private Character opc;
+    private Character opcao;
+    
     @Column(name = "CAT")
-    private Character cat;
+    private Character categoria;
+    
     @Column(name = "SUBCAT")
-    private Character subcat;
+    private Character subcategoria;
+    
     @Column(name = "CD_DESCR")
-    private String cdDescr;
+    private String descricao;
+    
     @Column(name = "RESTRSEXO")
-    private Character restrsexo;
+    private Character restricaoSexo;
+    
     @Column(name = "CAMPOS_RAD")
     private String camposRad;
+    
     @Column(name = "ESTADIO")
     private Character estadio;
+    
     @Column(name = "REPETE_RAD")
     private Character repeteRad;
+    
     @Column(name = "AUX")
     private Character aux;
 
     public Cid() {
     }
 
-    public Cid(String cdCod) {
-        this.codigo = cdCod;
+    public Cid(String codigo) {
+        this.codigo = codigo;
     }
 
-    public String getCdCod() {
-        return codigo;
-    }
-
-    public void setCdCod(String cdCod) {
-        this.codigo = cdCod;
-    }
-
-    public Character getOpc() {
-        return opc;
-    }
-
-    public void setOpc(Character opc) {
-        this.opc = opc;
-    }
-
-    public Character getCat() {
-        return cat;
-    }
-
-    public void setCat(Character cat) {
-        this.cat = cat;
-    }
-
-    public Character getSubcat() {
-        return subcat;
-    }
-
-    public void setSubcat(Character subcat) {
-        this.subcat = subcat;
-    }
-
-    public String getCdDescr() {
-        return cdDescr;
-    }
-
-    public void setCdDescr(String cdDescr) {
-        this.cdDescr = cdDescr;
-    }
-
-    public Character getRestrsexo() {
-        return restrsexo;
-    }
-
-    public void setRestrsexo(Character restrsexo) {
-        this.restrsexo = restrsexo;
-    }
-
-    public String getCamposRad() {
-        return camposRad;
-    }
-
-    public void setCamposRad(String camposRad) {
+    public Cid(String codigo, Character opcao, Character categoria, Character subcategoria, String descricao, Character restricaoSexo, String camposRad, Character estadio, Character repeteRad, Character aux) {
+        this.codigo = codigo;
+        this.opcao = opcao;
+        this.categoria = categoria;
+        this.subcategoria = subcategoria;
+        this.descricao = descricao;
+        this.restricaoSexo = restricaoSexo;
         this.camposRad = camposRad;
-    }
-
-    public Character getEstadio() {
-        return estadio;
-    }
-
-    public void setEstadio(Character estadio) {
         this.estadio = estadio;
-    }
-
-    public Character getRepeteRad() {
-        return repeteRad;
-    }
-
-    public void setRepeteRad(Character repeteRad) {
         this.repeteRad = repeteRad;
+        this.aux = aux;
     }
 
     public Character getAux() {
@@ -125,25 +75,101 @@ public class Cid implements Serializable {
         this.aux = aux;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
-        return hash;
+    public String getCamposRad() {
+        return camposRad;
+    }
+
+    public void setCamposRad(String camposRad) {
+        this.camposRad = camposRad;
+    }
+
+    public Character getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Character categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Character getEstadio() {
+        return estadio;
+    }
+
+    public void setEstadio(Character estadio) {
+        this.estadio = estadio;
+    }
+
+    public Character getOpcao() {
+        return opcao;
+    }
+
+    public void setOpcao(Character opcao) {
+        this.opcao = opcao;
+    }
+
+    public Character getRepeteRad() {
+        return repeteRad;
+    }
+
+    public void setRepeteRad(Character repeteRad) {
+        this.repeteRad = repeteRad;
+    }
+
+    public Character getRestricaoSexo() {
+        return restricaoSexo;
+    }
+
+    public void setRestricaoSexo(Character restricaoSexo) {
+        this.restricaoSexo = restricaoSexo;
+    }
+
+    public Character getSubcategoria() {
+        return subcategoria;
+    }
+
+    public void setSubcategoria(Character subcategoria) {
+        this.subcategoria = subcategoria;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cid)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Cid other = (Cid) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cid other = (Cid) obj;
+        if ((this.codigo == null) ? (other.codigo != null) : !this.codigo.equals(other.codigo)) {
             return false;
         }
         return true;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + (this.codigo != null ? this.codigo.hashCode() : 0);
+        return hash;
+    }
+
+    
 
     @Override
     public String toString() {
