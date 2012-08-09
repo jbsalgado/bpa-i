@@ -14,19 +14,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "CADMUN")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Cadmun.findAll", query = "SELECT c FROM Cadmun c"),
-    @NamedQuery(name = "Cadmun.findByCoduf", query = "SELECT c FROM Cadmun c WHERE c.cadmunPK.coduf = :coduf"),
-    @NamedQuery(name = "Cadmun.findByCodmunic", query = "SELECT c FROM Cadmun c WHERE c.cadmunPK.codmunic = :codmunic"),
-    @NamedQuery(name = "Cadmun.findByNome", query = "SELECT c FROM Cadmun c WHERE c.nome = :nome"),
-    @NamedQuery(name = "Cadmun.findByCondic", query = "SELECT c FROM Cadmun c WHERE c.condic = :condic"),
-    @NamedQuery(name = "Cadmun.findByDthabil", query = "SELECT c FROM Cadmun c WHERE c.dthabil = :dthabil"),
-    @NamedQuery(name = "Cadmun.findByAux", query = "SELECT c FROM Cadmun c WHERE c.aux = :aux")})
-public class Cadmun implements Serializable {
+public class Municipio implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected CadmunPK cadmunPK;
+    protected MunicipioPK cadmunPK;
     @Column(name = "NOME")
     private String nome;
     @Column(name = "CONDIC")
@@ -36,22 +27,22 @@ public class Cadmun implements Serializable {
     @Column(name = "AUX")
     private Character aux;
 
-    public Cadmun() {
+    public Municipio() {
     }
 
-    public Cadmun(CadmunPK cadmunPK) {
+    public Municipio(MunicipioPK cadmunPK) {
         this.cadmunPK = cadmunPK;
     }
 
-    public Cadmun(String coduf, String codmunic) {
-        this.cadmunPK = new CadmunPK(coduf, codmunic);
+    public Municipio(String coduf, String codmunic) {
+        this.cadmunPK = new MunicipioPK(coduf, codmunic);
     }
 
-    public CadmunPK getCadmunPK() {
+    public MunicipioPK getCadmunPK() {
         return cadmunPK;
     }
 
-    public void setCadmunPK(CadmunPK cadmunPK) {
+    public void setCadmunPK(MunicipioPK cadmunPK) {
         this.cadmunPK = cadmunPK;
     }
 
@@ -97,10 +88,10 @@ public class Cadmun implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cadmun)) {
+        if (!(object instanceof Municipio)) {
             return false;
         }
-        Cadmun other = (Cadmun) object;
+        Municipio other = (Municipio) object;
         if ((this.cadmunPK == null && other.cadmunPK != null) || (this.cadmunPK != null && !this.cadmunPK.equals(other.cadmunPK))) {
             return false;
         }

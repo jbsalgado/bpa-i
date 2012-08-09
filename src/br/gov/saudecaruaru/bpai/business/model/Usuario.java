@@ -14,12 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "SYSUAF")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Sysuaf.findAll", query = "SELECT s FROM Sysuaf s"),
-    @NamedQuery(name = "Sysuaf.findByUsername", query = "SELECT s FROM Sysuaf s WHERE s.username = :username"),
-    @NamedQuery(name = "Sysuaf.findBySenha", query = "SELECT s FROM Sysuaf s WHERE s.senha = :senha")})
-public class Sysuaf implements Serializable {
+public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -29,14 +24,14 @@ public class Sysuaf implements Serializable {
     @Column(name = "SENHA")
     private String senha;
 
-    public Sysuaf() {
+    public Usuario() {
     }
 
-    public Sysuaf(String username) {
+    public Usuario(String username) {
         this.username = username;
     }
 
-    public Sysuaf(String username, String senha) {
+    public Usuario(String username, String senha) {
         this.username = username;
         this.senha = senha;
     }
@@ -67,10 +62,10 @@ public class Sysuaf implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sysuaf)) {
+        if (!(object instanceof Usuario)) {
             return false;
         }
-        Sysuaf other = (Sysuaf) object;
+        Usuario other = (Usuario) object;
         if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
             return false;
         }

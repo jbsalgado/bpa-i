@@ -15,6 +15,9 @@ import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import net.priuli.filter.Filter;
+import net.priuli.filter.utils.HibernateUtils;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -79,17 +82,29 @@ public class GenericDAO<T extends Serializable> {
         }
     }
 
-    public List<T> findAll() throws Exception {
+    protected List<T> findAll() throws Exception {
         Session session = (Session) getEntityManager().getDelegate();
         return session.createCriteria(persistentClass).list();
     }
+    
+    protected List<T> findAll(Filter filter) throws Exception {
+        Session session = (Session) getEntityManager().getDelegate();
+        Criteria criteria=HibernateUtils.buildCriteria(filter, session, persistentClass);
+        return criteria.list();
+    }
+    
+    protected T find(Filter filter) throws Exception {
+        Session session = (Session) getEntityManager().getDelegate();
+        Criteria criteria=HibernateUtils.buildCriteria(filter, session, persistentClass);
+        return (T) criteria.uniqueResult();
+    }
 
-    public T findByName(String nome) {
+    protected T findByName(String nome) {
         Session session = (Session) getEntityManager().getDelegate();
         return (T) session.createCriteria(persistentClass).add(Restrictions.eq("nome", nome).ignoreCase()).uniqueResult();
     }
 
-    public T findById(long id) {
+    protected T findById(long id) {
         Session session = (Session) getEntityManager().getDelegate();
         return (T) session.createCriteria(persistentClass).add(Restrictions.eq("id", id)).uniqueResult();
     }

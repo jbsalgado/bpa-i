@@ -14,38 +14,31 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "S_CDN")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "SCdn.findAll", query = "SELECT s FROM SCdn s"),
-    @NamedQuery(name = "SCdn.findByCdnTb", query = "SELECT s FROM SCdn s WHERE s.sCdnPK.cdnTb = :cdnTb"),
-    @NamedQuery(name = "SCdn.findByCdnIt", query = "SELECT s FROM SCdn s WHERE s.sCdnPK.cdnIt = :cdnIt"),
-    @NamedQuery(name = "SCdn.findByCdnDscr", query = "SELECT s FROM SCdn s WHERE s.cdnDscr = :cdnDscr"),
-    @NamedQuery(name = "SCdn.findByCdnAux", query = "SELECT s FROM SCdn s WHERE s.cdnAux = :cdnAux")})
-public class SCdn implements Serializable {
+public class Diversas implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected SCdnPK sCdnPK;
+    protected DiversasPK sCdnPK;
     @Column(name = "CDN_DSCR")
     private String cdnDscr;
     @Column(name = "CDN_AUX")
     private Character cdnAux;
 
-    public SCdn() {
+    public Diversas() {
     }
 
-    public SCdn(SCdnPK sCdnPK) {
+    public Diversas(DiversasPK sCdnPK) {
         this.sCdnPK = sCdnPK;
     }
 
-    public SCdn(String cdnTb, String cdnIt) {
-        this.sCdnPK = new SCdnPK(cdnTb, cdnIt);
+    public Diversas(String cdnTb, String cdnIt) {
+        this.sCdnPK = new DiversasPK(cdnTb, cdnIt);
     }
 
-    public SCdnPK getSCdnPK() {
+    public DiversasPK getSCdnPK() {
         return sCdnPK;
     }
 
-    public void setSCdnPK(SCdnPK sCdnPK) {
+    public void setSCdnPK(DiversasPK sCdnPK) {
         this.sCdnPK = sCdnPK;
     }
 
@@ -75,10 +68,10 @@ public class SCdn implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SCdn)) {
+        if (!(object instanceof Diversas)) {
             return false;
         }
-        SCdn other = (SCdn) object;
+        Diversas other = (Diversas) object;
         if ((this.sCdnPK == null && other.sCdnPK != null) || (this.sCdnPK != null && !this.sCdnPK.equals(other.sCdnPK))) {
             return false;
         }

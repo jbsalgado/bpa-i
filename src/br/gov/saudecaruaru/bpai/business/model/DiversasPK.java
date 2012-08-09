@@ -14,7 +14,7 @@ import javax.persistence.Embeddable;
  * @author Junior Pires
  */
 @Embeddable
-public class SCdnPK implements Serializable {
+public class DiversasPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "CDN_TB")
     private String cdnTb;
@@ -22,10 +22,10 @@ public class SCdnPK implements Serializable {
     @Column(name = "CDN_IT")
     private String cdnIt;
 
-    public SCdnPK() {
+    public DiversasPK() {
     }
 
-    public SCdnPK(String cdnTb, String cdnIt) {
+    public DiversasPK(String cdnTb, String cdnIt) {
         this.cdnTb = cdnTb;
         this.cdnIt = cdnIt;
     }
@@ -57,10 +57,10 @@ public class SCdnPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SCdnPK)) {
+        if (!(object instanceof DiversasPK)) {
             return false;
         }
-        SCdnPK other = (SCdnPK) object;
+        DiversasPK other = (DiversasPK) object;
         if ((this.cdnTb == null && other.cdnTb != null) || (this.cdnTb != null && !this.cdnTb.equals(other.cdnTb))) {
             return false;
         }

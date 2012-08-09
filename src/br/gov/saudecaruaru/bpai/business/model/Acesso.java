@@ -14,13 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "ACESSO")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Acesso.findAll", query = "SELECT a FROM Acesso a"),
-    @NamedQuery(name = "Acesso.findByUsername", query = "SELECT a FROM Acesso a WHERE a.acessoPK.username = :username"),
-    @NamedQuery(name = "Acesso.findByModulo", query = "SELECT a FROM Acesso a WHERE a.acessoPK.modulo = :modulo"),
-    @NamedQuery(name = "Acesso.findByRotina", query = "SELECT a FROM Acesso a WHERE a.acessoPK.rotina = :rotina"),
-    @NamedQuery(name = "Acesso.findByFuncao", query = "SELECT a FROM Acesso a WHERE a.acessoPK.funcao = :funcao")})
 public class Acesso implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId

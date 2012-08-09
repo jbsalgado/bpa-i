@@ -14,12 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "CADMED")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Cadmed.findAll", query = "SELECT c FROM Cadmed c"),
-    @NamedQuery(name = "Cadmed.findByCadmedCns", query = "SELECT c FROM Cadmed c WHERE c.cadmedCns = :cadmedCns"),
-    @NamedQuery(name = "Cadmed.findByCadmedNome", query = "SELECT c FROM Cadmed c WHERE c.cadmedNome = :cadmedNome")})
-public class Cadmed implements Serializable {
+public class Medico implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -29,14 +24,14 @@ public class Cadmed implements Serializable {
     @Column(name = "CADMED_NOME")
     private String cadmedNome;
 
-    public Cadmed() {
+    public Medico() {
     }
 
-    public Cadmed(String cadmedCns) {
+    public Medico(String cadmedCns) {
         this.cadmedCns = cadmedCns;
     }
 
-    public Cadmed(String cadmedCns, String cadmedNome) {
+    public Medico(String cadmedCns, String cadmedNome) {
         this.cadmedCns = cadmedCns;
         this.cadmedNome = cadmedNome;
     }
@@ -67,10 +62,10 @@ public class Cadmed implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cadmed)) {
+        if (!(object instanceof Medico)) {
             return false;
         }
-        Cadmed other = (Cadmed) object;
+        Medico other = (Medico) object;
         if ((this.cadmedCns == null && other.cadmedCns != null) || (this.cadmedCns != null && !this.cadmedCns.equals(other.cadmedCns))) {
             return false;
         }

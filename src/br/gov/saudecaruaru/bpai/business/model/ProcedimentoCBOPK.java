@@ -14,7 +14,7 @@ import javax.persistence.Embeddable;
  * @author Junior Pires
  */
 @Embeddable
-public class SPacboPK implements Serializable {
+public class ProcedimentoCBOPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "PACBO_PA")
     private String pacboPa;
@@ -22,10 +22,10 @@ public class SPacboPK implements Serializable {
     @Column(name = "PACBO_CBO")
     private String pacboCbo;
 
-    public SPacboPK() {
+    public ProcedimentoCBOPK() {
     }
 
-    public SPacboPK(String pacboPa, String pacboCbo) {
+    public ProcedimentoCBOPK(String pacboPa, String pacboCbo) {
         this.pacboPa = pacboPa;
         this.pacboCbo = pacboCbo;
     }
@@ -57,10 +57,10 @@ public class SPacboPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SPacboPK)) {
+        if (!(object instanceof ProcedimentoCBOPK)) {
             return false;
         }
-        SPacboPK other = (SPacboPK) object;
+        ProcedimentoCBOPK other = (ProcedimentoCBOPK) object;
         if ((this.pacboPa == null && other.pacboPa != null) || (this.pacboPa != null && !this.pacboPa.equals(other.pacboPa))) {
             return false;
         }
