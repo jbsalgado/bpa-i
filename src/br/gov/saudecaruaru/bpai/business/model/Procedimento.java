@@ -16,12 +16,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "S_PA")
 public class Procedimento implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "PA_ID")
-    private String id;
     
-    @Id
+    
+    @EmbeddedId
+    private ProcedimentoPK procedimentoPk;
+    
     @Basic(optional = false)
     @Column(name = "PA_DV")
     private char digitoVerificador;
@@ -30,6 +29,7 @@ public class Procedimento implements Serializable {
     @Column(name = "PA_TOTAL")
     private Double paTotal;
     
+    @Basic(optional= false)
     @Column(name = "PA_DC")
     private String descricao;
     
@@ -85,31 +85,40 @@ public class Procedimento implements Serializable {
     @Column(name = "PA_EXIGCBO")
     private Character exigeCBO;
     
-    @Id
-    @Basic(optional = false)
-    @Column(name = "PA_CMP")
-    private String competencia;
+    
 
     public Procedimento() {
     }
 
-    public Procedimento(String paId) {
-        this.id = paId;
+    public Procedimento(ProcedimentoPK procedimentoPk) {
+        this.procedimentoPk = procedimentoPk;
     }
 
-    public Procedimento(String paId, char paDv, String paCmp) {
-        this.id = paId;
-        this.digitoVerificador = paDv;
-        this.competencia = paCmp;
+    public Procedimento(ProcedimentoPK procedimentoPk, char digitoVerificador, Double paTotal, String descricao, String paRub, Character paTpcc, String paAux, Double paSp, Double paSa, String paCpx, String paCtf, Character tipoDocumento, Short idadeMaximaPaciente, Short idadeMinimaPaciente, Character sexo, Double quantidadeMaximaExecucao, Character paIdebpa, Character paCnspcn, Character paCnrac, Character maisDeSeisMeses, Character exigeCBO) {
+        this.procedimentoPk = procedimentoPk;
+        this.digitoVerificador = digitoVerificador;
+        this.paTotal = paTotal;
+        this.descricao = descricao;
+        this.paRub = paRub;
+        this.paTpcc = paTpcc;
+        this.paAux = paAux;
+        this.paSp = paSp;
+        this.paSa = paSa;
+        this.paCpx = paCpx;
+        this.paCtf = paCtf;
+        this.tipoDocumento = tipoDocumento;
+        this.idadeMaximaPaciente = idadeMaximaPaciente;
+        this.idadeMinimaPaciente = idadeMinimaPaciente;
+        this.sexo = sexo;
+        this.quantidadeMaximaExecucao = quantidadeMaximaExecucao;
+        this.paIdebpa = paIdebpa;
+        this.paCnspcn = paCnspcn;
+        this.paCnrac = paCnrac;
+        this.maisDeSeisMeses = maisDeSeisMeses;
+        this.exigeCBO = exigeCBO;
     }
 
-    public String getCompetencia() {
-        return competencia;
-    }
 
-    public void setCompetencia(String competencia) {
-        this.competencia = competencia;
-    }
 
     public String getDescricao() {
         return descricao;
@@ -135,13 +144,7 @@ public class Procedimento implements Serializable {
         this.exigeCBO = exigeCBO;
     }
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public Short getIdadeMaximaPaciente() {
         return idadeMaximaPaciente;
@@ -279,6 +282,10 @@ public class Procedimento implements Serializable {
         this.tipoDocumento = tipoDocumento;
     }
 
+    public ProcedimentoPK getProcedimentoPk() {
+        return procedimentoPk;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -288,13 +295,7 @@ public class Procedimento implements Serializable {
             return false;
         }
         final Procedimento other = (Procedimento) obj;
-        if ((this.id == null) ? (other.id != null) : !this.id.equals(other.id)) {
-            return false;
-        }
-        if (this.digitoVerificador != other.digitoVerificador) {
-            return false;
-        }
-        if ((this.descricao == null) ? (other.descricao != null) : !this.descricao.equals(other.descricao)) {
+        if (this.procedimentoPk != other.procedimentoPk && (this.procedimentoPk == null || !this.procedimentoPk.equals(other.procedimentoPk))) {
             return false;
         }
         return true;
@@ -303,18 +304,21 @@ public class Procedimento implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 97 * hash + this.digitoVerificador;
-        hash = 97 * hash + (this.descricao != null ? this.descricao.hashCode() : 0);
+        hash = 47 * hash + (this.procedimentoPk != null ? this.procedimentoPk.hashCode() : 0);
         return hash;
     }
 
+    public void setProcedimentoPk(ProcedimentoPK procedimentoPk) {
+        this.procedimentoPk = procedimentoPk;
+    }
+
+ 
     
 
 
     @Override
     public String toString() {
-        return "br.gov.saudecaruaru.bpai.business.model.SPa[ paId=" + id + " ]";
+        return this.descricao+"/"+this.procedimentoPk.getId()+""+this.procedimentoPk.getCompetencia()+ " ]";
     }
     
 }

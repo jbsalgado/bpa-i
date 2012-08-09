@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "S_CID")
-public class CID implements Serializable {
+public class Cid implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -39,10 +39,10 @@ public class CID implements Serializable {
     @Column(name = "AUX")
     private Character aux;
 
-    public CID() {
+    public Cid() {
     }
 
-    public CID(String cdCod) {
+    public Cid(String cdCod) {
         this.cdCod = cdCod;
     }
 
@@ -136,10 +136,10 @@ public class CID implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CID)) {
+        if (!(object instanceof Cid)) {
             return false;
         }
-        CID other = (CID) object;
+        Cid other = (Cid) object;
         if ((this.cdCod == null && other.cdCod != null) || (this.cdCod != null && !this.cdCod.equals(other.cdCod))) {
             return false;
         }
