@@ -4,6 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.gui;
 
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
@@ -32,7 +33,8 @@ class CnsVerifier extends InputVerifier {
       if (valor.startsWith("1") || valor.startsWith("2")) {  
           if(!validaCns(valor)){
             JOptionPane.showMessageDialog(this.component,fieldName + " INCORRETO!",   
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE);  
+                "Erro de validação!", JOptionPane.ERROR_MESSAGE);
+            txtField.setBackground(Color.RED);
             return false;  
          
           }
@@ -40,15 +42,17 @@ class CnsVerifier extends InputVerifier {
            if(!validaCnsProv(valor)){
             JOptionPane.showMessageDialog(this.component,fieldName + " INCORRETO!",   
                 "Erro de validação!", JOptionPane.ERROR_MESSAGE);  
+            txtField.setBackground(Color.RED);
             return false;  
          
           }
       }  
+      txtField.setBackground(Color.WHITE);
       return true;  
     }  
     
         //Rotina de validação de Números que iniciam com “1” ou “2”
-        public boolean validaCns(String cns){
+        public static boolean validaCns(String cns){
         if (cns.trim().length() != 15){
             return(false);
         }
@@ -107,7 +111,7 @@ class CnsVerifier extends InputVerifier {
         
         
         //Rotina de validação de Números que iniciam com “7”, “8” ou “9”
-        public boolean validaCnsProv(String cns){
+        public static boolean validaCnsProv(String cns){
         if (cns.trim().length() != 15){
             return(false);
         }

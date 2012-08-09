@@ -1,17 +1,37 @@
-/*
- * To change this template, choose Tools | Templates
+/*//GEN-FIRST:event_jTextFieldUsuarioCodMunicipActionPerformed
+ * To change this template, choose Tools | Templates//GEN-LAST:event_jTextFieldUsuarioCodMunicipActionPerformed
  * and open the template in the editor.
  */
 package br.gov.saudecaruaru.bpai.gui;
 
-import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.Component;
+import java.text.ParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
  * @author Junior Pires
  */
 public class CadastroIndividualizado extends javax.swing.JFrame {
-
+     private MaskFormatter mCBO=null; 
+     private MaskFormatter mData=null; 
+     private MaskFormatter mNome=null; 
+     private MaskFormatter mMes=null; 
+     private MaskFormatter mCodMun=null; 
+     private MaskFormatter mCodNac=null; 
+     private MaskFormatter mCodProc=null; 
+     private MaskFormatter mCID=null; 
+     private MaskFormatter mAno=null; 
+     private MaskFormatter mFolha=null; 
+     private MaskFormatter mEtnia=null; 
+     private MaskFormatter mNumAutoriz=null; 
+     private MaskFormatter mCNS=null; 
+     
     /**
      * Creates new form CadastroIndividualizado
      */
@@ -24,25 +44,228 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
     
     private void myInitComponents(){
         //desabilita alguns campos do usuario
-        jTextFieldUsuarioNomeMunicip.setEditable(false);
-        jTextFieldUsuarioNomeNac.setEditable(false);
-        jTextFieldUsuarioDescEtnia.setEditable(false);
+        jTextFieldUsuarioNomeMunicip.setEnabled(false);
+        jTextFieldUsuarioNomeNac.setEnabled(false);
+        jTextFieldUsuarioDescEtnia.setEnabled(false);
         
         //desabilita alguns campos do procedimento
-        jTextFieldProcDescricao1.setEditable(false);
-        jTextFieldProcDescriDoenca.setEditable(false);
+        jTextFieldProcDescricaoProc.setEnabled(false);
+        //jTextFieldProcDescricaoProc.setText("ANALISE DE ALGUMA COISA");
+        jTextFieldProcDescriDoenca.setEnabled(false);
         
+        //atribui mascaras a campos de texto
+        //jTextFieldCBO =  new JFormattedTextField(getMCBO());
+         
         //atribui validadores
+        jTextFieldNomeProfiss.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
+        jTextFieldUsuarioNome.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
+        jTextFieldProcQuant.setInputVerifier(new OnlyNumbers(this,"Quantidade"));
         jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this,"CNS"));
-    }
+        jTextFieldUsuarioCns.setInputVerifier(new CNSUsuarioVerifier(this, "CNS"));
+        
+        jTextFieldMes.setInputVerifier(new InputVerifier() {
 
+            @Override
+            public boolean verify(JComponent input) {
+                JTextField mes = (JTextField) input;
+                //expressão regular para mês
+                Pattern p = Pattern.compile("(0[1-9]|[1][0-2])");  
+                Matcher m = p.matcher(mes.getText());  
+                if (!m.find()) {  
+                      JOptionPane.showMessageDialog(CadastroIndividualizado.this," Mês Inválido!",   
+                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
+                //seta cor vermelha
+                mes.setBackground(Color.RED);  
+                return false;  
+                } 
+                //seta cor branca
+                mes.setBackground(Color.WHITE); 
+                return true;
+           }
+        });
+        
+        jTextFieldUsuarioSexo.setInputVerifier(new InputVerifier() {
+
+            @Override
+            public boolean verify(JComponent input) {
+                JTextField sexo = (JTextField) input;
+                //expressão regular para sexo (só permite M ou F)
+                Pattern p = Pattern.compile("^[M|F]$");  
+                Matcher m = p.matcher(sexo.getText());  
+                if (!m.find()) {  
+                      JOptionPane.showMessageDialog(CadastroIndividualizado.this," Sexo Inválido!",   
+                "Erro de validação!", JOptionPane.ERROR_MESSAGE);  
+                sexo.setBackground(Color.RED); 
+                return false;  
+                } 
+                sexo.setBackground(Color.WHITE); 
+                return true;
+           }
+        });
+    }
+   
+    
+    
+    
+    
+    private MaskFormatter getMCBO(){
+			if(mCBO==null){
+				try {
+					mCBO = new MaskFormatter("#####");
+					mCBO.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mCBO;
+		}
+    private MaskFormatter getMMes(){
+			if(mMes==null){
+				try {
+					mMes = new MaskFormatter("##");
+					mMes.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mMes;
+		}
+    private MaskFormatter getMAno(){
+			if(mAno==null){
+				try {
+					mAno = new MaskFormatter("####");
+					mAno.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mAno;
+		}
+             private MaskFormatter getMData(){
+			if(mData==null){
+				try {
+					mData = new MaskFormatter("##/##/####");
+					mData.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mData;
+		}
+             private MaskFormatter getMCodNac(){
+			if(mCodNac==null){
+				try {
+					mCodNac = new MaskFormatter("###");
+					mCodNac.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mCodNac;
+		}
+             
+            private MaskFormatter getMCodMun(){
+			if(mCodMun==null){
+				try {
+					mCodMun = new MaskFormatter("######");
+					mCodMun.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mCodMun;
+		}
+            
+             private MaskFormatter getMCodProc(){
+			if(mCodProc==null){
+				try {
+					mCodProc = new MaskFormatter("##########");
+					mCodProc.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mCodProc;
+		}
+             private MaskFormatter getMCID(){
+			if(mCID==null){
+				try {
+					mCID = new MaskFormatter("****");
+					mCID.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mCID;
+		}
+             
+              private MaskFormatter getMFolha(){
+			if(mFolha==null){
+				try {
+					mFolha = new MaskFormatter("###");
+					mFolha.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mFolha;
+		}
+              
+              private MaskFormatter getMEtnia(){
+			if(mEtnia==null){
+				try {
+					mEtnia= new MaskFormatter("####");
+					mEtnia.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mEtnia;
+		}
+              
+              private MaskFormatter getMNumAutoriz(){
+			if(mNumAutoriz==null){
+				try {
+					mNumAutoriz = new MaskFormatter("*************");
+					mNumAutoriz.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mNumAutoriz;
+		}
+              private MaskFormatter getMCNS(){
+			if(mCNS==null){
+				try {
+					mCNS = new MaskFormatter("###############");
+					mCNS.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mCNS;
+		}
+     
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -51,15 +274,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldCnes = new javax.swing.JTextField();
-        jTextFieldCnsProfiss = new javax.swing.JTextField();
+        jTextFieldCnsProfiss = new JFormattedTextField(getMCNS());
         jTextFieldNomeProfiss = new javax.swing.JTextField();
-        jTextFieldMes = new javax.swing.JTextField();
-        jTextFieldAno = new javax.swing.JTextField();
+        jTextFieldMes = new JFormattedTextField(getMMes());
+        jTextFieldAno = new JFormattedTextField(getMAno());
         jLabel7 = new javax.swing.JLabel();
-        jTextFieldAno1 = new javax.swing.JTextField();
+        jTextFieldFolha = new JFormattedTextField(getMFolha());
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
-        jTextFieldUsuarioCns = new javax.swing.JTextField();
+        jTextFieldUsuarioCns = new JFormattedTextField(getMCNS());
         jLabel9 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabelUsuarioSeq = new javax.swing.JLabel();
@@ -69,15 +292,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jTextFieldUsuarioSexo = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextFieldUsarioDatNasc = new javax.swing.JTextField();
-        jTextFieldUsuarioCodNac = new javax.swing.JTextField();
+        jTextFieldUsarioDatNasc =  new JFormattedTextField(getMData());
+        jTextFieldUsuarioCodNac = new JFormattedTextField(getMCodNac());
         jTextFieldUsuarioNomeNac = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jTextFieldUsuarioNomeMunicip = new javax.swing.JTextField();
-        jTextFieldUsuarioCodMunicip = new javax.swing.JTextField();
+        jTextFieldUsuarioCodMunicip = new JFormattedTextField(getMCodMun());
         jLabel13 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jTextFieldUsuarioEtnia = new javax.swing.JTextField();
+        jTextFieldUsuarioEtnia = new JFormattedTextField(getMEtnia());
         jTextFieldUsuarioDescEtnia = new javax.swing.JTextField();
         jComboBoxUsuarioRacaCor = new javax.swing.JComboBox();
         jLabel17 = new javax.swing.JLabel();
@@ -85,16 +308,16 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabelProcSeq = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jTextFieldProcDataAtend = new javax.swing.JTextField();
+        jTextFieldProcDataAtend = new JFormattedTextField(getMData());
         jTextFieldProcQuant = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         jTextFieldProcDescriDoenca = new javax.swing.JTextField();
-        jTextFieldProcCod = new javax.swing.JTextField();
+        jTextFieldProcCod = new JFormattedTextField(getMCodProc());
         jLabel23 = new javax.swing.JLabel();
-        jTextFieldProcCID = new javax.swing.JTextField();
+        jTextFieldProcCID = new JFormattedTextField(getMCID());
         jLabel24 = new javax.swing.JLabel();
-        jTextFieldProcDescricao1 = new javax.swing.JTextField();
-        jTextFieldProcNumAut = new javax.swing.JTextField();
+        jTextFieldProcDescricaoProc = new javax.swing.JTextField();
+        jTextFieldProcNumAut = new JFormattedTextField(getMNumAutoriz());
         jComboBoxProcCaraterAtend = new javax.swing.JComboBox();
         jLabel19 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -103,6 +326,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jSeparator2 = new javax.swing.JSeparator();
+        jTextFieldCBO = new JFormattedTextField(getMCBO());
+        jLabel21 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,9 +379,9 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText(" /");
 
-        jTextFieldAno1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldFolha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldAno1ActionPerformed(evt);
+                jTextFieldFolhaActionPerformed(evt);
             }
         });
 
@@ -419,10 +644,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel24.setText("CID");
 
-        jTextFieldProcDescricao1.setBackground(new java.awt.Color(153, 153, 153));
-        jTextFieldProcDescricao1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldProcDescricaoProc.setBackground(new java.awt.Color(153, 153, 153));
+        jTextFieldProcDescricaoProc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldProcDescricao1ActionPerformed(evt);
+                jTextFieldProcDescricaoProcActionPerformed(evt);
             }
         });
 
@@ -497,7 +722,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jTextFieldProcCod, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextFieldProcDescricao1, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jTextFieldProcDescricaoProc, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextFieldProcQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -543,7 +768,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
                                 .addComponent(jTextFieldProcDataAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jTextFieldProcCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextFieldProcDescricao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTextFieldProcDescricaoProc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel24)
@@ -569,6 +794,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTextFieldCBO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldCBOActionPerformed(evt);
+            }
+        });
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel21.setText("CBO");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -593,9 +827,13 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
                                     .addComponent(jTextFieldCnsProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldNomeProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldNomeProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldCBO, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -609,7 +847,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
                                         .addGap(31, 31, 31)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
-                                    .addComponent(jTextFieldAno1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jTextFieldFolha, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -619,21 +857,32 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldCnes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldCnsProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldNomeProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextFieldAno1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextFieldCnes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldCnsProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldNomeProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel21)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jTextFieldCBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(jTextFieldFolha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -646,115 +895,119 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void jTextFieldCnesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCnesActionPerformed
+    private void jTextFieldCnesActionPerformed(java.awt.event.ActionEvent evt) {                                               
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldCnesActionPerformed
+    }                                              
 
-    private void jTextFieldCnsProfissActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCnsProfissActionPerformed
+    private void jTextFieldCnsProfissActionPerformed(java.awt.event.ActionEvent evt) {                                                     
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldCnsProfissActionPerformed
+    }                                                    
 
-    private void jTextFieldNomeProfissActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeProfissActionPerformed
+    private void jTextFieldNomeProfissActionPerformed(java.awt.event.ActionEvent evt) {                                                      
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNomeProfissActionPerformed
+    }                                                     
 
-    private void jTextFieldUsuarioSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioSexoActionPerformed
+    private void jTextFieldUsuarioSexoActionPerformed(java.awt.event.ActionEvent evt) {                                                      
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldUsuarioSexoActionPerformed
+    }                                                     
 
-    private void jTextFieldMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMesActionPerformed
+    private void jTextFieldMesActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldMesActionPerformed
+    }                                             
 
-    private void jTextFieldAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAnoActionPerformed
+    private void jTextFieldAnoActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldAnoActionPerformed
+    }                                             
 
-    private void jTextFieldAno1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAno1ActionPerformed
+    private void jTextFieldFolhaActionPerformed(java.awt.event.ActionEvent evt) {                                                
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldAno1ActionPerformed
+    }                                               
 
-    private void jTextFieldUsuarioCnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioCnsActionPerformed
+    private void jTextFieldUsuarioCnsActionPerformed(java.awt.event.ActionEvent evt) {                                                     
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldUsuarioCnsActionPerformed
+    }                                                    
 
-    private void jTextFieldUsuarioNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioNomeActionPerformed
+    private void jTextFieldUsuarioNomeActionPerformed(java.awt.event.ActionEvent evt) {                                                      
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldUsuarioNomeActionPerformed
+    }                                                     
 
-    private void jTextFieldUsarioDatNascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsarioDatNascActionPerformed
+    private void jTextFieldUsarioDatNascActionPerformed(java.awt.event.ActionEvent evt) {                                                        
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldUsarioDatNascActionPerformed
+    }                                                       
 
-    private void jTextFieldUsuarioCodMunicipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioCodMunicipActionPerformed
+    private void jTextFieldUsuarioCodMunicipActionPerformed(java.awt.event.ActionEvent evt) {                                                            
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldUsuarioCodMunicipActionPerformed
+    }                                                           
 
-    private void jTextFieldUsuarioNomeMunicipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioNomeMunicipActionPerformed
+    private void jTextFieldUsuarioNomeMunicipActionPerformed(java.awt.event.ActionEvent evt) {                                                             
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldUsuarioNomeMunicipActionPerformed
+    }                                                            
 
-    private void jTextFieldUsuarioCodNacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioCodNacActionPerformed
+    private void jTextFieldUsuarioCodNacActionPerformed(java.awt.event.ActionEvent evt) {                                                        
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldUsuarioCodNacActionPerformed
+    }                                                       
 
-    private void jTextFieldUsuarioNomeNacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioNomeNacActionPerformed
+    private void jTextFieldUsuarioNomeNacActionPerformed(java.awt.event.ActionEvent evt) {                                                         
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldUsuarioNomeNacActionPerformed
+    }                                                        
 
-    private void jTextFieldProcDataAtendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProcDataAtendActionPerformed
+    private void jTextFieldProcDataAtendActionPerformed(java.awt.event.ActionEvent evt) {                                                        
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldProcDataAtendActionPerformed
+    }                                                       
 
-    private void jTextFieldProcQuantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProcQuantActionPerformed
+    private void jTextFieldProcQuantActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldProcQuantActionPerformed
+    }                                                   
 
-    private void jTextFieldProcDescriDoencaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProcDescriDoencaActionPerformed
+    private void jTextFieldProcDescriDoencaActionPerformed(java.awt.event.ActionEvent evt) {                                                           
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldProcDescriDoencaActionPerformed
+    }                                                          
 
-    private void jTextFieldProcCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProcCodActionPerformed
+    private void jTextFieldProcCodActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldProcCodActionPerformed
+    }                                                 
 
-    private void jTextFieldProcCIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProcCIDActionPerformed
+    private void jTextFieldProcCIDActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldProcCIDActionPerformed
+    }                                                 
 
-    private void jTextFieldProcDescricao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProcDescricao1ActionPerformed
+    private void jTextFieldProcDescricaoProcActionPerformed(java.awt.event.ActionEvent evt) {                                                            
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldProcDescricao1ActionPerformed
+    }                                                           
 
-    private void jTextFieldUsuarioEtniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioEtniaActionPerformed
+    private void jTextFieldUsuarioEtniaActionPerformed(java.awt.event.ActionEvent evt) {                                                       
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldUsuarioEtniaActionPerformed
+    }                                                      
 
-    private void jTextFieldUsuarioDescEtniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioDescEtniaActionPerformed
+    private void jTextFieldUsuarioDescEtniaActionPerformed(java.awt.event.ActionEvent evt) {                                                           
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldUsuarioDescEtniaActionPerformed
+    }                                                          
 
-    private void jComboBoxUsuarioRacaCorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxUsuarioRacaCorActionPerformed
+    private void jComboBoxUsuarioRacaCorActionPerformed(java.awt.event.ActionEvent evt) {                                                        
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxUsuarioRacaCorActionPerformed
+    }                                                       
 
-    private void jComboBoxProcCaraterAtendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxProcCaraterAtendActionPerformed
+    private void jComboBoxProcCaraterAtendActionPerformed(java.awt.event.ActionEvent evt) {                                                          
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxProcCaraterAtendActionPerformed
+    }                                                         
 
-    private void jTextFieldProcNumAutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProcNumAutActionPerformed
+    private void jTextFieldProcNumAutActionPerformed(java.awt.event.ActionEvent evt) {                                                     
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldProcNumAutActionPerformed
+    }                                                    
 
-    private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
+    private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {                                               
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonIncluirActionPerformed
+    }                                              
 
-    private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
+    private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLimparActionPerformed
+    }                                             
+
+    private void jTextFieldCBOActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    }                                             
 
     /**
      * @param args the command line arguments
@@ -797,7 +1050,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
             }
         });
     }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton jButtonIncluir;
     private javax.swing.JButton jButtonLimpar;
     private javax.swing.JComboBox jComboBoxProcCaraterAtend;
@@ -815,6 +1068,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -834,7 +1088,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldAno;
-    private javax.swing.JTextField jTextFieldAno1;
+    private javax.swing.JTextField jTextFieldFolha;
+    private javax.swing.JTextField jTextFieldCBO;
     private javax.swing.JTextField jTextFieldCnes;
     private javax.swing.JTextField jTextFieldCnsProfiss;
     private javax.swing.JTextField jTextFieldMes;
@@ -843,7 +1098,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldProcCod;
     private javax.swing.JTextField jTextFieldProcDataAtend;
     private javax.swing.JTextField jTextFieldProcDescriDoenca;
-    private javax.swing.JTextField jTextFieldProcDescricao1;
+    private javax.swing.JTextField jTextFieldProcDescricaoProc;
     private javax.swing.JTextField jTextFieldProcNumAut;
     private javax.swing.JTextField jTextFieldProcQuant;
     private javax.swing.JTextField jTextFieldUsarioDatNasc;
@@ -856,5 +1111,35 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldUsuarioNomeMunicip;
     private javax.swing.JTextField jTextFieldUsuarioNomeNac;
     private javax.swing.JTextField jTextFieldUsuarioSexo;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
+
+    //classe validadora para o campo CNSUsuario
+    private class CNSUsuarioVerifier extends CnsVerifier{
+        private Component component=null;
+        public CNSUsuarioVerifier(Component component, String fieldName) {
+            super(component, fieldName);
+            this.component=component;
+        }
+
+        @Override
+        public boolean verify(JComponent input) {
+             JTextComponent txtField = (JTextField) input; 
+             String valor = txtField.getText().trim();
+             if(!valor.isEmpty()){
+             if(valor.equals(jTextFieldCnsProfiss.getText())){
+                  JOptionPane.showMessageDialog(this.component," CNS do Usuário é igual ao CNS do profissional!", 
+                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
+                txtField.setBackground(Color.RED);
+                return false;
+             }
+            return super.verify(input);
+            }
+             return true;
+        }
+}
+    
+    
+
+
+
 }
