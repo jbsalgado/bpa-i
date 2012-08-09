@@ -1,0 +1,153 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.gov.saudecaruaru.bpai.business.model;
+
+import java.io.Serializable;
+import javax.persistence.*;
+
+/**
+ *
+ * @author Junior Pires
+ */
+@Entity
+@Table(name = "S_CID")
+public class Cid implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "CD_COD")
+    private String codigo;
+    @Column(name = "OPC")
+    private Character opc;
+    @Column(name = "CAT")
+    private Character cat;
+    @Column(name = "SUBCAT")
+    private Character subcat;
+    @Column(name = "CD_DESCR")
+    private String cdDescr;
+    @Column(name = "RESTRSEXO")
+    private Character restrsexo;
+    @Column(name = "CAMPOS_RAD")
+    private String camposRad;
+    @Column(name = "ESTADIO")
+    private Character estadio;
+    @Column(name = "REPETE_RAD")
+    private Character repeteRad;
+    @Column(name = "AUX")
+    private Character aux;
+
+    public Cid() {
+    }
+
+    public Cid(String cdCod) {
+        this.codigo = cdCod;
+    }
+
+    public String getCdCod() {
+        return codigo;
+    }
+
+    public void setCdCod(String cdCod) {
+        this.codigo = cdCod;
+    }
+
+    public Character getOpc() {
+        return opc;
+    }
+
+    public void setOpc(Character opc) {
+        this.opc = opc;
+    }
+
+    public Character getCat() {
+        return cat;
+    }
+
+    public void setCat(Character cat) {
+        this.cat = cat;
+    }
+
+    public Character getSubcat() {
+        return subcat;
+    }
+
+    public void setSubcat(Character subcat) {
+        this.subcat = subcat;
+    }
+
+    public String getCdDescr() {
+        return cdDescr;
+    }
+
+    public void setCdDescr(String cdDescr) {
+        this.cdDescr = cdDescr;
+    }
+
+    public Character getRestrsexo() {
+        return restrsexo;
+    }
+
+    public void setRestrsexo(Character restrsexo) {
+        this.restrsexo = restrsexo;
+    }
+
+    public String getCamposRad() {
+        return camposRad;
+    }
+
+    public void setCamposRad(String camposRad) {
+        this.camposRad = camposRad;
+    }
+
+    public Character getEstadio() {
+        return estadio;
+    }
+
+    public void setEstadio(Character estadio) {
+        this.estadio = estadio;
+    }
+
+    public Character getRepeteRad() {
+        return repeteRad;
+    }
+
+    public void setRepeteRad(Character repeteRad) {
+        this.repeteRad = repeteRad;
+    }
+
+    public Character getAux() {
+        return aux;
+    }
+
+    public void setAux(Character aux) {
+        this.aux = aux;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (codigo != null ? codigo.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Cid)) {
+            return false;
+        }
+        Cid other = (Cid) object;
+        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.gov.saudecaruaru.bpai.business.model.SCid[ cdCod=" + codigo + " ]";
+    }
+    
+}

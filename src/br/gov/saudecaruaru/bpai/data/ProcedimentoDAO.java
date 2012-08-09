@@ -49,7 +49,7 @@ public class ProcedimentoDAO extends GenericDAO<Procedimento> implements BasicDA
             return super.findAll(filter);
         } catch (Exception ex) {
             Logger.getLogger(ProcedimentoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+            return new ArrayList<Procedimento>();
         }
     }
 

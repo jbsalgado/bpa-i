@@ -9,6 +9,7 @@ import br.gov.saudecaruaru.bpai.business.model.Procedimento;
 import br.gov.saudecaruaru.bpai.data.AcessoDAO;
 import br.gov.saudecaruaru.bpai.data.BasicDAO;
 import br.gov.saudecaruaru.bpai.data.ProcedimentoDAO;
+import java.util.List;
 import net.priuli.filter.Filter;
 import net.priuli.filter.utils.FactoryFilter;
 
@@ -28,11 +29,13 @@ public class BPAI {
         }
         BasicDAO<Procedimento> t= new ProcedimentoDAO();
         Filter filter= FactoryFilter.createFilter();
-        filter.addRestriction("PA_CMP", "201206");
-        for(Procedimento a: t.encontreTodos() ){
-            System.out.println(a.getDescricao());
-        }
+        filter.addRestriction("procedimentoPk.competencia", "201206");
         
+        List<Procedimento> l=t.encontreTodos(filter) ;
+        for(Procedimento a: l){
+            System.out.println(a.getDescricao()+"/"+a.getProcedimentoPk().getCompetencia()+'/'+a.getProcedimentoPk().getId());
+        }
+        System.out.println(l.size());
         
     }
 }
