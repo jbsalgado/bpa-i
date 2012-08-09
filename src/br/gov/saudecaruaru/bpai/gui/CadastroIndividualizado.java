@@ -1124,7 +1124,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         @Override
         public boolean verify(JComponent input) {
              JTextComponent txtField = (JTextField) input; 
-             String valor = txtField.getText();
+             String valor = txtField.getText().trim();
+             if(!valor.isEmpty()){
              if(valor.equals(jTextFieldCnsProfiss.getText())){
                   JOptionPane.showMessageDialog(this.component," CNS do Usuário é igual ao CNS do profissional!", 
                 "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
@@ -1132,6 +1133,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
                 return false;
              }
             return super.verify(input);
+            }
+             return true;
         }
 }
     
