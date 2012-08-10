@@ -8,7 +8,7 @@
     <class>br.gov.saudecaruaru.bpai.business.model.Procedimento</class>
     <class>br.gov.saudecaruaru.bpai.business.model.Usuario</class>
     <properties>
-      <property name="hibernate.connection.url" value="jdbc:firebirdsql://localhost:3050/D:\BPA\BPAMAG.GDB?lc_type=NONE"/>
+      <property name="hibernate.connection.url" value="jdbc:firebirdsql://localhost:3050/C:\Users\Junior Pires\Documents\BPA2\BPAMAG.GDB?lc_type=NONE"/>
       <property name="hibernate.connection.password" value="masterkey"/>
       <property name="hibernate.connection.driver_class" value="org.firebirdsql.jdbc.FBDriver"/>
       <property name="hibernate.connection.username" value="SYSDBA"/>
