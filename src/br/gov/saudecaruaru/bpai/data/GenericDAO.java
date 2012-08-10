@@ -15,13 +15,14 @@ import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.Map;
 import net.priuli.filter.Filter;
 import net.priuli.filter.utils.HibernateUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-public class GenericDAO<T extends Serializable> {
+public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
 
     @PersistenceContext(unitName = EntityManagerUtil.ENTITY_MANAGER_BPA_IPU)
     private final EntityManager entityManager;
@@ -36,7 +37,8 @@ public class GenericDAO<T extends Serializable> {
         return entityManager;
     }
 
-    protected void save(T entity) {
+    @Override
+    public void save(T entity) {
         EntityTransaction tx = getEntityManager().getTransaction();
 
         try {
@@ -51,7 +53,8 @@ public class GenericDAO<T extends Serializable> {
         }
     }
 
-    protected void update(T entity) {
+    @Override
+    public void update(T entity) {
         EntityTransaction tx = getEntityManager().getTransaction();
 
         try {
@@ -67,7 +70,8 @@ public class GenericDAO<T extends Serializable> {
 
     }
 
-    protected void delete(T entity) {
+    @Override
+    public void remove(T entity) {
         EntityTransaction tx = getEntityManager().getTransaction();
 
         try {
@@ -82,33 +86,39 @@ public class GenericDAO<T extends Serializable> {
         }
     }
 
-    protected List<T> findAll() throws Exception {
+    @Override
+    public List<T> findAll()  {
         Session session = (Session) getEntityManager().getDelegate();
         return session.createCriteria(persistentClass).list();
     }
     
-    protected List<T> findAll(Filter filter) throws Exception {
+    @Override
+    public List<T> findAllEqual(Map<String,Object> restrictions){
         Session session = (Session) getEntityManager().getDelegate();
-        Criteria criteria=HibernateUtils.buildCriteria(filter, session, persistentClass);
-        return criteria.list();
+        Criteria c=session.createCriteria(persistentClass);
+        for(String key: restrictions.keySet()){
+            if(key!=null){
+                c.add(Restrictions.eq(key, restrictions.get(key)));
+                        
+            }
+        }
+        return c.list();
+    }
+
+
+    @Override
+    public T findEqual(Map<String, Object> restrictions) {
+        Session session = (Session) getEntityManager().getDelegate();
+        Criteria c=session.createCriteria(persistentClass);
+        for(String key: restrictions.keySet()){
+            if(key!=null){
+                c.add(Restrictions.eq(key, restrictions.get(key)));
+                        
+            }
+        }
+        return (T) c.uniqueResult();
     }
     
-    protected T find(Filter filter) throws Exception {
-        Session session = (Session) getEntityManager().getDelegate();
-        Criteria criteria=HibernateUtils.buildCriteria(filter, session, persistentClass);
-        return (T) criteria.uniqueResult();
-    }
-
-    protected T findByName(String nome) {
-        Session session = (Session) getEntityManager().getDelegate();
-        return (T) session.createCriteria(persistentClass).add(Restrictions.eq("nome", nome).ignoreCase()).uniqueResult();
-    }
-
-    protected T findById(long id) {
-        Session session = (Session) getEntityManager().getDelegate();
-        return (T) session.createCriteria(persistentClass).add(Restrictions.eq("id", id)).uniqueResult();
-    }
-
     private void close() {
         if (getEntityManager().isOpen()) {
             getEntityManager().close();
@@ -123,4 +133,5 @@ public class GenericDAO<T extends Serializable> {
         em.createNativeQuery("SHUTDOWN").executeUpdate();
         em.close();
     }
+
 }
