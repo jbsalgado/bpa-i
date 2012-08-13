@@ -6,11 +6,7 @@ package br.gov.saudecaruaru.bpai.main;
 
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.data.*;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import net.priuli.filter.Filter;
-import net.priuli.filter.utils.FactoryFilter;
 
 /**
  *
