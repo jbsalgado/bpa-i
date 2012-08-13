@@ -30,12 +30,12 @@ public class BPAI {
     public static void main(String[] args) {
         BasicDAO<Diversas> t= new DiversasDAO();
         HashMap<String, Object> rest=new HashMap<String, Object>();
-        rest.put("sCdnPK.cdnIt", "223605");
+        rest.put("diversasPK.codigoItemTabela", "223605");
         //rest.put("digitoVerificador", "3");
         List<Diversas> l=t.findAllEqual(rest) ;
         for(Diversas a: l){
            // System.out.println(a.getDescricao()+"/"+a.getProcedimentoPk().getCompetencia()+'/'+a.getProcedimentoPk().getId());
-             System.out.println("Descrição: "+a.getCdnDscr());
+             System.out.println("Descrição: "+a.getClass().getPackage());
         }
         System.out.println(l.size());
         
