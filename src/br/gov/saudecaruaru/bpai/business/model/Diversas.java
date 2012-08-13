@@ -6,7 +6,6 @@ package br.gov.saudecaruaru.bpai.business.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -15,72 +14,85 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "S_CDN")
 public class Diversas implements Serializable {
+    
+    public static final String TABELA_PROFISSAO="50";
+    public static final String TABELA_TIPO_ESTABELECIMENTO="05";
+    public static final String TABELA_PAIS="31";
+    public static final String TABELA_COMPLEXIDADE_PROCEDIMENTO="45";
+    public static final String TABELA_COR_INDIVIDUO="54";
+    public static final String TABELA_ETNIA="58";
+    
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected DiversasPK sCdnPK;
+    protected DiversasPK diversasPK;
     @Column(name = "CDN_DSCR")
-    private String cdnDscr;
+    private String descricaoItemTabela;
     @Column(name = "CDN_AUX")
-    private Character cdnAux;
+    private Character auxiliar;
 
     public Diversas() {
     }
 
-    public Diversas(DiversasPK sCdnPK) {
-        this.sCdnPK = sCdnPK;
+    public Diversas(DiversasPK diversasPK) {
+        this.diversasPK = diversasPK;
     }
 
-    public Diversas(String cdnTb, String cdnIt) {
-        this.sCdnPK = new DiversasPK(cdnTb, cdnIt);
+    public Diversas(DiversasPK diversasPK, String descricaoItemTabela, Character auxiliar) {
+        this.diversasPK = diversasPK;
+        this.descricaoItemTabela = descricaoItemTabela;
+        this.auxiliar = auxiliar;
     }
 
-    public DiversasPK getSCdnPK() {
-        return sCdnPK;
+    public Character getAuxiliar() {
+        return auxiliar;
     }
 
-    public void setSCdnPK(DiversasPK sCdnPK) {
-        this.sCdnPK = sCdnPK;
+    public void setAuxiliar(Character auxiliar) {
+        this.auxiliar = auxiliar;
     }
 
-    public String getCdnDscr() {
-        return cdnDscr;
+    public String getDescricaoItemTabela() {
+        return descricaoItemTabela;
     }
 
-    public void setCdnDscr(String cdnDscr) {
-        this.cdnDscr = cdnDscr;
+    public void setDescricaoItemTabela(String descricaoItemTabela) {
+        this.descricaoItemTabela = descricaoItemTabela;
     }
 
-    public Character getCdnAux() {
-        return cdnAux;
+    public DiversasPK getDiversasPK() {
+        return diversasPK;
     }
 
-    public void setCdnAux(Character cdnAux) {
-        this.cdnAux = cdnAux;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (sCdnPK != null ? sCdnPK.hashCode() : 0);
-        return hash;
+    public void setDiversasPK(DiversasPK diversasPK) {
+        this.diversasPK = diversasPK;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Diversas)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Diversas other = (Diversas) object;
-        if ((this.sCdnPK == null && other.sCdnPK != null) || (this.sCdnPK != null && !this.sCdnPK.equals(other.sCdnPK))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Diversas other = (Diversas) obj;
+        if (this.diversasPK != other.diversasPK && (this.diversasPK == null || !this.diversasPK.equals(other.diversasPK))) {
             return false;
         }
         return true;
     }
 
     @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 23 * hash + (this.diversasPK != null ? this.diversasPK.hashCode() : 0);
+        return hash;
+    }
+
+    
+    @Override
     public String toString() {
-        return "br.gov.saudecaruaru.bpai.business.model.SCdn[ sCdnPK=" + sCdnPK + " ]";
+        return "br.gov.saudecaruaru.bpai.business.model.SCdn[ sCdnPK=" + diversasPK + " ]";
     }
     
 }
