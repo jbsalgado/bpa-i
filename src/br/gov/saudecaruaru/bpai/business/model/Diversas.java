@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "S_CDN")
 public class Diversas implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
     @EmbeddedId
     protected DiversasPK sCdnPK;
     @Column(name = "CDN_DSCR")
