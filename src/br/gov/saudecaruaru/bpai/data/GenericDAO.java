@@ -153,18 +153,21 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
                     //verifica se o campo possui valor/referência
                     Object obj=f.get(object);
                     if(obj!=null){
-                        //verifica se o campo é um objeto de alguma classe do pacote model
-                        //se for,vai chamar o método novamente
-                        if(obj.getClass().getPackage().getName().equals(GenericDAO.PACOTE_MODEL)){
-                            //pega o map devolvido e monta o nome dos atributos com o valor
-                            Map<String, Object> m= this.getRestrictions(obj);
-                            for(String key: m.keySet()){
-                                restrictions.put(f.getName()+"."+key, m.get(key));
+                        if(f.isAnnotationPresent(javax.persistence.EmbeddedId.class)||f.isAnnotationPresent(javax.persistence.Column.class) ){
+                            //verifica se o campo é um objeto de alguma classe do pacote model
+                            //se for,vai chamar o método novamente
+                            if(obj.getClass().getPackage().getName().equals(GenericDAO.PACOTE_MODEL)){
+                                //pega o map devolvido e monta o nome dos atributos com o valor
+                                Map<String, Object> m= this.getRestrictions(obj);
+                                for(String key: m.keySet()){
+                                    restrictions.put(f.getName()+"."+key, m.get(key));
+                                }
                             }
-                        }
-                        else{
-                            restrictions.put(f.getName(), f.get(object));
-                        }
+                            else{
+                                restrictions.put(f.getName(), f.get(object));
+                            }
+                        
+                     }
                         
                     }
                 } catch (IllegalArgumentException ex) {
