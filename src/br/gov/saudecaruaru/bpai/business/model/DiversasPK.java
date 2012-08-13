@@ -17,62 +17,65 @@ import javax.persistence.Embeddable;
 public class DiversasPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "CDN_TB")
-    private String cdnTb;
+    private String codigoTabela;
     @Basic(optional = false)
     @Column(name = "CDN_IT")
-    private String cdnIt;
+    private String codigoItemTabela;
 
     public DiversasPK() {
     }
 
-    public DiversasPK(String cdnTb, String cdnIt) {
-        this.cdnTb = cdnTb;
-        this.cdnIt = cdnIt;
+    public DiversasPK(String codigoTabela, String codigoItemTabela) {
+        this.codigoTabela = codigoTabela;
+        this.codigoItemTabela = codigoItemTabela;
     }
 
-    public String getCdnTb() {
-        return cdnTb;
+    public String getCodigoItemTabela() {
+        return codigoItemTabela;
     }
 
-    public void setCdnTb(String cdnTb) {
-        this.cdnTb = cdnTb;
+    public void setCodigoItemTabela(String codigoItemTabela) {
+        this.codigoItemTabela = codigoItemTabela;
     }
 
-    public String getCdnIt() {
-        return cdnIt;
+    public String getCodigoTabela() {
+        return codigoTabela;
     }
 
-    public void setCdnIt(String cdnIt) {
-        this.cdnIt = cdnIt;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (cdnTb != null ? cdnTb.hashCode() : 0);
-        hash += (cdnIt != null ? cdnIt.hashCode() : 0);
-        return hash;
+    public void setCodigoTabela(String codigoTabela) {
+        this.codigoTabela = codigoTabela;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DiversasPK)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        DiversasPK other = (DiversasPK) object;
-        if ((this.cdnTb == null && other.cdnTb != null) || (this.cdnTb != null && !this.cdnTb.equals(other.cdnTb))) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        if ((this.cdnIt == null && other.cdnIt != null) || (this.cdnIt != null && !this.cdnIt.equals(other.cdnIt))) {
+        final DiversasPK other = (DiversasPK) obj;
+        if ((this.codigoTabela == null) ? (other.codigoTabela != null) : !this.codigoTabela.equals(other.codigoTabela)) {
+            return false;
+        }
+        if ((this.codigoItemTabela == null) ? (other.codigoItemTabela != null) : !this.codigoItemTabela.equals(other.codigoItemTabela)) {
             return false;
         }
         return true;
     }
 
     @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (this.codigoTabela != null ? this.codigoTabela.hashCode() : 0);
+        hash = 97 * hash + (this.codigoItemTabela != null ? this.codigoItemTabela.hashCode() : 0);
+        return hash;
+    }
+
+    
+    @Override
     public String toString() {
-        return "br.gov.saudecaruaru.bpai.business.model.SCdnPK[ cdnTb=" + cdnTb + ", cdnIt=" + cdnIt + " ]";
+        return "br.gov.saudecaruaru.bpai.business.model.SCdnPK[ cdnTb=" + codigoTabela + ", cdnIt=" + codigoItemTabela + " ]";
     }
     
 }
