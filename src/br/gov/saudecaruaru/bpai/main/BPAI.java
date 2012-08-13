@@ -24,8 +24,8 @@ public class BPAI {
     public static void main(String[] args) {
         BasicDAO<Diversas> t= new DiversasDAO();
         Diversas d = new Diversas();
-        d.setSCdnPK(new DiversasPK());
-        d.getSCdnPK().setCdnIt("223605");
+        //d.setSCdnPK(new DiversasPK());
+        //d.getSCdnPK().setCdnIt("223605");
         //d.setCdnDscr("Fisioterapeuta geral");
         //HashMap<String, Object> rest=new HashMap<String, Object>();
          ///rest.put("sCdnPK.cdnIt", "223605");
@@ -33,7 +33,7 @@ public class BPAI {
         List<Diversas> l=t.findAllEqual(d) ;
         for(Diversas a: l){
            // System.out.println(a.getDescricao()+"/"+a.getProcedimentoPk().getCompetencia()+'/'+a.getProcedimentoPk().getId());
-             System.out.println("Descrição: "+a.getCdnDscr()+"ID "+a.getSCdnPK().getCdnIt());
+           //  System.out.println("Descrição: "+a.getCdnDscr()+"ID "+a.getSCdnPK().getCdnIt());
         }
  
         System.out.println(l.size());
