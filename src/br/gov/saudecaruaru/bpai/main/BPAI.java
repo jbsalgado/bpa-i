@@ -4,14 +4,8 @@
  */
 package br.gov.saudecaruaru.bpai.main;
 
-import br.gov.saudecaruaru.bpai.business.model.Acesso;
-import br.gov.saudecaruaru.bpai.business.model.AcessoPK;
-import br.gov.saudecaruaru.bpai.business.model.Diversas;
-import br.gov.saudecaruaru.bpai.business.model.Procedimento;
-import br.gov.saudecaruaru.bpai.data.AcessoDAO;
-import br.gov.saudecaruaru.bpai.data.BasicDAO;
-import br.gov.saudecaruaru.bpai.data.DiversasDAO;
-import br.gov.saudecaruaru.bpai.data.ProcedimentoDAO;
+import br.gov.saudecaruaru.bpai.business.model.*;
+import br.gov.saudecaruaru.bpai.data.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,14 +23,19 @@ public class BPAI {
      */
     public static void main(String[] args) {
         BasicDAO<Diversas> t= new DiversasDAO();
-        HashMap<String, Object> rest=new HashMap<String, Object>();
-        rest.put("sCdnPK.cdnIt", "223605");
+        Diversas d = new Diversas();
+        d.setSCdnPK(new DiversasPK());
+        d.getSCdnPK().setCdnIt("223605");
+        //d.setCdnDscr("Fisioterapeuta geral");
+        //HashMap<String, Object> rest=new HashMap<String, Object>();
+         ///rest.put("sCdnPK.cdnIt", "223605");
         //rest.put("digitoVerificador", "3");
-        List<Diversas> l=t.findAllEqual(rest) ;
+        List<Diversas> l=t.findAllEqual(d) ;
         for(Diversas a: l){
            // System.out.println(a.getDescricao()+"/"+a.getProcedimentoPk().getCompetencia()+'/'+a.getProcedimentoPk().getId());
-             System.out.println("Descrição: "+a.getCdnDscr());
+             System.out.println("Descrição: "+a.getCdnDscr()+"ID "+a.getSCdnPK().getCdnIt());
         }
+ 
         System.out.println(l.size());
         
     }

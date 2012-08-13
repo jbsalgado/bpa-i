@@ -30,10 +30,14 @@ public interface BasicDAO<T extends Serializable> {
      */
     public T findEqual(Map<String,Object> restrictions);
     
+     public T findEqual(Serializable object);
+    
     /*
      * Recebe um map, onde chave será a propriedade do objeto a ser filtrada e
      * o valor da chave será ovalor do atributo.
      * 
      */
     public List<T> findAllEqual(Map<String,Object> restrictions);
+    
+    public List<T> findAllEqual(Serializable objeto);
 }
