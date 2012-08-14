@@ -4,13 +4,12 @@
  */
 package br.gov.saudecaruaru.bpai.gui;
 
-import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
-import br.gov.saudecaruaru.bpai.business.model.Diversas;
-import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
+
+import br.gov.saudecaruaru.bpai.business.controller.MunicipioController;
+import br.gov.saudecaruaru.bpai.business.model.Municipio;
+import br.gov.saudecaruaru.bpai.business.model.MunicipioPK;
 import java.awt.Color;
 import java.awt.Component;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -21,41 +20,52 @@ import javax.swing.text.JTextComponent;
  *
  * @author Junior Pires
  */
-public class CBOVerifier extends InputVerifier{
+public class MunicipioVerifier extends InputVerifier{
     private String fieldName; 
     private Component component;
-    private DiversasController diversasController;
-    private Diversas diversas;
-    private DiversasPK diversasPk;
-    public CBOVerifier(Component component,String fieldName) {
+    private MunicipioController municipioController;
+    private  Municipio  municipio;
+    private  MunicipioPK  municipioPk;
+    private JTextField municNome;
+    public MunicipioVerifier(Component component,String fieldName,JTextField muniNome) {
         this.fieldName = fieldName;
         this.component = component;
-        //instancia o controlador de diversas
-        diversasController = new DiversasController();
-        //instancia o modelo DiversasPk
-        diversas = new  Diversas();
-        diversasPk = new DiversasPK();
-        diversas.setDiversasPK(diversasPk);
-        //seta o codigo da tabela que será usado na busca, nesse caso a tabela Profissão
-        diversas.getDiversasPK().setCodigoTabela(Diversas.TABELA_PROFISSAO);
+        this.municNome = muniNome;
+        //instancia o controlador de  municipio
+         municipioController = new  MunicipioController();
+        //instancia o modelo  MunicipioPk
+         municipio= new   Municipio();
+         municipioPk = new  MunicipioPK();
+         municipio.setCadmunPK(municipioPk);
+        
         
     }
     
     
     @Override
     public boolean verify(JComponent input) {
-       JTextComponent txtField = (JTextField) input; 
+      JTextComponent txtField = (JTextField) input; 
+      Municipio municipioSearchead = null;
       String valor = txtField.getText();
+      //pega os dois primeiros digitos (que representam o Estado do municipio)
+      String codUf=valor.substring(0, 2);
+      //pega os quatro ultimos digitos (que representam o codigo do municipio)
+      String codMun = valor.substring(2);
       //seta o valor digitado no objeto
-      diversas.getDiversasPK().setCodigoItemTabela(valor);
-                //faz a busca pelo CBO digitado, se nao encontra notifica ao usuário
-                if (diversasController.findEqual(diversas)==null) {  
+      municipio.getCadmunPK().setCoduf(codUf);
+    
+      municipio.getCadmunPK().setCodmunic(codMun);
+      
+      municipioSearchead = municipioController.findEqual(municipio);
+                //faz a busca pelo Codigo do municipio digitado, se nao encontra notifica ao usuário
+                if (municipioSearchead==null) {  
                        JOptionPane.showMessageDialog(this.component,fieldName + " INCORRETO!", 
                 "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
                 txtField.setBackground(Color.RED);
                     return false;
                 }
                   txtField.setBackground(Color.WHITE);
+                  municNome.setText(municipioSearchead.getNome());
                 return true;
        }
     
