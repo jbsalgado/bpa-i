@@ -13,7 +13,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "S_CID")
-public class Cid implements Serializable {
+public class Doenca implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -47,14 +47,14 @@ public class Cid implements Serializable {
     @Column(name = "AUX")
     private Character aux;
 
-    public Cid() {
+    public Doenca() {
     }
 
-    public Cid(String codigo) {
+    public Doenca(String codigo) {
         this.codigo = codigo;
     }
 
-    public Cid(String codigo, Character opcao, Character categoria, Character subcategoria, String descricao, Character restricaoSexo, String camposRad, Character estadio, Character repeteRad, Character aux) {
+    public Doenca(String codigo, Character opcao, Character categoria, Character subcategoria, String descricao, Character restricaoSexo, String camposRad, Character estadio, Character repeteRad, Character aux) {
         this.codigo = codigo;
         this.opcao = opcao;
         this.categoria = categoria;
@@ -155,7 +155,7 @@ public class Cid implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Cid other = (Cid) obj;
+        final Doenca other = (Doenca) obj;
         if ((this.codigo == null) ? (other.codigo != null) : !this.codigo.equals(other.codigo)) {
             return false;
         }

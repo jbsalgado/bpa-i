@@ -14,25 +14,25 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "S_PACID")
-public class ProcedimentoCid implements Serializable{
+public class ProcedimentoDoenca implements Serializable{
     
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
-    protected ProcedimentoCidPK procedimentoCidPK;
+    protected ProcedimentoDoencaPK procedimentoCidPK;
     
     @Column(name = "PACID_AUX")
     private Character procedimentoAuxiliar;
     
 
-    public ProcedimentoCid() {
+    public ProcedimentoDoenca() {
     }
 
-    public ProcedimentoCid(ProcedimentoCidPK procedimentoCidPK) {
+    public ProcedimentoDoenca(ProcedimentoDoencaPK procedimentoCidPK) {
         this.procedimentoCidPK = procedimentoCidPK;
     }
 
-    public ProcedimentoCid(ProcedimentoCidPK procedimentoCidPK, Character procedimentoAuxiliar) {
+    public ProcedimentoDoenca(ProcedimentoDoencaPK procedimentoCidPK, Character procedimentoAuxiliar) {
         this.procedimentoCidPK = procedimentoCidPK;
         this.procedimentoAuxiliar = procedimentoAuxiliar;
     }
@@ -45,11 +45,11 @@ public class ProcedimentoCid implements Serializable{
         this.procedimentoAuxiliar = procedimentoAuxiliar;
     }
 
-    public ProcedimentoCidPK getProcedimentoCidPK() {
+    public ProcedimentoDoencaPK getProcedimentoCidPK() {
         return procedimentoCidPK;
     }
 
-    public void setProcedimentoCidPK(ProcedimentoCidPK procedimentoCidPK) {
+    public void setProcedimentoCidPK(ProcedimentoDoencaPK procedimentoCidPK) {
         this.procedimentoCidPK = procedimentoCidPK;
     }
 
@@ -61,7 +61,7 @@ public class ProcedimentoCid implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ProcedimentoCid other = (ProcedimentoCid) obj;
+        final ProcedimentoDoenca other = (ProcedimentoDoenca) obj;
         if (this.procedimentoCidPK != other.procedimentoCidPK && (this.procedimentoCidPK == null || !this.procedimentoCidPK.equals(other.procedimentoCidPK))) {
             return false;
         }

@@ -4,13 +4,13 @@
  */
 package br.gov.saudecaruaru.bpai.data;
 
-import br.gov.saudecaruaru.bpai.business.model.Cid;
-import java.io.Serializable;
+import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoenca;
+
 
 /**
  *
- * @author Junior Pires
+ * @author Albuquerque
  */
-public class CidDAO extends GenericDAO<Cid> {
+public class ProcedimentoDoencaDAO extends GenericDAO<ProcedimentoDoenca> {
     
 }
