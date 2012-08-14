@@ -32,6 +32,9 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
      private MaskFormatter mNumAutoriz=null; 
      private MaskFormatter mCNS=null; 
      
+     
+     
+     
     /**
      * Creates new form CadastroIndividualizado
      */
@@ -49,7 +52,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jTextFieldUsuarioDescEtnia.setEnabled(false);
         
         //desabilita alguns campos do procedimento
-        jTextFieldProcDescricaoProc.setEnabled(false);
+        jTextFieldProcDescricao.setEnabled(false);
         //jTextFieldProcDescricaoProc.setText("ANALISE DE ALGUMA COISA");
         jTextFieldProcDescriDoenca.setEnabled(false);
         
@@ -62,6 +65,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jTextFieldProcQuant.setInputVerifier(new OnlyNumbers(this,"Quantidade"));
         jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this,"CNS"));
         jTextFieldUsuarioCns.setInputVerifier(new CNSUsuarioVerifier(this, "CNS"));
+        jTextFieldCBO.setInputVerifier(new CBOVerifier(this, "CBO"));
+        jTextFieldUsuarioCodNac.setInputVerifier(new NacionalidadeVerifier(this, "Nacionalidade",jTextFieldUsuarioNomeNac));
+        jTextFieldUsuarioCodMunicip.setInputVerifier(new MunicipioVerifier(this,"Municipio",jTextFieldUsuarioNomeMunicip));
+        jTextFieldUsuarioCodEtnia.setInputVerifier(new EtniaVerifier(this,"Etnia", jTextFieldUsuarioDescEtnia));
+        jTextFieldProcCod.setInputVerifier(new ProcedimentoVerifier(this, "Procedimento", jTextFieldProcDescricao));
         
         jTextFieldMes.setInputVerifier(new InputVerifier() {
 
@@ -111,7 +119,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
     private MaskFormatter getMCBO(){
 			if(mCBO==null){
 				try {
-					mCBO = new MaskFormatter("#####");
+					mCBO = new MaskFormatter("######");
 					mCBO.setPlaceholder("");
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
@@ -300,7 +308,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jTextFieldUsuarioCodMunicip = new JFormattedTextField(getMCodMun());
         jLabel13 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jTextFieldUsuarioEtnia = new JFormattedTextField(getMEtnia());
+        jTextFieldUsuarioCodEtnia = new JFormattedTextField(getMEtnia());
         jTextFieldUsuarioDescEtnia = new javax.swing.JTextField();
         jComboBoxUsuarioRacaCor = new javax.swing.JComboBox();
         jLabel17 = new javax.swing.JLabel();
@@ -316,7 +324,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jTextFieldProcCID = new JFormattedTextField(getMCID());
         jLabel24 = new javax.swing.JLabel();
-        jTextFieldProcDescricaoProc = new javax.swing.JTextField();
+        jTextFieldProcDescricao = new javax.swing.JTextField();
         jTextFieldProcNumAut = new JFormattedTextField(getMNumAutoriz());
         jComboBoxProcCaraterAtend = new javax.swing.JComboBox();
         jLabel19 = new javax.swing.JLabel();
@@ -467,7 +475,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel15.setText("Raça/Cor");
 
-        jTextFieldUsuarioEtnia.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldUsuarioCodEtnia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldUsuarioEtniaActionPerformed(evt);
             }
@@ -528,7 +536,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextFieldUsuarioEtnia, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldUsuarioCodEtnia, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextFieldUsuarioDescEtnia, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -589,7 +597,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
                     .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldUsuarioEtnia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldUsuarioCodEtnia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldUsuarioDescEtnia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxUsuarioRacaCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -644,8 +652,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel24.setText("CID");
 
-        jTextFieldProcDescricaoProc.setBackground(new java.awt.Color(153, 153, 153));
-        jTextFieldProcDescricaoProc.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldProcDescricao.setBackground(new java.awt.Color(153, 153, 153));
+        jTextFieldProcDescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldProcDescricaoProcActionPerformed(evt);
             }
@@ -722,7 +730,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jTextFieldProcCod, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextFieldProcDescricaoProc, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jTextFieldProcDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextFieldProcQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -768,7 +776,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
                                 .addComponent(jTextFieldProcDataAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jTextFieldProcCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextFieldProcDescricaoProc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTextFieldProcDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel24)
@@ -1098,7 +1106,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldProcCod;
     private javax.swing.JTextField jTextFieldProcDataAtend;
     private javax.swing.JTextField jTextFieldProcDescriDoenca;
-    private javax.swing.JTextField jTextFieldProcDescricaoProc;
+    private javax.swing.JTextField jTextFieldProcDescricao;
     private javax.swing.JTextField jTextFieldProcNumAut;
     private javax.swing.JTextField jTextFieldProcQuant;
     private javax.swing.JTextField jTextFieldUsarioDatNasc;
@@ -1106,7 +1114,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldUsuarioCodMunicip;
     private javax.swing.JTextField jTextFieldUsuarioCodNac;
     private javax.swing.JTextField jTextFieldUsuarioDescEtnia;
-    private javax.swing.JTextField jTextFieldUsuarioEtnia;
+    private javax.swing.JTextField jTextFieldUsuarioCodEtnia;
     private javax.swing.JTextField jTextFieldUsuarioNome;
     private javax.swing.JTextField jTextFieldUsuarioNomeMunicip;
     private javax.swing.JTextField jTextFieldUsuarioNomeNac;

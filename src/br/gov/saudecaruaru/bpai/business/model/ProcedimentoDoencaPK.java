@@ -14,7 +14,7 @@ import javax.persistence.Embeddable;
  * @author Junior Pires
  */
 @Embeddable
-public class ProcedimentoCidPK implements Serializable {
+public class ProcedimentoDoencaPK implements Serializable {
     
     @Basic(optional = false)
     @Column(name = "PACID_PA")
@@ -28,11 +28,11 @@ public class ProcedimentoCidPK implements Serializable {
     @Column(name = "PACID_CMP")
     private String competencia;
 
-    public ProcedimentoCidPK() {
+    public ProcedimentoDoencaPK() {
     }
 
     
-    public ProcedimentoCidPK(String procedimentoCodigo, String codigoCid, String competencia) {
+    public ProcedimentoDoencaPK(String procedimentoCodigo, String codigoCid, String competencia) {
         this.procedimentoCodigo = procedimentoCodigo;
         this.codigoCid = codigoCid;
         this.competencia = competencia;
@@ -70,7 +70,7 @@ public class ProcedimentoCidPK implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ProcedimentoCidPK other = (ProcedimentoCidPK) obj;
+        final ProcedimentoDoencaPK other = (ProcedimentoDoencaPK) obj;
         if ((this.procedimentoCodigo == null) ? (other.procedimentoCodigo != null) : !this.procedimentoCodigo.equals(other.procedimentoCodigo)) {
             return false;
         }
