@@ -62,7 +62,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jTextFieldProcQuant.setInputVerifier(new OnlyNumbers(this,"Quantidade"));
         jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this,"CNS"));
         jTextFieldUsuarioCns.setInputVerifier(new CNSUsuarioVerifier(this, "CNS"));
-        
+        jTextFieldCBO.setInputVerifier(new CBOVerifier(this, "CBO"));
         jTextFieldMes.setInputVerifier(new InputVerifier() {
 
             @Override
@@ -111,7 +111,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
     private MaskFormatter getMCBO(){
 			if(mCBO==null){
 				try {
-					mCBO = new MaskFormatter("#####");
+					mCBO = new MaskFormatter("######");
 					mCBO.setPlaceholder("");
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
