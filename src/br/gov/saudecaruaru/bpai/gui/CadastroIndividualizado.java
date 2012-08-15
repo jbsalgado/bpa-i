@@ -5,6 +5,7 @@
 package br.gov.saudecaruaru.bpai.gui;
 
 import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
+import br.gov.saudecaruaru.bpai.business.model.CaraterAtendimento;
 import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
 import java.awt.Color;
@@ -40,6 +41,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
      private DiversasPK diversasPk;
      private DiversasController diversasController;
      
+    
      
     /**
      * Creates new form CadastroIndividualizado
@@ -1180,6 +1182,19 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         ComboBoxModel model = new DefaultComboBoxModel(comboListCor);
         //seta o modelo no combobox Cor
         jComboBoxUsuarioRacaCor.setModel(model);
+        
+        
+      
+         //inicializar comboBox Carater de Atendimento
+        //seta no modelo Diversas o codigo referente a tabela Cor no banco
+        
+        String[] comboListCaraterAtend ={CaraterAtendimento.SEM_INFORMACAO.desc(),CaraterAtendimento.ELETIVO.desc(),CaraterAtendimento.URGENCIA.desc(),CaraterAtendimento.ACIDENTE_LOCAL.desc(),
+                                         CaraterAtendimento.ACIDENTE_EXTERNO.desc(),CaraterAtendimento.ACIDENTE_OUTROS.desc(),CaraterAtendimento.LESOES_OUTRAS.desc()};
+        
+        //cria o modelo do combobox com as informações do banco
+        ComboBoxModel modelCarater = new DefaultComboBoxModel(comboListCaraterAtend);
+        //seta o modelo no combobox Cor
+        jComboBoxProcCaraterAtend.setModel(modelCarater);
         
         
         
