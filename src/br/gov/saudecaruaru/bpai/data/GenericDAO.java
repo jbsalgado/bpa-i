@@ -226,7 +226,17 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
 
     @Override
     public T findEqual(Serializable object) {
-        throw new UnsupportedOperationException("Not supported yet.");
+      Session session = (Session) getEntityManager().getDelegate();
+        Criteria c=session.createCriteria(persistentClass);   
+        Map<String, Object> restrictions=this.getRestrictions(object);
+        for(String key: restrictions.keySet()){
+            if(key!=null){
+                c.add(Restrictions.eq(key, restrictions.get(key)));
+                        
+            }
+        }
+        
+        return (T) c.uniqueResult();
     }
 
 }
