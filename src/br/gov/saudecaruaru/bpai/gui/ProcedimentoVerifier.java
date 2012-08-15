@@ -6,11 +6,9 @@ package br.gov.saudecaruaru.bpai.gui;
 
 
 import br.gov.saudecaruaru.bpai.business.controller.MunicipioController;
+import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoCboController;
 import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoController;
-import br.gov.saudecaruaru.bpai.business.model.Municipio;
-import br.gov.saudecaruaru.bpai.business.model.MunicipioPK;
-import br.gov.saudecaruaru.bpai.business.model.Procedimento;
-import br.gov.saudecaruaru.bpai.business.model.ProcedimentoPK;
+import br.gov.saudecaruaru.bpai.business.model.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.List;
@@ -30,17 +28,30 @@ public class ProcedimentoVerifier extends InputVerifier{
     private ProcedimentoController procedimentoController;
     private  Procedimento procedimento;
     private ProcedimentoPK  procedimentoPk;
-    private JTextField municNome;
-    public ProcedimentoVerifier(Component component,String fieldName,JTextField muniNome) {
+    private JTextField procNome;
+    private JTextField textFieldCbo;
+    private ProcedimentoCbo procedimentoCbo;
+    private ProcedimentoCboPK procedimentoCboPK;
+    private ProcedimentoCboController procedimentoCboController;
+    
+    
+    public ProcedimentoVerifier(Component component,String fieldName,JTextField procNome,JTextField textFieldCbo) {
         this.fieldName = fieldName;
         this.component = component;
-        this.municNome = muniNome;
+        this.procNome = procNome;
+        this.textFieldCbo = textFieldCbo;
         //instancia o controlador de  municipio
          procedimentoController = new  ProcedimentoController();
         //instancia o modelo  MunicipioPk
          this.procedimento= new   Procedimento();
          procedimentoPk = new   ProcedimentoPK();
          this.procedimento.setProcedimentoPk(procedimentoPk);
+         
+         
+         this.procedimentoCboPK = new ProcedimentoCboPK();
+         this.procedimentoCbo = new ProcedimentoCbo(procedimentoCboPK);
+         
+         this.procedimentoCboController = new ProcedimentoCboController();
         
         
     }
@@ -62,15 +73,31 @@ public class ProcedimentoVerifier extends InputVerifier{
       //faz a busca pelo Procedimento  digitado, se nao encontra notifica ao usuário
       procedimentoSearchead = procedimentoController.findAllEqual(this.procedimento);
                
-                if (procedimentoSearchead==null) {  
-                       JOptionPane.showMessageDialog(this.component,fieldName + " INCORRETO!", 
+                if (procedimentoSearchead.isEmpty()) {  
+                       JOptionPane.showMessageDialog(this.component,fieldName + " NÃO ENCONTRADO!", 
+                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
+                txtField.setBackground(Color.RED);
+                    return false;
+                }else if(!temProcedimentoECbo(valor.substring(0, 9),this.textFieldCbo.getText())){
+                     JOptionPane.showMessageDialog(this.component, " PROCED. INCOMPATIVEL COM CBO!", 
                 "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
                 txtField.setBackground(Color.RED);
                     return false;
                 }
                   txtField.setBackground(Color.WHITE);
-                  municNome.setText(procedimentoSearchead.get(0).getDescricao());
+                  procNome.setText(procedimentoSearchead.get(0).getDescricao());
                 return true;
        }
     
+    
+     private boolean temProcedimentoECbo(String codProc,String cbo){
+        procedimentoCbo.getProcedimentoCboPK().setProcedimentoCodigo(codProc);
+        procedimentoCbo.getProcedimentoCboPK().setCodigoCbo(cbo);
+        
+        if(procedimentoCboController.findAllEqual(procedimentoCbo).isEmpty()){
+            return false;
+        }
+        
+        return true;
+    }
 }
