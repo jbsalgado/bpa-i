@@ -10,6 +10,7 @@ import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
 import java.awt.Color;
 import java.awt.Component;
 import java.text.ParseException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.*;
@@ -45,16 +46,23 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
      */
     public CadastroIndividualizado() {
         initComponents();
+        diversasController = new DiversasController();
+        //instancia o modelo DiversasPk
+        diversas = new  Diversas();
+        diversasPk = new DiversasPK();
+        diversas.setDiversasPK(diversasPk);
+        
         myInitComponents();
+        
+        
         //seta o estado do frame para ocupar toda a tela
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     
     private void myInitComponents(){
         
-        //inicializar comboBox
+        initComboBoxs();
         
-        jComboBoxUsuarioRacaCor.setModel(null);
         //desabilita alguns campos do usuario
         jTextFieldUsuarioNomeMunicip.setEnabled(false);
         jTextFieldUsuarioNomeNac.setEnabled(false);
@@ -79,7 +87,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jTextFieldUsuarioCodMunicip.setInputVerifier(new MunicipioVerifier(this,"Municipio",jTextFieldUsuarioNomeMunicip));
         jTextFieldUsuarioCodEtnia.setInputVerifier(new EtniaVerifier(this,"Etnia", jTextFieldUsuarioDescEtnia));
         jTextFieldProcCod.setInputVerifier(new ProcedimentoVerifier(this, "Procedimento", jTextFieldProcDescricao));
-        jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca));
+        jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,jTextFieldProcCod));
         jTextFieldMes.setInputVerifier(new InputVerifier() {
 
             @Override
@@ -1154,6 +1162,29 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
              return true;
         }
 }
+    
+    private void initComboBoxs(){
+        //inicializar comboBox Cor
+        //seta no modelo Diversas o codigo referente a tabela Cor no banco
+        diversas.getDiversasPK().setCodigoTabela(Diversas.TABELA_COR_INDIVIDUO);
+        //realiza a busca no banco 
+        List<Diversas> list = diversasController.findAllEqual(diversas);
+        //cria um vetor de string para popular o combobox
+        String[] comboListCor = new String[list.size()];
+        //preenche o vetor de String com os valores retornados do banco
+        for (int i=0;i<list.size();i++) {
+            //concatena o codigo e a descriacao da Cor e atribui ao vetor de String
+            comboListCor[i] = list.get(i).getDiversasPK().getCodigoItemTabela()+" "+list.get(i).getDescricaoItemTabela();
+        }
+        //cria o modelo do combobox com as informações do banco
+        ComboBoxModel model = new DefaultComboBoxModel(comboListCor);
+        //seta o modelo no combobox Cor
+        jComboBoxUsuarioRacaCor.setModel(model);
+        
+        
+        
+        
+    }
     
     
 

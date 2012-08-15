@@ -19,7 +19,7 @@ public class ProcedimentoDoenca implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
-    protected ProcedimentoDoencaPK procedimentoCidPK;
+    protected ProcedimentoDoencaPK procedimentoDoencaPK;
     
     @Column(name = "PACID_AUX")
     private Character procedimentoAuxiliar;
@@ -28,12 +28,12 @@ public class ProcedimentoDoenca implements Serializable{
     public ProcedimentoDoenca() {
     }
 
-    public ProcedimentoDoenca(ProcedimentoDoencaPK procedimentoCidPK) {
-        this.procedimentoCidPK = procedimentoCidPK;
+    public ProcedimentoDoenca(ProcedimentoDoencaPK procedimentoDoencaPK) {
+        this.procedimentoDoencaPK = procedimentoDoencaPK;
     }
 
-    public ProcedimentoDoenca(ProcedimentoDoencaPK procedimentoCidPK, Character procedimentoAuxiliar) {
-        this.procedimentoCidPK = procedimentoCidPK;
+    public ProcedimentoDoenca(ProcedimentoDoencaPK procedimentoDoencaPK, Character procedimentoAuxiliar) {
+        this.procedimentoDoencaPK = procedimentoDoencaPK;
         this.procedimentoAuxiliar = procedimentoAuxiliar;
     }
 
@@ -45,12 +45,12 @@ public class ProcedimentoDoenca implements Serializable{
         this.procedimentoAuxiliar = procedimentoAuxiliar;
     }
 
-    public ProcedimentoDoencaPK getProcedimentoCidPK() {
-        return procedimentoCidPK;
+    public ProcedimentoDoencaPK getProcedimentoDoencaPK() {
+        return procedimentoDoencaPK;
     }
 
-    public void setProcedimentoCidPK(ProcedimentoDoencaPK procedimentoCidPK) {
-        this.procedimentoCidPK = procedimentoCidPK;
+    public void setProcedimentoCidPK(ProcedimentoDoencaPK procedimentoDoencaPK) {
+        this.procedimentoDoencaPK = procedimentoDoencaPK;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ProcedimentoDoenca implements Serializable{
             return false;
         }
         final ProcedimentoDoenca other = (ProcedimentoDoenca) obj;
-        if (this.procedimentoCidPK != other.procedimentoCidPK && (this.procedimentoCidPK == null || !this.procedimentoCidPK.equals(other.procedimentoCidPK))) {
+        if (this.procedimentoDoencaPK != other.procedimentoDoencaPK && (this.procedimentoDoencaPK == null || !this.procedimentoDoencaPK.equals(other.procedimentoDoencaPK))) {
             return false;
         }
         return true;
@@ -71,7 +71,7 @@ public class ProcedimentoDoenca implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + (this.procedimentoCidPK != null ? this.procedimentoCidPK.hashCode() : 0);
+        hash = 67 * hash + (this.procedimentoDoencaPK != null ? this.procedimentoDoencaPK.hashCode() : 0);
         return hash;
     }
 
@@ -79,7 +79,7 @@ public class ProcedimentoDoenca implements Serializable{
     
     @Override
     public String toString() {
-        return "br.gov.saudecaruaru.bpai.business.model.SPacid[ sPacidPK=" + procedimentoCidPK + " ]";
+        return "br.gov.saudecaruaru.bpai.business.model.SPacid[ sPacidPK=" + procedimentoDoencaPK + " ]";
     }
     
 }

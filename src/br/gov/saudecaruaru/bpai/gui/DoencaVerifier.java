@@ -6,7 +6,10 @@ package br.gov.saudecaruaru.bpai.gui;
 
 
 import br.gov.saudecaruaru.bpai.business.controller.DoencaController;
+import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoDoencaController;
 import br.gov.saudecaruaru.bpai.business.model.Doenca;
+import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoenca;
+import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoencaPK;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.InputVerifier;
@@ -23,16 +26,24 @@ public class DoencaVerifier extends InputVerifier{
     private String fieldName; 
     private Component component;
     private DoencaController doencaController;
+    private ProcedimentoDoenca procedimentoDoenca;
+    private ProcedimentoDoencaPK procedimentoDoencaPK;
+    private ProcedimentoDoencaController procedimentoDoencaController;
     private  Doenca  doenca;
     private JTextField doencaNome;
-    public DoencaVerifier(Component component,String fieldName,JTextField muniNome) {
+    private JTextField codProc;
+    public DoencaVerifier(Component component,String fieldName,JTextField doencaNome,JTextField codProc) {
         this.fieldName = fieldName;
         this.component = component;
-        this.doencaNome = muniNome;
+        this.doencaNome = doencaNome;
+        this.codProc = codProc;
         //instancia o controlador de  municipio
-         doencaController = new  DoencaController();
+         this.doencaController = new  DoencaController();
         //instancia o modelo  MunicipioPk
-         doenca= new   Doenca();       
+        this.doenca= new   Doenca();     
+        this.procedimentoDoencaPK = new ProcedimentoDoencaPK(); 
+        this.procedimentoDoenca = new ProcedimentoDoenca(procedimentoDoencaPK);
+        this.procedimentoDoencaController = new ProcedimentoDoencaController();
     }
     
     
@@ -48,7 +59,17 @@ public class DoencaVerifier extends InputVerifier{
       doencaSearchead = doencaController.findEqual(doenca);
                 //faz a busca pelo Codigo do municipio digitado, se nao encontra notifica ao usuário
                 if (doencaSearchead==null) {  
-                       JOptionPane.showMessageDialog(this.component,fieldName + " INCORRETO!", 
+                       JOptionPane.showMessageDialog(this.component,fieldName + " NÃO CADASTRADO!", 
+                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
+                txtField.setBackground(Color.RED);
+                    return false;
+                }else if(doencaSearchead.getSubcategoria()=='N'){
+                     JOptionPane.showMessageDialog(this.component,fieldName + " NÃO PERTENCA A UMA SUBCATEGORIA!", 
+                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
+                txtField.setBackground(Color.RED);
+                    return false;
+                }else if(!temProcedimentoEDoenca(valor, codProc.getText().substring(0, 9))){
+                     JOptionPane.showMessageDialog(this.component, " PROCED. INCOMPATIVEL COM CID!", 
                 "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
                 txtField.setBackground(Color.RED);
                     return false;
@@ -57,5 +78,19 @@ public class DoencaVerifier extends InputVerifier{
                   doencaNome.setText(doencaSearchead.getDescricao());
                 return true;
        }
+    
+    
+    
+    
+    private boolean temProcedimentoEDoenca(String CID,String codProc){
+        procedimentoDoenca.getProcedimentoDoencaPK().setProcedimentoCodigo(codProc);
+        procedimentoDoenca.getProcedimentoDoencaPK().setCodigoCid(CID);
+        
+        if(procedimentoDoencaController.findAllEqual(procedimentoDoenca).isEmpty()){
+            return false;
+        }
+        
+        return true;
+    }
     
 }
