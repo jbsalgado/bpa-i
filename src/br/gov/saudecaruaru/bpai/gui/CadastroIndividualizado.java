@@ -4,6 +4,9 @@
  */
 package br.gov.saudecaruaru.bpai.gui;
 
+import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
+import br.gov.saudecaruaru.bpai.business.model.Diversas;
+import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
 import java.awt.Color;
 import java.awt.Component;
 import java.text.ParseException;
@@ -32,7 +35,9 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
      private MaskFormatter mNumAutoriz=null; 
      private MaskFormatter mCNS=null; 
      
-     
+     private Diversas diversas;
+     private DiversasPK diversasPk;
+     private DiversasController diversasController;
      
      
     /**
@@ -46,6 +51,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
     }
     
     private void myInitComponents(){
+        
+        //inicializar comboBox
+        
+        jComboBoxUsuarioRacaCor.setModel(null);
         //desabilita alguns campos do usuario
         jTextFieldUsuarioNomeMunicip.setEnabled(false);
         jTextFieldUsuarioNomeNac.setEnabled(false);
@@ -70,7 +79,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jTextFieldUsuarioCodMunicip.setInputVerifier(new MunicipioVerifier(this,"Municipio",jTextFieldUsuarioNomeMunicip));
         jTextFieldUsuarioCodEtnia.setInputVerifier(new EtniaVerifier(this,"Etnia", jTextFieldUsuarioDescEtnia));
         jTextFieldProcCod.setInputVerifier(new ProcedimentoVerifier(this, "Procedimento", jTextFieldProcDescricao));
-        
+        jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca));
         jTextFieldMes.setInputVerifier(new InputVerifier() {
 
             @Override
