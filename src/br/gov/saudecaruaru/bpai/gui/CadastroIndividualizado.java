@@ -90,6 +90,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jTextFieldUsuarioCodEtnia.setInputVerifier(new EtniaVerifier(this,"Etnia", jTextFieldUsuarioDescEtnia));
         jTextFieldProcCod.setInputVerifier(new ProcedimentoVerifier(this, "Procedimento", jTextFieldProcDescricao,jTextFieldCBO));
         jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,jTextFieldProcCod));
+        jComboBoxProcCaraterAtend.setInputVerifier(new CaraterAtendVerifier(this,"Caráter de Atendimento"));
+        
         jTextFieldMes.setInputVerifier(new InputVerifier() {
 
             @Override
@@ -1185,9 +1187,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         
         
       
-         //inicializar comboBox Carater de Atendimento
-        //seta no modelo Diversas o codigo referente a tabela Cor no banco
-        
+        //inicializar comboBox Carater de Atendimento
         String[] comboListCaraterAtend ={CaraterAtendimento.SEM_INFORMACAO.desc(),CaraterAtendimento.ELETIVO.desc(),CaraterAtendimento.URGENCIA.desc(),CaraterAtendimento.ACIDENTE_LOCAL.desc(),
                                          CaraterAtendimento.ACIDENTE_EXTERNO.desc(),CaraterAtendimento.ACIDENTE_OUTROS.desc(),CaraterAtendimento.LESOES_OUTRAS.desc()};
         
