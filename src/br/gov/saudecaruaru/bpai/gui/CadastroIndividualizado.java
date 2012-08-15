@@ -92,13 +92,37 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,jTextFieldProcCod));
         jComboBoxProcCaraterAtend.setInputVerifier(new CaraterAtendVerifier(this,"Caráter de Atendimento"));
         
+        
+        jTextFieldFolha.setInputVerifier(new InputVerifier() {
+
+            @Override
+            public boolean verify(JComponent input) {
+                JTextField textField = (JTextField) input;
+                String valor = textField.getText();
+                //expressão regular para mês
+//                Pattern p = Pattern.compile("([0][0][0]^)");  
+//                Matcher m = p.matcher(valor.getText());  
+                if (valor.equals("000")) {  
+                      JOptionPane.showMessageDialog(CadastroIndividualizado.this," Folha Inválida!",   
+                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
+                //seta cor vermelha
+                textField.setBackground(Color.RED);  
+                return false;  
+                } 
+                //seta cor branca
+                textField.setBackground(Color.WHITE); 
+                return true;
+            }
+        });
+        
+        
         jTextFieldMes.setInputVerifier(new InputVerifier() {
 
             @Override
             public boolean verify(JComponent input) {
                 JTextField mes = (JTextField) input;
                 //expressão regular para mês
-                Pattern p = Pattern.compile("(0[1-9]|[1][0-2])");  
+                Pattern p = Pattern.compile("([0-9]|0[1-9]|[1][0-2])");  
                 Matcher m = p.matcher(mes.getText());  
                 if (!m.find()) {  
                       JOptionPane.showMessageDialog(CadastroIndividualizado.this," Mês Inválido!",   
