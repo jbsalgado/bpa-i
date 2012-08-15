@@ -10,6 +10,8 @@ import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.text.ParseException;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -64,6 +66,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
     private void myInitComponents(){
         
         initComboBoxs();
+        //adicionando listeners
+        jTextFieldFolha.addFocusListener(new TextFieldFolhaFocusListener());
         
         //desabilita alguns campos do usuario
         jTextFieldUsuarioNomeMunicip.setEnabled(false);
@@ -1219,11 +1223,28 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         ComboBoxModel modelCarater = new DefaultComboBoxModel(comboListCaraterAtend);
         //seta o modelo no combobox Cor
         jComboBoxProcCaraterAtend.setModel(modelCarater);
-        
-        
-        
-        
     }
+    
+    
+    class TextFieldFolhaFocusListener implements FocusListener {  
+        @Override
+                public void focusGained(FocusEvent e) {  
+                       
+                }  
+                  
+        @Override
+                public void focusLost(FocusEvent e) {  
+                        jTextFieldCnes.setEnabled(false);
+                        jTextFieldCnsProfiss.setEnabled(false);
+                        jTextFieldNomeProfiss.setEnabled(false);
+                        jTextFieldCBO.setEnabled(false);
+                        jTextFieldMes.setEnabled(false);
+                        jTextFieldAno.setEnabled(false);
+                        jTextFieldFolha.setEnabled(false);
+                        
+                      
+              }  
+        }  
     
     
 
