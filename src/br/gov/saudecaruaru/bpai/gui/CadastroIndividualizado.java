@@ -106,7 +106,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jTextFieldProcCod.setInputVerifier(new ProcedimentoVerifier(this, "Procedimento", jTextFieldProcDescricao,jTextFieldCBO));
         jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,jTextFieldProcCod));
         jComboBoxProcCaraterAtend.setInputVerifier(new CaraterAtendVerifier(this,"Caráter de Atendimento"));
-        
+        jTextFieldUsarioDatNasc.setInputVerifier(new DataVerifier(this, "Data de Nascimento"));
         
         jTextFieldFolha.setInputVerifier(new InputVerifier() {
 
