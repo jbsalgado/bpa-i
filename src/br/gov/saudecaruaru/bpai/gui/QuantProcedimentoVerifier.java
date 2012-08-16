@@ -61,17 +61,24 @@ public class QuantProcedimentoVerifier extends InputVerifier{
       JTextComponent txtField = (JTextField) input; 
       String valor = txtField.getText();
       double quant = Double.parseDouble(valor);
-      String codProc = textFieldProc.getText();
+      //pega os sete primeiros digitos (que representam o codigo do procedimento)
+      String codProc = textFieldProc.getText().substring(0,9);
+       //pega o oitavo digito (que representam o digito verificador)
+      Character digitoVerificador = textFieldProc.getText().charAt(9);
+    
+      procedimento.getProcedimentoPk().setId(codProc);
+      procedimento.setDigitoVerificador(digitoVerificador);
+      
       List<Procedimento> procedimentoSearchead = null;
      
-      procedimento.getProcedimentoPk().setId(codProc);
+     
       
       //faz a busca pelo Procedimento  digitado, se nao encontra notifica ao usuário
       procedimentoSearchead = procedimentoController.findAllEqual(this.procedimento);
                
                 if (!procedimentoSearchead.isEmpty()) {  
                     double quantMaxima = procedimentoSearchead.get(0).getQuantidadeMaximaExecucao();
-                    if(quant>procedimentoSearchead.get(0).getQuantidadeMaximaExecucao()){
+                    if(quant>quantMaxima){
                        JOptionPane.showMessageDialog(this.component," ERRO! QUANTIDADE MÁXIMA PERMITIDA "+quantMaxima, 
                 "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
                 txtField.setBackground(Color.RED);
