@@ -70,6 +70,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         
         //adicionando listeners
         jTextFieldFolha.addFocusListener(new TextFieldFolhaFocusListener());
+        jComboBoxUsuarioRacaCor.addFocusListener(new RacaCorFocusListener());
         
         //desabilita alguns campos do usuario
         jTextFieldUsuarioNomeMunicip.setEnabled(false);
@@ -84,6 +85,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         //inicializando campos 
         //inicializando nacionalidade: BRASIL
         jTextFieldUsuarioCodNac.setText(Diversas.CODIGO_NACIONALIDADE_BRASIL);
+        //desabilitando etnia
+        jTextFieldUsuarioCodEtnia.setEnabled(false);
         
         
         //atribui mascaras a campos de texto
@@ -1214,7 +1217,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         //preenche o vetor de String com os valores retornados do banco
         for (int i=0;i<list.size();i++) {
             //concatena o codigo e a descriacao da Cor e atribui ao vetor de String
-            comboListCor[i] = list.get(i).getDiversasPK().getCodigoItemTabela()+" "+list.get(i).getDescricaoItemTabela();
+            comboListCor[i] = list.get(i).getDiversasPK().getCodigoItemTabela()+list.get(i).getDescricaoItemTabela();
         }
         //cria o modelo do combobox com as informações do banco
         ComboBoxModel model = new DefaultComboBoxModel(comboListCor);
@@ -1249,6 +1252,32 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
                         jTextFieldMes.setEnabled(false);
                         jTextFieldAno.setEnabled(false);
                         jTextFieldFolha.setEnabled(false);
+                        
+                      
+              }  
+        }  
+    
+    
+      class RacaCorFocusListener implements FocusListener {  
+        @Override
+                public void focusGained(FocusEvent e) {  
+                       
+                }  
+                  
+        @Override
+                public void focusLost(FocusEvent e) {  
+                       JComboBox comboBoxRacaCor = (JComboBox) e.getComponent();
+                       
+                     
+                       //caso a cor/raca seja indigena habilita o campo etnia e faz ele ganhar o foco
+                       if(comboBoxRacaCor.getSelectedItem().toString().substring(0, 2).equals(Diversas.COD_RACA_COR_INDIGENA)){
+                           jTextFieldUsuarioCodEtnia.setEnabled(true);
+                           jTextFieldUsuarioCodEtnia.requestFocus();
+                           
+                       }else{
+                           jTextFieldUsuarioCodEtnia.setEnabled(false);
+                           
+                       }
                         
                       
               }  
