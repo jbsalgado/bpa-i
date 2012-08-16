@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
@@ -190,6 +191,19 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
         }
         return c.list();
     }
+    
+    @Override
+    public List<T> findAllLike(Map<String,Object> restrictions){
+        Session session = (Session) getEntityManager().getDelegate();
+        Criteria c=session.createCriteria(persistentClass);
+        for(String key: restrictions.keySet()){
+            if(key!=null){
+                c.add(Restrictions.like(key, restrictions.get(key).toString(), MatchMode.START));
+                        
+            }
+        }
+        return c.list();
+    }
 
 
     @Override
@@ -225,7 +239,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
     public T findEqual(Serializable object) {
       Session session = (Session) getEntityManager().getDelegate();
         Criteria c=session.createCriteria(persistentClass);   
-        Map<String, Object> restrictions=this.getRestrictions(object);
+        Map<String, Object> restrictions=ModelUtil.getRestrictions(object);
         for(String key: restrictions.keySet()){
             if(key!=null){
                 c.add(Restrictions.eq(key, restrictions.get(key)));

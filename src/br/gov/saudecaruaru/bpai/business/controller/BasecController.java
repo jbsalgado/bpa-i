@@ -45,6 +45,10 @@ public class BasecController < T extends Serializable>{
         return this.dao.findAllEqual(map);
     }
     
+    public List<T> findAllLike(Map<String, Object> map){
+        return this.dao.findAllLike(map);
+    }
+    
     public T findEqual(Serializable modelo){
         return (T) this.dao.findEqual(modelo);
     }
