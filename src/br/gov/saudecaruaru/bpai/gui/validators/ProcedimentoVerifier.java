@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.gui;
+package br.gov.saudecaruaru.bpai.gui.validators;
 
 
 import br.gov.saudecaruaru.bpai.business.controller.MunicipioController;
@@ -22,23 +22,24 @@ import javax.swing.text.JTextComponent;
  *
  * @author Junior Pires
  */
-public class QuantProcedimentoVerifier extends InputVerifier{
+public class ProcedimentoVerifier extends InputVerifier{
     private String fieldName; 
     private Component component;
     private ProcedimentoController procedimentoController;
     private  Procedimento procedimento;
     private ProcedimentoPK  procedimentoPk;
-    private JTextField textFieldProc;
+    private JTextField procNome;
+    private JTextField textFieldCbo;
     private ProcedimentoCbo procedimentoCbo;
     private ProcedimentoCboPK procedimentoCboPK;
     private ProcedimentoCboController procedimentoCboController;
     
     
-    public QuantProcedimentoVerifier(Component component,String fieldName,JTextField textFieldProc) {
+    public ProcedimentoVerifier(Component component,String fieldName,JTextField procNome,JTextField textFieldCbo) {
         this.fieldName = fieldName;
         this.component = component;
-       
-        this.textFieldProc = textFieldProc;
+        this.procNome = procNome;
+        this.textFieldCbo = textFieldCbo;
         //instancia o controlador de  municipio
          procedimentoController = new  ProcedimentoController();
         //instancia o modelo  MunicipioPk
@@ -59,36 +60,44 @@ public class QuantProcedimentoVerifier extends InputVerifier{
     @Override
     public boolean verify(JComponent input) {
       JTextComponent txtField = (JTextField) input; 
+      List<Procedimento> procedimentoSearchead = null;
       String valor = txtField.getText();
-      double quant = Double.parseDouble(valor);
-      //pega os sete primeiros digitos (que representam o codigo do procedimento)
-      String codProc = textFieldProc.getText().substring(0,9);
+       //pega os sete primeiros digitos (que representam o codigo do procedimento)
+      String codProc = valor.substring(0,9);
        //pega o oitavo digito (que representam o digito verificador)
-      Character digitoVerificador = textFieldProc.getText().charAt(9);
+      Character digitoVerificador = valor.charAt(9);
     
       procedimento.getProcedimentoPk().setId(codProc);
       procedimento.setDigitoVerificador(digitoVerificador);
       
-      List<Procedimento> procedimentoSearchead = null;
-     
-     
-      
       //faz a busca pelo Procedimento  digitado, se nao encontra notifica ao usuário
       procedimentoSearchead = procedimentoController.findAllEqual(this.procedimento);
                
-                if (!procedimentoSearchead.isEmpty()) {  
-                    double quantMaxima = procedimentoSearchead.get(0).getQuantidadeMaximaExecucao();
-                    if(quant>quantMaxima){
-                       JOptionPane.showMessageDialog(this.component," ERRO! QUANTIDADE MÁXIMA PERMITIDA "+quantMaxima, 
+                if (procedimentoSearchead.isEmpty()) {  
+                       JOptionPane.showMessageDialog(this.component,fieldName + " NÃO ENCONTRADO!", 
                 "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
                 txtField.setBackground(Color.RED);
                     return false;
-                    }
+                }else if(!temProcedimentoECbo(valor.substring(0, 9),this.textFieldCbo.getText())){
+                     JOptionPane.showMessageDialog(this.component, " PROCED. INCOMPATIVEL COM CBO!", 
+                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
+                txtField.setBackground(Color.RED);
+                    return false;
                 }
                   txtField.setBackground(Color.WHITE);
+                  procNome.setText(procedimentoSearchead.get(0).getDescricao());
                 return true;
        }
-        
-      
     
+    
+     private boolean temProcedimentoECbo(String codProc,String cbo){
+        procedimentoCbo.getProcedimentoCboPK().setProcedimentoCodigo(codProc);
+        procedimentoCbo.getProcedimentoCboPK().setCodigoCbo(cbo);
+        
+        if(procedimentoCboController.findAllEqual(procedimentoCbo).isEmpty()){
+            return false;
+        }
+        
+        return true;
+    }
 }
