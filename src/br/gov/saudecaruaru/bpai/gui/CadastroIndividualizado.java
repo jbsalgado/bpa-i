@@ -66,6 +66,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
     private void myInitComponents(){
         
         initComboBoxs();
+        
+        
         //adicionando listeners
         jTextFieldFolha.addFocusListener(new TextFieldFolhaFocusListener());
         
@@ -79,7 +81,13 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         //jTextFieldProcDescricaoProc.setText("ANALISE DE ALGUMA COISA");
         jTextFieldProcDescriDoenca.setEnabled(false);
         
+        //inicializando campos 
+        //inicializando nacionalidade: BRASIL
+        jTextFieldUsuarioCodNac.setText(Diversas.CODIGO_NACIONALIDADE_BRASIL);
+        
+        
         //atribui mascaras a campos de texto
+        
         //jTextFieldCBO =  new JFormattedTextField(getMCBO());
          
         //atribui validadores

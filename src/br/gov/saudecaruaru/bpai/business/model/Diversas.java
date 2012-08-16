@@ -21,6 +21,8 @@ public class Diversas implements Serializable {
     public static final String TABELA_COMPLEXIDADE_PROCEDIMENTO="45";
     public static final String TABELA_COR_INDIVIDUO="54";
     public static final String TABELA_ETNIA="58";
+    public static final String CODIGO_NACIONALIDADE_BRASIL="010";
+    
     
     private static final long serialVersionUID = 1L;
     @EmbeddedId
