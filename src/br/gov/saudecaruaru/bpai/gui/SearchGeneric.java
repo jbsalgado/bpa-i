@@ -11,20 +11,27 @@
 package br.gov.saudecaruaru.bpai.gui;
 
 import br.gov.saudecaruaru.bpai.business.controller.BasecController;
-import br.gov.saudecaruaru.bpai.business.model.Procedimento;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
-import java.io.Serializable;
+import br.gov.saudecaruaru.bpai.util.Search;
+import br.gov.saudecaruaru.bpai.util.SearchTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -32,15 +39,31 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SearchGeneric extends javax.swing.JDialog {
     
-    private Serializable model= new Procedimento();
+   
+    //campo que representa o identificador do objeto
     private String fieldId= "";
+    //campo que representa a descrição do objeto
     private String fieldDescription="";
+    //cabeçalho da tabela
     private String[] header=new String[]{"Código","Descrição"};
-    private String result="NOTHING";
     
+    //vai guardar o objeto Search selecionado
+    private Search selectedSearch=null; 
+    
+    //modelTable utlizado para popular a tabela
+    private SearchTableModel tableModel;
+    //restricçoes aplicadas a qualquer pesquisa
+    private Map<String, Object> restrictions;
+    //implementação do padrão singleton
     public static SearchGeneric instance=null;
-    
+    //controlador utilizado para realizar a pesquisa
     private BasecController basicController=null;
+    
+    //listener para escutar quando ESC for pressionada
+ 
+    
+    
+    
 
     /** Creates new form SearchGeneric */
     private SearchGeneric() {
@@ -48,8 +71,23 @@ public class SearchGeneric extends javax.swing.JDialog {
         this.initTable();
         this.initLookAndFeel();
         this.initTextFieldSearch();
+        this.initEventsForm();
     }
-
+    public void selectedModel(){
+        //pega o modelo selecionado
+        this.selectedSearch=this.tableModel.getSearch(this.tableLista.getSelectedRow());
+        //modelo existe
+        if(this.selectedSearch!=null){
+            //encerra a janela
+            this.dispose();
+        }
+        else{
+            //não existe nenhum modelo selecionado
+            JOptionPane.showMessageDialog(this, "Não existe linha selecionada na tabela!");
+        }
+    
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -65,9 +103,11 @@ public class SearchGeneric extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableLista = new javax.swing.JTable();
+        jtoolHint = new javax.swing.JToolBar();
+        jLblHint = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        setFont(new java.awt.Font("Tahoma", 0, 14));
         setForeground(java.awt.Color.white);
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -78,7 +118,7 @@ public class SearchGeneric extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel1.setText("Selecionar por:");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField1.setToolTipText("");
         jTextField1.setName("textFieldPesquisa"); // NOI18N
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -128,6 +168,14 @@ public class SearchGeneric extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tableLista);
         tableLista.getAccessibleContext().setAccessibleName("");
 
+        jtoolHint.setToolTipText("Testando");
+        jtoolHint.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLblHint.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblHint.setText("F2 - Selecionar Código / Duplo click no registro selecionado / ESC - Sair");
+        jLblHint.setToolTipText("");
+        jtoolHint.add(jLblHint);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,21 +183,22 @@ public class SearchGeneric extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 744, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
+                            .addComponent(jtoolHint, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE))
                         .addContainerGap())
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
-                            .addGap(182, 182, 182)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,9 +206,10 @@ public class SearchGeneric extends javax.swing.JDialog {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtoolHint, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -167,40 +217,16 @@ public class SearchGeneric extends javax.swing.JDialog {
 
     private void Pesquisar(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Pesquisar
 
-        System.out.println(evt.getKeyCode());
-        System.out.println(evt.getKeyChar());
     }//GEN-LAST:event_Pesquisar
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        //clicou em esc
-        if(evt.getKeyCode()==27){
-            //vai fechar a tela
-            this.result="";
-            this.dispose();
-            
-        }
-        //clicou em f2
-        else if(evt.getKeyCode()==113){
-            this.result=this.getValueItemSelected();
-            if(this.result!=null){
-                this.dispose();
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "Não existe linha selecionada na tabela!");
-            }
-        }
+
     }//GEN-LAST:event_formKeyPressed
 
     private void tableListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableListaMouseClicked
         
         if(evt.getClickCount()==2){
-            this.result=this.getValueItemSelected();
-            if(this.result!=null){
-                this.dispose();
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "Não existe linha selecionada na tabela!");
-            }
+            this.selectedModel();
         }
         
         
@@ -225,9 +251,36 @@ public class SearchGeneric extends javax.swing.JDialog {
             }
         });
     }
+
+    private void initEventsForm(){
+    
+        //pega o elemento root
+        JRootPane rootPane = this.getRootPane();
+        //pega o map que registra as entradas
+        InputMap iMap =	rootPane.getInputMap(	 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        
+        iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "escape");
+        iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), "f2");
+
+        ActionMap aMap = rootPane.getActionMap();
+        //quando clicar em esc vai sair
+        aMap.put("escape", new AbstractAction(){
+                            public void actionPerformed(ActionEvent e)
+                                {
+                                    dispose();
+                                }});
+ 	//});
+        //quando clicar em F2 vai chamar o método de seleção de registro
+        aMap.put("f2", new AbstractAction(){
+                            public void actionPerformed(ActionEvent e)
+                                {
+                                    SearchGeneric.this.selectedModel();
+                                }});
+    }
+ 
     private void initTable(){
-        this.tableLista.getColumnModel().getColumn(0).setPreferredWidth(150);
-        this.tableLista.getColumnModel().getColumn(1).setPreferredWidth(600);
+        this.tableLista.getColumnModel().getColumn(0).setPreferredWidth(110);
+        this.tableLista.getColumnModel().getColumn(1).setPreferredWidth(640);
         this.tableLista.setRowSelectionAllowed(true);
 	this.tableLista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
        //this.tableLista.getModel().
@@ -242,26 +295,47 @@ public class SearchGeneric extends javax.swing.JDialog {
         return SearchGeneric.instance;
     }
     
-    public String initModeSearch(BasecController controller,String fieldId,String FieldDescription, String labelFieldId,String labelFieldDescription){
+    public Search initModeSearch(BasecController controller,String fieldId,String FieldDescription, String labelFieldId,String labelFieldDescription){
+        this.restrictions= new HashMap<String,Object>();
+        //monta o cabeçalho da tabela
         this.header[0]=labelFieldId;
         this.header[1]=labelFieldDescription;
+        
+        //preenche o camboobs de seleção
         ComboBoxModel model=new DefaultComboBoxModel(new String[]{labelFieldDescription,labelFieldId});
         this.fieldDescription=FieldDescription;
         this.fieldId=fieldId;
-        this.basicController=controller;
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.jComboBox1.setModel(model);
-        this.tableLista.setModel(new DefaultTableModel(null,this.header));
+        
+        this.basicController=controller;
+        //cria um modelo de tabela 
+        this.tableModel=new SearchTableModel(labelFieldId, labelFieldDescription);
+        this.tableLista.setModel(this.tableModel);
+        //inicia algumas oncfigurações da tabela
         this.initTable();
+        
+        
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setModal(true);
         this.setVisible(true);
-        return this.result;
+        //quando terminar vai retornar o valor da seleção
+        return this.selectedSearch;
     }
     
-    private void updateTable(String[][] rows){
-        DefaultTableModel modelo = new DefaultTableModel(rows,this.header);
-	this.tableLista.setModel(modelo);
-        this.initTable();
+    public Search initModeSearch(BasecController controller,String fieldId,
+                                    String FieldDescription, String labelFieldId,
+                                        String labelFieldDescription, Map<String, Object> restrictions){
+        //vai iniciar restrições gerais na pesquisa seja ela qual for
+        this.restrictions=restrictions;
+        return this.initModeSearch(controller, fieldId, FieldDescription, labelFieldId, labelFieldDescription);
+    }
+    
+    private void updateTable(List<Search> rows){
+        this.tableModel.clean();
+	this.tableModel.addSearchAll(rows);
+        if(!rows.isEmpty()){
+            this.tableLista.setRowSelectionInterval(0, 0);
+        }
         
     }
     
@@ -269,9 +343,10 @@ public class SearchGeneric extends javax.swing.JDialog {
         return null;
     }
     
-    private String[][] search(){
+    private List<Search> search(){
         //cria um map para montar as restrições
         Map<String, Object> res= new HashMap<String, Object>();
+        res.putAll(this.restrictions);
         //faz a busca de acordo com o campo escolhido no cambobox
         if(this.jComboBox1.getSelectedItem().toString().equals(this.header[0])){
            res.put(this.fieldId, this.jTextField1.getText().toUpperCase());
@@ -281,66 +356,22 @@ public class SearchGeneric extends javax.swing.JDialog {
         }
         //faz a busca
         List l=this.basicController.findAllLike(res);
-        if(l==null);
-        //pega um map onde  a chave representa o chave primária do modelo e o value a uma descrição
-        Map<String,String> datas = ModelUtil.getMapSearch(l,this.fieldId,this.fieldDescription);
 
-        //cria a matriz de dados
-        String[][] rows= new String[datas.size()][this.header.length];
-        if(datas!=null){
-            int i=0;
-            for(String key: datas.keySet()){
-                rows[i][0]=key;
-                rows[i][1]=datas.get(key);
-                i++;
-            }
-        }
-        return rows;
-    }
-    private void initLookAndFeel(){
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        return ModelUtil.getListSearch(l, fieldId, fieldDescription);
         
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SearchGeneric.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SearchGeneric.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SearchGeneric.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SearchGeneric.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new SearchGeneric().setVisible(true);
-            }
-        });
+    }
+    
+    private void initLookAndFeel(){
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLblHint;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JToolBar jtoolHint;
     private javax.swing.JTable tableLista;
     // End of variables declaration//GEN-END:variables
 }
