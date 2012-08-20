@@ -9,6 +9,7 @@ import br.gov.saudecaruaru.bpai.business.controller.MunicipioController;
 import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoCboController;
 import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoController;
 import br.gov.saudecaruaru.bpai.business.model.*;
+import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.List;
@@ -58,7 +59,7 @@ public class QuantProcedimentoVerifier extends InputVerifier{
     
     @Override
     public boolean verify(JComponent input) {
-      JTextComponent txtField = (JTextField) input; 
+      JTextField txtField = (JTextField) input; 
       String valor = txtField.getText();
       double quant = Double.parseDouble(valor);
       //pega os sete primeiros digitos (que representam o codigo do procedimento)
@@ -79,10 +80,7 @@ public class QuantProcedimentoVerifier extends InputVerifier{
                 if (!procedimentoSearchead.isEmpty()) {  
                     double quantMaxima = procedimentoSearchead.get(0).getQuantidadeMaximaExecucao();
                     if(quant>quantMaxima){
-                       JOptionPane.showMessageDialog(this.component," ERRO! QUANTIDADE MÁXIMA PERMITIDA "+quantMaxima, 
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                txtField.setBackground(Color.RED);
-                    return false;
+                          return  MessagesErrors.exibeTelaContinuaErro(component,null," ERRO! QUANTIDADE MÁXIMA PERMITIDA "+quantMaxima, txtField);
                     }
                 }
                   txtField.setBackground(Color.WHITE);

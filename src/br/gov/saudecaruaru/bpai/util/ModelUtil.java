@@ -4,7 +4,9 @@
  */
 package br.gov.saudecaruaru.bpai.util;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,6 +77,22 @@ public class ModelUtil {
             }
         }
         return map;
+    }
+    
+    public static List<Search> getListSearch(List list,String fieldId,String fieldDescription){
+        List<Search> listSearch= new ArrayList<Search>();
+        if(!list.isEmpty()){
+            for(Object object: list){
+                if(object!=null){
+                    String str1=ModelUtil.getValueField(object, fieldId);
+                    String str2=ModelUtil.getValueField(object, fieldDescription);
+                    if(str1!=null && str2!=null){
+                        listSearch.add(new Search(str1, str2));
+                    }
+                }
+            }
+        }
+        return listSearch;
     }
     
     public static String getValueField(Object object,String field) {

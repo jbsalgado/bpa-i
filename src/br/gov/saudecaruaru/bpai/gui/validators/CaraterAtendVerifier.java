@@ -5,6 +5,7 @@
 package br.gov.saudecaruaru.bpai.gui.validators;
 
 import br.gov.saudecaruaru.bpai.business.model.CaraterAtendimento;
+import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import java.awt.Component;
 import javax.swing.*;
 
@@ -29,9 +30,7 @@ public class CaraterAtendVerifier extends InputVerifier{
         JComboBox comboBoxField = (JComboBox) input;
         String valor = comboBoxField.getSelectedItem().toString();
         if(valor.equals(CaraterAtendimento.SEM_INFORMACAO.desc())){
-             JOptionPane.showMessageDialog(this.component,fieldName + " INVÁLIDO!", 
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE);
-             return false;
+             return  MessagesErrors.exibeTelaContinuaErro(component, fieldName,"INVÁLIDO!");
         }
         return true;
     }

@@ -21,6 +21,19 @@ import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
 import br.gov.saudecaruaru.bpai.business.model.CaraterAtendimento;
 import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
+import br.gov.saudecaruaru.bpai.gui.validators.CBOVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.CaraterAtendVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.CnsVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.DataAtendimentoVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.DataVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.DoencaVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.EtniaVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.MunicipioVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.NacionalidadeVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.OnlyLettersVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.OnlyNumbers;
+import br.gov.saudecaruaru.bpai.gui.validators.ProcedimentoVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.QuantProcedimentoVerifier;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
@@ -56,12 +69,19 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
      private DiversasPK diversasPk;
      private DiversasController diversasController;
      
+ 
+     
     
      
     /**
      * Creates new form CadastroIndividualizado
      */
     public CadastroIndividualizado() {
+        //inicializa as opcoes do JOptionPane
+        UIManager.put("OptionPane.yesButtonText", "Sim");     
+        UIManager.put("OptionPane.noButtonText", "Não");   
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar");
+        
         initComponents();
         diversasController = new DiversasController();
         //instancia o modelo DiversasPk

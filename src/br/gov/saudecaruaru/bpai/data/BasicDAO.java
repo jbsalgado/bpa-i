@@ -40,4 +40,6 @@ public interface BasicDAO<T extends Serializable> {
     public List<T> findAllEqual(Map<String,Object> restrictions);
     
     public List<T> findAllEqual(Serializable objeto);
+    
+     public List<T> findAllLike(Map<String,Object> restrictions);
 }
