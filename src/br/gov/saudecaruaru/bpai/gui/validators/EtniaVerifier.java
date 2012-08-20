@@ -7,6 +7,7 @@ package br.gov.saudecaruaru.bpai.gui.validators;
 import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
 import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
+import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.InputVerifier;
@@ -44,7 +45,7 @@ public class EtniaVerifier extends InputVerifier{
     
     @Override
     public boolean verify(JComponent input) {
-       JTextComponent txtField = (JTextField) input; 
+       JTextField txtField = (JTextField) input; 
       String valor = txtField.getText();
        //objeto procurado
        Diversas diversasNacioSearchead = null;
@@ -55,10 +56,7 @@ public class EtniaVerifier extends InputVerifier{
       diversasNacioSearchead = diversasController.findEqual(diversas);
                 
                 if (diversasNacioSearchead==null) {  
-                       JOptionPane.showMessageDialog(this.component,fieldName + " INCORRETO!", 
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                txtField.setBackground(Color.RED);
-                    return false;
+                    return  MessagesErrors.exibeTelaContinuaErro(component, fieldName,"INCORRETO!", txtField);
                 }
                   txtField.setBackground(Color.WHITE);
                    nacioNome.setText(diversasNacioSearchead.getDescricaoItemTabela());
