@@ -55,7 +55,7 @@ public class EtniaVerifier extends InputVerifier{
       diversasNacioSearchead = diversasController.findEqual(diversas);
                 
                 if (diversasNacioSearchead==null) {  
-                       JOptionPane.showMessageDialog(this.component,fieldName + " INCORRETO!", 
+                       JOptionPane.showConfirmDialog(this.component,fieldName + " INCORRETO!"+"\n CONTINUA (C/ ERRO)", 
                 "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
                 txtField.setBackground(Color.RED);
                     return false;

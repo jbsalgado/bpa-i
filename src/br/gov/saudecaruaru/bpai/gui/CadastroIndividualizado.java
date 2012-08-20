@@ -4,6 +4,19 @@
  */
 package br.gov.saudecaruaru.bpai.gui;
 
+import br.gov.saudecaruaru.bpai.gui.validators.OnlyNumbers;
+import br.gov.saudecaruaru.bpai.gui.validators.DoencaVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.CnsVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.QuantProcedimentoVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.EtniaVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.DataAtendimentoVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.ProcedimentoVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.CBOVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.NacionalidadeVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.CaraterAtendVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.OnlyLettersVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.MunicipioVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.DataVerifier;
 import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
 import br.gov.saudecaruaru.bpai.business.model.CaraterAtendimento;
 import br.gov.saudecaruaru.bpai.business.model.Diversas;
@@ -103,7 +116,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         jTextFieldUsuarioCodNac.setInputVerifier(new NacionalidadeVerifier(this, "Nacionalidade",jTextFieldUsuarioNomeNac));
         jTextFieldUsuarioCodMunicip.setInputVerifier(new MunicipioVerifier(this,"Municipio",jTextFieldUsuarioNomeMunicip));
         jTextFieldUsuarioCodEtnia.setInputVerifier(new EtniaVerifier(this,"Etnia", jTextFieldUsuarioDescEtnia));
-        jTextFieldProcCod.setInputVerifier(new ProcedimentoVerifier(this, "Procedimento", jTextFieldProcDescricao,jTextFieldCBO));
+        jTextFieldProcCod.setInputVerifier(new ProcedimentoVerifier(this, "Procedimento", jTextFieldProcDescricao,jTextFieldCBO,jTextFieldUsuarioSexo));
         jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,jTextFieldProcCod));
         jComboBoxProcCaraterAtend.setInputVerifier(new CaraterAtendVerifier(this,"Caráter de Atendimento"));
         jTextFieldUsarioDatNasc.setInputVerifier(new DataVerifier(this, "Data de Nascimento"));
