@@ -45,6 +45,11 @@ public class BPAI {
         Diversas d = new Diversas();
         d.setDiversasPK(new DiversasPK());
         d.getDiversasPK().setCodigoTabela(Diversas.TABELA_PROFISSAO);
+        
+        BIProcedimentoRealizadoDAO test= new BIProcedimentoRealizadoDAO();
+        HashMap<String,Object> res= new HashMap<String, Object>();
+        
+        res.put("procedimentoPk.competencia", "201206");
         //d.setCdnDscr("Fisioterapeuta geral");
         //HashMap<String, Object> rest=new HashMap<String, Object>();
          ///rest.put("sCdnPK.cdnIt", "223605");
@@ -59,7 +64,7 @@ public class BPAI {
 // 
 //        System.out.println(l.size());
         System.out.println(SearchGeneric.getInstance().initModeSearch(new ProcedimentoController(),
-                                            "procedimentoPk.id", "descricao","Id","Nome"));
+                                            "procedimentoPk.id", "descricao","Id","Nome",res));
         
     }
 }
