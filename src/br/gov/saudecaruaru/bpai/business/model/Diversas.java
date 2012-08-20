@@ -22,6 +22,8 @@ public class Diversas implements Serializable {
     public static final String TABELA_COR_INDIVIDUO="54";
     public static final String TABELA_ETNIA="58";
     public static final String CODIGO_NACIONALIDADE_BRASIL="010";
+    public static final String COD_RACA_COR_INDIGENA="05";
+    
     
     
     private static final long serialVersionUID = 1L;

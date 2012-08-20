@@ -10,13 +10,13 @@ package br.gov.saudecaruaru.bpai.data;
 
 
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -225,7 +225,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
     public T findEqual(Serializable object) {
       Session session = (Session) getEntityManager().getDelegate();
         Criteria c=session.createCriteria(persistentClass);   
-        Map<String, Object> restrictions=this.getRestrictions(object);
+        Map<String, Object> restrictions=ModelUtil.getRestrictions(object);
         for(String key: restrictions.keySet()){
             if(key!=null){
                 c.add(Restrictions.eq(key, restrictions.get(key)));
