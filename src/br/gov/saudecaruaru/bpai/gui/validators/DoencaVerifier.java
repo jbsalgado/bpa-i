@@ -59,9 +59,18 @@ public class DoencaVerifier extends InputVerifier{
       
     
       doencaSearchead = doencaController.findEqual(doenca);
-                if(procedimentoDoencaController.exigeCid(codigoProc)){
+             String valor2 = txtField.getText().trim();
+             if(valor2.isEmpty()){
+                  if(!procedimentoDoencaController.exigeCid(codigoProc)){
                     return true;
+                }else {
+                        JOptionPane.showMessageDialog(this.component," PROCED. EXIGE CID!", 
+                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
+                txtField.setBackground(Color.RED);
+                    return false;
                 }
+             }
+               
                 //faz a busca pelo Codigo do municipio digitado, se nao encontra notifica ao usuário
                 if (doencaSearchead==null) {  
                          return  MessagesErrors.exibeTelaContinuaErro(component,fieldName, " NÃO CADASTRADO!", txtField);

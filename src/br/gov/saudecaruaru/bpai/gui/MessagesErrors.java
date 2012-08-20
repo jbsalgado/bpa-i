@@ -14,8 +14,8 @@ import javax.swing.JTextField;
  * @author Junior Pires
  */
 public class MessagesErrors {
-    private static int OPCAO_SIM = 1;
-    private static int OPCAO_NAO = 2;
+    private static int OPCAO_SIM = 0;
+    private static int OPCAO_NAO = 1;
     public static boolean exibeTelaContinuaErro(Component component,String fieldName,String msg,JTextField txtField){
           if(JOptionPane.showOptionDialog(component, fieldName+" "+msg+"\n CONTINUA (C/ ERRO)","Erro de validação!",
                                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, null, null)==OPCAO_NAO){
