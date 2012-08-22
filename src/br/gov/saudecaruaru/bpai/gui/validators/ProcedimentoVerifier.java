@@ -7,12 +7,10 @@ package br.gov.saudecaruaru.bpai.gui.validators;
 
 import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoCboController;
 import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoController;
-import br.gov.saudecaruaru.bpai.business.model.Procedimento;
-import br.gov.saudecaruaru.bpai.business.model.ProcedimentoCbo;
-import br.gov.saudecaruaru.bpai.business.model.ProcedimentoCboPK;
-import br.gov.saudecaruaru.bpai.business.model.ProcedimentoPK;
+import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
+import br.gov.saudecaruaru.bpai.util.DateUtil;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.List;
@@ -66,7 +64,7 @@ public class ProcedimentoVerifier extends InputVerifier{
     @Override
     public boolean verify(JComponent input) {
       JTextField txtField = (JTextField) input; 
-      List<Procedimento> procedimentoSearchead = null;
+      List<Procedimento> procedimentosSearchead = null;
       String valor = txtField.getText();
        //pega os sete primeiros digitos (que representam o codigo do procedimento)
       String codProc = valor.substring(0,9);
@@ -77,23 +75,36 @@ public class ProcedimentoVerifier extends InputVerifier{
       procedimento.setDigitoVerificador(digitoVerificador);
       
       //faz a busca pelo Procedimento  digitado, se nao encontra notifica ao usuário
-      procedimentoSearchead = procedimentoController.findAllEqual(this.procedimento);
+      procedimentosSearchead = procedimentoController.findAllEqual(this.procedimento);
                 //verifica se o procedimento existe
-                if (procedimentoSearchead.isEmpty()) {  
+                if (procedimentosSearchead.isEmpty()) {  
                     return  MessagesErrors.exibeTelaContinuaErro(component, fieldName,"NÃO ENCONTRADO!", txtField);
                  // verifica se o procedimento é compativel com o CBO
-                }else if(!temProcedimentoECbo(valor.substring(0, 9),this.t.getProcedimentoRealizado().getProcedimentoRealizadoPK().getCboMedico())){
-                      return  MessagesErrors.exibeTelaContinuaErro(component,null,"PROCED. INCOMPATIVEL COM CBO!", txtField);
-                    //verifica se o procedimento exige sexo
-                }else if(procedimentoSearchead.get(0).exigeSexo()){
-                    String sexo =t.getProcedimentoRealizado().getSexoPaciente();
-                    //verifica se o sexo digitado é compativel com o exigido
-                    if(!procedimentoSearchead.get(0).getSexo().toString().equals(sexo)){
-                         return  MessagesErrors.exibeTelaContinuaErro(component,null,"PROCED. INCOMPATIVEL COM O SEXO!", txtField);
-                    }
-                }
+                }else {
+                        Procedimento pro = procedimentosSearchead.get(0);
+                        ProcedimentoRealizado proRealizado = t.getProcedimentoRealizado(); 
+                        int idadeMaxima = procedimentosSearchead.get(0).getIdadeMaximaPaciente();
+                        int idadeMinima = procedimentosSearchead.get(0).getIdadeMinimaPaciente();
+                        int idadePaciente = DateUtil.getAge(proRealizado.getDataNascimentoPaciente(),proRealizado.getProcedimentoRealizadoPK().getDataAtendimento());
+                    
+                    
+                    
+                        if(!temProcedimentoECbo(valor.substring(0, 9),proRealizado.getProcedimentoRealizadoPK().getCboMedico())){
+                            return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM CBO!", txtField);
+                            //verifica se o procedimento exige sexo
+                        }else if(pro.exigeSexo()){
+                            String sexo =proRealizado.getSexoPaciente();
+                            //verifica se o sexo digitado é compativel com o exigido
+                        if(!pro.getSexo().toString().equals(sexo)){
+                                return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM O SEXO!", txtField);
+                        }
+
+                        }else  if(idadePaciente<idadeMinima || idadePaciente>idadeMaxima){
+                                return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM A IDADE!"+"\n IDADE MÍNIMA: "+idadeMinima+"\n IDADE MÁXIMA: "+idadeMaxima, txtField);
+                            }
+                  }
                   txtField.setBackground(Color.WHITE);
-                  procNome.setText(procedimentoSearchead.get(0).getDescricao());
+                  procNome.setText(procedimentosSearchead.get(0).getDescricao());
                 return true;
        }
     

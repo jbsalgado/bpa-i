@@ -4,9 +4,14 @@
  */
 package br.gov.saudecaruaru.bpai.util;
 
+import br.gov.saudecaruaru.bpai.gui.validators.DataAtendimentoVerifier;
+import java.awt.Color;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,13 +19,17 @@ import java.util.GregorianCalendar;
  */
 public class DateUtil {
     
-    public static int getAge(Date dataNasc){
+    public static int getAge(Date dataNasc,Date data){
         
         Calendar dateOfBirth = new GregorianCalendar();
+        Calendar today = new GregorianCalendar();
+       
         dateOfBirth.setTime(dataNasc);
         
+        today.setTime(data);
+        
         // Cria um objeto calendar com a data atual
-        Calendar today = Calendar.getInstance();
+       
         
         // Obtém a idade baseado no ano
         int age = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
@@ -33,4 +42,22 @@ public class DateUtil {
         }
         return age;
     }
+    
+     public static int getAge(String dataNasc,String data){
+          SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+          Date dateNasc;
+          Date date;
+      
+      try{
+            format.setLenient(false);
+            
+            dateNasc = format.parse(dataNasc);
+            date = format.parse(data);
+            return getAge(dateNasc,date);
+       }catch(ParseException e){
+        e.printStackTrace();
+        return 0;
+       }
+        
+     }
 }
