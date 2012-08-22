@@ -61,30 +61,45 @@ public class QuantProcedimentoVerifier extends InputVerifier{
     @Override
     public boolean verify(JComponent input) {
       JTextField txtField = (JTextField) input; 
-      String valor = txtField.getText();
-      double quant = Double.parseDouble(valor);
-      String proc = t.getProcedimentoRealizado().getProcedimentoRealizadoPK().getCodigoProcedimento();
-      //pega os sete primeiros digitos (que representam o codigo do procedimento)
-      String codProc = proc.substring(0,9);
-       //pega o oitavo digito (que representam o digito verificador)
-      Character digitoVerificador = proc.charAt(9);
-    
-      procedimento.getProcedimentoPk().setId(codProc);
-      procedimento.setDigitoVerificador(digitoVerificador);
-      
       List<Procedimento> procedimentoSearchead = null;
+      String valor = txtField.getText().trim();
+     
+      
+      
+      
      
      
       
       //faz a busca pelo Procedimento  digitado, se nao encontra notifica ao usuário
-      procedimentoSearchead = procedimentoController.findAllEqual(this.procedimento);
-               
-                if (!procedimentoSearchead.isEmpty()) {  
+     
+               if (valor.isEmpty()) {  
+                  txtField.setText("0"); 
+                  return  MessagesErrors.exibeTelaContinuaErro(component,""," ERRO! QUANTIDADE ZERADA! ", txtField);
+                    
+                }else{
+                    String proc = t.getProcedimentoRealizado().getProcedimentoRealizadoPK().getCodigoProcedimento();
+                     //pega os sete primeiros digitos (que representam o codigo do procedimento)
+                    String codProc = proc.substring(0,9);
+                    //pega o oitavo digito (que representam o digito verificador)
+                    Character digitoVerificador = proc.charAt(9);
+
+                    procedimento.getProcedimentoPk().setId(codProc);
+                    procedimento.setDigitoVerificador(digitoVerificador);
+                    
+                    procedimentoSearchead = procedimentoController.findAllEqual(this.procedimento);
+                    
+                    if (!procedimentoSearchead.isEmpty()) {  
+                        
+                    
+                    
+                    
+                    double quant = Double.parseDouble(valor);
                     double quantMaxima = procedimentoSearchead.get(0).getQuantidadeMaximaExecucao();
                     if(quant>quantMaxima){
-                          return  MessagesErrors.exibeTelaContinuaErro(component,null," ERRO! QUANTIDADE MÁXIMA PERMITIDA "+quantMaxima, txtField);
+                          return  MessagesErrors.exibeTelaContinuaErro(component,""," ERRO! QUANTIDADE MÁXIMA PERMITIDA "+quantMaxima, txtField);
                     }
                 }
+             }
                   txtField.setBackground(Color.WHITE);
                 return true;
        }
