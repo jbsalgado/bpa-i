@@ -17,7 +17,7 @@ public class BasecController < T extends Serializable>{
     
     private GenericDAO dao=null;
     
-    public BasecController(GenericDAO dao){
+    public BasecController(GenericDAO<T> dao){
         this.dao=dao;
     }
     
