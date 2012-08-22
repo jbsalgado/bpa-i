@@ -101,6 +101,7 @@ public class ProcedimentoRealizado implements Serializable {
     private String prdAdvqt;
 
     public ProcedimentoRealizado() {
+        this.procedimentoRealizadoPK = new ProcedimentoRealizadoPK();
     }
 
     public ProcedimentoRealizado(ProcedimentoRealizadoPK procedimentoRealizadoPK) {
