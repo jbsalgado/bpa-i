@@ -5,9 +5,7 @@
 package br.gov.saudecaruaru.bpai.business.controller;
 
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
-import br.gov.saudecaruaru.bpai.data.GenericDAO;
-import br.gov.saudecaruaru.bpai.data.ProcedimentoDAO;
-import java.io.Serializable;
+import br.gov.saudecaruaru.bpai.data.ProcedimentoRealizadoDAO;
 
 /**
  *
@@ -16,7 +14,7 @@ import java.io.Serializable;
 public class ProcedimentoRealizadoController extends BasecController<ProcedimentoRealizado> {
 
     public ProcedimentoRealizadoController() {
-        super(new ProcedimentoDAO());
+        super(new ProcedimentoRealizadoDAO());
     }
     
 }
