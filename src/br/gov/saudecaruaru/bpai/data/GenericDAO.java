@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
@@ -228,7 +227,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
         if (getEntityManager().isOpen()) {
             getEntityManager().close();
         }
-        shutdown();
+        //shutdown();
     }
 
     private void shutdown() {
