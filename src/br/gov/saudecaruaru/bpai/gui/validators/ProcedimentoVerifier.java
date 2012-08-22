@@ -12,6 +12,7 @@ import br.gov.saudecaruaru.bpai.business.model.ProcedimentoCbo;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoCboPK;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoPK;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
+import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.List;
@@ -32,20 +33,19 @@ public class ProcedimentoVerifier extends InputVerifier{
     private  Procedimento procedimento;
     private ProcedimentoPK  procedimentoPk;
     private JTextField procNome;
-    private JTextField textFieldCbo;
-    private JTextField textFielSexo;
+    private TelaCadastroI t;
+   
     
     private ProcedimentoCbo procedimentoCbo;
     private ProcedimentoCboPK procedimentoCboPK;
     private ProcedimentoCboController procedimentoCboController;
     
     
-    public ProcedimentoVerifier(Component component,String fieldName,JTextField procNome,JTextField textFieldCbo,JTextField textFielSexo) {
+    public ProcedimentoVerifier(Component component,String fieldName,JTextField procNome,TelaCadastroI t) {
         this.fieldName = fieldName;
         this.component = component;
         this.procNome = procNome;
-        this.textFieldCbo = textFieldCbo;
-        this.textFielSexo = textFielSexo;
+        this.t = t;
         //instancia o controlador de  municipio
          procedimentoController = new  ProcedimentoController();
         //instancia o modelo  MunicipioPk
@@ -82,11 +82,11 @@ public class ProcedimentoVerifier extends InputVerifier{
                 if (procedimentoSearchead.isEmpty()) {  
                     return  MessagesErrors.exibeTelaContinuaErro(component, fieldName,"NÃO ENCONTRADO!", txtField);
                  // verifica se o procedimento é compativel com o CBO
-                }else if(!temProcedimentoECbo(valor.substring(0, 9),this.textFieldCbo.getText())){
+                }else if(!temProcedimentoECbo(valor.substring(0, 9),this.t.getProcedimentoRealizado().getProcedimentoRealizadoPK().getCboMedico())){
                       return  MessagesErrors.exibeTelaContinuaErro(component,null,"PROCED. INCOMPATIVEL COM CBO!", txtField);
                     //verifica se o procedimento exige sexo
                 }else if(procedimentoSearchead.get(0).exigeSexo()){
-                    String sexo = textFielSexo.getText();
+                    String sexo =t.getProcedimentoRealizado().getSexoPaciente();
                     //verifica se o sexo digitado é compativel com o exigido
                     if(!procedimentoSearchead.get(0).getSexo().toString().equals(sexo)){
                          return  MessagesErrors.exibeTelaContinuaErro(component,null,"PROCED. INCOMPATIVEL COM O SEXO!", txtField);

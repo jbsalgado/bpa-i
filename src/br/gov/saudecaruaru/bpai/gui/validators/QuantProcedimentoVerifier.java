@@ -30,7 +30,7 @@ public class QuantProcedimentoVerifier extends InputVerifier{
     private ProcedimentoController procedimentoController;
     private  Procedimento procedimento;
     private ProcedimentoPK  procedimentoPk;
-    private JTextField textFieldProc;
+    private TelaCadastroI t;
     private ProcedimentoCbo procedimentoCbo;
     private ProcedimentoCboPK procedimentoCboPK;
     private ProcedimentoCboController procedimentoCboController;
@@ -39,8 +39,8 @@ public class QuantProcedimentoVerifier extends InputVerifier{
     public QuantProcedimentoVerifier(Component component,String fieldName,TelaCadastroI t) {
         this.fieldName = fieldName;
         this.component = component;
+        this.t = t;
        
-        this.textFieldProc = textFieldProc;
         //instancia o controlador de  municipio
          procedimentoController = new  ProcedimentoController();
         //instancia o modelo  MunicipioPk
@@ -63,10 +63,11 @@ public class QuantProcedimentoVerifier extends InputVerifier{
       JTextField txtField = (JTextField) input; 
       String valor = txtField.getText();
       double quant = Double.parseDouble(valor);
+      String proc = t.getProcedimentoRealizado().getProcedimentoRealizadoPK().getCodigoProcedimento();
       //pega os sete primeiros digitos (que representam o codigo do procedimento)
-      String codProc = textFieldProc.getText().substring(0,9);
+      String codProc = proc.substring(0,9);
        //pega o oitavo digito (que representam o digito verificador)
-      Character digitoVerificador = textFieldProc.getText().charAt(9);
+      Character digitoVerificador = proc.charAt(9);
     
       procedimento.getProcedimentoPk().setId(codProc);
       procedimento.setDigitoVerificador(digitoVerificador);
