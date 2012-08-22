@@ -296,6 +296,8 @@ public class SearchGeneric extends javax.swing.JDialog {
     }
     
     public Search initModeSearch(BasecController controller,String fieldId,String FieldDescription, String labelFieldId,String labelFieldDescription){
+        this.selectedSearch=null;
+        this.jTextField1.setText(null);
         this.restrictions= new HashMap<String,Object>();
         //monta o cabeçalho da tabela
         this.header[0]=labelFieldId;
