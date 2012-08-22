@@ -392,6 +392,19 @@ public class BIProcedimentoRealizado implements Serializable{
         return p;
     }
 
+    public void setPaciente(Paciente paciente){
+        
+        this.cnsPaciente=paciente.getCns();
+        this.codigoIBGECidadePaciente=paciente.getCodigoIbgeCidade();
+        this.dataNascimentoPaciente=paciente.getDataNascimento();
+        this.etniaPaciente=paciente.getEtnia();
+        this.nacionalidadePaciente=paciente.getNacionalidade();
+        this.nomePaciente=paciente.getNome();
+        this.racaPaciente=paciente.getRaca();
+        this.sexoPaciente=paciente.getSexo().toString();
+        
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
