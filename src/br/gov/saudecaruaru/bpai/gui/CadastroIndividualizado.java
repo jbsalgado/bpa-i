@@ -18,23 +18,13 @@ import br.gov.saudecaruaru.bpai.gui.validators.OnlyLettersVerifier;
 import br.gov.saudecaruaru.bpai.gui.validators.MunicipioVerifier;
 import br.gov.saudecaruaru.bpai.gui.validators.DataVerifier;
 import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
+import br.gov.saudecaruaru.bpai.business.controller.GestorCompetenciaController;
 import br.gov.saudecaruaru.bpai.business.model.CaraterAtendimento;
 import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
+import br.gov.saudecaruaru.bpai.business.model.GestorCompetencia;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
-import br.gov.saudecaruaru.bpai.gui.validators.CBOVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.CaraterAtendVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.CnsVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.DataAtendimentoVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.DataVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.DoencaVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.EtniaVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.MunicipioVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.NacionalidadeVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.OnlyLettersVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.OnlyNumbers;
-import br.gov.saudecaruaru.bpai.gui.validators.ProcedimentoVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.QuantProcedimentoVerifier;
+import br.gov.saudecaruaru.bpai.gui.validators.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
@@ -71,6 +61,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
      private DiversasController diversasController;
      
      private ProcedimentoRealizado procedimentoRealizado;
+     private GestorCompetenciaController gestorCompetenciaController;
    
     
      
@@ -92,7 +83,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         //instancia o modelo usado para o cadastro
         this.procedimentoRealizado = new ProcedimentoRealizado();
          
-         
+        gestorCompetenciaController = new GestorCompetenciaController(); 
         diversasController = new DiversasController();
         //instancia o modelo DiversasPk
         diversas = new  Diversas();
@@ -128,6 +119,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         jTextFieldProcDescriDoenca.setEnabled(false);
         
         //inicializando campos 
+        //inicializando competencia
+        String competencia = gestorCompetenciaController.getCompetenciaAtual();
+        jTextFieldMes.setText(competencia.substring(4));
+        jTextFieldAno.setText(competencia.substring(0, 4));
         //inicializando nacionalidade: BRASIL
         jTextFieldUsuarioCodNac.setText(Diversas.CODIGO_NACIONALIDADE_BRASIL);
         //desabilitando etnia
@@ -154,17 +149,17 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         jTextFieldUsarioDatNasc.setInputVerifier(new DataVerifier(this, "Data de Nascimento"));
         jTextFieldProcQuant.setInputVerifier(new QuantProcedimentoVerifier(this, "Quantidade",this));
         jTextFieldProcDataAtend.setInputVerifier(new DataAtendimentoVerifier(this, "Data Atendimento",this));
-        
+        jTextFieldAno.setInputVerifier(new CompetenciaVerifier(this,"Ano", jTextFieldMes));
         jTextFieldFolha.setInputVerifier(new InputVerifier() {
 
             @Override
             public boolean verify(JComponent input) {
                 JTextField textField = (JTextField) input;
-                String valor = textField.getText();
+                String valor = textField.getText().trim();
                 //expressão regular para mês
 //                Pattern p = Pattern.compile("([0][0][0]^)");  
 //                Matcher m = p.matcher(valor.getText());  
-                if (valor.equals("000")) {  
+                if (valor.equals("000") || valor.isEmpty()) {  
                       JOptionPane.showMessageDialog(CadastroIndividualizado.this," Folha Inválida!",   
                 "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
                 //seta cor vermelha
@@ -1560,7 +1555,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
             @Override
             public void focusLost(FocusEvent e) {
-               
+            
                procedimentoRealizado.setQuantidadeRealizada(Double.valueOf(((JTextField)e.getComponent()).getText()));
             }
         });
