@@ -83,6 +83,7 @@ public class SearchTableModel extends  AbstractTableModel{
                     break;
             case 1:
                     model.setDescription(aValue.toString());
+                    break;
             default:
                     ;
         }

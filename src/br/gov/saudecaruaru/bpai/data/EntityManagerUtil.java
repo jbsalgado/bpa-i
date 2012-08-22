@@ -15,8 +15,13 @@ import javax.persistence.Persistence;
 public class EntityManagerUtil {
     
     public static final String ENTITY_MANAGER_BPA_IPU="bpa";
-     private static EntityManagerFactory emf;
+    
+    public static final String ENTITY_MANAGER_BPA_I="bpa-i";
 
+    private static EntityManagerFactory emf;
+
+    private static EntityManagerFactory emfI;
+    
          public static EntityManager getEntityManager() {
 
              if (emf == null){
@@ -28,5 +33,16 @@ public class EntityManagerUtil {
                  return emf.createEntityManager();
 
          }
+         
+         public static EntityManager getEntityManagerI() {
 
+             if (emfI == null){
+
+                          emfI = Persistence.createEntityManagerFactory(EntityManagerUtil.ENTITY_MANAGER_BPA_I);
+
+                 }
+
+                 return emfI.createEntityManager();
+
+         }
 }

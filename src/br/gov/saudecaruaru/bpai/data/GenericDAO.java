@@ -26,12 +26,17 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
     
     
 
-    @PersistenceContext(unitName = EntityManagerUtil.ENTITY_MANAGER_BPA_IPU)
+    //@PersistenceContext(unitName = EntityManagerUtil.ENTITY_MANAGER_BPA_IPU)
     private final EntityManager entityManager;
     private final Class<T> persistentClass;
 
     public GenericDAO() {
         this.entityManager = EntityManagerUtil.getEntityManager();
+        this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    }
+    
+    public GenericDAO(EntityManager entityManager) {
+        this.entityManager = entityManager;
         this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
