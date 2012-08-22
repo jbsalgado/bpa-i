@@ -347,6 +347,26 @@ public class ProcedimentoRealizado implements Serializable {
     public void setSexoPaciente(String sexoPaciente) {
         this.sexoPaciente = sexoPaciente;
     }
+    
+    public Paciente getPaciente(){
+        Paciente p= new Paciente();
+        
+        p.setCep(null);
+        p.setCns(this.cnsPaciente);
+        p.setCodigoIbgeCidade(this.codigoIBGECidadePaciente);
+        p.setComplemento(null);
+        p.setDataNascimento(this.dataNascimentoPaciente);
+        p.setEtnia(this.etniaPaciente);
+        p.setLogradouro(null);
+        p.setNacionalidade(this.nacionalidadePaciente);
+        p.setNome(this.nomePaciente);
+        p.setNomeMae(null);
+        p.setRaca(this.racaPaciente);
+        p.setSexo(this.sexoPaciente.charAt(0));
+        
+        return p;
+    }
+    
 
     @Override
     public boolean equals(Object obj) {

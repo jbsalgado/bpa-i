@@ -12,5 +12,5 @@ import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
  * @author Albuquerque
  */
 public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> {
-    
+   
 }
