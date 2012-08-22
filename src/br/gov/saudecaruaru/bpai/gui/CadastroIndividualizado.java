@@ -51,7 +51,7 @@ import javax.swing.text.MaskFormatter;
  *
  * @author Junior Pires
  */
-public class CadastroIndividualizado extends javax.swing.JFrame implements FocusListener{
+public class CadastroIndividualizado extends javax.swing.JFrame implements TelaCadastroI{
      private MaskFormatter mCBO=null; 
      private MaskFormatter mData=null; 
      private MaskFormatter mNome=null; 
@@ -112,6 +112,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements Focus
         
         
         //adicionando listeners
+        addListenersFields();
+        
         jTextFieldFolha.addFocusListener(new TextFieldFolhaFocusListener());
         jComboBoxUsuarioRacaCor.addFocusListener(new RacaCorFocusListener());
         
@@ -147,11 +149,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements Focus
         jTextFieldUsuarioCodMunicip.setInputVerifier(new MunicipioVerifier(this,"Municipio",jTextFieldUsuarioNomeMunicip));
         jTextFieldUsuarioCodEtnia.setInputVerifier(new EtniaVerifier(this,"Etnia", jTextFieldUsuarioDescEtnia));
         jTextFieldProcCod.setInputVerifier(new ProcedimentoVerifier(this, "Procedimento", jTextFieldProcDescricao,jTextFieldCBO,jTextFieldUsuarioSexo));
-        jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,jTextFieldProcCod));
+        jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,this));
         jComboBoxProcCaraterAtend.setInputVerifier(new CaraterAtendVerifier(this,"Caráter de Atendimento"));
         jTextFieldUsarioDatNasc.setInputVerifier(new DataVerifier(this, "Data de Nascimento"));
-        jTextFieldProcQuant.setInputVerifier(new QuantProcedimentoVerifier(this, "Quantidade", jTextFieldProcCod));
-        jTextFieldProcDataAtend.setInputVerifier(new DataAtendimentoVerifier(this, "Data Atendimento", jTextFieldMes, jTextFieldAno, jTextFieldUsarioDatNasc));
+        jTextFieldProcQuant.setInputVerifier(new QuantProcedimentoVerifier(this, "Quantidade",this));
+        jTextFieldProcDataAtend.setInputVerifier(new DataAtendimentoVerifier(this, "Data Atendimento",this));
         
         jTextFieldFolha.setInputVerifier(new InputVerifier() {
 
@@ -1229,20 +1231,12 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements Focus
     /**
      * @return the procedimentoRealizado
      */
+    @Override
     public ProcedimentoRealizado getProcedimentoRealizado() {
         return procedimentoRealizado;
     }
 
-    @Override
-    public void focusGained(FocusEvent e) {
-      
-    }
 
-    @Override
-    public void focusLost(FocusEvent e) {
-      String nomeComponente = e.getComponent().getName();  
-     
-    }
 
     //classe validadora para o campo CNSUsuario
     private class CNSUsuarioVerifier extends CnsVerifier{
@@ -1346,7 +1340,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements Focus
         }
       
       
-      private void addListenersTextFields(){
+      private void addListenersFields(){
           jTextFieldCnes.addFocusListener(new FocusListener() {
 
             @Override
@@ -1357,6 +1351,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements Focus
             @Override
             public void focusLost(FocusEvent e) {
                procedimentoRealizado.getProcedimentoRealizadoPK().setCnesUnidade(jTextFieldCnes.getText());
+               
             }
         });
           
@@ -1538,10 +1533,79 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements Focus
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setRacaPaciente(((JTextField)e.getComponent()).getText());
+               procedimentoRealizado.getProcedimentoRealizadoPK().setDataAtendimento(((JTextField)e.getComponent()).getText());
+            }
+        });
+           
+         jTextFieldProcCod.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.getProcedimentoRealizadoPK().setCodigoProcedimento(((JTextField)e.getComponent()).getText());
             }
         });
           
+          jTextFieldProcQuant.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.setQuantidadeRealizada(Double.valueOf(((JTextField)e.getComponent()).getText()));
+            }
+        });
+          
+         jTextFieldProcCID.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.setCidDoencaprocedimento(((JTextField)e.getComponent()).getText());
+            }
+        });
+         
+          jComboBoxProcCaraterAtend.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.setCaracterizacaoAtendimento(((JComboBox)e.getComponent()).getSelectedItem().toString());
+            }
+        });
+          
+         jTextFieldProcNumAut.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.setNumeroAutorizacao(((JTextField)e.getComponent()).getText());
+            }
+        });
           
         
       }

@@ -11,6 +11,7 @@ import br.gov.saudecaruaru.bpai.business.model.Doenca;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoenca;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoencaPK;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
+import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.InputVerifier;
@@ -32,12 +33,12 @@ public class DoencaVerifier extends InputVerifier{
     private ProcedimentoDoencaController procedimentoDoencaController;
     private  Doenca  doenca;
     private JTextField doencaNome;
-    private JTextField textFieldcodProc;
-    public DoencaVerifier(Component component,String fieldName,JTextField doencaNome,JTextField textFieldcodProc) {
+    private TelaCadastroI t;
+    public DoencaVerifier(Component component,String fieldName,JTextField doencaNome,TelaCadastroI t) {
         this.fieldName = fieldName;
         this.component = component;
         this.doencaNome = doencaNome;
-        this.textFieldcodProc = textFieldcodProc;
+        this.t = t;
         //instancia o controlador de  municipio
          this.doencaController = new  DoencaController();
         //instancia o modelo  MunicipioPk
@@ -53,7 +54,7 @@ public class DoencaVerifier extends InputVerifier{
       JTextField txtField = (JTextField) input; 
       Doenca doencaSearchead = null;
       String valor = txtField.getText();
-      String codigoProc = textFieldcodProc.getText().substring(0, 9);
+      String codigoProc = t.getProcedimentoRealizado().getProcedimentoRealizadoPK().getCodigoProcedimento().substring(0, 9);
       //seta o valor digitado no objeto
       doenca.setCodigo(valor);
       

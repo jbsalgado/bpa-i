@@ -10,6 +10,7 @@ import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoCboController;
 import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoController;
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
+import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.List;
@@ -35,7 +36,7 @@ public class QuantProcedimentoVerifier extends InputVerifier{
     private ProcedimentoCboController procedimentoCboController;
     
     
-    public QuantProcedimentoVerifier(Component component,String fieldName,JTextField textFieldProc) {
+    public QuantProcedimentoVerifier(Component component,String fieldName,TelaCadastroI t) {
         this.fieldName = fieldName;
         this.component = component;
        

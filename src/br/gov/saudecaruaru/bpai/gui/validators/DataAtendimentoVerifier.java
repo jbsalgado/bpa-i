@@ -5,6 +5,7 @@
 package br.gov.saudecaruaru.bpai.gui.validators;
 
 
+import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
 import java.awt.Color;
 import java.awt.Component;
 import java.text.ParseException;
@@ -24,18 +25,14 @@ import javax.swing.JTextField;
 public class DataAtendimentoVerifier extends InputVerifier{
     private String fieldName; 
     private Component component;
-    private JTextField textFieldMes;
-    private JTextField textFieldAno;
-    private JTextField textFieldDtNasc;
+    private TelaCadastroI t;
     
     private static final String DATA_INICIO = "30/09/2007";
     
-    public DataAtendimentoVerifier(Component component,String fieldName,JTextField textFieldMes,JTextField textFieldano,JTextField textFielDtNasc) {
+    public DataAtendimentoVerifier(Component component,String fieldName,TelaCadastroI t) {
         this.fieldName = fieldName;
         this.component = component;
-        this.textFieldAno =  textFieldano;
-        this.textFieldMes = textFieldMes;
-        this.textFieldDtNasc = textFielDtNasc;
+        this.t = t;
     }
     
     
@@ -47,7 +44,7 @@ public class DataAtendimentoVerifier extends InputVerifier{
        Date dataAtend;
        JTextField txtField = (JTextField) input;
        String valor = txtField.getText();
-       String valorDtNas = textFieldDtNasc.getText();
+       String valorDtNas = t.getProcedimentoRealizado().getDataNascimentoPaciente();
        
        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
       
