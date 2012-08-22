@@ -285,6 +285,13 @@ public class Procedimento implements Serializable {
     public ProcedimentoPK getProcedimentoPk() {
         return procedimentoPk;
     }
+    
+    public boolean exigeSexo(){
+        if(!this.sexo.toString().equals("A")){
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public boolean equals(Object obj) {

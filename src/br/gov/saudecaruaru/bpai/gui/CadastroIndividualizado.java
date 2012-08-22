@@ -21,6 +21,7 @@ import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
 import br.gov.saudecaruaru.bpai.business.model.CaraterAtendimento;
 import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
+import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.gui.validators.CBOVerifier;
 import br.gov.saudecaruaru.bpai.gui.validators.CaraterAtendVerifier;
 import br.gov.saudecaruaru.bpai.gui.validators.CnsVerifier;
@@ -50,7 +51,7 @@ import javax.swing.text.MaskFormatter;
  *
  * @author Junior Pires
  */
-public class CadastroIndividualizado extends javax.swing.JFrame {
+public class CadastroIndividualizado extends javax.swing.JFrame implements FocusListener{
      private MaskFormatter mCBO=null; 
      private MaskFormatter mData=null; 
      private MaskFormatter mNome=null; 
@@ -69,6 +70,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
      private DiversasPK diversasPk;
      private DiversasController diversasController;
      
+     private ProcedimentoRealizado procedimentoRealizado;
+   
+    
+     
  
      
     
@@ -83,12 +88,17 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");
         
         initComponents();
+        
+        //instancia o modelo usado para o cadastro
+        this.procedimentoRealizado = new ProcedimentoRealizado();
+         
+         
         diversasController = new DiversasController();
         //instancia o modelo DiversasPk
         diversas = new  Diversas();
         diversasPk = new DiversasPK();
         diversas.setDiversasPK(diversasPk);
-        
+       
         myInitComponents();
         
         
@@ -1216,6 +1226,24 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldUsuarioSexo;
     // End of variables declaration                   
 
+    /**
+     * @return the procedimentoRealizado
+     */
+    public ProcedimentoRealizado getProcedimentoRealizado() {
+        return procedimentoRealizado;
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+      
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+      String nomeComponente = e.getComponent().getName();  
+     
+    }
+
     //classe validadora para o campo CNSUsuario
     private class CNSUsuarioVerifier extends CnsVerifier{
         private Component component=null;
@@ -1292,7 +1320,6 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
               }  
         }  
     
-    
       class RacaCorFocusListener implements FocusListener {  
         @Override
                 public void focusGained(FocusEvent e) {  
@@ -1316,7 +1343,208 @@ public class CadastroIndividualizado extends javax.swing.JFrame {
                         
                       
               }  
-        }  
+        }
+      
+      
+      private void addListenersTextFields(){
+          jTextFieldCnes.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+               procedimentoRealizado.getProcedimentoRealizadoPK().setCnesUnidade(jTextFieldCnes.getText());
+            }
+        });
+          
+            jTextFieldCnsProfiss.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.getProcedimentoRealizadoPK().setCnsMedico( ((JTextField)e.getComponent()).getText());
+            }
+        });
+            
+         jTextFieldCBO.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.getProcedimentoRealizadoPK().setCboMedico(((JTextField)e.getComponent()).getText());
+            }
+        });
+         
+        jTextFieldAno.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(((JTextField)e.getComponent()).getText()+jTextFieldMes.getText());
+            }
+        }); 
+        
+         jTextFieldFolha.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(((JTextField)e.getComponent()).getText());
+            }
+        });
+         
+          jTextFieldUsuarioCns.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.setCnsPaciente(((JTextField)e.getComponent()).getText());
+            }
+        });
+          
+           jTextFieldUsuarioNome.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.setNomePaciente(((JTextField)e.getComponent()).getText());
+            }
+        });
+           
+            jTextFieldUsuarioSexo.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.setSexoPaciente(((JTextField)e.getComponent()).getText());
+            }
+        });
+          
+            
+             jTextFieldUsarioDatNasc.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.setDataNascimentoPaciente(((JTextField)e.getComponent()).getText());
+            }
+        });
+            
+           jTextFieldUsuarioCodMunicip.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.setCodigoIBGECidadePaciente(((JTextField)e.getComponent()).getText());
+            }
+        });
+           
+            jTextFieldUsuarioCodNac.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.setNacionalidadePaciente(((JTextField)e.getComponent()).getText());
+            }
+        });
+             jComboBoxUsuarioRacaCor.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.setRacaPaciente(((JComboBox)e.getComponent()).getSelectedItem().toString());
+            }
+        });
+             
+          jTextFieldUsuarioCodEtnia.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.setEtniaPaciente(((JTextField)e.getComponent()).getText());
+            }
+        });
+          
+           jTextFieldProcDataAtend.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            
+               procedimentoRealizado.setRacaPaciente(((JTextField)e.getComponent()).getText());
+            }
+        });
+          
+          
+        
+      }
     
     
 
