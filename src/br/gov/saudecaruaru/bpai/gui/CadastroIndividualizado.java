@@ -18,6 +18,7 @@ import br.gov.saudecaruaru.bpai.gui.validators.OnlyLettersVerifier;
 import br.gov.saudecaruaru.bpai.gui.validators.MunicipioVerifier;
 import br.gov.saudecaruaru.bpai.gui.validators.DataVerifier;
 import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
+import br.gov.saudecaruaru.bpai.business.controller.MedicoController;
 import br.gov.saudecaruaru.bpai.business.model.CaraterAtendimento;
 import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
@@ -35,10 +36,13 @@ import br.gov.saudecaruaru.bpai.gui.validators.OnlyLettersVerifier;
 import br.gov.saudecaruaru.bpai.gui.validators.OnlyNumbers;
 import br.gov.saudecaruaru.bpai.gui.validators.ProcedimentoVerifier;
 import br.gov.saudecaruaru.bpai.gui.validators.QuantProcedimentoVerifier;
+import br.gov.saudecaruaru.bpai.util.Search;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -69,6 +73,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
      private Diversas diversas;
      private DiversasPK diversasPk;
      private DiversasController diversasController;
+     private MedicoController medicoController;
      
      private ProcedimentoRealizado procedimentoRealizado;
    
@@ -94,13 +99,13 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
          
          
         diversasController = new DiversasController();
+        this.medicoController= new MedicoController();
         //instancia o modelo DiversasPk
         diversas = new  Diversas();
         diversasPk = new DiversasPK();
         diversas.setDiversasPK(diversasPk);
        
         myInitComponents();
-        
         
         //seta o estado do frame para ocupar toda a tela
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -110,6 +115,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         
         initComboBoxs();
         
+        this.initKeyPresseds();
         
         //adicionando listeners
         addListenersFields();
@@ -219,10 +225,30 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         });
     }
    
+    private void initKeyPresseds(){
+        //para cns do médico
+        this.jTextFieldCnsProfiss.addKeyListener(new KeyAdapter() {
+             public void keyPressed(java.awt.event.KeyEvent evt) {
+                 //o usuário clicou F2
+                if(evt.getKeyCode()==KeyEvent.VK_F2){
+                    Search m=CadastroIndividualizado.this.keyPressedJTextFieldCnsProfiss();
+                    //o usuário selecionou um registro
+                    if(m!=null){
+                        //vai setor o valor do código no campo
+                        CadastroIndividualizado.this.jTextFieldCnsProfiss.setText(m.getId());
+                    }
+                }
+            }
+        
+        });
+    }
+    
+    private Search keyPressedJTextFieldCnsProfiss(){
+        return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.medicoController, "cns", "nome","CNS", "Nome");
+    }
     
     
-    
-    
+        
     private MaskFormatter getMCBO(){
 			if(mCBO==null){
 				try {
