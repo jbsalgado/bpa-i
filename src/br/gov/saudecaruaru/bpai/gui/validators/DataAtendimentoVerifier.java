@@ -5,7 +5,9 @@
 package br.gov.saudecaruaru.bpai.gui.validators;
 
 
+import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
+import br.gov.saudecaruaru.bpai.util.DateUtil;
 import java.awt.Color;
 import java.awt.Component;
 import java.text.ParseException;
@@ -43,8 +45,16 @@ public class DataAtendimentoVerifier extends InputVerifier{
        Date dataNasc;
        Date dataAtend;
        JTextField txtField = (JTextField) input;
+       ProcedimentoRealizado proRealizado = t.getProcedimentoRealizado();
        String valor = txtField.getText();
-       String valorDtNas = t.getProcedimentoRealizado().getDataNascimentoPaciente();
+       String valorDtNas = proRealizado.getDataNascimentoPaciente();
+       Date competencia = DateUtil.parserStringToDate("yyyyMM", proRealizado.getProcedimentoRealizadoPK().getCompetencia());
+       Date dataAtendMesAno = DateUtil.parserStringToDate("MM/yyyy", valor.substring(3));
+      
+       
+       
+       
+       
        
        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
       
@@ -68,6 +78,11 @@ public class DataAtendimentoVerifier extends InputVerifier{
            return false;
        }else if(dataAtend.before(dataNasc)){
          JOptionPane.showMessageDialog(this.component," DATA DE NASCIMENTO MAIOR QUE A DATA DE ATENDIMENTO!"
+                   ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
+         txtField.setBackground(Color.RED); 
+           return false;
+       }else if(dataAtendMesAno.after(competencia)){
+         JOptionPane.showMessageDialog(this.component," A DATA DE ATENDIMENTO NÃO DEVE SER MAIOR QUE A COMPETÊNCIA ATUAL!"
                    ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
          txtField.setBackground(Color.RED); 
            return false;
