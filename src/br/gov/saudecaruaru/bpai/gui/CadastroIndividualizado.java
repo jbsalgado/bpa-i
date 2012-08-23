@@ -25,7 +25,9 @@ import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
 import br.gov.saudecaruaru.bpai.business.model.GestorCompetencia;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
+import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
 import br.gov.saudecaruaru.bpai.gui.validators.*;
+import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModel;
 import br.gov.saudecaruaru.bpai.util.Search;
 import java.awt.Color;
 import java.awt.Component;
@@ -34,10 +36,13 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.*;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.MaskFormatter;
 
@@ -67,6 +72,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
      
      private ProcedimentoRealizado procedimentoRealizado;
      private GestorCompetenciaController gestorCompetenciaController;
+     
+     private ProcedimentoRealizadoTableModel tableModelDados;
    
     
      
@@ -104,12 +111,25 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
     
     private void myInitComponents(){
         
-        initComboBoxs();
+     
+       this.jPanel2.setSize(1200, 400);
+       this.jPanel1.setSize(1200,this.jPanel1.getSize().height);
+       this.jSeparator1.setSize(1200,this.jSeparator1.getSize().width);
+        this.jSeparator2.setSize(1200,this.jSeparator2.getSize().width);
+       System.out.print(this.jPanel1.getSize());
+       this.jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+       
+        this.initComboBoxs();
         
+        //incializa os campos com busca por F2
         this.initKeyPresseds();
         
+        this.initJTableDados();
+        
         //adicionando listeners
-        addListenersFields();
+        this.addListenersFields();
+        
+        //this.jPanel2.setp
         
         jTextFieldFolha.addFocusListener(new TextFieldFolhaFocusListener());
         jComboBoxUsuarioRacaCor.addFocusListener(new RacaCorFocusListener());
@@ -236,6 +256,58 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         
         });
+    }
+    
+    private void initJTableDados(){
+       //cria a lista para armazenar 20 procedimentos 
+       List<ProcedimentoRealizado> list= new ArrayList<ProcedimentoRealizado>();
+       //inicializa a lista de procedimentos realizados
+       for(int i=0;i<20;i++){
+           ProcedimentoRealizado p=new ProcedimentoRealizado();
+           p.setProcedimentoRealizadoPK(new ProcedimentoRealizadoPK());
+           //inicia a sequência
+           p.getProcedimentoRealizadoPK().setSequenciaFolha(Integer.toString(i+1));
+           list.add(p);
+       }
+       //cria um modelo para a tabela
+       this.tableModelDados= new ProcedimentoRealizadoTableModel(list);
+       this.jTable1.setModel(this.tableModelDados);
+       //incia o tamanho padrão da tabela
+       TableColumnModel columns=this.jTable1.getColumnModel();
+       
+       //coluna sequência
+       columns.getColumn(0).setPreferredWidth(40);
+       //coluna cns do paciente
+       columns.getColumn(1).setPreferredWidth(120);
+       //coluna nome do paciente
+       columns.getColumn(2).setPreferredWidth(300);
+       //coluna data de nascimento do paciente
+       columns.getColumn(3).setPreferredWidth(70);
+       //coluna sexo do paciente
+       columns.getColumn(4).setPreferredWidth(40);
+       //coluna município de residência do paciente
+       columns.getColumn(5).setPreferredWidth(120);
+       //coluna data de atendimento
+       columns.getColumn(6).setPreferredWidth(100);
+       //coluna procedimento
+       columns.getColumn(7).setPreferredWidth(100);
+       //coluna quantidade de realizações do procedimento no paciente
+       columns.getColumn(8).setPreferredWidth(40);
+       //cid do procedimento
+       columns.getColumn(9).setPreferredWidth(40);
+       //coluna caraterização do atendimento 
+       columns.getColumn(10).setPreferredWidth(80);
+       //coluna número de autorização
+       columns.getColumn(11).setPreferredWidth(100);
+       //coluna raça/cor
+       columns.getColumn(12).setPreferredWidth(80);
+       //coluna etnia
+       columns.getColumn(13).setPreferredWidth(80);
+       //coluna nacionalidade do paciente
+       columns.getColumn(14).setPreferredWidth(80);
+       //inicia o ScrollPanel
+       //this.jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.);
+       
     }
     
     private Search keyPressedJTextFieldCnsProfiss(){
@@ -537,7 +609,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         jLabelUsuarioSeq.setText("01");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel10.setText("Nome ");
+        jLabel10.setText("Nome");
 
         jTextFieldUsuarioNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
