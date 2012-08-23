@@ -29,10 +29,7 @@ import br.gov.saudecaruaru.bpai.gui.validators.*;
 import br.gov.saudecaruaru.bpai.util.Search;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.text.ParseException;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -108,11 +105,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         
         this.initKeyPresseds();
         
-        //adicionando listeners
+        //adicionando listeners aos campos 
         addListenersFields();
-        
-        jTextFieldFolha.addFocusListener(new TextFieldFolhaFocusListener());
-        jComboBoxUsuarioRacaCor.addFocusListener(new RacaCorFocusListener());
         
         //desabilita alguns campos do usuario
         jTextFieldUsuarioNomeMunicip.setEnabled(false);
@@ -165,9 +159,6 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             public boolean verify(JComponent input) {
                 JTextField textField = (JTextField) input;
                 String valor = textField.getText().trim();
-                //expressão regular para mês
-//                Pattern p = Pattern.compile("([0][0][0]^)");  
-//                Matcher m = p.matcher(valor.getText());  
                 if (valor.equals("000") || valor.isEmpty()) {  
                       JOptionPane.showMessageDialog(CadastroIndividualizado.this," Folha Inválida!",   
                 "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
@@ -1318,54 +1309,33 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
     }
     
     
-    class TextFieldFolhaFocusListener implements FocusListener {  
-        @Override
-                public void focusGained(FocusEvent e) {  
-                       
-                }  
-                  
-        @Override
-                public void focusLost(FocusEvent e) {  
-                        if(jTextFieldFolha.getInputVerifier().shouldYieldFocus(jTextFieldFolha)){
-                            jTextFieldCnes.setEnabled(false);
-                            jTextFieldCnsProfiss.setEnabled(false);
-                            jTextFieldNomeProfiss.setEnabled(false);
-                            jTextFieldCBO.setEnabled(false);
-                            jTextFieldMes.setEnabled(false);
-                            jTextFieldAno.setEnabled(false);
-                            jTextFieldFolha.setEnabled(false);
-                        
-                        }
-              }  
-        }  
+   
     
-      class RacaCorFocusListener implements FocusListener {  
-        @Override
-                public void focusGained(FocusEvent e) {  
-                       
-                }  
-                  
-        @Override
-                public void focusLost(FocusEvent e) {  
-                       JComboBox comboBoxRacaCor = (JComboBox) e.getComponent();
+     
+      
+      
+      private void addListenersFields(){
+          
+          
+          jComboBoxUsuarioRacaCor.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                 String itemRacaCor =  e.getItem().toString();
                        
                      
                        //caso a cor/raca seja indigena habilita o campo etnia e faz ele ganhar o foco
-                       if(comboBoxRacaCor.getSelectedItem().toString().substring(0, 2).equals(Diversas.COD_RACA_COR_INDIGENA)){
+                       if(itemRacaCor.substring(0, 2).equals(Diversas.COD_RACA_COR_INDIGENA)){
                            jTextFieldUsuarioCodEtnia.setEnabled(true);
-                           jTextFieldUsuarioCodEtnia.requestFocus();
+                          // jTextFieldUsuarioCodEtnia.requestFocus();
                            
                        }else{
                            jTextFieldUsuarioCodEtnia.setEnabled(false);
                            
                        }
-                        
-                      
-              }  
-        }
-      
-      
-      private void addListenersFields(){
+               
+            }
+        });
           jTextFieldCnes.addFocusListener(new FocusListener() {
 
             @Override
@@ -1433,6 +1403,17 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             public void focusLost(FocusEvent e) {
             
                procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(((JTextField)e.getComponent()).getText());
+               
+               if(jTextFieldFolha.getInputVerifier().shouldYieldFocus(jTextFieldFolha)){
+                            jTextFieldCnes.setEnabled(false);
+                            jTextFieldCnsProfiss.setEnabled(false);
+                            jTextFieldNomeProfiss.setEnabled(false);
+                            jTextFieldCBO.setEnabled(false);
+                            jTextFieldMes.setEnabled(false);
+                            jTextFieldAno.setEnabled(false);
+                            jTextFieldFolha.setEnabled(false);
+                        
+                        }
             }
         });
          
