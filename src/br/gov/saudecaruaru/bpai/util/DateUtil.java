@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -60,4 +62,20 @@ public class DateUtil {
        }
         
      }
+     
+     
+      public static Date parserStringToDate(String formato,String date){
+         //formato ex: dd/MM/yyyy
+         SimpleDateFormat format = new SimpleDateFormat(formato);
+         
+         //int index = 10 - formato.length();
+         format.setLenient(false);
+         
+        try {
+            return format.parse(date);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
 }
