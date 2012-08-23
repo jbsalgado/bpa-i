@@ -1297,15 +1297,16 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                   
         @Override
                 public void focusLost(FocusEvent e) {  
-                        jTextFieldCnes.setEnabled(false);
-                        jTextFieldCnsProfiss.setEnabled(false);
-                        jTextFieldNomeProfiss.setEnabled(false);
-                        jTextFieldCBO.setEnabled(false);
-                        jTextFieldMes.setEnabled(false);
-                        jTextFieldAno.setEnabled(false);
-                        jTextFieldFolha.setEnabled(false);
+                        if(jTextFieldFolha.getInputVerifier().shouldYieldFocus(jTextFieldFolha)){
+                            jTextFieldCnes.setEnabled(false);
+                            jTextFieldCnsProfiss.setEnabled(false);
+                            jTextFieldNomeProfiss.setEnabled(false);
+                            jTextFieldCBO.setEnabled(false);
+                            jTextFieldMes.setEnabled(false);
+                            jTextFieldAno.setEnabled(false);
+                            jTextFieldFolha.setEnabled(false);
                         
-                      
+                        }
               }  
         }  
     
