@@ -45,19 +45,7 @@ import javax.swing.text.MaskFormatter;
  * @author Junior Pires
  */
 public class CadastroIndividualizado extends javax.swing.JFrame implements TelaCadastroI{
-     private MaskFormatter mCBO=null; 
-     private MaskFormatter mData=null; 
-     private MaskFormatter mNome=null; 
-     private MaskFormatter mMes=null; 
-     private MaskFormatter mCodMun=null; 
-     private MaskFormatter mCodNac=null; 
-     private MaskFormatter mCodProc=null; 
-     private MaskFormatter mCID=null; 
-     private MaskFormatter mAno=null; 
-     private MaskFormatter mFolha=null; 
-     private MaskFormatter mEtnia=null; 
-     private MaskFormatter mNumAutoriz=null; 
-     private MaskFormatter mCNS=null; 
+     
      
      private Diversas diversas;
      private DiversasPK diversasPk;
@@ -310,155 +298,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
     
     
         
-    private MaskFormatter getMCBO(){
-			if(mCBO==null){
-				try {
-					mCBO = new MaskFormatter("######");
-					mCBO.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mCBO;
-		}
-    private MaskFormatter getMMes(){
-			if(mMes==null){
-				try {
-					mMes = new MaskFormatter("##");
-					mMes.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mMes;
-		}
-    private MaskFormatter getMAno(){
-			if(mAno==null){
-				try {
-					mAno = new MaskFormatter("####");
-					mAno.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mAno;
-		}
-             private MaskFormatter getMData(){
-			if(mData==null){
-				try {
-					mData = new MaskFormatter("##/##/####");
-					mData.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mData;
-		}
-             private MaskFormatter getMCodNac(){
-			if(mCodNac==null){
-				try {
-					mCodNac = new MaskFormatter("###");
-					mCodNac.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mCodNac;
-		}
-             
-            private MaskFormatter getMCodMun(){
-			if(mCodMun==null){
-				try {
-					mCodMun = new MaskFormatter("######");
-					mCodMun.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mCodMun;
-		}
-            
-             private MaskFormatter getMCodProc(){
-			if(mCodProc==null){
-				try {
-					mCodProc = new MaskFormatter("##########");
-					mCodProc.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mCodProc;
-		}
-             private MaskFormatter getMCID(){
-			if(mCID==null){
-				try {
-					mCID = new MaskFormatter("****");
-					mCID.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mCID;
-		}
-             
-              private MaskFormatter getMFolha(){
-			if(mFolha==null){
-				try {
-					mFolha = new MaskFormatter("###");
-					mFolha.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mFolha;
-		}
-              
-              private MaskFormatter getMEtnia(){
-			if(mEtnia==null){
-				try {
-					mEtnia= new MaskFormatter("####");
-					mEtnia.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mEtnia;
-		}
-              
-              private MaskFormatter getMNumAutoriz(){
-			if(mNumAutoriz==null){
-				try {
-					mNumAutoriz = new MaskFormatter("*************");
-					mNumAutoriz.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mNumAutoriz;
-		}
-              private MaskFormatter getMCNS(){
-			if(mCNS==null){
-				try {
-					mCNS = new MaskFormatter("###############");
-					mCNS.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mCNS;
-		}
+    
      
     
     /**
@@ -630,15 +470,35 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
         jTextFieldUsuarioCns.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###############"))));
 
-        jTextFieldUsuarioSexo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("U")));
+        try {
+            jTextFieldUsuarioSexo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("U")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
-        jTextFieldUsarioDatNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        try {
+            jTextFieldUsarioDatNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
-        jTextFieldUsuarioCodEtnia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+        try {
+            jTextFieldUsuarioCodEtnia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
-        jTextFieldUsuarioCodMunicip.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("######")));
+        try {
+            jTextFieldUsuarioCodMunicip.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("######")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
-        jTextFieldUsuarioCodNac.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
+        try {
+            jTextFieldUsuarioCodNac.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -830,13 +690,29 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jTextFieldProcDataAtend.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        try {
+            jTextFieldProcDataAtend.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
-        jTextFieldProcCod.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##########")));
+        try {
+            jTextFieldProcCod.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
-        jTextFieldProcCID.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("****")));
+        try {
+            jTextFieldProcCID.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("****")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
-        jTextFieldProcNumAut.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("*************")));
+        try {
+            jTextFieldProcNumAut.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("*************")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -932,16 +808,28 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTextFieldCnes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#######")));
+        try {
+            jTextFieldCnes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#######")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         jTextFieldCnes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCnesActionPerformed(evt);
             }
         });
 
-        jTextFieldCnsProfiss.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###############")));
+        try {
+            jTextFieldCnsProfiss.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###############")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
-        jTextFieldMes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        try {
+            jTextFieldMes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         jTextFieldMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldMesActionPerformed(evt);
@@ -950,7 +838,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
         jTextFieldAno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
 
-        jTextFieldFolha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
+        try {
+            jTextFieldFolha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         jTextFieldCBO.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("######"))));
 
