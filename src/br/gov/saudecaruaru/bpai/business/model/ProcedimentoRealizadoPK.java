@@ -4,7 +4,16 @@
  */
 package br.gov.saudecaruaru.bpai.business.model;
 
+import br.gov.saudecaruaru.bpai.gui.validators.DataAtendimentoVerifier;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -71,11 +80,21 @@ public class ProcedimentoRealizadoPK implements Serializable{
         this.dataAtendimento = dataAtendimento;
     
     }
-
-    public ProcedimentoRealizadoPK() {
+     public ProcedimentoRealizadoPK() {
+    }
+     
+     
+    public ProcedimentoRealizadoPK(String cnes,String cnsProfissional,String cbo,String competencia,String folha) {
+        this.cnesUnidade = cnes;
+        this.cnsMedico = cnsProfissional;
+        this.cboMedico = cbo;
+        this.competencia = competencia;
+        this.numeroFolha = folha;
+    
     }
     
-    
+      
+     
 
     public String getCboMedico() {
         return cboMedico;
