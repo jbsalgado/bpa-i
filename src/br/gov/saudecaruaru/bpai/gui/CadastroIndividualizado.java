@@ -46,7 +46,7 @@ import javax.swing.text.MaskFormatter;
  */
 public class CadastroIndividualizado extends javax.swing.JFrame implements TelaCadastroI{
      
-     
+     private int sequencia=1;
      private Diversas diversas;
      private DiversasPK diversasPk;
      private DiversasController diversasController;
@@ -114,7 +114,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         //this.jPanel2.setp
         
         //adicionando listeners aos campos 
-        addListenersFields();
+        this.addListenersFields();
         
         //desabilita alguns campos do usuario
         jTextFieldUsuarioNomeMunicip.setEnabled(false);
@@ -127,6 +127,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         jTextFieldProcDescriDoenca.setEnabled(false);
         
         //inicializando campos 
+        //inicializando campos com a sequencia da folha
+        jLabelProcSeq.setText(String.valueOf(sequencia));
+        jLabelUsuarioSeq.setText(String.valueOf(sequencia));
+        
         //inicializando competencia
         String competencia = gestorCompetenciaController.getCompetenciaAtual();
         jTextFieldMes.setText(competencia.substring(4));
@@ -135,7 +139,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
         //inicializando nacionalidade: BRASIL
         jTextFieldUsuarioCodNac.setText(Diversas.CODIGO_NACIONALIDADE_BRASIL);
-        procedimentoRealizado.setNacionalidadePaciente(Diversas.CODIGO_NACIONALIDADE_BRASIL);
+             
+        
         //desabilitando etnia
         jTextFieldUsuarioCodEtnia.setEnabled(false);
         
@@ -980,9 +985,32 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
     }//GEN-LAST:event_jTextFieldProcQuantActionPerformed
 
     private void jButtonIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirMouseClicked
-        // TODO add your handling code here:
-        this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha("0");
-        this.tableModelDados.setValueAt(procedimentoRealizado, 0);
+        //atribui ao objeto procedimento realizado os valores dos campos (podem nao terem sido modificado
+        //e consequentemente nao adicionados ao modelo) 
+        
+        this.procedimentoRealizado.setRacaPaciente(jComboBoxUsuarioRacaCor.getSelectedItem().toString());
+        this.procedimentoRealizado.setCaracterizacaoAtendimento(jComboBoxProcCaraterAtend.getSelectedItem().toString());
+        this.procedimentoRealizado.setNacionalidadePaciente(jTextFieldUsuarioCodNac.getText());
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(jTextFieldAno.getText()+jTextFieldMes.getText());
+        
+        
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(String.valueOf(sequencia));
+        this.tableModelDados.setValueAt(procedimentoRealizado,this.sequencia-1);
+        
+        //zera os campos 
+        this.clearFields();
+        //inicializa o objeto
+        this.procedimentoRealizado = new ProcedimentoRealizado();
+        //recomeça a contagem da sequencia caso chegue a 20
+        if(this.sequencia==20){
+            this.sequencia = 1;
+             jLabelProcSeq.setText(String.valueOf(sequencia));
+             jLabelUsuarioSeq.setText(String.valueOf(sequencia));
+        }else{
+            ++this.sequencia;
+            jLabelProcSeq.setText(String.valueOf(sequencia));
+            jLabelUsuarioSeq.setText(String.valueOf(sequencia));
+        }
         System.out.println(this.procedimentoRealizado);
     }//GEN-LAST:event_jButtonIncluirMouseClicked
                                           
@@ -1570,6 +1598,37 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         });
           
         
+      }
+      
+      private void clearFields(){
+        //jTextFieldAno.setText("");
+        jTextFieldCBO.setText("");
+        jTextFieldCnes.setText("");
+        jTextFieldCnsProfiss.setText("");
+        //jTextFieldFolha.setText("");
+       // jTextFieldMes;
+        jTextFieldNomeProfiss.setText("");
+        jTextFieldProcCID.setText("");
+        jTextFieldProcCod.setText("");
+        jTextFieldProcDataAtend.setText("");
+        jTextFieldProcDescriDoenca.setText("");
+        jTextFieldProcDescricao.setText("");
+        jTextFieldProcNumAut.setText("");
+        jTextFieldProcQuant.setText("");
+        jTextFieldUsarioDatNasc.setText("");
+        jTextFieldUsuarioCns.setText("");
+        jTextFieldUsuarioCodEtnia.setText("");
+        jTextFieldUsuarioCodMunicip.setText("");
+        //jTextFieldUsuarioCodNac.setText("");
+        jTextFieldUsuarioDescEtnia.setText("");
+        jTextFieldUsuarioNome.setText("");
+        jTextFieldUsuarioNomeMunicip.setText("");
+        jTextFieldUsuarioNomeNac.setText("");
+        jTextFieldUsuarioSexo.setText("");
+        
+        jComboBoxProcCaraterAtend.setSelectedIndex(0);
+        jComboBoxUsuarioRacaCor.setSelectedIndex(0);
+
       }
     
     
