@@ -987,30 +987,42 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
     private void jButtonIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirMouseClicked
         //atribui ao objeto procedimento realizado os valores dos campos (podem nao terem sido modificado
         //e consequentemente nao adicionados ao modelo) 
-        
+        String competencia = jTextFieldAno.getText()+jTextFieldMes.getText();
         this.procedimentoRealizado.setRacaPaciente(jComboBoxUsuarioRacaCor.getSelectedItem().toString());
         this.procedimentoRealizado.setCaracterizacaoAtendimento(jComboBoxProcCaraterAtend.getSelectedItem().toString());
         this.procedimentoRealizado.setNacionalidadePaciente(jTextFieldUsuarioCodNac.getText());
-        this.procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(jTextFieldAno.getText()+jTextFieldMes.getText());
-        
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(jTextFieldFolha.getText());
         
         this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(String.valueOf(sequencia));
         this.tableModelDados.setValueAt(procedimentoRealizado,this.sequencia-1);
         
-        //zera os campos 
-        this.clearFields();
-        //inicializa o objeto
-        this.procedimentoRealizado = new ProcedimentoRealizado();
+       
         //recomeça a contagem da sequencia caso chegue a 20
         if(this.sequencia==20){
             this.sequencia = 1;
              jLabelProcSeq.setText(String.valueOf(sequencia));
              jLabelUsuarioSeq.setText(String.valueOf(sequencia));
+             
+             //pega o valor do campo folha e converte para inteiro
+             int folha = Integer.parseInt(procedimentoRealizado.getProcedimentoRealizadoPK().getNumeroFolha());
+             //incrementa
+             ++folha;
+             //converte de volta para String recolocando os zeros a esquerda se necessário com o metodo format
+             String f = String.format("%03d",folha);  
+             //seta o novo valor de folha no campo folha
+             jTextFieldFolha.setText(f);
         }else{
             ++this.sequencia;
             jLabelProcSeq.setText(String.valueOf(sequencia));
             jLabelUsuarioSeq.setText(String.valueOf(sequencia));
         }
+        
+         //zera os campos 
+        this.clearFields();
+        //inicializa o objeto
+        this.procedimentoRealizado = new ProcedimentoRealizado(jTextFieldCnes.getText(),
+                                                               jTextFieldCnsProfiss.getText(),jTextFieldCBO.getText(),competencia, jTextFieldFolha.getText());
         System.out.println(this.procedimentoRealizado);
     }//GEN-LAST:event_jButtonIncluirMouseClicked
                                           
@@ -1602,12 +1614,12 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
       
       private void clearFields(){
         //jTextFieldAno.setText("");
-        jTextFieldCBO.setText("");
-        jTextFieldCnes.setText("");
-        jTextFieldCnsProfiss.setText("");
+        //jTextFieldCBO.setText("");
+        //jTextFieldCnes.setText("");
+        //jTextFieldCnsProfiss.setText("");
         //jTextFieldFolha.setText("");
        // jTextFieldMes;
-        jTextFieldNomeProfiss.setText("");
+        //jTextFieldNomeProfiss.setText("");
         jTextFieldProcCID.setText("");
         jTextFieldProcCod.setText("");
         jTextFieldProcDataAtend.setText("");
@@ -1630,6 +1642,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         jComboBoxUsuarioRacaCor.setSelectedIndex(0);
 
       }
+      
+     
     
     
 
