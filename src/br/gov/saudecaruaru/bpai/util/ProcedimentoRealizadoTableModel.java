@@ -189,16 +189,6 @@ public class ProcedimentoRealizadoTableModel extends AbstractTableModel{
     
  
     
-    public void addProcedimentoRealizado(ProcedimentoRealizado model,int index){
-        
-        this.list.add(index,model);
-        
-        int ultimoIndex=this.getRowCount()-1;
-        
-        
-       // this.fireTableRow
-        
-    }
     
     public ProcedimentoRealizado getProcedimentoRealizado(int index){
         return this.list.get(index);
