@@ -106,7 +106,8 @@ public class ProcedimentoRealizado implements Serializable {
     public ProcedimentoRealizado(ProcedimentoRealizadoPK procedimentoRealizadoPK) {
         this.procedimentoRealizadoPK = procedimentoRealizadoPK;
     }
-
+    
+    
     public ProcedimentoRealizado(ProcedimentoRealizadoPK procedimentoRealizadoPK, String cnsPaciente, String nomePaciente, String dataNascimentoPaciente, String sexoPaciente, String codigoIBGECidadePaciente, String cidDoencaprocedimento, String idadePaciente, Double quantidadeRealizada, String caracterizacaoAtendimento, String numeroAutorizacao, String prdOrg, String prdMvm, String prdFlpa, String prdFlcbo, String prdFlca, String prdFlida, String prdFlqt, String prdFler, String prdFlmun, String prdFlcid, String racaPaciente, String etniaPaciente, String nacionalidadePaciente, String prdAdvqt) {
         this.procedimentoRealizadoPK = procedimentoRealizadoPK;
         this.cnsPaciente = cnsPaciente;
@@ -134,7 +135,14 @@ public class ProcedimentoRealizado implements Serializable {
         this.nacionalidadePaciente = nacionalidadePaciente;
         this.prdAdvqt = prdAdvqt;
     }
-
+    
+    public ProcedimentoRealizado(String cnes,String cnsProfissional,String cbo,String competencia,String folha) {
+        this.procedimentoRealizadoPK = new ProcedimentoRealizadoPK(cnes, cnsProfissional, cbo, competencia, folha);
+        
+      
+    }
+    
+    
     public void setPaciente(Paciente paciente){
         this.cnsPaciente=paciente.getCns();
         this.nomePaciente=paciente.getNome();
@@ -390,12 +398,14 @@ public class ProcedimentoRealizado implements Serializable {
         return hash;
     }
 
+    @Override
+    public String toString() {
+        return "ProcedimentoRealizado{" + "procedimentoRealizadoPK=" + procedimentoRealizadoPK + ", cnsPaciente=" + cnsPaciente + ", nomePaciente=" + nomePaciente + ", dataNascimentoPaciente=" + dataNascimentoPaciente + ", sexoPaciente=" + sexoPaciente + ", codigoIBGECidadePaciente=" + codigoIBGECidadePaciente + ", cidDoencaprocedimento=" + cidDoencaprocedimento + ", idadePaciente=" + idadePaciente + ", quantidadeRealizada=" + quantidadeRealizada + ", caracterizacaoAtendimento=" + caracterizacaoAtendimento + ", numeroAutorizacao=" + numeroAutorizacao + ", prdOrg=" + prdOrg + ", prdMvm=" + prdMvm + ", prdFlpa=" + prdFlpa + ", prdFlcbo=" + prdFlcbo + ", prdFlca=" + prdFlca + ", prdFlida=" + prdFlida + ", prdFlqt=" + prdFlqt + ", prdFler=" + prdFler + ", prdFlmun=" + prdFlmun + ", prdFlcid=" + prdFlcid + ", racaPaciente=" + racaPaciente + ", etniaPaciente=" + etniaPaciente + ", nacionalidadePaciente=" + nacionalidadePaciente + ", prdAdvqt=" + prdAdvqt + '}';
+    }
+
    
  
 
-    @Override
-    public String toString() {
-        return "Procedimento: "+this.procedimentoRealizadoPK.getCodigoProcedimento()+"\nPaciente: "+this.nomePaciente+"\nUnidade: "+this.procedimentoRealizadoPK.getCnesUnidade();
-    }
+    
     
 }
