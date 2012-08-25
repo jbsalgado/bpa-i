@@ -1,26 +1,19 @@
 
 package br.gov.saudecaruaru.bpai.gui;
 
-import br.gov.saudecaruaru.bpai.gui.validators.OnlyNumbers;
-import br.gov.saudecaruaru.bpai.gui.validators.DoencaVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.CnsVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.QuantProcedimentoVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.EtniaVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.DataAtendimentoVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.ProcedimentoVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.CBOVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.NacionalidadeVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.CaraterAtendVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.OnlyLettersVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.MunicipioVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.DataVerifier;
+
 import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
+import br.gov.saudecaruaru.bpai.business.controller.DoencaController;
 import br.gov.saudecaruaru.bpai.business.controller.GestorCompetenciaController;
 import br.gov.saudecaruaru.bpai.business.controller.MedicoController;
+import br.gov.saudecaruaru.bpai.business.controller.MunicipioController;
+import br.gov.saudecaruaru.bpai.business.controller.PacienteController;
+import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoController;
+import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.business.model.CaraterAtendimento;
 import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
-import br.gov.saudecaruaru.bpai.business.model.GestorCompetencia;
+import br.gov.saudecaruaru.bpai.business.model.Procedimento;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
 import br.gov.saudecaruaru.bpai.gui.validators.*;
@@ -31,12 +24,12 @@ import java.awt.Component;
 import java.awt.event.*;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.MaskFormatter;
 
@@ -45,6 +38,7 @@ import javax.swing.text.MaskFormatter;
  * @author Junior Pires
  */
 public class CadastroIndividualizado extends javax.swing.JFrame implements TelaCadastroI{
+    
      private MaskFormatter mCBO=null; 
      private MaskFormatter mData=null; 
      private MaskFormatter mNome=null; 
@@ -61,8 +55,13 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
      
      private Diversas diversas;
      private DiversasPK diversasPk;
+     //controladores
      private DiversasController diversasController;
      private MedicoController medicoController;
+     private PacienteController pacienteController;
+     private MunicipioController municipioController;
+     private ProcedimentoController procedimentoController;
+     private DoencaController doencaController;
      
      private ProcedimentoRealizado procedimentoRealizado;
      private GestorCompetenciaController gestorCompetenciaController;
@@ -89,9 +88,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         //instancia o modelo usado para o cadastro
         this.procedimentoRealizado = new ProcedimentoRealizado();
          
-        gestorCompetenciaController = new GestorCompetenciaController(); 
-        diversasController = new DiversasController();
+        this.gestorCompetenciaController = new GestorCompetenciaController(); 
+        this.diversasController = new DiversasController();
         this.medicoController= new MedicoController();
+        this.pacienteController=new PacienteController();
+        this.municipioController= new MunicipioController();
+        this.procedimentoController= new ProcedimentoController();
+        this.doencaController=new DoencaController();
+        
+        
         //instancia o modelo DiversasPk
         diversas = new  Diversas();
         diversasPk = new DiversasPK();
@@ -239,7 +244,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         this.jTextFieldCnsProfiss.addKeyListener(new KeyAdapter() {
              public void keyPressed(java.awt.event.KeyEvent evt) {
                  //o usuário clicou F2
-                if(evt.getKeyCode()==KeyEvent.VK_F2){
+                if(evt.getKeyCode()==KeyEvent.VK_F1){
                     Search m=CadastroIndividualizado.this.keyPressedJTextFieldCnsProfiss();
                     //o usuário selecionou um registro
                     if(m!=null){
@@ -248,6 +253,116 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                     }
                 }
             }
+             
+        
+        });
+        
+         //para CBO do profissional
+        this.jTextFieldCBO.addKeyListener(new KeyAdapter() {
+             public void keyPressed(java.awt.event.KeyEvent evt) {
+                 //o usuário clicou F2
+                if(evt.getKeyCode()==KeyEvent.VK_F1){
+                    Search m=CadastroIndividualizado.this.keyPressedJTextFieldCBO();
+                    //o usuário selecionou um registro
+                    if(m!=null){
+                        //vai setor o valor do código no campo
+                        CadastroIndividualizado.this.jTextFieldCBO.setText(m.getId());
+                    }
+                }
+            }
+             
+        
+        });
+        
+        //para pacientes/cnd do paciente
+        this.jTextFieldUsuarioCns.addKeyListener(new KeyAdapter() {
+             public void keyPressed(java.awt.event.KeyEvent evt) {
+                 //o usuário clicou F2
+                if(evt.getKeyCode()==KeyEvent.VK_F1){
+                    Search m=CadastroIndividualizado.this.keyPressedJTextFieldUsuarioCns();
+                    //o usuário selecionou um registro
+                    if(m!=null){
+                        //vai setor o valor do código no campo
+                        CadastroIndividualizado.this.jTextFieldUsuarioCns.setText(m.getId());
+                    }
+                }
+            }
+             
+        
+        });
+        
+        //para município
+        this.jTextFieldUsuarioCodMunicip.addKeyListener(new KeyAdapter() {
+             public void keyPressed(java.awt.event.KeyEvent evt) {
+                 //o usuário clicou F2
+                if(evt.getKeyCode()==KeyEvent.VK_F1){
+                    Search m=CadastroIndividualizado.this.keyPressedJTextFieldUsuarioMunicip();
+                    //o usuário selecionou um registro
+                    if(m!=null){
+                        //vai setor o valor do código no campo
+                        //26 é referente ao estado de pernambuco
+                        CadastroIndividualizado.this.jTextFieldUsuarioCodMunicip.setText("26"+m.getId());
+                        CadastroIndividualizado.this.jTextFieldUsuarioNomeMunicip.setText(m.getDescription());
+                    }
+                }
+            }
+             
+        
+        });
+        
+        //para município
+        this.jTextFieldUsuarioCodNac.addKeyListener(new KeyAdapter() {
+             public void keyPressed(java.awt.event.KeyEvent evt) {
+                 //o usuário clicou F2
+                if(evt.getKeyCode()==KeyEvent.VK_F1){
+                    Search m=CadastroIndividualizado.this.keyPressedJTextFieldUsuarioCodNac();
+                    //o usuário selecionou um registro
+                    if(m!=null){
+                        //vai setor o valor do código no campo
+                        //26 é referente ao estado de pernambuco
+                        CadastroIndividualizado.this.jTextFieldUsuarioCodNac.setText(m.getId());
+                        CadastroIndividualizado.this.jTextFieldUsuarioNomeNac.setText(m.getDescription());
+                    }
+                }
+            }
+             
+        
+        });
+        
+        //para procedimento realizado
+        this.jTextFieldProcCod.addKeyListener(new KeyAdapter() {
+             public void keyPressed(java.awt.event.KeyEvent evt) {
+                 //o usuário clicou F2
+                if(evt.getKeyCode()==KeyEvent.VK_F1){
+                    Procedimento m=CadastroIndividualizado.this.keyPressedJTextFieldProcCod();
+                    //o usuário selecionou um registro
+                    if(m!=null){
+                        //vai setor o valor do código no campo
+                        //26 é referente ao estado de pernambuco
+                        CadastroIndividualizado.this.jTextFieldProcCod.setText(m.getProcedimentoPk().getId()+m.getDigitoVerificador());
+                        CadastroIndividualizado.this.jTextFieldProcDescricao.setText(m.getDescricao());
+                    }
+                }
+            }
+             
+        
+        });
+        //para procedimento realizado
+        this.jTextFieldProcCID.addKeyListener(new KeyAdapter() {
+             public void keyPressed(java.awt.event.KeyEvent evt) {
+                 //o usuário clicou F2
+                if(evt.getKeyCode()==KeyEvent.VK_F1){
+                    Search m=CadastroIndividualizado.this.keyPressedJTextFieldProcCID();
+                    //o usuário selecionou um registro
+                    if(m!=null){
+                        //vai setor o valor do código no campo
+                        //26 é referente ao estado de pernambuco
+                        CadastroIndividualizado.this.jTextFieldProcCID.setText(m.getId());
+                        CadastroIndividualizado.this.jTextFieldProcDescriDoenca.setText(m.getDescription());
+                    }
+                }
+            }
+             
         
         });
     }
@@ -303,9 +418,89 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
        //this.jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.);
        
     }
+    //todos os keyPressed
     
+    /**
+     * Método que realiza a busca de um médico
+     * @return Search objeto de pesquisa com um identificador e uma descrição
+     */
     private Search keyPressedJTextFieldCnsProfiss(){
         return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.medicoController, "cns", "nome","CNS", "Nome");
+    }
+    
+     /**
+     * Método que realiza a busca um CBO
+     * @return Search objeto de pesquisa com um identificador e uma descrição
+     */
+    private Search keyPressedJTextFieldCBO(){
+        //restrição para qualquer busca
+        HashMap<String, Object> res=new HashMap<String, Object>();
+        res.put("diversasPK.codigoTabela", Diversas.TABELA_PROFISSAO);
+        return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.diversasController, 
+                                                        "diversasPK.codigoItemTabela", "descricaoItemTabela",
+                                                        "Código", "Profissão",res);
+    }
+    
+    /**
+     * Método que realiza uma busca de usuários/pacientes
+     * @return Search objeto de pesquisa com um identificador e uma descrição
+     */
+    private Search keyPressedJTextFieldUsuarioCns(){
+        
+        return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.pacienteController, "cns", "nome","CNS", "Nome");
+    }
+    
+    /**
+     * Método que realiza a busca de um município
+     * @return Search objeto de pesquisa com um identificador e uma descrição
+     */
+    private Search keyPressedJTextFieldUsuarioMunicip(){
+        HashMap<String, Object> res=new HashMap<String, Object>();
+        //pernambuco
+        res.put("municipioPK.uf", "26");
+        return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.municipioController, 
+                                                            "municipioPK.codigoMunicipio", "nome",
+                                                            "Código", "Nome", res);
+    }
+    
+   /**
+     * Método que realiza a busca da nacionalidade
+     * @return Search objeto de pesquisa com um identificador e uma descrição
+     */
+    private Search keyPressedJTextFieldUsuarioCodNac(){
+        //restrição para qualquer busca
+        HashMap<String, Object> res=new HashMap<String, Object>();
+        res.put("diversasPK.codigoTabela", Diversas.TABELA_PAIS);
+        return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.diversasController, 
+                                                        "diversasPK.codigoItemTabela", "descricaoItemTabela",
+                                                        "Código", "Nacionalidade",res);
+    }
+    
+    /**
+     * Método que realiza a busca da nacionalidade
+     * @return Search objeto de pesquisa com um identificador e uma descrição
+     */
+    private Procedimento keyPressedJTextFieldProcCod(){
+        //restrição para qualquer busca
+        HashMap<String, Object> res=new HashMap<String, Object>();
+        String comp=this.jTextFieldAno.getText()+this.jTextFieldMes.getText();
+        res.put("procedimentoPk.competencia", comp);
+        Search s=SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.procedimentoController, 
+                                                        "procedimentoPk.id", "descricao",
+                                                        "Código", "Descrição",res);
+        res.put("procedimentoPk.id",s.getId() );
+        return this.procedimentoController.findEqual(res);
+    }
+    
+    /**
+     * Método que realiza a busca da nacionalidade
+     * @return Search objeto de pesquisa com um identificador e uma descrição
+     */
+    private Search keyPressedJTextFieldProcCID(){
+        //restrição para qualquer busca
+        return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.doencaController, 
+                                                        "codigo", "descricao",
+                                                        "Código", "Descrição");
     }
     
     
@@ -533,19 +728,19 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel1.setText("CNES");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel2.setText("CNS Profissional");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel3.setText("Nome Profissional");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel5.setText("Mês/Ano");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel6.setText("Folha");
 
         jTextFieldNomeProfiss.addActionListener(new java.awt.event.ActionListener() {
@@ -554,20 +749,20 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel7.setText(" /");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel9.setText("CNS");
 
         jLabel8.setText("Usuário Sequência :");
 
         jLabelUsuarioSeq.setText("01");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel10.setText("Nome");
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel10.setText("Nome ");
 
         jTextFieldUsuarioNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -575,15 +770,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel4.setText("Sexo");
 
         jLabel11.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel11.setText(" F/M");
         jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel12.setText("Dt. Nascimento");
 
         jTextFieldUsuarioNomeNac.setBackground(new java.awt.Color(153, 153, 153));
@@ -593,7 +788,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel14.setText("Nacionalidade");
 
         jTextFieldUsuarioNomeMunicip.setBackground(new java.awt.Color(153, 153, 153));
@@ -603,10 +798,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel13.setText("Município de Residência");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel15.setText("Raça/Cor");
 
         jTextFieldUsuarioDescEtnia.setBackground(new java.awt.Color(153, 153, 153));
@@ -623,7 +818,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel17.setText("Etnia");
 
         jTextFieldUsuarioCns.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###############"))));
@@ -713,7 +908,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                                 .addComponent(jTextFieldUsuarioCodNac, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextFieldUsuarioNomeNac, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -769,7 +964,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
         jLabelProcSeq.setText("01");
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel20.setText("Dt. Atendimento");
 
         jTextFieldProcQuant.addActionListener(new java.awt.event.ActionListener() {
@@ -778,7 +973,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel22.setText("Quantidade");
 
         jTextFieldProcDescriDoenca.setBackground(new java.awt.Color(153, 153, 153));
@@ -788,10 +983,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel23.setText("Código");
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel24.setText("CID");
 
         jTextFieldProcDescricao.setBackground(new java.awt.Color(153, 153, 153));
@@ -808,21 +1003,26 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel19.setText("Nº Autorização");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel18.setText("Caráter Atendimento");
 
-        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonIncluir.setText("Incluir");
+        jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonIncluirMouseClicked(evt);
+            }
+        });
         jButtonIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonIncluirActionPerformed(evt);
             }
         });
 
-        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonLimpar.setText("Limpar");
         jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -873,7 +1073,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -910,7 +1110,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldProcNumAut))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -921,7 +1121,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -937,7 +1137,6 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                                 .addComponent(jTextFieldProcDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jTextFieldProcDataAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jTextFieldProcCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel24)
                             .addComponent(jLabel22))
@@ -954,10 +1153,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBoxProcCaraterAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldProcNumAut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1000,49 +1199,48 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldCnes, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(46, 46, 46))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldCnsProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldNomeProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21)
+                            .addComponent(jTextFieldCBO, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(39, 39, 39)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jTextFieldFolha, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jSeparator2)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(22, 22, 22)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextFieldCnes, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(33, 33, 33)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(46, 46, 46))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextFieldCnsProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextFieldNomeProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel21)
-                                .addComponent(jTextFieldCBO, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(27, 27, 27)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addGap(39, 39, 39)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
-                                .addComponent(jTextFieldFolha, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -1068,14 +1266,14 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                     .addComponent(jTextFieldFolha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldCBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -1094,7 +1292,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
     }//GEN-LAST:event_jButtonLimparActionPerformed
 
     private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_jButtonIncluirActionPerformed
 
     private void jComboBoxProcCaraterAtendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxProcCaraterAtendActionPerformed
@@ -1112,6 +1310,13 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
     private void jTextFieldProcQuantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProcQuantActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldProcQuantActionPerformed
+
+    private void jButtonIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirMouseClicked
+        // TODO add your handling code here:
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha("0");
+        this.tableModelDados.setValueAt(procedimentoRealizado, 0);
+        System.out.println(this.procedimentoRealizado);
+    }//GEN-LAST:event_jButtonIncluirMouseClicked
                                           
 
     private void jTextFieldCnsProfissActionPerformed(java.awt.event.ActionEvent evt) {                                                     

@@ -189,6 +189,7 @@ public class ProcedimentoRealizadoTableModel extends AbstractTableModel{
     
  
     
+   
     
     public ProcedimentoRealizado getProcedimentoRealizado(int index){
         return this.list.get(index);
