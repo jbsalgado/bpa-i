@@ -17,40 +17,41 @@ import javax.persistence.Embeddable;
 public class MunicipioPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "CODUF")
-    private String coduf;
+    private String uf;
     @Basic(optional = false)
     @Column(name = "CODMUNIC")
-    private String codmunic;
+    private String codigoMunicipio;
 
     public MunicipioPK() {
     }
 
-    public MunicipioPK(String coduf, String codmunic) {
-        this.coduf = coduf;
-        this.codmunic = codmunic;
+    public MunicipioPK(String uf, String codigoMunicipio) {
+        this.uf = uf;
+        this.codigoMunicipio = codigoMunicipio;
     }
 
-    public String getCoduf() {
-        return coduf;
+    public String getCodigoMunicipio() {
+        return codigoMunicipio;
     }
 
-    public void setCoduf(String coduf) {
-        this.coduf = coduf;
+    public void setCodigoMunicipio(String codigoMunicipio) {
+        this.codigoMunicipio = codigoMunicipio;
     }
 
-    public String getCodmunic() {
-        return codmunic;
+    public String getUf() {
+        return uf;
     }
 
-    public void setCodmunic(String codmunic) {
-        this.codmunic = codmunic;
+    public void setUf(String uf) {
+        this.uf = uf;
     }
 
+     
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (coduf != null ? coduf.hashCode() : 0);
-        hash += (codmunic != null ? codmunic.hashCode() : 0);
+        hash += (uf != null ? uf.hashCode() : 0);
+        hash += (codigoMunicipio != null ? codigoMunicipio.hashCode() : 0);
         return hash;
     }
 
@@ -61,10 +62,10 @@ public class MunicipioPK implements Serializable {
             return false;
         }
         MunicipioPK other = (MunicipioPK) object;
-        if ((this.coduf == null && other.coduf != null) || (this.coduf != null && !this.coduf.equals(other.coduf))) {
+        if ((this.uf == null && other.uf != null) || (this.uf != null && !this.uf.equals(other.uf))) {
             return false;
         }
-        if ((this.codmunic == null && other.codmunic != null) || (this.codmunic != null && !this.codmunic.equals(other.codmunic))) {
+        if ((this.codigoMunicipio == null && other.codigoMunicipio != null) || (this.codigoMunicipio != null && !this.codigoMunicipio.equals(other.codigoMunicipio))) {
             return false;
         }
         return true;
@@ -72,7 +73,7 @@ public class MunicipioPK implements Serializable {
 
     @Override
     public String toString() {
-        return "br.gov.saudecaruaru.bpai.business.model.CadmunPK[ coduf=" + coduf + ", codmunic=" + codmunic + " ]";
+        return "br.gov.saudecaruaru.bpai.business.model.CadmunPK[ coduf=" + uf + ", codmunic=" + codigoMunicipio + " ]";
     }
     
 }

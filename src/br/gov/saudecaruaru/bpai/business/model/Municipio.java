@@ -17,57 +17,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Municipio implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected MunicipioPK cadmunPK;
+    protected MunicipioPK municipioPK;
     @Column(name = "NOME")
     private String nome;
     @Column(name = "CONDIC")
-    private String condic;
+    private String condicicao;
     @Column(name = "DTHABIL")
-    private String dthabil;
+    private String dataHabilitacao;
     @Column(name = "AUX")
     private Character aux;
 
     public Municipio() {
     }
 
-    public Municipio(MunicipioPK cadmunPK) {
-        this.cadmunPK = cadmunPK;
+    public Municipio(MunicipioPK municipioPK) {
+        this.municipioPK = municipioPK;
     }
 
-    public Municipio(String coduf, String codmunic) {
-        this.cadmunPK = new MunicipioPK(coduf, codmunic);
-    }
-
-    public MunicipioPK getCadmunPK() {
-        return cadmunPK;
-    }
-
-    public void setCadmunPK(MunicipioPK cadmunPK) {
-        this.cadmunPK = cadmunPK;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
+    public Municipio(MunicipioPK municipioPK, String nome, String condicicao, String dataHabilitacao, Character aux) {
+        this.municipioPK = municipioPK;
         this.nome = nome;
-    }
-
-    public String getCondic() {
-        return condic;
-    }
-
-    public void setCondic(String condic) {
-        this.condic = condic;
-    }
-
-    public String getDthabil() {
-        return dthabil;
-    }
-
-    public void setDthabil(String dthabil) {
-        this.dthabil = dthabil;
+        this.condicicao = condicicao;
+        this.dataHabilitacao = dataHabilitacao;
+        this.aux = aux;
     }
 
     public Character getAux() {
@@ -78,10 +50,44 @@ public class Municipio implements Serializable {
         this.aux = aux;
     }
 
+    public String getCondicicao() {
+        return condicicao;
+    }
+
+    public void setCondicicao(String condicicao) {
+        this.condicicao = condicicao;
+    }
+
+    public String getDataHabilitacao() {
+        return dataHabilitacao;
+    }
+
+    public void setDataHabilitacao(String dataHabilitacao) {
+        this.dataHabilitacao = dataHabilitacao;
+    }
+
+    public MunicipioPK getMunicipioPK() {
+        return municipioPK;
+    }
+
+    public void setMunicipioPK(MunicipioPK municipioPK) {
+        this.municipioPK = municipioPK;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+   
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (cadmunPK != null ? cadmunPK.hashCode() : 0);
+        hash += (municipioPK != null ? municipioPK.hashCode() : 0);
         return hash;
     }
 
@@ -92,7 +98,7 @@ public class Municipio implements Serializable {
             return false;
         }
         Municipio other = (Municipio) object;
-        if ((this.cadmunPK == null && other.cadmunPK != null) || (this.cadmunPK != null && !this.cadmunPK.equals(other.cadmunPK))) {
+        if ((this.municipioPK == null && other.municipioPK != null) || (this.municipioPK != null && !this.municipioPK.equals(other.municipioPK))) {
             return false;
         }
         return true;
@@ -100,7 +106,7 @@ public class Municipio implements Serializable {
 
     @Override
     public String toString() {
-        return "br.gov.saudecaruaru.bpai.business.model.Cadmun[ cadmunPK=" + cadmunPK + " ]";
+        return "br.gov.saudecaruaru.bpai.business.model.Cadmun[ cadmunPK=" + municipioPK + " ]";
     }
     
 }
