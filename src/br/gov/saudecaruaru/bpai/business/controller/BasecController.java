@@ -49,7 +49,7 @@ public class BasecController < T extends Serializable>{
         return this.dao.findAllLike(map);
     }
     
-    public T findEqual(Serializable modelo){
+    public T findEqual(T modelo){
         return (T) this.dao.findEqual(modelo);
     }
     
