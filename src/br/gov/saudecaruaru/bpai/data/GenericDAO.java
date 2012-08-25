@@ -40,6 +40,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
     }
 
     public EntityManager getEntityManager() {
+        if(!this.entityManager.isOpen()){
+           // this.entityManager.
+        }
         return entityManager;
     }
 
@@ -240,7 +243,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
 
 
     @Override
-    public T findEqual(Serializable object) {
+    public T findEqual(T object) {
       Session session = (Session) getEntityManager().getDelegate();
         Criteria c=session.createCriteria(persistentClass);   
         Map<String, Object> restrictions=ModelUtil.getRestrictions(object);
