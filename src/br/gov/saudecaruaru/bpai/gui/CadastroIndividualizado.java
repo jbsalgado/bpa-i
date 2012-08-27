@@ -1,24 +1,12 @@
 
 package br.gov.saudecaruaru.bpai.gui;
 
-import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
-import br.gov.saudecaruaru.bpai.gui.validators.OnlyNumbers;
-import br.gov.saudecaruaru.bpai.gui.validators.DoencaVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.CnsVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.QuantProcedimentoVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.EtniaVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.DataAtendimentoVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.ProcedimentoVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.CBOVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.NacionalidadeVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.CaraterAtendVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.OnlyLettersVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.MunicipioVerifier;
-import br.gov.saudecaruaru.bpai.gui.validators.DataVerifier;
-import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
-import br.gov.saudecaruaru.bpai.business.controller.GestorCompetenciaController;
-import br.gov.saudecaruaru.bpai.business.controller.MedicoController;
+
+
+
+import br.gov.saudecaruaru.bpai.business.controller.*;
 import br.gov.saudecaruaru.bpai.business.model.*;
+
 import br.gov.saudecaruaru.bpai.gui.validators.*;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModel;
 import br.gov.saudecaruaru.bpai.util.Search;
@@ -27,12 +15,12 @@ import java.awt.Component;
 import java.awt.event.*;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.MaskFormatter;
 
@@ -41,18 +29,38 @@ import javax.swing.text.MaskFormatter;
  * @author Junior Pires
  */
 public class CadastroIndividualizado extends javax.swing.JFrame implements TelaCadastroI{
+    
+     private MaskFormatter mCBO=null; 
+     private MaskFormatter mData=null; 
+     private MaskFormatter mNome=null; 
+     private MaskFormatter mMes=null; 
+     private MaskFormatter mCodMun=null; 
+     private MaskFormatter mCodNac=null; 
+     private MaskFormatter mCodProc=null; 
+     private MaskFormatter mCID=null; 
+     private MaskFormatter mAno=null; 
+     private MaskFormatter mFolha=null; 
+     private MaskFormatter mEtnia=null; 
+     private MaskFormatter mNumAutoriz=null; 
+     private MaskFormatter mCNS=null; 
      
-     private int sequencia=1;
      private Diversas diversas;
      private DiversasPK diversasPk;
+     //controladores
      private DiversasController diversasController;
      private MedicoController medicoController;
+     private PacienteController pacienteController;
+     private MunicipioController municipioController;
+     private ProcedimentoController procedimentoController;
+     private DoencaController doencaController;
      
      private ProcedimentoRealizado procedimentoRealizado;
      private GestorCompetenciaController gestorCompetenciaController;
      
      private ProcedimentoRealizadoTableModel tableModelDados;
-   
+     private int sequencia=1;
+     
+     
     
      
  
@@ -73,9 +81,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         //instancia o modelo usado para o cadastro
         this.procedimentoRealizado = new ProcedimentoRealizado();
          
-        gestorCompetenciaController = new GestorCompetenciaController(); 
-        diversasController = new DiversasController();
+        this.gestorCompetenciaController = new GestorCompetenciaController(); 
+        this.diversasController = new DiversasController();
         this.medicoController= new MedicoController();
+        this.pacienteController=new PacienteController();
+        this.municipioController= new MunicipioController();
+        this.procedimentoController= new ProcedimentoController();
+        this.doencaController=new DoencaController();
+        
+        
         //instancia o modelo DiversasPk
         diversas = new  Diversas();
         diversasPk = new DiversasPK();
@@ -110,7 +124,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         //this.jPanel2.setp
         
         //adicionando listeners aos campos 
-        this.addListenersFields();
+        addListenersFields();
         
         //desabilita alguns campos do usuario
         jTextFieldUsuarioNomeMunicip.setEnabled(false);
@@ -123,10 +137,6 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         jTextFieldProcDescriDoenca.setEnabled(false);
         
         //inicializando campos 
-        //inicializando campos com a sequencia da folha
-        jLabelProcSeq.setText(String.valueOf(sequencia));
-        jLabelUsuarioSeq.setText(String.valueOf(sequencia));
-        
         //inicializando competencia
         String competencia = gestorCompetenciaController.getCompetenciaAtual();
         jTextFieldMes.setText(competencia.substring(4));
@@ -135,8 +145,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
         //inicializando nacionalidade: BRASIL
         jTextFieldUsuarioCodNac.setText(Diversas.CODIGO_NACIONALIDADE_BRASIL);
-             
-        
+        procedimentoRealizado.setNacionalidadePaciente(Diversas.CODIGO_NACIONALIDADE_BRASIL);
         //desabilitando etnia
         jTextFieldUsuarioCodEtnia.setEnabled(false);
         
@@ -228,7 +237,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         this.jTextFieldCnsProfiss.addKeyListener(new KeyAdapter() {
              public void keyPressed(java.awt.event.KeyEvent evt) {
                  //o usuário clicou F2
-                if(evt.getKeyCode()==KeyEvent.VK_F2){
+                if(evt.getKeyCode()==KeyEvent.VK_F1){
                     Search m=CadastroIndividualizado.this.keyPressedJTextFieldCnsProfiss();
                     //o usuário selecionou um registro
                     if(m!=null){
@@ -237,6 +246,116 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                     }
                 }
             }
+             
+        
+        });
+        
+         //para CBO do profissional
+        this.jTextFieldCBO.addKeyListener(new KeyAdapter() {
+             public void keyPressed(java.awt.event.KeyEvent evt) {
+                 //o usuário clicou F2
+                if(evt.getKeyCode()==KeyEvent.VK_F1){
+                    Search m=CadastroIndividualizado.this.keyPressedJTextFieldCBO();
+                    //o usuário selecionou um registro
+                    if(m!=null){
+                        //vai setor o valor do código no campo
+                        CadastroIndividualizado.this.jTextFieldCBO.setText(m.getId());
+                    }
+                }
+            }
+             
+        
+        });
+        
+        //para pacientes/cnd do paciente
+        this.jTextFieldUsuarioCns.addKeyListener(new KeyAdapter() {
+             public void keyPressed(java.awt.event.KeyEvent evt) {
+                 //o usuário clicou F2
+                if(evt.getKeyCode()==KeyEvent.VK_F1){
+                    Search m=CadastroIndividualizado.this.keyPressedJTextFieldUsuarioCns();
+                    //o usuário selecionou um registro
+                    if(m!=null){
+                        //vai setor o valor do código no campo
+                        CadastroIndividualizado.this.jTextFieldUsuarioCns.setText(m.getId());
+                    }
+                }
+            }
+             
+        
+        });
+        
+        //para município
+        this.jTextFieldUsuarioCodMunicip.addKeyListener(new KeyAdapter() {
+             public void keyPressed(java.awt.event.KeyEvent evt) {
+                 //o usuário clicou F2
+                if(evt.getKeyCode()==KeyEvent.VK_F1){
+                    Search m=CadastroIndividualizado.this.keyPressedJTextFieldUsuarioMunicip();
+                    //o usuário selecionou um registro
+                    if(m!=null){
+                        //vai setor o valor do código no campo
+                        //26 é referente ao estado de pernambuco
+                        CadastroIndividualizado.this.jTextFieldUsuarioCodMunicip.setText("26"+m.getId());
+                        CadastroIndividualizado.this.jTextFieldUsuarioNomeMunicip.setText(m.getDescription());
+                    }
+                }
+            }
+             
+        
+        });
+        
+        //para município
+        this.jTextFieldUsuarioCodNac.addKeyListener(new KeyAdapter() {
+             public void keyPressed(java.awt.event.KeyEvent evt) {
+                 //o usuário clicou F2
+                if(evt.getKeyCode()==KeyEvent.VK_F1){
+                    Search m=CadastroIndividualizado.this.keyPressedJTextFieldUsuarioCodNac();
+                    //o usuário selecionou um registro
+                    if(m!=null){
+                        //vai setor o valor do código no campo
+                        //26 é referente ao estado de pernambuco
+                        CadastroIndividualizado.this.jTextFieldUsuarioCodNac.setText(m.getId());
+                        CadastroIndividualizado.this.jTextFieldUsuarioNomeNac.setText(m.getDescription());
+                    }
+                }
+            }
+             
+        
+        });
+        
+        //para procedimento realizado
+        this.jTextFieldProcCod.addKeyListener(new KeyAdapter() {
+             public void keyPressed(java.awt.event.KeyEvent evt) {
+                 //o usuário clicou F2
+                if(evt.getKeyCode()==KeyEvent.VK_F1){
+                    Procedimento m=CadastroIndividualizado.this.keyPressedJTextFieldProcCod();
+                    //o usuário selecionou um registro
+                    if(m!=null){
+                        //vai setor o valor do código no campo
+                        //26 é referente ao estado de pernambuco
+                        CadastroIndividualizado.this.jTextFieldProcCod.setText(m.getProcedimentoPk().getId()+m.getDigitoVerificador());
+                        CadastroIndividualizado.this.jTextFieldProcDescricao.setText(m.getDescricao());
+                    }
+                }
+            }
+             
+        
+        });
+        //para procedimento realizado
+        this.jTextFieldProcCID.addKeyListener(new KeyAdapter() {
+             public void keyPressed(java.awt.event.KeyEvent evt) {
+                 //o usuário clicou F2
+                if(evt.getKeyCode()==KeyEvent.VK_F1){
+                    Search m=CadastroIndividualizado.this.keyPressedJTextFieldProcCID();
+                    //o usuário selecionou um registro
+                    if(m!=null){
+                        //vai setor o valor do código no campo
+                        //26 é referente ao estado de pernambuco
+                        CadastroIndividualizado.this.jTextFieldProcCID.setText(m.getId());
+                        CadastroIndividualizado.this.jTextFieldProcDescriDoenca.setText(m.getDescription());
+                    }
+                }
+            }
+             
         
         });
     }
@@ -292,14 +411,242 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
        //this.jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.);
        
     }
+    //todos os keyPressed
     
+    /**
+     * Método que realiza a busca de um médico
+     * @return Search objeto de pesquisa com um identificador e uma descrição
+     */
     private Search keyPressedJTextFieldCnsProfiss(){
         return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.medicoController, "cns", "nome","CNS", "Nome");
     }
     
+     /**
+     * Método que realiza a busca um CBO
+     * @return Search objeto de pesquisa com um identificador e uma descrição
+     */
+    private Search keyPressedJTextFieldCBO(){
+        //restrição para qualquer busca
+        HashMap<String, Object> res=new HashMap<String, Object>();
+        res.put("diversasPK.codigoTabela", Diversas.TABELA_PROFISSAO);
+        return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.diversasController, 
+                                                        "diversasPK.codigoItemTabela", "descricaoItemTabela",
+                                                        "Código", "Profissão",res);
+    }
+    
+    /**
+     * Método que realiza uma busca de usuários/pacientes
+     * @return Search objeto de pesquisa com um identificador e uma descrição
+     */
+    private Search keyPressedJTextFieldUsuarioCns(){
+        
+        return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.pacienteController, "cns", "nome","CNS", "Nome");
+    }
+    
+    /**
+     * Método que realiza a busca de um município
+     * @return Search objeto de pesquisa com um identificador e uma descrição
+     */
+    private Search keyPressedJTextFieldUsuarioMunicip(){
+        HashMap<String, Object> res=new HashMap<String, Object>();
+        //pernambuco
+        res.put("municipioPK.uf", "26");
+        return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.municipioController, 
+                                                            "municipioPK.codigoMunicipio", "nome",
+                                                            "Código", "Nome", res);
+    }
+    
+   /**
+     * Método que realiza a busca da nacionalidade
+     * @return Search objeto de pesquisa com um identificador e uma descrição
+     */
+    private Search keyPressedJTextFieldUsuarioCodNac(){
+        //restrição para qualquer busca
+        HashMap<String, Object> res=new HashMap<String, Object>();
+        res.put("diversasPK.codigoTabela", Diversas.TABELA_PAIS);
+        return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.diversasController, 
+                                                        "diversasPK.codigoItemTabela", "descricaoItemTabela",
+                                                        "Código", "Nacionalidade",res);
+    }
+    
+    /**
+     * Método que realiza a busca da nacionalidade
+     * @return Search objeto de pesquisa com um identificador e uma descrição
+     */
+    private Procedimento keyPressedJTextFieldProcCod(){
+        //restrição para qualquer busca
+        HashMap<String, Object> res=new HashMap<String, Object>();
+        String comp=this.jTextFieldAno.getText()+this.jTextFieldMes.getText();
+        res.put("procedimentoPk.competencia", comp);
+        Search s=SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.procedimentoController, 
+                                                        "procedimentoPk.id", "descricao",
+                                                        "Código", "Descrição",res);
+        res.put("procedimentoPk.id",s.getId() );
+        return this.procedimentoController.findEqual(res);
+    }
+    
+    /**
+     * Método que realiza a busca da nacionalidade
+     * @return Search objeto de pesquisa com um identificador e uma descrição
+     */
+    private Search keyPressedJTextFieldProcCID(){
+        //restrição para qualquer busca
+        return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.doencaController, 
+                                                        "codigo", "descricao",
+                                                        "Código", "Descrição");
+    }
+    
     
         
-    
+    private MaskFormatter getMCBO(){
+			if(mCBO==null){
+				try {
+					mCBO = new MaskFormatter("######");
+					mCBO.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mCBO;
+		}
+    private MaskFormatter getMMes(){
+			if(mMes==null){
+				try {
+					mMes = new MaskFormatter("##");
+					mMes.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mMes;
+		}
+    private MaskFormatter getMAno(){
+			if(mAno==null){
+				try {
+					mAno = new MaskFormatter("####");
+					mAno.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mAno;
+		}
+             private MaskFormatter getMData(){
+			if(mData==null){
+				try {
+					mData = new MaskFormatter("##/##/####");
+					mData.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mData;
+		}
+             private MaskFormatter getMCodNac(){
+			if(mCodNac==null){
+				try {
+					mCodNac = new MaskFormatter("###");
+					mCodNac.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mCodNac;
+		}
+             
+            private MaskFormatter getMCodMun(){
+			if(mCodMun==null){
+				try {
+					mCodMun = new MaskFormatter("######");
+					mCodMun.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mCodMun;
+		}
+            
+             private MaskFormatter getMCodProc(){
+			if(mCodProc==null){
+				try {
+					mCodProc = new MaskFormatter("##########");
+					mCodProc.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mCodProc;
+		}
+             private MaskFormatter getMCID(){
+			if(mCID==null){
+				try {
+					mCID = new MaskFormatter("****");
+					mCID.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mCID;
+		}
+             
+              private MaskFormatter getMFolha(){
+			if(mFolha==null){
+				try {
+					mFolha = new MaskFormatter("###");
+					mFolha.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mFolha;
+		}
+              
+              private MaskFormatter getMEtnia(){
+			if(mEtnia==null){
+				try {
+					mEtnia= new MaskFormatter("####");
+					mEtnia.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mEtnia;
+		}
+              
+              private MaskFormatter getMNumAutoriz(){
+			if(mNumAutoriz==null){
+				try {
+					mNumAutoriz = new MaskFormatter("*************");
+					mNumAutoriz.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mNumAutoriz;
+		}
+              private MaskFormatter getMCNS(){
+			if(mCNS==null){
+				try {
+					mCNS = new MaskFormatter("###############");
+					mCNS.setPlaceholder("");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			return mCNS;
+		}
      
     
     /**
@@ -371,8 +718,6 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         jTextFieldFolha = new javax.swing.JFormattedTextField();
         jTextFieldCBO = new javax.swing.JFormattedTextField();
         jLabel21 = new javax.swing.JLabel();
-        jButtonGravar = new javax.swing.JButton();
-        jButtonSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -472,7 +817,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         jTextFieldUsuarioCns.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###############"))));
 
         try {
-            jTextFieldUsuarioSexo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("U")));
+            jTextFieldUsuarioSexo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("*")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -556,7 +901,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                                 .addComponent(jTextFieldUsuarioCodNac, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextFieldUsuarioNomeNac, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -721,7 +1066,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -758,7 +1103,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldProcNumAut))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -769,7 +1114,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -801,10 +1146,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBoxProcCaraterAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldProcNumAut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -826,11 +1171,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             ex.printStackTrace();
         }
 
-        try {
-            jTextFieldMes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        jTextFieldMes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##"))));
         jTextFieldMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldMesActionPerformed(evt);
@@ -839,33 +1180,20 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
         jTextFieldAno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
 
-        try {
-            jTextFieldFolha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        jTextFieldFolha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###"))));
 
         jTextFieldCBO.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("######"))));
 
         jLabel21.setText("CBO");
-
-        jButtonGravar.setText("GRAVAR");
-
-        jButtonSair.setText("SAIR");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButtonGravar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -901,11 +1229,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jTextFieldFolha, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addComponent(jSeparator2)
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -931,18 +1259,14 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                     .addComponent(jTextFieldFolha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldCBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGravar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonSair, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -981,26 +1305,21 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
     }//GEN-LAST:event_jTextFieldProcQuantActionPerformed
 
     private void jButtonIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirMouseClicked
-        //atribui ao objeto procedimento realizado os valores dos campos (podem nao terem sido modificado
-        //e consequentemente nao adicionados ao modelo) 
-        String competencia = jTextFieldAno.getText()+jTextFieldMes.getText();
-        this.procedimentoRealizado.setRacaPaciente(jComboBoxUsuarioRacaCor.getSelectedItem().toString());
-        this.procedimentoRealizado.setCaracterizacaoAtendimento(jComboBoxProcCaraterAtend.getSelectedItem().toString());
-        this.procedimentoRealizado.setNacionalidadePaciente(jTextFieldUsuarioCodNac.getText());
-        this.procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
-        this.procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(jTextFieldFolha.getText());
+        //atualiza o valor dos campos sequencia de procedimento e de usuario
+        jLabelProcSeq.setText(String.valueOf(sequencia));
+        jLabelUsuarioSeq.setText(String.valueOf(sequencia));
+       // metodo que pega os valores de alguns campos e adiciona-os ao modelo
+       this.getvaluesOfFieldsForModel();
         
-        this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(String.valueOf(sequencia));
+        //insere o modelo Procedimento realizado na jTable
         this.tableModelDados.setValueAt(procedimentoRealizado,this.sequencia-1);
-       // new BIProcedimentoRealizadoController().salvar(new BIProcedimentoRealizado(procedimentoRealizado));
+        //insere o modelo no banco de dados
+        new BIProcedimentoRealizadoController().salvar(new BIProcedimentoRealizado(procedimentoRealizado));
         
        
         //recomeça a contagem da sequencia caso chegue a 20
         if(this.sequencia==20){
             this.sequencia = 1;
-             jLabelProcSeq.setText(String.valueOf(sequencia));
-             jLabelUsuarioSeq.setText(String.valueOf(sequencia));
-             
              //pega o valor do campo folha e converte para inteiro
              int folha = Integer.parseInt(procedimentoRealizado.getProcedimentoRealizadoPK().getNumeroFolha());
              //incrementa
@@ -1011,16 +1330,17 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
              jTextFieldFolha.setText(f);
         }else{
             ++this.sequencia;
-            jLabelProcSeq.setText(String.valueOf(sequencia));
-            jLabelUsuarioSeq.setText(String.valueOf(sequencia));
+           
         }
         
          //zera os campos 
         this.clearFields();
-        //inicializa o objeto
+        //inicializa o modelo
         this.procedimentoRealizado = new ProcedimentoRealizado(jTextFieldCnes.getText(),
-                                                               jTextFieldCnsProfiss.getText(),jTextFieldCBO.getText(),competencia, jTextFieldFolha.getText());
-        System.out.println(this.procedimentoRealizado);
+                                                               jTextFieldCnsProfiss.getText(),jTextFieldCBO.getText(),jTextFieldAno.getText()+jTextFieldMes.getText(), jTextFieldFolha.getText());
+        
+
+
     }//GEN-LAST:event_jButtonIncluirMouseClicked
                                           
 
@@ -1151,10 +1471,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonGravar;
     private javax.swing.JButton jButtonIncluir;
     private javax.swing.JButton jButtonLimpar;
-    private javax.swing.JButton jButtonSair;
     private javax.swing.JComboBox jComboBoxProcCaraterAtend;
     private javax.swing.JComboBox jComboBoxUsuarioRacaCor;
     private javax.swing.JLabel jLabel1;
@@ -1395,16 +1713,9 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(((JTextField)e.getComponent()).getText());
                
                if(jTextFieldFolha.getInputVerifier().shouldYieldFocus(jTextFieldFolha)){
-                            jTextFieldCnes.setEnabled(false);
-                            jTextFieldCnsProfiss.setEnabled(false);
-                            jTextFieldNomeProfiss.setEnabled(false);
-                            jTextFieldCBO.setEnabled(false);
-                            jTextFieldMes.setEnabled(false);
-                            jTextFieldAno.setEnabled(false);
-                            jTextFieldFolha.setEnabled(false);
-                            
-                            jTextFieldUsuarioCns.requestFocus();
-                            
+                    //desabilita os campos do cabeçalho da tela que são 
+                    //referentes as informações da unidade e do usuário      
+                    disabledFieldsHeader();
                             
                         }
             }
@@ -1608,6 +1919,24 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
           
         
       }
+      private void disabledFieldsHeader(){
+            jTextFieldCnes.setEnabled(false);
+            jTextFieldCnsProfiss.setEnabled(false);
+            jTextFieldNomeProfiss.setEnabled(false);
+            jTextFieldCBO.setEnabled(false);
+            jTextFieldMes.setEnabled(false);
+            jTextFieldAno.setEnabled(false);
+            jTextFieldFolha.setEnabled(false);
+      }
+      private void getvaluesOfFieldsForModel(){
+        String competencia = jTextFieldAno.getText()+jTextFieldMes.getText();
+        this.procedimentoRealizado.setRacaPaciente(jComboBoxUsuarioRacaCor.getSelectedItem().toString());
+        this.procedimentoRealizado.setCaracterizacaoAtendimento(jComboBoxProcCaraterAtend.getSelectedItem().toString());
+        this.procedimentoRealizado.setNacionalidadePaciente(jTextFieldUsuarioCodNac.getText());
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(jTextFieldFolha.getText());
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(String.valueOf(sequencia));
+      }
       
       private void clearFields(){
         //jTextFieldAno.setText("");
@@ -1639,8 +1968,6 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         jComboBoxUsuarioRacaCor.setSelectedIndex(0);
 
       }
-      
-     
     
     
 

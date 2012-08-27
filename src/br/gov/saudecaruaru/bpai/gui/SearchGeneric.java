@@ -75,7 +75,8 @@ public class SearchGeneric extends javax.swing.JDialog {
     }
     public void selectedModel(){
         //pega o modelo selecionado
-        this.selectedSearch=this.tableModel.getSearch(this.tableLista.getSelectedRow());
+        int index=this.tableLista.getSelectedRow();
+        this.selectedSearch= index> -1? this.tableModel.getSearch(index): null;
         //modelo existe
         if(this.selectedSearch!=null){
             //encerra a janela
@@ -295,10 +296,22 @@ public class SearchGeneric extends javax.swing.JDialog {
         return SearchGeneric.instance;
     }
     
+    /**
+     * Método que inicializa a tela de pesquisa.
+     * Qualquer objeto que seja persistido no banco pode ser pesquisado, desde que tenha um controlador.
+     * @param controller controlador utilizado para buscar os dados
+     * @param fieldId atributo do objeto que representa uma chave ou um valor a ser retornado
+     * @param FieldDescription atributo do objeto que representa ums descrição dele
+     * @param labelFieldId um label do para o atributo fieldId
+     * @param labelFieldDescription um label para o atributo fieldDescription
+     * @return devolve um objeto Search, caso o usuário tenha pesquisado e selecionado algum, senão, devolve null
+     */
     public Search initModeSearch(BasecController controller,String fieldId,String FieldDescription, String labelFieldId,String labelFieldDescription){
         this.selectedSearch=null;
         this.jTextField1.setText(null);
-        this.restrictions= new HashMap<String,Object>();
+        if(this.restrictions==null){
+            this.restrictions= new HashMap<String,Object>();
+        }
         //monta o cabeçalho da tabela
         this.header[0]=labelFieldId;
         this.header[1]=labelFieldDescription;
@@ -320,10 +333,22 @@ public class SearchGeneric extends javax.swing.JDialog {
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setModal(true);
         this.setVisible(true);
+        this.restrictions=this.restrictions= new HashMap<String,Object>();
         //quando terminar vai retornar o valor da seleção
         return this.selectedSearch;
     }
     
+    /**
+     * Método que inicializa a tela de pesquisa.
+     * Qualquer objeto que seja persistido no banco pode ser pesquisado, desde que tenha um controlador.
+     * @param controller controlador utilizado para buscar os dados
+     * @param fieldId atributo do objeto que representa uma chave ou um valor a ser retornado
+     * @param FieldDescription atributo do objeto que representa ums descrição dele
+     * @param labelFieldId um label do para o atributo fieldId
+     * @param labelFieldDescription um label para o atributo fieldDescription
+     * @param restrictions um Map que deve conter restrições padrões para qualquer pesquisa. Key=atributo, value=valor para o atributo
+     * @return devolve um objeto Search, caso o usuário tenha pesquisado e selecionado algum, senão, devolve null
+     */
     public Search initModeSearch(BasecController controller,String fieldId,
                                     String FieldDescription, String labelFieldId,
                                         String labelFieldDescription, Map<String, Object> restrictions){
@@ -351,13 +376,14 @@ public class SearchGeneric extends javax.swing.JDialog {
         res.putAll(this.restrictions);
         //faz a busca de acordo com o campo escolhido no cambobox
         if(this.jComboBox1.getSelectedItem().toString().equals(this.header[0])){
-           res.put(this.fieldId, this.jTextField1.getText().toUpperCase());
+           res.put(this.fieldId, this.jTextField1.getText());
         }
         else{
-           res.put(this.fieldDescription, this.jTextField1.getText().toUpperCase());
+           res.put(this.fieldDescription, this.jTextField1.getText());
         }
         //faz a busca
         List l=this.basicController.findAllLike(res);
+        System.out.println(l.size());
 
         return ModelUtil.getListSearch(l, fieldId, fieldDescription);
         

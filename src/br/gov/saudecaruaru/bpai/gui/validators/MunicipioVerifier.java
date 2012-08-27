@@ -36,7 +36,7 @@ public class MunicipioVerifier extends InputVerifier{
         //instancia o modelo  MunicipioPk
          municipio= new   Municipio();
          municipioPk = new  MunicipioPK();
-         municipio.setCadmunPK(municipioPk);
+         municipio.setMunicipioPK(municipioPk);
         
         
     }
@@ -52,9 +52,9 @@ public class MunicipioVerifier extends InputVerifier{
       //pega os quatro ultimos digitos (que representam o codigo do municipio)
       String codMun = valor.substring(2);
       //seta o valor digitado no objeto
-      municipio.getCadmunPK().setCoduf(codUf);
+      municipio.getMunicipioPK().setUf(codUf);
     
-      municipio.getCadmunPK().setCodmunic(codMun);
+      municipio.getMunicipioPK().setCodigoMunicipio(codMun);
       
       municipioSearchead = municipioController.findEqual(municipio);
                 //faz a busca pelo Codigo do municipio digitado, se nao encontra notifica ao usuário
