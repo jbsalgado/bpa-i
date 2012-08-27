@@ -3,7 +3,7 @@
   <persistence-unit name="bpa" transaction-type="RESOURCE_LOCAL">
     <class>br.gov.saudecaruaru.bpai.business.model.Acesso</class>
     <class>br.gov.saudecaruaru.bpai.business.model.Aplicac</class>
-    <class>br.gov.saudecaruaru.bpai.business.model.Cid</class>
+    <class>br.gov.saudecaruaru.bpai.business.model.Doenca</class>
     <class>br.gov.saudecaruaru.bpai.business.model.Medico</class>
     <class>br.gov.saudecaruaru.bpai.business.model.MedicoCboCnes</class>
     <class>br.gov.saudecaruaru.bpai.business.model.Municipio</class>
@@ -11,22 +11,35 @@
     <class>br.gov.saudecaruaru.bpai.business.model.Diversas</class>
     <class>br.gov.saudecaruaru.bpai.business.model.Procedimento</class>
     <class>br.gov.saudecaruaru.bpai.business.model.ProcedimentoCbo</class>
-    <class>br.gov.saudecaruaru.bpai.business.model.ProcedimentoCid</class>
+    <class>br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoenca</class>
     <class>br.gov.saudecaruaru.bpai.business.model.ProcedimentoProcedimento</class>
     <class>br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado</class>
-    <class>br.gov.saudecaruaru.bpai.business.model.SCtr</class>
     <class>br.gov.saudecaruaru.bpai.business.model.Usuario</class>
+    <class>br.gov.saudecaruaru.bpai.business.model.GestorCompetencia</class>
     <properties>
-      <property name="hibernate.connection.url" value="jdbc:firebirdsql://localhost:3050/C:\Users\Junior Pires\Documents\BPA2\BPAMAG.GDB?lc_type=NONE"/>
+      <property name="hibernate.connection.url" value="jdbc:firebirdsql://localhost:3050/D:\BPA\BPAMAG.GDB"/>
       <property name="hibernate.connection.password" value="masterkey"/>
       <property name="hibernate.connection.driver_class" value="org.firebirdsql.jdbc.FBDriver"/>
       <property name="hibernate.connection.username" value="SYSDBA"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.FirebirdDialect"/>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.FirebirdDialect"/>
+      
       <property name="hibernate.show_sql" value="true"/>
     </properties>
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+  </persistence-unit>
+  <persistence-unit name="bpa-i" transaction-type="RESOURCE_LOCAL">
+      
+    <class>br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado</class>
     
-  <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    
+    <properties>
+      <property name="hibernate.connection.url" value="jdbc:firebirdsql://localhost:3050/D:\BPA\TESTANDO.GDB?LC_CTYPE=NONE"/>
+      <property name="hibernate.connection.password" value="masterkey"/>
+      <property name="hibernate.connection.driver_class" value="org.firebirdsql.jdbc.FBDriver"/>
+      <property name="hibernate.connection.username" value="SYSDBA"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.FirebirdDialect"/>
+      <property name="hibernate.connection.lc_ctype" value="UTF-8"/>
+      <property name="hibernate.show_sql" value="true"/>
+    </properties>
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
   </persistence-unit>
 </persistence>
