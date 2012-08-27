@@ -4,14 +4,12 @@
  */
 package br.gov.saudecaruaru.bpai.main;
 
-import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoController;
+import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
+import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.data.*;
 import br.gov.saudecaruaru.bpai.gui.SearchGeneric;
-import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -63,8 +61,38 @@ public class BPAI {
 //        }
 // 
 //        System.out.println(l.size());
-        System.out.println(SearchGeneric.getInstance().initModeSearch(new ProcedimentoController(),
-                                            "procedimentoPk.id", "descricao","Id","Nome",res));
+//        System.out.println(SearchGeneric.getInstance().initModeSearch(new ProcedimentoController(),
+//                                            "procedimentoPk.id", "descricao","Id","Nome",res));
         
+        BIProcedimentoRealizadoController ctrl= new BIProcedimentoRealizadoController();
+        BIProcedimentoRealizado pro=new BIProcedimentoRealizado();
+        
+        pro.setCaracterizacaoAtendimento("02");
+        pro.setCidDoencaprocedimento("Q730");
+        pro.setNacionalidadePaciente("010");
+        pro.setSexoPaciente("F");
+        pro.setNomePaciente("kauanne esthafane silva");
+        pro.setRacaPaciente("99");
+        pro.setQuantidadeRealizada(2d);
+        pro.setCnsPaciente("");
+        pro.setCodigoIBGECidadePaciente("260410");
+        pro.setDataNascimentoPaciente("19900112");
+        BIProcedimentoRealizadoPK pk= new BIProcedimentoRealizadoPK();
+        pk.setCboMedico("223505");
+        pk.setCnsMedico("980016277313811");
+        pk.setCnesUnidade("3083721");
+        pk.setCodigoProcedimento("0310010012");
+        pk.setCompetencia("201206");
+        pk.setDataAtendimento("20120606");
+        pk.setNumeroFolha("001");
+        pk.setSequenciaFolha("01");
+        pro.setBiProcedimentoRealizadoPK(pk);
+        //ctrl.salvar(pro);
+        
+        
+    
+    for(BIProcedimentoRealizado p: ctrl.findAll()){
+        System.out.println(p.getNomePaciente());
+    }
     }
 }

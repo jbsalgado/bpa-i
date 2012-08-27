@@ -4,3 +4,8 @@
 *.jar
 *.war
 *.ear
+/nbproject/private/
+/dist/
+/build/
+!/lib/priuli-filter-1.1.jar
+/nbproject/
