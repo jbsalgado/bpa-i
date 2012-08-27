@@ -1,6 +1,7 @@
 
 package br.gov.saudecaruaru.bpai.gui;
 
+import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.gui.validators.OnlyNumbers;
 import br.gov.saudecaruaru.bpai.gui.validators.DoencaVerifier;
 import br.gov.saudecaruaru.bpai.gui.validators.CnsVerifier;
@@ -17,12 +18,7 @@ import br.gov.saudecaruaru.bpai.gui.validators.DataVerifier;
 import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
 import br.gov.saudecaruaru.bpai.business.controller.GestorCompetenciaController;
 import br.gov.saudecaruaru.bpai.business.controller.MedicoController;
-import br.gov.saudecaruaru.bpai.business.model.CaraterAtendimento;
-import br.gov.saudecaruaru.bpai.business.model.Diversas;
-import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
-import br.gov.saudecaruaru.bpai.business.model.GestorCompetencia;
-import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
-import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
+import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.gui.validators.*;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModel;
 import br.gov.saudecaruaru.bpai.util.Search;
@@ -996,6 +992,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         
         this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(String.valueOf(sequencia));
         this.tableModelDados.setValueAt(procedimentoRealizado,this.sequencia-1);
+       // new BIProcedimentoRealizadoController().salvar(new BIProcedimentoRealizado(procedimentoRealizado));
         
        
         //recomeça a contagem da sequencia caso chegue a 20
