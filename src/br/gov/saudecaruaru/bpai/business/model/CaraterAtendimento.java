@@ -9,7 +9,7 @@ package br.gov.saudecaruaru.bpai.business.model;
  * @author Junior Pires
  */
 public enum CaraterAtendimento {
-    SEM_INFORMACAO("- SEM INFORMAÇÃO",""),
+    SEM_INFORMACAO("- SEM INFORMAÇÃO","  "),
     ELETIVO("1 - ELETIVO","01"),
     URGENCIA("2 - URGÊNCIA","02"),
     ACIDENTE_LOCAL("3 - ACIDENTE NO LOCAL DO TRABALHO OU A SERVICO DA EMPRESA","03"),
@@ -28,5 +28,16 @@ public enum CaraterAtendimento {
     public String desc(){
         return this.desc;
     }
+    public String cod(){
+        return cod;
+    }
+
+    @Override
+    public String toString() {
+        return this.desc;
+    }
+    
+    
+    
     
 }

@@ -1589,8 +1589,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         
       
         //inicializar comboBox Carater de Atendimento
-        String[] comboListCaraterAtend ={CaraterAtendimento.SEM_INFORMACAO.desc(),CaraterAtendimento.ELETIVO.desc(),CaraterAtendimento.URGENCIA.desc(),CaraterAtendimento.ACIDENTE_LOCAL.desc(),
-                                         CaraterAtendimento.ACIDENTE_EXTERNO.desc(),CaraterAtendimento.ACIDENTE_OUTROS.desc(),CaraterAtendimento.LESOES_OUTRAS.desc()};
+        CaraterAtendimento[] comboListCaraterAtend ={CaraterAtendimento.SEM_INFORMACAO,CaraterAtendimento.ELETIVO,CaraterAtendimento.URGENCIA,CaraterAtendimento.ACIDENTE_LOCAL,
+                                         CaraterAtendimento.ACIDENTE_EXTERNO,CaraterAtendimento.ACIDENTE_OUTROS,CaraterAtendimento.LESOES_OUTRAS};
         
         //cria o modelo do combobox com as informações do banco
         ComboBoxModel modelCarater = new DefaultComboBoxModel(comboListCaraterAtend);
@@ -1898,8 +1898,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
             @Override
             public void focusLost(FocusEvent e) {
-            
-               procedimentoRealizado.setCaracterizacaoAtendimento(((JComboBox)e.getComponent()).getSelectedItem().toString());
+               CaraterAtendimento c = (CaraterAtendimento)((JComboBox)e.getComponent()).getSelectedItem(); 
+               procedimentoRealizado.setCaracterizacaoAtendimento(c.cod());
             }
         });
           
@@ -1930,8 +1930,9 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
       }
       private void getvaluesOfFieldsForModel(){
         String competencia = jTextFieldAno.getText()+jTextFieldMes.getText();
+        CaraterAtendimento c = (CaraterAtendimento) jComboBoxProcCaraterAtend.getSelectedItem();
         this.procedimentoRealizado.setRacaPaciente(jComboBoxUsuarioRacaCor.getSelectedItem().toString());
-        this.procedimentoRealizado.setCaracterizacaoAtendimento(jComboBoxProcCaraterAtend.getSelectedItem().toString());
+        this.procedimentoRealizado.setCaracterizacaoAtendimento(c.cod());
         this.procedimentoRealizado.setNacionalidadePaciente(jTextFieldUsuarioCodNac.getText());
         this.procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
         this.procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(jTextFieldFolha.getText());
