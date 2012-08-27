@@ -78,4 +78,17 @@ public class DateUtil {
             return null;
         }
     }
+      
+      
+    public static String parseToYearMonthDay(String date){
+        String dateParsing = null;
+        String[] strings;
+        //obtem cada campo da data com o metodo split
+        strings = date.split("/");       
+        //inverte a ordem dos campos para Y/m/d
+        dateParsing = strings[2]+strings[1]+strings[0];
+        
+        
+        return dateParsing;
+    }
 }

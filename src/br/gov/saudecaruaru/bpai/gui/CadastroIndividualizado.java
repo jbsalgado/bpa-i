@@ -8,6 +8,7 @@ import br.gov.saudecaruaru.bpai.business.controller.*;
 import br.gov.saudecaruaru.bpai.business.model.*;
 
 import br.gov.saudecaruaru.bpai.gui.validators.*;
+import br.gov.saudecaruaru.bpai.util.DateUtil;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModel;
 import br.gov.saudecaruaru.bpai.util.Search;
 import java.awt.Color;
@@ -1929,8 +1930,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             jTextFieldFolha.setEnabled(false);
       }
       private void getvaluesOfFieldsForModel(){
+          String dataNasc  =     this.procedimentoRealizado.getDataNascimentoPaciente();
+          String dataAtend  =     this.procedimentoRealizado.getProcedimentoRealizadoPK().getDataAtendimento();
+      
         String competencia = jTextFieldAno.getText()+jTextFieldMes.getText();
         CaraterAtendimento c = (CaraterAtendimento) jComboBoxProcCaraterAtend.getSelectedItem();
+        
+        
+        this.procedimentoRealizado.setDataNascimentoPaciente(DateUtil.parseToYearMonthDay(dataNasc));  
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setDataAtendimento(DateUtil.parseToYearMonthDay(dataAtend));  
         this.procedimentoRealizado.setRacaPaciente(jComboBoxUsuarioRacaCor.getSelectedItem().toString());
         this.procedimentoRealizado.setCaracterizacaoAtendimento(c.cod());
         this.procedimentoRealizado.setNacionalidadePaciente(jTextFieldUsuarioCodNac.getText());
