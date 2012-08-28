@@ -88,8 +88,7 @@ public class DataAtendimentoVerifier extends InputVerifier{
            return false;
        }
        txtField.setBackground(Color.WHITE);
-       //seta a idade do paciente ao modelo
-       proRealizado.setIdadePaciente(valorDtNas);
+      
        return true;
     }
     
