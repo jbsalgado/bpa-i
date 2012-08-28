@@ -36,4 +36,6 @@ public class GestorCompetenciaController extends BasecController<GestorCompetenc
     }
     
     
+    
+    
 }

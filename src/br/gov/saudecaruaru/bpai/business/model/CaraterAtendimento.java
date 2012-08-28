@@ -9,18 +9,20 @@ package br.gov.saudecaruaru.bpai.business.model;
  * @author Junior Pires
  */
 public enum CaraterAtendimento {
-    SEM_INFORMACAO("- SEM INFORMAÇÃO"),
-    ELETIVO("1 - ELETIVO"),
-    URGENCIA("2 - URGÊNCIA"),
-    ACIDENTE_LOCAL("3 - ACIDENTE NO LOCAL DO TRABALHO OU A SERVICO DA EMPRESA"),
-    ACIDENTE_EXTERNO("4 - ACIDENTE NO TRAJETO PARA O TRABALHO"),
-    ACIDENTE_OUTROS("5 - OUTROS TIPOS DE ACIDENTES DE TRÃNSITO"),
-    LESOES_OUTRAS("6 - OUTROS TIPOS DE LESÕES E EVEN. POR AGENTES QUÍMICOS OU FÍSICOS");
+    SEM_INFORMACAO("- SEM INFORMAÇÃO",""),
+    ELETIVO("1 - ELETIVO","01"),
+    URGENCIA("2 - URGÊNCIA","02"),
+    ACIDENTE_LOCAL("3 - ACIDENTE NO LOCAL DO TRABALHO OU A SERVICO DA EMPRESA","03"),
+    ACIDENTE_EXTERNO("4 - ACIDENTE NO TRAJETO PARA O TRABALHO","04"),
+    ACIDENTE_OUTROS("5 - OUTROS TIPOS DE ACIDENTES DE TRÃNSITO","05"),
+    LESOES_OUTRAS("6 - OUTROS TIPOS DE LESÕES E EVEN. POR AGENTES QUÍMICOS OU FÍSICOS","06");
 
     private final String desc;
+    private final String cod;
     
-    private CaraterAtendimento(String desc) {
+    private CaraterAtendimento(String desc,String cod) {
         this.desc = desc;
+        this.cod = cod;
     }
     
     public String desc(){

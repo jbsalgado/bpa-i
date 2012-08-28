@@ -7,7 +7,6 @@ package br.gov.saudecaruaru.bpai.data;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-import net.priuli.filter.Filter;
 
 /**
  *

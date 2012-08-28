@@ -2,20 +2,11 @@
 package br.gov.saudecaruaru.bpai.gui;
 
 
-import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
-import br.gov.saudecaruaru.bpai.business.controller.DoencaController;
-import br.gov.saudecaruaru.bpai.business.controller.GestorCompetenciaController;
-import br.gov.saudecaruaru.bpai.business.controller.MedicoController;
-import br.gov.saudecaruaru.bpai.business.controller.MunicipioController;
-import br.gov.saudecaruaru.bpai.business.controller.PacienteController;
-import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoController;
-import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoRealizadoController;
-import br.gov.saudecaruaru.bpai.business.model.CaraterAtendimento;
-import br.gov.saudecaruaru.bpai.business.model.Diversas;
-import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
-import br.gov.saudecaruaru.bpai.business.model.Procedimento;
-import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
-import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
+
+
+import br.gov.saudecaruaru.bpai.business.controller.*;
+import br.gov.saudecaruaru.bpai.business.model.*;
+
 import br.gov.saudecaruaru.bpai.gui.validators.*;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModel;
 import br.gov.saudecaruaru.bpai.util.Search;
@@ -62,12 +53,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
      private MunicipioController municipioController;
      private ProcedimentoController procedimentoController;
      private DoencaController doencaController;
+     private BIProcedimentoRealizadoController bIProcedimentoRealizadoController;
      
      private ProcedimentoRealizado procedimentoRealizado;
      private GestorCompetenciaController gestorCompetenciaController;
      
      private ProcedimentoRealizadoTableModel tableModelDados;
-   
+     private int sequencia=1;
+     
+     
     
      
  
@@ -86,6 +80,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         initComponents();
         
         //instancia o modelo usado para o cadastro
+        this.initInstances();
+       
+        myInitComponents();
+        
+        //seta o estado do frame para ocupar toda a tela
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }
+    
+    private void initInstances(){
         this.procedimentoRealizado = new ProcedimentoRealizado();
          
         this.gestorCompetenciaController = new GestorCompetenciaController(); 
@@ -95,17 +98,14 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         this.municipioController= new MunicipioController();
         this.procedimentoController= new ProcedimentoController();
         this.doencaController=new DoencaController();
+        this.bIProcedimentoRealizadoController= new BIProcedimentoRealizadoController();
         
         
         //instancia o modelo DiversasPk
         diversas = new  Diversas();
         diversasPk = new DiversasPK();
         diversas.setDiversasPK(diversasPk);
-       
-        myInitComponents();
-        
-        //seta o estado do frame para ocupar toda a tela
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+    
     }
     
     private void myInitComponents(){
@@ -1312,10 +1312,49 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
     }//GEN-LAST:event_jTextFieldProcQuantActionPerformed
 
     private void jButtonIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirMouseClicked
-        // TODO add your handling code here:
-        this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha("0");
-        this.tableModelDados.setValueAt(procedimentoRealizado, 0);
-        System.out.println(this.procedimentoRealizado);
+        //atualiza o valor dos campos sequencia de procedimento e de usuario
+        jLabelProcSeq.setText(String.valueOf(sequencia));
+        jLabelUsuarioSeq.setText(String.valueOf(sequencia));
+        
+        try{
+            
+            // metodo que pega os valores de alguns campos e adiciona-os ao modelo
+            this.getvaluesOfFieldsForModel();
+            
+            //insere o modelo no banco de dados
+            this.bIProcedimentoRealizadoController.salvar(new BIProcedimentoRealizado(procedimentoRealizado));
+            
+            //insere o modelo Procedimento realizado na jTable
+            this.tableModelDados.setValueAt(procedimentoRealizado,this.sequencia-1);
+        }catch(Exception ex){
+            //deu merda! fazer alguma coisa
+        }
+        
+       
+        //recomeça a contagem da sequencia caso chegue a 20
+        if(this.sequencia==20){
+            this.sequencia = 1;
+             //pega o valor do campo folha e converte para inteiro
+             int folha = Integer.parseInt(procedimentoRealizado.getProcedimentoRealizadoPK().getNumeroFolha());
+             //incrementa
+             ++folha;
+             //converte de volta para String recolocando os zeros a esquerda se necessário com o metodo format
+             String f = String.format("%03d",folha);  
+             //seta o novo valor de folha no campo folha
+             jTextFieldFolha.setText(f);
+        }else{
+            ++this.sequencia;
+           
+        }
+        
+         //zera os campos 
+        this.clearFields();
+        //inicializa o modelo
+        this.procedimentoRealizado = new ProcedimentoRealizado(jTextFieldCnes.getText(),
+                                                               jTextFieldCnsProfiss.getText(),jTextFieldCBO.getText(),jTextFieldAno.getText()+jTextFieldMes.getText(), jTextFieldFolha.getText());
+        
+
+
     }//GEN-LAST:event_jButtonIncluirMouseClicked
                                           
 
@@ -1688,16 +1727,9 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(((JTextField)e.getComponent()).getText());
                
                if(jTextFieldFolha.getInputVerifier().shouldYieldFocus(jTextFieldFolha)){
-                            jTextFieldCnes.setEnabled(false);
-                            jTextFieldCnsProfiss.setEnabled(false);
-                            jTextFieldNomeProfiss.setEnabled(false);
-                            jTextFieldCBO.setEnabled(false);
-                            jTextFieldMes.setEnabled(false);
-                            jTextFieldAno.setEnabled(false);
-                            jTextFieldFolha.setEnabled(false);
-                            
-                            jTextFieldUsuarioCns.requestFocus();
-                            
+                    //desabilita os campos do cabeçalho da tela que são 
+                    //referentes as informações da unidade e do usuário      
+                    disabledFieldsHeader();
                             
                         }
             }
@@ -1900,6 +1932,55 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         });
           
         
+      }
+      private void disabledFieldsHeader(){
+            jTextFieldCnes.setEnabled(false);
+            jTextFieldCnsProfiss.setEnabled(false);
+            jTextFieldNomeProfiss.setEnabled(false);
+            jTextFieldCBO.setEnabled(false);
+            jTextFieldMes.setEnabled(false);
+            jTextFieldAno.setEnabled(false);
+            jTextFieldFolha.setEnabled(false);
+      }
+      private void getvaluesOfFieldsForModel(){
+        String competencia = jTextFieldAno.getText()+jTextFieldMes.getText();
+        this.procedimentoRealizado.setRacaPaciente(jComboBoxUsuarioRacaCor.getSelectedItem().toString());
+        this.procedimentoRealizado.setCaracterizacaoAtendimento(jComboBoxProcCaraterAtend.getSelectedItem().toString());
+        this.procedimentoRealizado.setNacionalidadePaciente(jTextFieldUsuarioCodNac.getText());
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(jTextFieldFolha.getText());
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(String.valueOf(sequencia));
+      }
+      
+      private void clearFields(){
+        //jTextFieldAno.setText("");
+        //jTextFieldCBO.setText("");
+        //jTextFieldCnes.setText("");
+        //jTextFieldCnsProfiss.setText("");
+        //jTextFieldFolha.setText("");
+       // jTextFieldMes;
+        //jTextFieldNomeProfiss.setText("");
+        jTextFieldProcCID.setText("");
+        jTextFieldProcCod.setText("");
+        jTextFieldProcDataAtend.setText("");
+        jTextFieldProcDescriDoenca.setText("");
+        jTextFieldProcDescricao.setText("");
+        jTextFieldProcNumAut.setText("");
+        jTextFieldProcQuant.setText("");
+        jTextFieldUsarioDatNasc.setText("");
+        jTextFieldUsuarioCns.setText("");
+        jTextFieldUsuarioCodEtnia.setText("");
+        jTextFieldUsuarioCodMunicip.setText("");
+        //jTextFieldUsuarioCodNac.setText("");
+        jTextFieldUsuarioDescEtnia.setText("");
+        jTextFieldUsuarioNome.setText("");
+        jTextFieldUsuarioNomeMunicip.setText("");
+        jTextFieldUsuarioNomeNac.setText("");
+        jTextFieldUsuarioSexo.setText("");
+        
+        jComboBoxProcCaraterAtend.setSelectedIndex(0);
+        jComboBoxUsuarioRacaCor.setSelectedIndex(0);
+
       }
     
     
