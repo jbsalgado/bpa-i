@@ -78,15 +78,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         UIManager.put("OptionPane.noButtonText", "Não");   
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");
         
-        initComponents();
+        this.initComponents();
         
         //instancia o modelo usado para o cadastro
         this.initInstances();
        
-        myInitComponents();
+        this.myInitComponents();
         
         //seta o estado do frame para ocupar toda a tela
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     
     private void initInstances(){
@@ -911,7 +911,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                                 .addComponent(jTextFieldUsuarioCodNac, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextFieldUsuarioNomeNac, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(529, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1081,7 +1081,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1210, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -1125,7 +1125,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                         .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jButtonGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1047, Short.MAX_VALUE)
                         .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -1225,7 +1225,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1242, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1269,7 +1269,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jTextFieldFolha, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 316, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1347,10 +1347,14 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         // metodo que pega os valores de alguns campos e adiciona-os ao modelo
         this.getValuesOfFieldsForModel();
         
-        //insere o modelo Procedimento realizado na jTable
-        this.tableModelDados.setValueAt(procedimentoRealizado,this.sequencia-1);
         //insere o modelo no banco de dados
-        this.insertInDatabase();
+        try{
+            this.insertInDatabase();
+            //insere o modelo Procedimento realizado na jTable
+            this.tableModelDados.setValueAt(procedimentoRealizado,this.sequencia-1);
+        }catch(Exception ex){
+            
+        }
         
        
         //recomeça a contagem da sequencia caso chegue a 20
@@ -1995,7 +1999,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
          this.procedimentoRealizado.setDataNascimentoPaciente(dataNasc);  
          this.procedimentoRealizado.getProcedimentoRealizadoPK().setDataAtendimento(dataAtend);  
         //insere o modelo no banco de dados
-        new BIProcedimentoRealizadoController().salvar(new BIProcedimentoRealizado(this.procedimentoRealizado));
+          this.bIProcedimentoRealizadoController.salvar(new BIProcedimentoRealizado(this.procedimentoRealizado));
       }
       private void clearFields(){
         //jTextFieldAno.setText("");
