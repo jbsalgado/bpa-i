@@ -6,6 +6,8 @@ package br.gov.saudecaruaru.bpai.util;
 
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -75,6 +77,33 @@ public class ProcedimentoRealizadoTableModel extends AbstractTableModel{
                     return "Ops!!! Erro";
         }
     }
+    
+    public ProcedimentoRealizado getCloneElementList(int rowIndex){
+          ProcedimentoRealizado p=this.list.get(rowIndex);
+        try {
+            return (ProcedimentoRealizado) p.clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(ProcedimentoRealizadoTableModel.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
+    }
+
+    public ProcedimentoRealizado getCloneElementListEmpty() {
+        for(ProcedimentoRealizado p : this.list){
+            if(p.getProcedimentoRealizadoPK().getCnesUnidade()==null){
+                try {
+                    return (ProcedimentoRealizado) p.clone();
+                } catch (CloneNotSupportedException ex) {
+                    Logger.getLogger(ProcedimentoRealizadoTableModel.class.getName()).log(Level.SEVERE, null, ex);
+                    
+                }
+            }
+        }
+        return null;
+       
+    }
+    
     
     @Override
     public String getColumnName(int column) {

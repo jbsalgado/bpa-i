@@ -27,14 +27,16 @@ import javax.swing.JTextField;
 public class DataAtendimentoVerifier extends InputVerifier{
     private String fieldName; 
     private Component component;
+    private JTextField fieldDatanasc;
     private TelaCadastroI t;
     
     private static final String DATA_INICIO = "30/09/2007";
     
-    public DataAtendimentoVerifier(Component component,String fieldName,TelaCadastroI t) {
+    public DataAtendimentoVerifier(Component component,String fieldName,TelaCadastroI t,JTextField fieldDatanasc) {
         this.fieldName = fieldName;
         this.component = component;
         this.t = t;
+        this.fieldDatanasc = fieldDatanasc;
     }
     
     
@@ -48,6 +50,7 @@ public class DataAtendimentoVerifier extends InputVerifier{
        ProcedimentoRealizado proRealizado = t.getProcedimentoRealizado();
        String valor = txtField.getText();
        String valorDtNas = proRealizado.getDataNascimentoPaciente();
+      
        Date competencia = DateUtil.parserStringToDate("yyyyMM", proRealizado.getProcedimentoRealizadoPK().getCompetencia());
        Date dataAtendMesAno = DateUtil.parserStringToDate("MM/yyyy", valor.substring(3));
       
