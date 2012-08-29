@@ -24,7 +24,7 @@ import javax.persistence.Embeddable;
  */
 
 @Embeddable
-public class ProcedimentoRealizadoPK implements Serializable{
+public class ProcedimentoRealizadoPK implements Serializable,Cloneable{
     
     @Basic(optional = false)
     @Column(name = "PRD_UID")
@@ -84,13 +84,19 @@ public class ProcedimentoRealizadoPK implements Serializable{
     }
      
      
-    public ProcedimentoRealizadoPK(String cnes,String cnsProfissional,String cbo,String competencia,String folha) {
+    public ProcedimentoRealizadoPK(String sequencia,String cnes,String cnsProfissional,String cbo,String competencia,String folha) {
+        this.sequenciaFolha = sequencia;
         this.cnesUnidade = cnes;
         this.cnsMedico = cnsProfissional;
         this.cboMedico = cbo;
         this.competencia = competencia;
         this.numeroFolha = folha;
     
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
     
       

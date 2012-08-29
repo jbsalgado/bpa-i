@@ -44,6 +44,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
      private MunicipioController municipioController;
      private ProcedimentoController procedimentoController;
      private DoencaController doencaController;
+     private BIProcedimentoRealizadoController bIProcedimentoRealizadoController;
      
      private ProcedimentoRealizado procedimentoRealizado;
      private GestorCompetenciaController gestorCompetenciaController;
@@ -67,8 +68,21 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         UIManager.put("OptionPane.noButtonText", "Não");   
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");
         
-        initComponents();
+
+        this.initComponents();
+        
+        
+        this.initInstances();
        
+        this.myInitComponents();
+        
+        //seta o estado do frame para ocupar toda a tela
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }
+    
+    private void initInstances(){
+        
+
          
         this.gestorCompetenciaController = new GestorCompetenciaController(); 
         this.diversasController = new DiversasController();
@@ -77,20 +91,17 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         this.municipioController= new MunicipioController();
         this.procedimentoController= new ProcedimentoController();
         this.doencaController=new DoencaController();
+        this.bIProcedimentoRealizadoController= new BIProcedimentoRealizadoController();
         
         
         //instancia o modelo DiversasPk
         diversas = new  Diversas();
         diversasPk = new DiversasPK();
         diversas.setDiversasPK(diversasPk);
-       
-        this.myInitComponents();
-        
-        //seta o estado do frame para ocupar toda a tela
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     
     private void myInitComponents(){
+        
         this.initJTableDados();
         //pega o primeiro objeto da jTable e atribui ao modelo atual
         this.procedimentoRealizado = this.tableModelDados.getCloneElementList(0);
@@ -573,19 +584,19 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel1.setText("CNES");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel2.setText("CNS Profissional");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel3.setText("Nome Profissional");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel5.setText("Mês/Ano");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel6.setText("Folha");
 
         jTextFieldNomeProfiss.addActionListener(new java.awt.event.ActionListener() {
@@ -594,19 +605,19 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel7.setText(" /");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel9.setText("CNS");
 
         jLabel8.setText("Usuário Sequência :");
 
         jLabelUsuarioSeq.setText("01");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel10.setText("Nome ");
 
         jTextFieldUsuarioNome.addActionListener(new java.awt.event.ActionListener() {
@@ -615,15 +626,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel4.setText("Sexo");
 
         jLabel11.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel11.setText(" F/M");
         jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel12.setText("Dt. Nascimento");
 
         jTextFieldUsuarioNomeNac.setBackground(new java.awt.Color(153, 153, 153));
@@ -633,7 +644,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel14.setText("Nacionalidade");
 
         jTextFieldUsuarioNomeMunicip.setBackground(new java.awt.Color(153, 153, 153));
@@ -643,10 +654,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel13.setText("Município de Residência");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel15.setText("Raça/Cor");
 
         jTextFieldUsuarioDescEtnia.setBackground(new java.awt.Color(153, 153, 153));
@@ -663,7 +674,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel17.setText("Etnia");
 
         jTextFieldUsuarioCns.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###############"))));
@@ -753,7 +764,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                                 .addComponent(jTextFieldUsuarioCodNac, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextFieldUsuarioNomeNac, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(529, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -809,7 +820,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
         jLabelProcSeq.setText("01");
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel20.setText("Dt. Atendimento");
 
         jTextFieldProcQuant.addActionListener(new java.awt.event.ActionListener() {
@@ -818,7 +829,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel22.setText("Quantidade");
 
         jTextFieldProcDescriDoenca.setBackground(new java.awt.Color(153, 153, 153));
@@ -828,10 +839,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel23.setText("Código");
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel24.setText("CID");
 
         jTextFieldProcDescricao.setBackground(new java.awt.Color(153, 153, 153));
@@ -848,13 +859,13 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel19.setText("Nº Autorização");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel18.setText("Caráter Atendimento");
 
-        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonIncluir.setText("Incluir");
         jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -867,7 +878,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonLimpar.setText("Limpar");
         jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -928,7 +939,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1210, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -972,7 +983,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                         .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jButtonGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1047, Short.MAX_VALUE)
                         .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -1072,7 +1083,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1242, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1116,7 +1127,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jTextFieldFolha, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 316, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1191,10 +1202,17 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         // metodo que pega os valores de alguns campos e adiciona-os ao modelo
         this.getValuesOfFieldsForModel();
         
+
         //insere o modelo Procedimento realizado na jTable
         this.tableModelDados.setValueAt(procedimentoRealizado,Integer.parseInt(this.procedimentoRealizado.getProcedimentoRealizadoPK().getSequenciaFolha())-1);
+
         //insere o modelo no banco de dados
-        this.insertInDatabase();
+        try{
+            this.insertInDatabase();
+            
+        }catch(Exception ex){
+            
+        }
         
         ProcedimentoRealizado p = this.tableModelDados.getCloneElementListEmpty();
         if(p!=null){
@@ -1881,8 +1899,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
          
          this.procedimentoRealizado.setDataNascimentoPaciente(dataNasc);  
          this.procedimentoRealizado.getProcedimentoRealizadoPK().setDataAtendimento(dataAtend);  
-        //insere o modelo no banco de dados
-        new BIProcedimentoRealizadoController().salvar(new BIProcedimentoRealizado(this.procedimentoRealizado));
+         //insere o modelo no banco de dados
+          this.bIProcedimentoRealizadoController.salvar(new BIProcedimentoRealizado(this.procedimentoRealizado));
       }
       private void clearFields(){
         //jTextFieldAno.setText("");

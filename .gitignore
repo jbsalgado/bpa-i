@@ -1,9 +1,0 @@
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
-/src/META-INF/
-!/src/META-INF/persistence.xml
-/build/
