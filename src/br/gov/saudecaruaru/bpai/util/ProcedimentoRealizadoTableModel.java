@@ -5,6 +5,7 @@
 package br.gov.saudecaruaru.bpai.util;
 
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
+import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -81,7 +82,9 @@ public class ProcedimentoRealizadoTableModel extends AbstractTableModel{
     public ProcedimentoRealizado getCloneElementList(int rowIndex){
           ProcedimentoRealizado p=this.list.get(rowIndex);
         try {
-            return (ProcedimentoRealizado) p.clone();
+            ProcedimentoRealizado pClone =(ProcedimentoRealizado) p.clone();
+            pClone.setProcedimentoRealizadoPK((ProcedimentoRealizadoPK) p.getProcedimentoRealizadoPK().clone());
+            return pClone;
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(ProcedimentoRealizadoTableModel.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -93,7 +96,9 @@ public class ProcedimentoRealizadoTableModel extends AbstractTableModel{
         for(ProcedimentoRealizado p : this.list){
             if(p.getProcedimentoRealizadoPK().getCnesUnidade()==null){
                 try {
-                    return (ProcedimentoRealizado) p.clone();
+                    ProcedimentoRealizado pClone =(ProcedimentoRealizado) p.clone();
+                     pClone.setProcedimentoRealizadoPK((ProcedimentoRealizadoPK) p.getProcedimentoRealizadoPK().clone());
+                    return pClone;
                 } catch (CloneNotSupportedException ex) {
                     Logger.getLogger(ProcedimentoRealizadoTableModel.class.getName()).log(Level.SEVERE, null, ex);
                     

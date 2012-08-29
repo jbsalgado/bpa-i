@@ -1624,7 +1624,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setCnsPaciente(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setCnsPaciente(((JTextField)e.getComponent()).getText());
             }
         });
           
@@ -1638,7 +1638,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setNomePaciente(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setNomePaciente(((JTextField)e.getComponent()).getText());
             }
         });
            
@@ -1652,7 +1652,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setSexoPaciente(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setSexoPaciente(((JTextField)e.getComponent()).getText());
             }
         });
           
@@ -1667,7 +1667,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setDataNascimentoPaciente(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setDataNascimentoPaciente(((JTextField)e.getComponent()).getText());
               
             }
         });
@@ -1682,7 +1682,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setCodigoIBGECidadePaciente(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setCodigoIBGECidadePaciente(((JTextField)e.getComponent()).getText());
             }
         });
            
@@ -1696,7 +1696,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setNacionalidadePaciente(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setNacionalidadePaciente(((JTextField)e.getComponent()).getText());
             }
         });
              jComboBoxUsuarioRacaCor.addFocusListener(new FocusListener() {
@@ -1709,7 +1709,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setRacaPaciente(((JComboBox)e.getComponent()).getSelectedItem().toString().substring(0,2));
+               CadastroIndividualizado.this.procedimentoRealizado.setRacaPaciente(((JComboBox)e.getComponent()).getSelectedItem().toString().substring(0,2));
             }
         });
              
@@ -1723,7 +1723,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setEtniaPaciente(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setEtniaPaciente(((JTextField)e.getComponent()).getText());
             }
         });
           
@@ -1740,11 +1740,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.getProcedimentoRealizadoPK().setDataAtendimento(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.getProcedimentoRealizadoPK().setDataAtendimento(((JTextField)e.getComponent()).getText());
                //seta a idade do paciente ao modelo
                
                String age = String.valueOf(DateUtil.getAge(jTextFieldUsarioDatNasc.getText(), jTextFieldProcDataAtend.getText()));
-               procedimentoRealizado.setIdadePaciente(age);
+               CadastroIndividualizado.this.procedimentoRealizado.setIdadePaciente(age);
             }
         });
            
@@ -1758,7 +1758,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.getProcedimentoRealizadoPK().setCodigoProcedimento(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.getProcedimentoRealizadoPK().setCodigoProcedimento(((JTextField)e.getComponent()).getText());
             }
         });
           
@@ -1772,7 +1772,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setQuantidadeRealizada(Double.valueOf(((JTextField)e.getComponent()).getText()));
+               CadastroIndividualizado.this.procedimentoRealizado.setQuantidadeRealizada(Double.valueOf(((JTextField)e.getComponent()).getText()));
             }
         });
           
@@ -1786,7 +1786,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setCidDoencaprocedimento(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setCidDoencaprocedimento(((JTextField)e.getComponent()).getText());
             }
         });
          
@@ -1800,7 +1800,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
                CaraterAtendimento c = (CaraterAtendimento)((JComboBox)e.getComponent()).getSelectedItem(); 
-               procedimentoRealizado.setCaracterizacaoAtendimento(c.cod());
+               CadastroIndividualizado.this.procedimentoRealizado.setCaracterizacaoAtendimento(c.cod());
             }
         });
           
@@ -1814,7 +1814,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setNumeroAutorizacao(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setNumeroAutorizacao(((JTextField)e.getComponent()).getText());
             }
         });
           
