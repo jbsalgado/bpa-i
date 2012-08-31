@@ -6,6 +6,7 @@ package br.gov.saudecaruaru.bpai.util;
 
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -96,7 +97,15 @@ public class ProcedimentoRealizadoTableModel extends AbstractTableModel{
         return list;
     }
     
-    
+    public List<ProcedimentoRealizado> getListWithOutEmptyElements(){
+        List<ProcedimentoRealizado> listNotEmpty = new ArrayList<ProcedimentoRealizado>();
+         for(ProcedimentoRealizado p : this.list){
+            if(p.getProcedimentoRealizadoPK().getCnesUnidade()!=null){
+               listNotEmpty.add(p);
+            }
+        }
+          return listNotEmpty;
+    }
     public ProcedimentoRealizado getCloneElementListEmpty() {
         for(ProcedimentoRealizado p : this.list){
             if(p.getProcedimentoRealizadoPK().getCnesUnidade()==null){

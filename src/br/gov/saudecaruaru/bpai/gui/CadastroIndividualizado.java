@@ -1914,7 +1914,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
           
          
          //insere o modelo no banco de dados
-          this.bIProcedimentoRealizadoController.salvar(this.tableModelDados.getList());
+          this.bIProcedimentoRealizadoController.salvar(this.tableModelDados.getListWithOutEmptyElements());
       }
       private void clearFields(){
         //jTextFieldAno.setText("");
