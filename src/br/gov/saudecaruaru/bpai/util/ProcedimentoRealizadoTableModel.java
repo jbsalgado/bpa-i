@@ -57,9 +57,9 @@ public class ProcedimentoRealizadoTableModel extends AbstractTableModel{
                 
             case 5: return p.getCodigoIBGECidadePaciente();
                 
-            case 6: return  DateUtil.parseToDayMonthYear(p.getProcedimentoRealizadoPK().getDataAtendimento(),true);
+            case 6: return  DateUtil.parseToDayMonthYear(p.getDataAtendimento(),true);
                 
-            case 7: return p.getProcedimentoRealizadoPK().getCodigoProcedimento();
+            case 7: return p.getCodigoProcedimento();
                 
             case 8: return p.getQuantidadeRealizada();
                 
@@ -159,10 +159,10 @@ public class ProcedimentoRealizadoTableModel extends AbstractTableModel{
                     model.setCodigoIBGECidadePaciente(aValue.toString());
                     break;
             case 6:
-                    model.getProcedimentoRealizadoPK().setDataAtendimento(aValue.toString());
+                    model.setDataAtendimento(aValue.toString());
                     break;
             case 7:
-                    model.getProcedimentoRealizadoPK().setCodigoProcedimento(aValue.toString());
+                    model.setCodigoProcedimento(aValue.toString());
                     break;
             case 8:
                     model.setQuantidadeRealizada(Double.valueOf(aValue.toString()));

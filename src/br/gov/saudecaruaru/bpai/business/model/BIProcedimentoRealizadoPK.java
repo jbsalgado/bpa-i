@@ -22,10 +22,6 @@ public class BIProcedimentoRealizadoPK implements Serializable{
     private String cnesUnidade;
     
     @Basic(optional = false)
-    @Column(name = "PRD_CMP")
-    private String competencia;
-    
-    @Basic(optional = false)
     @Column(name = "PRD_CNSMED")
     private String cnsMedico;
     
@@ -39,15 +35,6 @@ public class BIProcedimentoRealizadoPK implements Serializable{
     @Basic(optional = false)
     @Column(name = "PRD_SEQ")
     private String sequenciaFolha;
-    
-    @Basic(optional = false)
-    @Column(name = "PRD_PA")
-    private String codigoProcedimento;
-    
-    
-    @Basic(optional = false)
-    @Column(name = "PRD_DTATEN")
-    private String dataAtendimento;
 
     public BIProcedimentoRealizadoPK() {
     }
@@ -60,22 +47,20 @@ public class BIProcedimentoRealizadoPK implements Serializable{
          this.cboMedico=procedimentoRealizadoPK.getCboMedico();
         this.cnesUnidade=procedimentoRealizadoPK.getCnesUnidade();
         this.cnsMedico=procedimentoRealizadoPK.getCnsMedico();
-        this.codigoProcedimento=procedimentoRealizadoPK.getCodigoProcedimento();
-        this.competencia=procedimentoRealizadoPK.getCompetencia();
-        this.dataAtendimento=procedimentoRealizadoPK.getDataAtendimento();
         this.numeroFolha=procedimentoRealizadoPK.getNumeroFolha();
         this.sequenciaFolha=procedimentoRealizadoPK.getSequenciaFolha();
     }
     
+    public ProcedimentoRealizadoPK getProcedimentoRealizadoPK(){
+        return new ProcedimentoRealizadoPK(this);
+    }
+    
     public BIProcedimentoRealizadoPK(String cnesUnidade, String competencia, String cnsMedico, String cboMedico, String numeroFolha, String sequenciaFolha, String codigoProcedimento, String dataAtendimento) {
         this.cnesUnidade = cnesUnidade;
-        this.competencia = competencia;
         this.cnsMedico = cnsMedico;
         this.cboMedico = cboMedico;
         this.numeroFolha = numeroFolha;
         this.sequenciaFolha = sequenciaFolha;
-        this.codigoProcedimento = codigoProcedimento;
-        this.dataAtendimento = dataAtendimento;
     }
 
     public String getCboMedico() {
@@ -100,30 +85,6 @@ public class BIProcedimentoRealizadoPK implements Serializable{
 
     public void setCnsMedico(String cnsMedico) {
         this.cnsMedico = cnsMedico;
-    }
-
-    public String getCodigoProcedimento() {
-        return codigoProcedimento;
-    }
-
-    public void setCodigoProcedimento(String codigoProcedimento) {
-        this.codigoProcedimento = codigoProcedimento;
-    }
-
-    public String getCompetencia() {
-        return competencia;
-    }
-
-    public void setCompetencia(String competencia) {
-        this.competencia = competencia;
-    }
-
-    public String getDataAtendimento() {
-        return dataAtendimento;
-    }
-
-    public void setDataAtendimento(String dataAtendimento) {
-        this.dataAtendimento = dataAtendimento;
     }
 
     public String getNumeroFolha() {
@@ -154,9 +115,6 @@ public class BIProcedimentoRealizadoPK implements Serializable{
         if ((this.cnesUnidade == null) ? (other.cnesUnidade != null) : !this.cnesUnidade.equals(other.cnesUnidade)) {
             return false;
         }
-        if ((this.competencia == null) ? (other.competencia != null) : !this.competencia.equals(other.competencia)) {
-            return false;
-        }
         if ((this.cnsMedico == null) ? (other.cnsMedico != null) : !this.cnsMedico.equals(other.cnsMedico)) {
             return false;
         }
@@ -169,12 +127,6 @@ public class BIProcedimentoRealizadoPK implements Serializable{
         if ((this.sequenciaFolha == null) ? (other.sequenciaFolha != null) : !this.sequenciaFolha.equals(other.sequenciaFolha)) {
             return false;
         }
-        if ((this.codigoProcedimento == null) ? (other.codigoProcedimento != null) : !this.codigoProcedimento.equals(other.codigoProcedimento)) {
-            return false;
-        }
-        if ((this.dataAtendimento == null) ? (other.dataAtendimento != null) : !this.dataAtendimento.equals(other.dataAtendimento)) {
-            return false;
-        }
         return true;
     }
 
@@ -182,19 +134,16 @@ public class BIProcedimentoRealizadoPK implements Serializable{
     public int hashCode() {
         int hash = 7;
         hash = 89 * hash + (this.cnesUnidade != null ? this.cnesUnidade.hashCode() : 0);
-        hash = 89 * hash + (this.competencia != null ? this.competencia.hashCode() : 0);
         hash = 89 * hash + (this.cnsMedico != null ? this.cnsMedico.hashCode() : 0);
         hash = 89 * hash + (this.cboMedico != null ? this.cboMedico.hashCode() : 0);
         hash = 89 * hash + (this.numeroFolha != null ? this.numeroFolha.hashCode() : 0);
         hash = 89 * hash + (this.sequenciaFolha != null ? this.sequenciaFolha.hashCode() : 0);
-        hash = 89 * hash + (this.codigoProcedimento != null ? this.codigoProcedimento.hashCode() : 0);
-        hash = 89 * hash + (this.dataAtendimento != null ? this.dataAtendimento.hashCode() : 0);
         return hash;
     }
 
     @Override
     public String toString() {
-        return "BIProcedimentoRealizadoPK{" + "cnesUnidade=" + cnesUnidade + ", competencia=" + competencia + ", cnsMedico=" + cnsMedico + ", cboMedico=" + cboMedico + ", numeroFolha=" + numeroFolha + ", sequenciaFolha=" + sequenciaFolha + ", codigoProcedimento=" + codigoProcedimento + ", dataAtendimento=" + dataAtendimento + '}';
+        return "BIProcedimentoRealizadoPK{" + "cnesUnidade=" + cnesUnidade + ", cnsMedico=" + cnsMedico + ", cboMedico=" + cboMedico + ", numeroFolha=" + numeroFolha + ", sequenciaFolha=" + sequenciaFolha;
     }
     
     

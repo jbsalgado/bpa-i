@@ -77,7 +77,7 @@ public class QuantProcedimentoVerifier extends InputVerifier{
                   return  MessagesErrors.exibeTelaContinuaErro(component,""," ERRO! QUANTIDADE ZERADA! ", txtField);
                     
                 }else{
-                    String proc = t.getProcedimentoRealizado().getProcedimentoRealizadoPK().getCodigoProcedimento();
+                    String proc = t.getProcedimentoRealizado().getCodigoProcedimento();
                      //pega os sete primeiros digitos (que representam o codigo do procedimento)
                     String codProc = proc.substring(0,9);
                     //pega o oitavo digito (que representam o digito verificador)
