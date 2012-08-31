@@ -54,7 +54,7 @@ public class DoencaVerifier extends InputVerifier{
       JTextField txtField = (JTextField) input; 
       Doenca doencaSearchead = null;
       String valor = txtField.getText();
-      String codigoProc = t.getProcedimentoRealizado().getProcedimentoRealizadoPK().getCodigoProcedimento().substring(0, 9);
+      String codigoProc = t.getProcedimentoRealizado().getCodigoProcedimento().substring(0, 9);
       //seta o valor digitado no objeto
       doenca.setCodigo(valor);
       

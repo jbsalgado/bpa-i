@@ -85,7 +85,7 @@ public class ProcedimentoVerifier extends InputVerifier{
                         ProcedimentoRealizado proRealizado = t.getProcedimentoRealizado(); 
                         int idadeMaxima = procedimentosSearchead.get(0).getIdadeMaximaPaciente();
                         int idadeMinima = procedimentosSearchead.get(0).getIdadeMinimaPaciente();
-                        int idadePaciente = DateUtil.getAge(proRealizado.getDataNascimentoPaciente(),proRealizado.getProcedimentoRealizadoPK().getDataAtendimento());
+                        int idadePaciente = DateUtil.getAge(proRealizado.getDataNascimentoPaciente(),proRealizado.getDataAtendimento());
                     
                     
                     

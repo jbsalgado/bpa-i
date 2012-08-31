@@ -48,7 +48,7 @@ public class DataAtendimentoVerifier extends InputVerifier{
        ProcedimentoRealizado proRealizado = t.getProcedimentoRealizado();
        String valor = txtField.getText();
        String valorDtNas = proRealizado.getDataNascimentoPaciente();
-       Date competencia = DateUtil.parserStringToDate("yyyyMM", proRealizado.getProcedimentoRealizadoPK().getCompetencia());
+       Date competencia = DateUtil.parserStringToDate("yyyyMM", proRealizado.getCompetencia());
        Date dataAtendMesAno = DateUtil.parserStringToDate("MM/yyyy", valor.substring(3));
       
        
