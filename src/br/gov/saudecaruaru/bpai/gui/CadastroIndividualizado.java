@@ -880,6 +880,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
         jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonLimpar.setText("Limpar");
+        jButtonLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonLimparMouseClicked(evt);
+            }
+        });
         jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLimparActionPerformed(evt);
@@ -1260,6 +1265,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         }
         
     }//GEN-LAST:event_jButtonGravarMouseClicked
+
+    private void jButtonLimparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLimparMouseClicked
+       this.clearFields();
+    }//GEN-LAST:event_jButtonLimparMouseClicked
                                           
 
     private void jTextFieldCnsProfissActionPerformed(java.awt.event.ActionEvent evt) {                                                     
