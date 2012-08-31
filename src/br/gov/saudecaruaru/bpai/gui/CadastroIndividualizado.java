@@ -18,6 +18,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.*;
@@ -31,19 +33,7 @@ import javax.swing.text.MaskFormatter;
  */
 public class CadastroIndividualizado extends javax.swing.JFrame implements TelaCadastroI{
     
-     private MaskFormatter mCBO=null; 
-     private MaskFormatter mData=null; 
-     private MaskFormatter mNome=null; 
-     private MaskFormatter mMes=null; 
-     private MaskFormatter mCodMun=null; 
-     private MaskFormatter mCodNac=null; 
-     private MaskFormatter mCodProc=null; 
-     private MaskFormatter mCID=null; 
-     private MaskFormatter mAno=null; 
-     private MaskFormatter mFolha=null; 
-     private MaskFormatter mEtnia=null; 
-     private MaskFormatter mNumAutoriz=null; 
-     private MaskFormatter mCNS=null; 
+     
      
      private Diversas diversas;
      private DiversasPK diversasPk;
@@ -78,9 +68,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         UIManager.put("OptionPane.noButtonText", "Não");   
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");
         
+
         this.initComponents();
         
-        //instancia o modelo usado para o cadastro
+        
         this.initInstances();
        
         this.myInitComponents();
@@ -90,7 +81,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
     }
     
     private void initInstances(){
-        this.procedimentoRealizado = new ProcedimentoRealizado();
+        
+
          
         this.gestorCompetenciaController = new GestorCompetenciaController(); 
         this.diversasController = new DiversasController();
@@ -106,11 +98,14 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         diversas = new  Diversas();
         diversasPk = new DiversasPK();
         diversas.setDiversasPK(diversasPk);
-    
     }
     
     private void myInitComponents(){
         
+        this.initJTableDados();
+        //pega o primeiro objeto da jTable e atribui ao modelo atual
+        this.procedimentoRealizado = this.tableModelDados.getCloneElementList(0);
+        this.fillFields(this.procedimentoRealizado, true); 
      
        this.jPanel2.setSize(1200, 400);
        this.jPanel1.setSize(1200,this.jPanel1.getSize().height);
@@ -124,7 +119,6 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         //incializa os campos com busca por F2
         this.initKeyPresseds();
         
-        this.initJTableDados();
         
         //adicionando listeners
         this.addListenersFields();
@@ -132,7 +126,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         //this.jPanel2.setp
         
         //adicionando listeners aos campos 
-        addListenersFields();
+        this.addListenersFields();
         
         //desabilita alguns campos do usuario
         jTextFieldUsuarioNomeMunicip.setEnabled(false);
@@ -177,7 +171,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         jComboBoxProcCaraterAtend.setInputVerifier(new CaraterAtendVerifier(this,"Caráter de Atendimento"));
         jTextFieldUsarioDatNasc.setInputVerifier(new DataVerifier(this, "Data de Nascimento"));
         jTextFieldProcQuant.setInputVerifier(new QuantProcedimentoVerifier(this, "Quantidade",this));
-        jTextFieldProcDataAtend.setInputVerifier(new DataAtendimentoVerifier(this, "Data Atendimento",this));
+        jTextFieldProcDataAtend.setInputVerifier(new DataAtendimentoVerifier(this, "Data Atendimento",this,jTextFieldUsarioDatNasc));
         jTextFieldAno.setInputVerifier(new CompetenciaVerifier(this,"Ano", jTextFieldMes));
         jTextFieldFolha.setInputVerifier(new InputVerifier() {
 
@@ -238,8 +232,16 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                 return true;
            }
         });
+        
+        
+        
+        
+        
     }
    
+    
+    
+    
     private void initKeyPresseds(){
         //para cns do médico
         this.jTextFieldCnsProfiss.addKeyListener(new KeyAdapter() {
@@ -506,156 +508,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
     
     
         
-    private MaskFormatter getMCBO(){
-			if(mCBO==null){
-				try {
-					mCBO = new MaskFormatter("######");
-					mCBO.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mCBO;
-		}
-    private MaskFormatter getMMes(){
-			if(mMes==null){
-				try {
-					mMes = new MaskFormatter("##");
-					mMes.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mMes;
-		}
-    private MaskFormatter getMAno(){
-			if(mAno==null){
-				try {
-					mAno = new MaskFormatter("####");
-					mAno.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mAno;
-		}
-             private MaskFormatter getMData(){
-			if(mData==null){
-				try {
-					mData = new MaskFormatter("##/##/####");
-					mData.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mData;
-		}
-             private MaskFormatter getMCodNac(){
-			if(mCodNac==null){
-				try {
-					mCodNac = new MaskFormatter("###");
-					mCodNac.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mCodNac;
-		}
-             
-            private MaskFormatter getMCodMun(){
-			if(mCodMun==null){
-				try {
-					mCodMun = new MaskFormatter("######");
-					mCodMun.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mCodMun;
-		}
-            
-             private MaskFormatter getMCodProc(){
-			if(mCodProc==null){
-				try {
-					mCodProc = new MaskFormatter("##########");
-					mCodProc.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mCodProc;
-		}
-             private MaskFormatter getMCID(){
-			if(mCID==null){
-				try {
-					mCID = new MaskFormatter("****");
-					mCID.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mCID;
-		}
-             
-              private MaskFormatter getMFolha(){
-			if(mFolha==null){
-				try {
-					mFolha = new MaskFormatter("###");
-					mFolha.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mFolha;
-		}
-              
-              private MaskFormatter getMEtnia(){
-			if(mEtnia==null){
-				try {
-					mEtnia= new MaskFormatter("####");
-					mEtnia.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mEtnia;
-		}
-              
-              private MaskFormatter getMNumAutoriz(){
-			if(mNumAutoriz==null){
-				try {
-					mNumAutoriz = new MaskFormatter("*************");
-					mNumAutoriz.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mNumAutoriz;
-		}
-              private MaskFormatter getMCNS(){
-			if(mCNS==null){
-				try {
-					mCNS = new MaskFormatter("###############");
-					mCNS.setPlaceholder("");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			return mCNS;
-		}
-     
+   
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1027,6 +880,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
         jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonLimpar.setText("Limpar");
+        jButtonLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonLimparMouseClicked(evt);
+            }
+        });
         jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLimparActionPerformed(evt);
@@ -1044,6 +902,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         try {
@@ -1071,6 +934,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         }
 
         jButtonGravar.setText("Gravar");
+        jButtonGravar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonGravarMouseClicked(evt);
+            }
+        });
 
         jButtonSair.setText("Sair");
 
@@ -1340,26 +1208,28 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
     }//GEN-LAST:event_jTextFieldProcQuantActionPerformed
 
     private void jButtonIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirMouseClicked
-         
-        //atualiza o valor dos campos sequencia de procedimento e de usuario
-        jLabelProcSeq.setText(String.valueOf(sequencia));
-        jLabelUsuarioSeq.setText(String.valueOf(sequencia));
+        
         // metodo que pega os valores de alguns campos e adiciona-os ao modelo
         this.getValuesOfFieldsForModel();
         
-        //insere o modelo no banco de dados
+
+       
+        
         try{
-            this.insertInDatabase();
-            //insere o modelo Procedimento realizado na jTable
-            this.tableModelDados.setValueAt(procedimentoRealizado,this.sequencia-1);
-        }catch(Exception ex){
+         //insere o modelo Procedimento realizado na jTable
+         this.tableModelDados.setValueAt(procedimentoRealizado,Integer.parseInt(this.procedimentoRealizado.getProcedimentoRealizadoPK().getSequenciaFolha())-1);
+
             
+        }catch(Exception ex){
+            ex.printStackTrace();
         }
         
-       
-        //recomeça a contagem da sequencia caso chegue a 20
-        if(this.sequencia==20){
-            this.sequencia = 1;
+        ProcedimentoRealizado p = this.tableModelDados.getCloneElementListEmpty();
+        if(p!=null){
+            this.procedimentoRealizado = p;
+            this.fillHeaderModelProcedimentoRealizado(this.procedimentoRealizado);
+        }else{
+            //this.sequencia = 1;
              //pega o valor do campo folha e converte para inteiro
              int folha = Integer.parseInt(procedimentoRealizado.getProcedimentoRealizadoPK().getNumeroFolha());
              //incrementa
@@ -1368,20 +1238,37 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
              String f = String.format("%03d",folha);  
              //seta o novo valor de folha no campo folha
              jTextFieldFolha.setText(f);
-        }else{
-            ++this.sequencia;
-           
         }
         
          //zera os campos 
-        this.clearFields();
+        //this.clearFields();
         //inicializa o modelo
-        this.procedimentoRealizado = new ProcedimentoRealizado(jTextFieldCnes.getText(),
-                                                               jTextFieldCnsProfiss.getText(),jTextFieldCBO.getText(),jTextFieldAno.getText()+jTextFieldMes.getText(), jTextFieldFolha.getText());
-        
+        //this.procedimentoRealizado = new ProcedimentoRealizado(String.valueOf(this.sequencia),jTextFieldCnes.getText(),
+          //                                                     jTextFieldCnsProfiss.getText(),jTextFieldCBO.getText(),jTextFieldAno.getText()+jTextFieldMes.getText(), jTextFieldFolha.getText(),jTextFieldNomeProfiss.getText());
+        this.fillFields(procedimentoRealizado, false);
 
 
     }//GEN-LAST:event_jButtonIncluirMouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        JTable j = (JTable)evt.getComponent();
+        int row = j.getSelectedRow();
+        this.procedimentoRealizado = this.tableModelDados.getCloneElementList(row);
+        fillFields(procedimentoRealizado,false);
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButtonGravarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGravarMouseClicked
+        try {
+            this.insertInDatabase();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_jButtonGravarMouseClicked
+
+    private void jButtonLimparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLimparMouseClicked
+       this.clearFields();
+    }//GEN-LAST:event_jButtonLimparMouseClicked
                                           
 
     private void jTextFieldCnsProfissActionPerformed(java.awt.event.ActionEvent evt) {                                                     
@@ -1758,10 +1645,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                     //desabilita os campos do cabeçalho da tela que são 
                     //referentes as informações da unidade e do usuário      
                     disabledFieldsHeader();
+                    
                             
                         }
             }
         });
+         
+         
+         
+         
          
           jTextFieldUsuarioCns.addFocusListener(new FocusListener() {
 
@@ -1773,7 +1665,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setCnsPaciente(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setCnsPaciente(((JTextField)e.getComponent()).getText());
             }
         });
           
@@ -1787,7 +1679,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setNomePaciente(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setNomePaciente(((JTextField)e.getComponent()).getText());
             }
         });
            
@@ -1801,7 +1693,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setSexoPaciente(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setSexoPaciente(((JTextField)e.getComponent()).getText());
             }
         });
           
@@ -1816,7 +1708,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setDataNascimentoPaciente(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setDataNascimentoPaciente(((JTextField)e.getComponent()).getText());
               
             }
         });
@@ -1831,7 +1723,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setCodigoIBGECidadePaciente(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setCodigoIBGECidadePaciente(((JTextField)e.getComponent()).getText());
             }
         });
            
@@ -1845,7 +1737,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setNacionalidadePaciente(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setNacionalidadePaciente(((JTextField)e.getComponent()).getText());
             }
         });
              jComboBoxUsuarioRacaCor.addFocusListener(new FocusListener() {
@@ -1858,7 +1750,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setRacaPaciente(((JComboBox)e.getComponent()).getSelectedItem().toString().substring(0,2));
+               CadastroIndividualizado.this.procedimentoRealizado.setRacaPaciente(((JComboBox)e.getComponent()).getSelectedItem().toString().substring(0,2));
             }
         });
              
@@ -1872,7 +1764,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setEtniaPaciente(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setEtniaPaciente(((JTextField)e.getComponent()).getText());
             }
         });
           
@@ -1880,17 +1772,20 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
             @Override
             public void focusGained(FocusEvent e) {
-               
+//               if(jTextFieldUsarioDatNasc.getText().equals("  /  /    ")){
+//                   jTextFieldUsarioDatNasc.requestFocus();
+//               }
+                   
             }
 
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setDataAtendimento(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setDataAtendimento(((JTextField)e.getComponent()).getText());
                //seta a idade do paciente ao modelo
                
                String age = String.valueOf(DateUtil.getAge(jTextFieldUsarioDatNasc.getText(), jTextFieldProcDataAtend.getText()));
-               procedimentoRealizado.setIdadePaciente(age);
+               CadastroIndividualizado.this.procedimentoRealizado.setIdadePaciente(age);
             }
         });
            
@@ -1904,7 +1799,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setCodigoProcedimento(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setCodigoProcedimento(((JTextField)e.getComponent()).getText());
             }
         });
           
@@ -1918,7 +1813,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setQuantidadeRealizada(Double.valueOf(((JTextField)e.getComponent()).getText()));
+               CadastroIndividualizado.this.procedimentoRealizado.setQuantidadeRealizada(Double.valueOf(((JTextField)e.getComponent()).getText()));
             }
         });
           
@@ -1932,7 +1827,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setCidDoencaprocedimento(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setCidDoencaprocedimento(((JTextField)e.getComponent()).getText());
             }
         });
          
@@ -1946,7 +1841,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
                CaraterAtendimento c = (CaraterAtendimento)((JComboBox)e.getComponent()).getSelectedItem(); 
-               procedimentoRealizado.setCaracterizacaoAtendimento(c.cod());
+               CadastroIndividualizado.this.procedimentoRealizado.setCaracterizacaoAtendimento(c.cod());
             }
         });
           
@@ -1960,7 +1855,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setNumeroAutorizacao(((JTextField)e.getComponent()).getText());
+               CadastroIndividualizado.this.procedimentoRealizado.setNumeroAutorizacao(((JTextField)e.getComponent()).getText());
             }
         });
           
@@ -1975,12 +1870,45 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             jTextFieldAno.setEnabled(false);
             jTextFieldFolha.setEnabled(false);
       }
+      
+      private void disabledFieldsUsuarioProcedimento(){
+          jTextFieldUsuarioCns.setEnabled(false);
+          jTextFieldUsuarioNome.setEnabled(false);
+          jTextFieldUsuarioSexo.setEnabled(false);
+          jTextFieldUsarioDatNasc.setEnabled(false);
+          jTextFieldUsuarioCodMunicip.setEnabled(false);
+          jTextFieldUsuarioCodNac.setEnabled(false);
+          jComboBoxUsuarioRacaCor.setEnabled(false);
+          jTextFieldUsuarioCodEtnia.setEnabled(false);
+          jTextFieldProcDataAtend.setEnabled(false);
+          jTextFieldProcCod.setEnabled(false);
+          jTextFieldProcQuant.setEnabled(false);
+          jTextFieldProcCID.setEnabled(false);
+          jComboBoxProcCaraterAtend.setEnabled(false);
+          jTextFieldProcNumAut.setEnabled(false);
+          //jTable1.setEnabled(false);
+          
+      }
+      
+      //preenche um modelo ProcedimentoRealizado com os campos do cabeçalho da tela 
+      private void fillHeaderModelProcedimentoRealizado(ProcedimentoRealizado p){
+          p.getProcedimentoRealizadoPK().setCnesUnidade(jTextFieldCnes.getText());
+          p.getProcedimentoRealizadoPK().setCnsMedico(jTextFieldCnsProfiss.getText());
+          p.getProcedimentoRealizadoPK().setCboMedico(jTextFieldCBO.getText());
+          p.setCompetencia(jTextFieldAno.getText()+jTextFieldMes.getText());
+          p.getProcedimentoRealizadoPK().setNumeroFolha(jTextFieldFolha.getText());
+          
+      }
       private void getValuesOfFieldsForModel(){
          
       
         String competencia = jTextFieldAno.getText()+jTextFieldMes.getText();
         CaraterAtendimento c = (CaraterAtendimento) jComboBoxProcCaraterAtend.getSelectedItem();
-       
+        String dataNasc  =     DateUtil.parseToYearMonthDay(this.procedimentoRealizado.getDataNascimentoPaciente());
+        String dataAtend  =    DateUtil.parseToYearMonthDay(this.procedimentoRealizado.getDataAtendimento());
+         
+        this.procedimentoRealizado.setDataNascimentoPaciente(dataNasc);  
+        this.procedimentoRealizado.setDataAtendimento(dataAtend);  
         
        
         this.procedimentoRealizado.setRacaPaciente(jComboBoxUsuarioRacaCor.getSelectedItem().toString().substring(0, 2));
@@ -1993,13 +1921,9 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
       
       private void insertInDatabase(){
           
-         String dataNasc  =     DateUtil.parseToYearMonthDay(this.procedimentoRealizado.getDataNascimentoPaciente());
-         String dataAtend  =    DateUtil.parseToYearMonthDay(this.procedimentoRealizado.getDataAtendimento());
          
-         this.procedimentoRealizado.setDataNascimentoPaciente(dataNasc);  
-         this.procedimentoRealizado.setDataAtendimento(dataAtend);  
-        //insere o modelo no banco de dados
-          this.bIProcedimentoRealizadoController.salvar(new BIProcedimentoRealizado(this.procedimentoRealizado));
+         //insere o modelo no banco de dados
+          this.bIProcedimentoRealizadoController.salvar(this.tableModelDados.getListWithOutEmptyElements());
       }
       private void clearFields(){
         //jTextFieldAno.setText("");
@@ -2030,6 +1954,48 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         jComboBoxProcCaraterAtend.setSelectedIndex(0);
         jComboBoxUsuarioRacaCor.setSelectedIndex(0);
 
+      }
+      
+      //metodo que preenche os campos da tela baseado em um objeto procedimento realizado passado
+      private void  fillFields(ProcedimentoRealizado p,boolean flag){
+          //se o flag for true o cabecalho também sera preenchido
+          if(flag==true){
+              jTextFieldCnes.setText(p.getProcedimentoRealizadoPK().getCnesUnidade());
+              jTextFieldCnsProfiss.setText(p.getProcedimentoRealizadoPK().getCnsMedico());
+              jTextFieldNomeProfiss.setText(p.getNomeProfissional());
+              jTextFieldCBO.setText(p.getProcedimentoRealizadoPK().getCboMedico());
+              if(p.getCompetencia()!=null){
+                jTextFieldMes.setText(p.getCompetencia().substring(4));
+                jTextFieldAno.setText(p.getCompetencia().substring(0, 4));
+              }
+              jTextFieldFolha.setText(p.getProcedimentoRealizadoPK().getNumeroFolha());
+             
+              
+          }
+          String sequenciaFolha = p.getProcedimentoRealizadoPK().getSequenciaFolha();
+          jLabelUsuarioSeq.setText(sequenciaFolha);
+          jLabelProcSeq.setText(sequenciaFolha);
+          jTextFieldUsuarioCns.setText(p.getCnsPaciente());
+          jTextFieldUsuarioNome.setText(p.getNomePaciente());
+          jTextFieldUsuarioSexo.setText(p.getSexoPaciente());
+          jTextFieldUsarioDatNasc.setText(DateUtil.parseToDayMonthYear(p.getDataNascimentoPaciente(),true));
+          jTextFieldUsuarioCodMunicip.setText(p.getCodigoIBGECidadePaciente());
+         // jTextFieldUsuarioCodNac.setText(p.getNacionalidadePaciente());
+          jComboBoxUsuarioRacaCor.setSelectedItem(p.getRacaPaciente());
+          if((jComboBoxUsuarioRacaCor.getSelectedItem()!=null) && (jComboBoxUsuarioRacaCor.getSelectedItem().toString().substring(0, 2).equals(Diversas.COD_RACA_COR_INDIGENA))){
+              jTextFieldUsuarioCodEtnia.setText(p.getEtniaPaciente());
+          }
+          jTextFieldProcDataAtend.setText(DateUtil.parseToDayMonthYear(p.getDataAtendimento(),true));
+          jTextFieldProcCod.setText(p.getCodigoProcedimento());
+          jTextFieldProcQuant.setText(String.valueOf(p.getQuantidadeRealizada()));
+          jTextFieldProcCID.setText(p.getCidDoencaprocedimento());
+          jComboBoxProcCaraterAtend.setSelectedItem(p.getCaracterizacaoAtendimento());
+          jTextFieldProcNumAut.setText(p.getNumeroAutorizacao());
+          
+          
+          jTextFieldUsuarioNomeNac.setText("");
+          jTextFieldProcDescricao.setText("");
+          
       }
     
     

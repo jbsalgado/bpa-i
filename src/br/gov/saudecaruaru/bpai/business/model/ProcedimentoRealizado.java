@@ -13,7 +13,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "S_PRD")
-public class ProcedimentoRealizado implements Serializable {
+public class ProcedimentoRealizado implements Serializable,Cloneable {
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
@@ -60,7 +60,7 @@ public class ProcedimentoRealizado implements Serializable {
     
     @Basic(optional = false)
     @Column(name = "PRD_QT_P")
-    private Double quantidadeRealizada;
+    private Double quantidadeRealizada= 0.0;
     
     
     @Basic(optional = false)
@@ -109,6 +109,9 @@ public class ProcedimentoRealizado implements Serializable {
     @Column(name = "PRD_ADVQT")
     private String prdAdvqt;
 
+    
+    private String nomeProfissional;
+    
     public ProcedimentoRealizado() {
         this.procedimentoRealizadoPK = new ProcedimentoRealizadoPK();
     }
@@ -156,6 +159,14 @@ public class ProcedimentoRealizado implements Serializable {
         
       
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        
+        return super.clone();
+    }
+    
+    
     
     public ProcedimentoRealizado(BIProcedimentoRealizado procedimentoRealizado){
         this.setBiProcedimentoRealizado(procedimentoRealizado);
@@ -473,6 +484,20 @@ public class ProcedimentoRealizado implements Serializable {
     @Override
     public String toString() {
         return "ProcedimentoRealizado{" + "procedimentoRealizadoPK=" + procedimentoRealizadoPK + ", cnsPaciente=" + cnsPaciente + ", nomePaciente=" + nomePaciente + ", dataNascimentoPaciente=" + dataNascimentoPaciente + ", sexoPaciente=" + sexoPaciente + ", codigoIBGECidadePaciente=" + codigoIBGECidadePaciente + ", cidDoencaprocedimento=" + cidDoencaprocedimento + ", idadePaciente=" + idadePaciente + ", quantidadeRealizada=" + quantidadeRealizada + ", caracterizacaoAtendimento=" + caracterizacaoAtendimento + ", numeroAutorizacao=" + numeroAutorizacao + ", prdOrg=" + prdOrg + ", prdMvm=" + prdMvm + ", prdFlpa=" + prdFlpa + ", prdFlcbo=" + prdFlcbo + ", prdFlca=" + prdFlca + ", prdFlida=" + prdFlida + ", prdFlqt=" + prdFlqt + ", prdFler=" + prdFler + ", prdFlmun=" + prdFlmun + ", prdFlcid=" + prdFlcid + ", racaPaciente=" + racaPaciente + ", etniaPaciente=" + etniaPaciente + ", nacionalidadePaciente=" + nacionalidadePaciente + ", prdAdvqt=" + prdAdvqt + '}';
+    }
+
+    /**
+     * @return the nomeProfissional
+     */
+    public String getNomeProfissional() {
+        return nomeProfissional;
+    }
+
+    /**
+     * @param nomeProfissional the nomeProfissional to set
+     */
+    public void setNomeProfissional(String nomeProfissional) {
+        this.nomeProfissional = nomeProfissional;
     }
 
    

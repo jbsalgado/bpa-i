@@ -30,7 +30,7 @@ public class DateUtil {
         
         today.setTime(data);
         
-        // Cria um objeto calendar com a data atual
+       
        
         
         // Obtém a idade baseado no ano
@@ -89,6 +89,30 @@ public class DateUtil {
         dateParsing = strings[2]+strings[1]+strings[0];
         
         
+        return dateParsing;
+    }
+     
+     //metodo onde é passado uma string de data no formato YYYYMMdd e é
+     // retornado no formato ddMMYYYY ou dd/MM/YYYY caso o flag seja true
+     public static String parseToDayMonthYear(String date,boolean flag){
+        String dateParsing="";
+        
+       
+        
+        if(date!=null){
+            if(date.length()==8){
+             String year = date.substring(0, 4); 
+             String month = date.substring(4, 6); 
+             String day = date.substring(6, 8);     
+                if(flag==true){
+                    dateParsing = day+"/"+month+"/"+year;
+                }
+                else{
+                    dateParsing = day+month+year;
+                }    
+
+            }
+       }
         return dateParsing;
     }
 }

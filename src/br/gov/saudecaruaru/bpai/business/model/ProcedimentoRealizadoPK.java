@@ -4,16 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.business.model;
 
-import br.gov.saudecaruaru.bpai.gui.validators.DataAtendimentoVerifier;
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -24,7 +15,7 @@ import javax.persistence.Embeddable;
  */
 
 @Embeddable
-public class ProcedimentoRealizadoPK implements Serializable{
+public class ProcedimentoRealizadoPK implements Serializable,Cloneable{
     
     @Basic(optional = false)
     @Column(name = "PRD_UID")
@@ -154,6 +145,11 @@ public class ProcedimentoRealizadoPK implements Serializable{
         hash = 47 * hash + (this.numeroFolha != null ? this.numeroFolha.hashCode() : 0);
         hash = 47 * hash + (this.sequenciaFolha != null ? this.sequenciaFolha.hashCode() : 0);
         return hash;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
     
     
