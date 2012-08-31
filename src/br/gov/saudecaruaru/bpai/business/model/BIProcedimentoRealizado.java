@@ -26,6 +26,15 @@ public class BIProcedimentoRealizado implements Serializable{
     @EmbeddedId
     private BIProcedimentoRealizadoPK biProcedimentoRealizadoPK;
     
+    @Column(name = "PRD_CMP")
+    private String competencia;
+
+    @Column(name = "PRD_PA")
+    private String codigoProcedimento;
+    
+    @Column(name = "PRD_DTATEN")
+    private String dataAtendimento;
+    
     @Column(name = "PRD_CNSPAC")
     private String cnsPaciente;
     
@@ -139,8 +148,18 @@ public class BIProcedimentoRealizado implements Serializable{
         this.quantidadeRealizada=procedimentoRealizado.getQuantidadeRealizada();
         this.sexoPaciente=procedimentoRealizado.getSexoPaciente();
         this.racaPaciente=procedimentoRealizado.getRacaPaciente();
+        this.competencia=procedimentoRealizado.getCompetencia();
+        this.codigoProcedimento=procedimentoRealizado.getCodigoProcedimento();
+        this.dataAtendimento=procedimentoRealizado.getDataAtendimento();
     }
     
+    public ProcedimentoRealizado getProcedimentoRaalizado(){
+        ProcedimentoRealizado pr= new ProcedimentoRealizado();
+        
+        
+        return pr;
+        
+    }
     public BIProcedimentoRealizado(BIProcedimentoRealizadoPK biProcedimentoRealizadoPK) {
         this.biProcedimentoRealizadoPK = biProcedimentoRealizadoPK;
     }
@@ -173,6 +192,31 @@ public class BIProcedimentoRealizado implements Serializable{
         this.prdAdvqt = prdAdvqt;
     }
 
+    
+    public String getCodigoProcedimento() {
+        return codigoProcedimento;
+    }
+
+    public void setCodigoProcedimento(String codigoProcedimento) {
+        this.codigoProcedimento = codigoProcedimento;
+    }
+
+    public String getCompetencia() {
+        return competencia;
+    }
+
+    public void setCompetencia(String competencia) {
+        this.competencia = competencia;
+    }
+
+    public String getDataAtendimento() {
+        return dataAtendimento;
+    }
+
+    public void setDataAtendimento(String dataAtendimento) {
+        this.dataAtendimento = dataAtendimento;
+    }
+    
     public BIProcedimentoRealizadoPK getBiProcedimentoRealizadoPK() {
         return biProcedimentoRealizadoPK;
     }
