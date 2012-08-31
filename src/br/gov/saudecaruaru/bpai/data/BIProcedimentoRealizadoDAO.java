@@ -19,6 +19,16 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
         super(EntityManagerUtil.getEntityManagerI());
         
     }
+
+    @Override
+    public EntityManager getEntityManager() {
+        if(!this.entityManager.isOpen()){
+            this.entityManager=EntityManagerUtil.getEntityManagerI();
+        }
+        return entityManager;
+    }
+    
+    
     
     
     

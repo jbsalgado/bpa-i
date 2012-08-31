@@ -26,7 +26,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
     
 
     //@PersistenceContext(unitName = EntityManagerUtil.ENTITY_MANAGER_BPA_IPU)
-    private final EntityManager entityManager;
+    protected EntityManager entityManager;
     private final Class<T> persistentClass;
 
     public GenericDAO() {
@@ -41,15 +41,18 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
 
     public EntityManager getEntityManager() {
         if(!this.entityManager.isOpen()){
-           // this.entityManager.
+            this.entityManager=EntityManagerUtil.getEntityManager();
         }
         return entityManager;
     }
+    
+    
+    
 
     @Override
     public void save(T entity) {
         EntityTransaction tx = getEntityManager().getTransaction();
-
+        
         try {
             tx.begin();
             getEntityManager().persist(entity);

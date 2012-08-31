@@ -1260,6 +1260,20 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
     private void jButtonGravarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGravarMouseClicked
         try {
             this.insertInDatabase();
+            if(JOptionPane.showOptionDialog(this,"Atenção!Deseja continuar a inclusão com o mesmo cabecalho?","",
+                               JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, null, null)==JOptionPane.YES_OPTION){
+                 this.initJTableDados();
+                 //pega o primeiro objeto da jTable e atribui ao modelo atual
+                 this.procedimentoRealizado = this.tableModelDados.getCloneElementList(0);
+                 this.fillHeaderModelProcedimentoRealizado(this.procedimentoRealizado);
+                 this.fillFields(this.procedimentoRealizado, false); 
+                 }else{
+                 
+                   //apaga a tela da memoria
+                   this.dispose();       
+                      
+                       }
+    
         } catch (Exception e) {
             e.printStackTrace();
         }
