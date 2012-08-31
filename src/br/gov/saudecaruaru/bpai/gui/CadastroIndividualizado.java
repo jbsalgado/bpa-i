@@ -584,19 +584,19 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("CNES");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("CNS Profissional");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Nome Profissional");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Mês/Ano");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Folha");
 
         jTextFieldNomeProfiss.addActionListener(new java.awt.event.ActionListener() {
@@ -605,19 +605,19 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText(" /");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("CNS");
 
         jLabel8.setText("Usuário Sequência :");
 
         jLabelUsuarioSeq.setText("01");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("Nome ");
 
         jTextFieldUsuarioNome.addActionListener(new java.awt.event.ActionListener() {
@@ -626,15 +626,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Sexo");
 
         jLabel11.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText(" F/M");
         jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Dt. Nascimento");
 
         jTextFieldUsuarioNomeNac.setBackground(new java.awt.Color(153, 153, 153));
@@ -644,7 +644,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel14.setText("Nacionalidade");
 
         jTextFieldUsuarioNomeMunicip.setBackground(new java.awt.Color(153, 153, 153));
@@ -654,10 +654,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setText("Município de Residência");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel15.setText("Raça/Cor");
 
         jTextFieldUsuarioDescEtnia.setBackground(new java.awt.Color(153, 153, 153));
@@ -674,7 +674,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel17.setText("Etnia");
 
         jTextFieldUsuarioCns.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###############"))));
@@ -820,7 +820,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
         jLabelProcSeq.setText("01");
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel20.setText("Dt. Atendimento");
 
         jTextFieldProcQuant.addActionListener(new java.awt.event.ActionListener() {
@@ -829,7 +829,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel22.setText("Quantidade");
 
         jTextFieldProcDescriDoenca.setBackground(new java.awt.Color(153, 153, 153));
@@ -839,10 +839,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel23.setText("Código");
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel24.setText("CID");
 
         jTextFieldProcDescricao.setBackground(new java.awt.Color(153, 153, 153));
@@ -859,13 +859,13 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel19.setText("Nº Autorização");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel18.setText("Caráter Atendimento");
 
-        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonIncluir.setText("Incluir");
         jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -878,7 +878,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonLimpar.setText("Limpar");
         jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -929,6 +929,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         }
 
         jButtonGravar.setText("Gravar");
+        jButtonGravar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonGravarMouseClicked(evt);
+            }
+        });
 
         jButtonSair.setText("Sair");
 
@@ -1203,15 +1208,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         this.getValuesOfFieldsForModel();
         
 
-        //insere o modelo Procedimento realizado na jTable
-        this.tableModelDados.setValueAt(procedimentoRealizado,Integer.parseInt(this.procedimentoRealizado.getProcedimentoRealizadoPK().getSequenciaFolha())-1);
-
-        //insere o modelo no banco de dados
+       
+        
         try{
-            this.insertInDatabase();
+         //insere o modelo Procedimento realizado na jTable
+         this.tableModelDados.setValueAt(procedimentoRealizado,Integer.parseInt(this.procedimentoRealizado.getProcedimentoRealizadoPK().getSequenciaFolha())-1);
+
             
         }catch(Exception ex){
-            
+            ex.printStackTrace();
         }
         
         ProcedimentoRealizado p = this.tableModelDados.getCloneElementListEmpty();
@@ -1246,6 +1251,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         this.procedimentoRealizado = this.tableModelDados.getCloneElementList(row);
         fillFields(procedimentoRealizado,false);
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButtonGravarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGravarMouseClicked
+        try {
+            this.insertInDatabase();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_jButtonGravarMouseClicked
                                           
 
     private void jTextFieldCnsProfissActionPerformed(java.awt.event.ActionEvent evt) {                                                     
@@ -1881,7 +1895,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
       
         String competencia = jTextFieldAno.getText()+jTextFieldMes.getText();
         CaraterAtendimento c = (CaraterAtendimento) jComboBoxProcCaraterAtend.getSelectedItem();
-       
+        String dataNasc  =     DateUtil.parseToYearMonthDay(this.procedimentoRealizado.getDataNascimentoPaciente());
+        String dataAtend  =    DateUtil.parseToYearMonthDay(this.procedimentoRealizado.getProcedimentoRealizadoPK().getDataAtendimento());
+         
+        this.procedimentoRealizado.setDataNascimentoPaciente(dataNasc);  
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setDataAtendimento(dataAtend);  
         
        
         this.procedimentoRealizado.setRacaPaciente(jComboBoxUsuarioRacaCor.getSelectedItem().toString().substring(0, 2));
@@ -1894,13 +1912,9 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
       
       private void insertInDatabase(){
           
-         String dataNasc  =     DateUtil.parseToYearMonthDay(this.procedimentoRealizado.getDataNascimentoPaciente());
-         String dataAtend  =    DateUtil.parseToYearMonthDay(this.procedimentoRealizado.getProcedimentoRealizadoPK().getDataAtendimento());
          
-         this.procedimentoRealizado.setDataNascimentoPaciente(dataNasc);  
-         this.procedimentoRealizado.getProcedimentoRealizadoPK().setDataAtendimento(dataAtend);  
          //insere o modelo no banco de dados
-          this.bIProcedimentoRealizadoController.salvar(new BIProcedimentoRealizado(this.procedimentoRealizado));
+          this.bIProcedimentoRealizadoController.salvar(this.tableModelDados.getList());
       }
       private void clearFields(){
         //jTextFieldAno.setText("");
@@ -1955,14 +1969,14 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
           jTextFieldUsuarioCns.setText(p.getCnsPaciente());
           jTextFieldUsuarioNome.setText(p.getNomePaciente());
           jTextFieldUsuarioSexo.setText(p.getSexoPaciente());
-          jTextFieldUsarioDatNasc.setText(p.getDataNascimentoPaciente());
+          jTextFieldUsarioDatNasc.setText(DateUtil.parseToDayMonthYear(p.getDataNascimentoPaciente(),true));
           jTextFieldUsuarioCodMunicip.setText(p.getCodigoIBGECidadePaciente());
          // jTextFieldUsuarioCodNac.setText(p.getNacionalidadePaciente());
           jComboBoxUsuarioRacaCor.setSelectedItem(p.getRacaPaciente());
           if((jComboBoxUsuarioRacaCor.getSelectedItem()!=null) && (jComboBoxUsuarioRacaCor.getSelectedItem().toString().substring(0, 2).equals(Diversas.COD_RACA_COR_INDIGENA))){
               jTextFieldUsuarioCodEtnia.setText(p.getEtniaPaciente());
           }
-          jTextFieldProcDataAtend.setText(p.getProcedimentoRealizadoPK().getDataAtendimento());
+          jTextFieldProcDataAtend.setText(DateUtil.parseToDayMonthYear(p.getProcedimentoRealizadoPK().getDataAtendimento(),true));
           jTextFieldProcCod.setText(p.getProcedimentoRealizadoPK().getCodigoProcedimento());
           jTextFieldProcQuant.setText(String.valueOf(p.getQuantidadeRealizada()));
           jTextFieldProcCID.setText(p.getCidDoencaprocedimento());

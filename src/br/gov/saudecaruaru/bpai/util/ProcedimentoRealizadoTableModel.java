@@ -50,13 +50,13 @@ public class ProcedimentoRealizadoTableModel extends AbstractTableModel{
                 
             case 2: return p.getNomePaciente();
                 
-            case 3: return p.getDataNascimentoPaciente();
+            case 3: return DateUtil.parseToDayMonthYear(p.getDataNascimentoPaciente(),true);
                 
             case 4: return p.getSexoPaciente();
                 
             case 5: return p.getCodigoIBGECidadePaciente();
                 
-            case 6: return p.getProcedimentoRealizadoPK().getDataAtendimento();
+            case 6: return  DateUtil.parseToDayMonthYear(p.getProcedimentoRealizadoPK().getDataAtendimento(),true);
                 
             case 7: return p.getProcedimentoRealizadoPK().getCodigoProcedimento();
                 
@@ -92,6 +92,11 @@ public class ProcedimentoRealizadoTableModel extends AbstractTableModel{
         
     }
 
+    public List<ProcedimentoRealizado> getList() {
+        return list;
+    }
+    
+    
     public ProcedimentoRealizado getCloneElementListEmpty() {
         for(ProcedimentoRealizado p : this.list){
             if(p.getProcedimentoRealizadoPK().getCnesUnidade()==null){
