@@ -71,7 +71,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     private String numeroAutorizacao;
     
     @Column(name = "PRD_ORG")
-    private String prdOrg;
+    private String origemProcedimento;
     
     @Column(name = "PRD_MVM")
     private String prdMvm;
@@ -135,7 +135,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.quantidadeRealizada = quantidadeRealizada;
         this.caracterizacaoAtendimento = caracterizacaoAtendimento;
         this.numeroAutorizacao = numeroAutorizacao;
-        this.prdOrg = prdOrg;
+        this.origemProcedimento = prdOrg;
         this.prdMvm = prdMvm;
         this.prdFlpa = prdFlpa;
         this.prdFlcbo = prdFlcbo;
@@ -399,12 +399,12 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.prdMvm = prdMvm;
     }
 
-    public String getPrdOrg() {
-        return prdOrg;
+    public String getOrigemProcedimento() {
+        return origemProcedimento;
     }
 
-    public void setPrdOrg(String prdOrg) {
-        this.prdOrg = prdOrg;
+    public void setOrigemProcedimento(String origemProcedimento) {
+        this.origemProcedimento = origemProcedimento;
     }
 
     public ProcedimentoRealizadoPK getProcedimentoRealizadoPK() {
@@ -483,7 +483,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
 
     @Override
     public String toString() {
-        return "ProcedimentoRealizado{" + "procedimentoRealizadoPK=" + procedimentoRealizadoPK + ", cnsPaciente=" + cnsPaciente + ", nomePaciente=" + nomePaciente + ", dataNascimentoPaciente=" + dataNascimentoPaciente + ", sexoPaciente=" + sexoPaciente + ", codigoIBGECidadePaciente=" + codigoIBGECidadePaciente + ", cidDoencaprocedimento=" + cidDoencaprocedimento + ", idadePaciente=" + idadePaciente + ", quantidadeRealizada=" + quantidadeRealizada + ", caracterizacaoAtendimento=" + caracterizacaoAtendimento + ", numeroAutorizacao=" + numeroAutorizacao + ", prdOrg=" + prdOrg + ", prdMvm=" + prdMvm + ", prdFlpa=" + prdFlpa + ", prdFlcbo=" + prdFlcbo + ", prdFlca=" + prdFlca + ", prdFlida=" + prdFlida + ", prdFlqt=" + prdFlqt + ", prdFler=" + prdFler + ", prdFlmun=" + prdFlmun + ", prdFlcid=" + prdFlcid + ", racaPaciente=" + racaPaciente + ", etniaPaciente=" + etniaPaciente + ", nacionalidadePaciente=" + nacionalidadePaciente + ", prdAdvqt=" + prdAdvqt + '}';
+        return "ProcedimentoRealizado{" + "procedimentoRealizadoPK=" + procedimentoRealizadoPK + ", cnsPaciente=" + cnsPaciente + ", nomePaciente=" + nomePaciente + ", dataNascimentoPaciente=" + dataNascimentoPaciente + ", sexoPaciente=" + sexoPaciente + ", codigoIBGECidadePaciente=" + codigoIBGECidadePaciente + ", cidDoencaprocedimento=" + cidDoencaprocedimento + ", idadePaciente=" + idadePaciente + ", quantidadeRealizada=" + quantidadeRealizada + ", caracterizacaoAtendimento=" + caracterizacaoAtendimento + ", numeroAutorizacao=" + numeroAutorizacao + ", prdOrg=" + origemProcedimento + ", prdMvm=" + prdMvm + ", prdFlpa=" + prdFlpa + ", prdFlcbo=" + prdFlcbo + ", prdFlca=" + prdFlca + ", prdFlida=" + prdFlida + ", prdFlqt=" + prdFlqt + ", prdFler=" + prdFler + ", prdFlmun=" + prdFlmun + ", prdFlcid=" + prdFlcid + ", racaPaciente=" + racaPaciente + ", etniaPaciente=" + etniaPaciente + ", nacionalidadePaciente=" + nacionalidadePaciente + ", prdAdvqt=" + prdAdvqt + '}';
     }
 
     /**
