@@ -77,7 +77,7 @@ public class BIProcedimentoRealizado implements Serializable{
     private String numeroAutorizacao;
     
     @Column(name = "PRD_ORG")
-    private String prdOrg;
+    private String origemProcedimento;
     
     @Column(name = "PRD_MVM")
     private String prdMvm;
@@ -176,7 +176,7 @@ public class BIProcedimentoRealizado implements Serializable{
         this.quantidadeRealizada = quantidadeRealizada;
         this.caracterizacaoAtendimento = caracterizacaoAtendimento;
         this.numeroAutorizacao = numeroAutorizacao;
-        this.prdOrg = prdOrg;
+        this.origemProcedimento = prdOrg;
         this.prdMvm = prdMvm;
         this.prdFlpa = prdFlpa;
         this.prdFlcbo = prdFlcbo;
@@ -385,12 +385,12 @@ public class BIProcedimentoRealizado implements Serializable{
         this.prdMvm = prdMvm;
     }
 
-    public String getPrdOrg() {
-        return prdOrg;
+    public String getOrigemProcedimento() {
+        return origemProcedimento;
     }
 
-    public void setPrdOrg(String prdOrg) {
-        this.prdOrg = prdOrg;
+    public void setOrigemProcedimento(String origemProcedimento) {
+        this.origemProcedimento = origemProcedimento;
     }
 
     public Double getQuantidadeRealizada() {
