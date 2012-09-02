@@ -45,6 +45,7 @@ public class BPAI {
         d.getDiversasPK().setCodigoTabela(Diversas.TABELA_PROFISSAO);
         
         BIProcedimentoRealizadoDAO test= new BIProcedimentoRealizadoDAO();
+        ProcedimentoRealizadoDAO dao= new ProcedimentoRealizadoDAO();
         HashMap<String,Object> res= new HashMap<String, Object>();
         
         res.put("procedimentoPk.competencia", "201206");
@@ -90,9 +91,11 @@ public class BPAI {
         //ctrl.salvar(pro);
         
         
-    
-    for(BIProcedimentoRealizado p: ctrl.findAll()){
-        System.out.println(p.getNomePaciente());
+    int i=0;
+    for(ProcedimentoRealizado p: dao.findAllConsolidados("", 0, 1000)){
+        i++;
+        System.out.println(p.getQuantidadeRealizada());
     }
+    System.out.println("Tamanho do resultado: "+i);
     }
 }

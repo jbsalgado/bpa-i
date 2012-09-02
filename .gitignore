@@ -1,0 +1,6 @@
+/nbproject/
+*.class
+*.xml
+*.properties
+/build/
+/dist/
