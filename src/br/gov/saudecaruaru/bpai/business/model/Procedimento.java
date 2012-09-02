@@ -71,7 +71,7 @@ public class Procedimento implements Serializable {
     private Double quantidadeMaximaExecucao;
     
     @Column(name = "PA_IDEBPA")
-    private Character paIdebpa;
+    private Character exigeIdadeBPA;
     
     @Column(name = "PA_CNSPCN")
     private Character paCnspcn;
@@ -111,7 +111,7 @@ public class Procedimento implements Serializable {
         this.idadeMinimaPaciente = idadeMinimaPaciente;
         this.sexo = sexo;
         this.quantidadeMaximaExecucao = quantidadeMaximaExecucao;
-        this.paIdebpa = paIdebpa;
+        this.exigeIdadeBPA = paIdebpa;
         this.paCnspcn = paCnspcn;
         this.paCnrac = paCnrac;
         this.maisDeSeisMeses = maisDeSeisMeses;
@@ -210,12 +210,12 @@ public class Procedimento implements Serializable {
         this.paCtf = paCtf;
     }
 
-    public Character getPaIdebpa() {
-        return paIdebpa;
+    public Character getExigeIdadeBPA() {
+        return exigeIdadeBPA;
     }
 
-    public void setPaIdebpa(Character paIdebpa) {
-        this.paIdebpa = paIdebpa;
+    public void setExigeIdadeBPA(Character paIdebpa) {
+        this.exigeIdadeBPA = paIdebpa;
     }
 
     public String getPaRub() {
