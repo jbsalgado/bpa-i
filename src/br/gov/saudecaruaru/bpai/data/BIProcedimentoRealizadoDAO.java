@@ -5,9 +5,11 @@
 package br.gov.saudecaruaru.bpai.data;
 
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
-import java.io.Serializable;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizadoPK;
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -21,7 +23,74 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
     }
     
     
-    
+        public List<BIProcedimentoRealizado> findAllConsolidados(String competencia,int firstResult,int maxResult){
+        List<Object[]> l=null;
+        Session session= (Session)this.getEntityManager().getDelegate();
+        try{
+//            example in SQL for get the procedimentos
+//            ===> first X skip Y equivalent in Mysql at limit Y,X <===
+//            select first 100 skip 50 pr.prd_cbo,pr.prd_uid,pr.prd_idade,p.pa_dc,p.pa_id,pr.prd_org,pr.prd_mvm,pr.prd_cmp, sum(pr.prd_qt_p) 
+//            FROM s_prd pr inner join S_PA p on (p.pa_id||p.pa_dv=pr.prd_pa and  p.pa_idebpa='S' ) 
+//            group by pr.prd_uid,pr.prd_cbo, p.pa_id,pr.prd_idade, p.pa_dc,pr.prd_org,pr.prd_cmp,pr.prd_mvm;
+
+            StringBuilder sql=new StringBuilder();
+            //campos a serem selecionados
+            sql.append("SELECT  pro.procedimentoRealizadoPK.cnesUnidade, pro.procedimentoRealizadoPK.cboMedico,");
+            sql.append("pro.idadePaciente, pro.codigoProcedimento, pro.competencia,");
+            //faz o somatório da quantidade de execuções
+            sql.append("pro.prdMvm, SUM(pro.quantidadeRealizada) AS quantidadeRealizada");
+            sql.append(" FROM BIProcedimentoRealizado pro");
+            //traz somente os procedimentos que devem ser consolidados
+            sql.append(" WHERE (pro.origemProcedimento=:origem)");
+            //agrupa
+            sql.append(" GROUP BY pro.procedimentoRealizadoPK.cnesUnidade, pro.procedimentoRealizadoPK.cboMedico,");
+            sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.competencia,pro.prdMvm");
+            //it's create query
+            Query q=session.createQuery(sql.toString());
+            q.setParameter("origem", "BPA");
+            //paginacao dos resultados
+            q.setFirstResult(firstResult);
+            q.setMaxResults(maxResult);
+            l=q.list();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        finally{
+            List<BIProcedimentoRealizado> list= new ArrayList<BIProcedimentoRealizado>();
+            if(l!=null){
+                //cada objeto de l contém um vetor que representa os campos selecionados
+                for(Object[] row:l){
+                    BIProcedimentoRealizado pro=new BIProcedimentoRealizado(new BIProcedimentoRealizadoPK());
+                    
+                    //o tamanho do vetor é igual a quantidade de campos do select
+                    //o índíce do campo no select é igual ao do vetor, começando por zero.
+                    pro.getBiProcedimentoRealizadoPK().setCnesUnidade((String)row[0]);
+                    pro.getBiProcedimentoRealizadoPK().setCboMedico((String)row[1]);
+                    pro.setIdadePaciente((String)row[2]);
+                    pro.setCodigoProcedimento((String)row[3]);
+                    pro.setCompetencia((String)row[4]);
+                    pro.setPrdMvm((String)row[5]);
+                    pro.setQuantidadeRealizada((Double) row[6]);
+                    
+                    //valores padrões
+                    
+                    pro.setOrigemProcedimento("BPA");
+                    String flag="0";
+                    pro.setPrdFlca(flag);
+                    pro.setPrdFlcbo(flag);
+                    pro.setPrdFlcid(flag);
+                    pro.setPrdFler(flag);
+                    pro.setPrdFlida(flag);
+                    pro.setPrdFlmun(flag);
+                    pro.setPrdFlpa(flag);
+                    pro.setPrdFlqt(flag);
+                    
+                    list.add(pro);
+                }
+            }
+            return list;
+        }
+    }
     
     
 }
