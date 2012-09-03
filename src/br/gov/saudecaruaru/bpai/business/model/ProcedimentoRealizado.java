@@ -99,8 +99,8 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     @Column(name = "PRD_ADVQT")
     private String prdAdvqt;
 
-    
-    //private String nomeProfissional;
+    @Transient
+    private String nomeProfissional;
     
     public ProcedimentoRealizado() {
         this.procedimentoRealizadoPK = new ProcedimentoRealizadoPK();
@@ -479,16 +479,16 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     /**
      * @return the nomeProfissional
      */
-//    public String getNomeProfissional() {
-//        return nomeProfissional;
-//    }
-//
-//    /**
-//     * @param nomeProfissional the nomeProfissional to set
-//     */
-//    public void setNomeProfissional(String nomeProfissional) {
-//        this.nomeProfissional = nomeProfissional;
-//    }
+    public String getNomeProfissional() {
+        return nomeProfissional;
+    }
+
+    /**
+     * @param nomeProfissional the nomeProfissional to set
+     */
+    public void setNomeProfissional(String nomeProfissional) {
+        this.nomeProfissional = nomeProfissional;
+    }
 
    
  
