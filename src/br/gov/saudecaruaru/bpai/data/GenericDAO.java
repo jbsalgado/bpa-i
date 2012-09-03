@@ -15,9 +15,9 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
@@ -25,86 +25,88 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
     
     
 
-    //@PersistenceContext(unitName = EntityManagerUtil.ENTITY_MANAGER_BPA_IPU)
-    protected EntityManager entityManager;
     private final Class<T> persistentClass;
 
     public GenericDAO() {
-        this.entityManager = EntityManagerUtil.getEntityManager();
+        //this.entityManager = EntityManagerUtil.getEntityManager();
         this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
     
-    public GenericDAO(EntityManager entityManager) {
-        this.entityManager = entityManager;
-        this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-    }
-
-    public EntityManager getEntityManager() {
-        if(!this.entityManager.isOpen()){
-           this.entityManager=EntityManagerUtil.getEntityManager();
-        }
-        return entityManager;
+    public Session getSession(){
+        return HibernateUtil.getSession();
     }
 
     @Override
     public void save(T entity) {
-        EntityTransaction tx = getEntityManager().getTransaction();
+        //EntityTransaction tx = getEntityManager().getTransaction();
+        Session session= this.getSession();
 
         try {
-            tx.begin();
-            getEntityManager().persist(entity);
-            tx.commit();
+//            tx.begin();
+//            getEntityManager().persist(entity);
+//            tx.commit();
+            session.beginTransaction();
+            session.persist(entity);
+            session.getTransaction().commit();
         } catch (Throwable t) {
             t.printStackTrace();
-            tx.rollback();
+            session.getTransaction().rollback();
         } finally {
-            close();
+            session.close();
         }
     }
 
     @Override
     public void update(T entity) {
-        EntityTransaction tx = getEntityManager().getTransaction();
-
+        //EntityTransaction tx = getEntityManager().getTransaction();
+        Session session= this.getSession();
+        Transaction t=session.getTransaction();
         try {
-            tx.begin();
-            getEntityManager().merge(entity);
-            tx.commit();
-        } catch (Throwable t) {
-            t.printStackTrace();
-            tx.rollback();
+            t.begin();
+//            tx.begin();
+//            getEntityManager().merge(entity);
+//            tx.commit();
+            session.update(entity);
+            t.commit();
+        } catch (Throwable tr) {
+            tr.printStackTrace();
+            t.rollback();
         } finally {
-            close();
+            session.close();
         }
 
     }
 
     @Override
     public void remove(T entity) {
-        EntityTransaction tx = getEntityManager().getTransaction();
-
+       // EntityTransaction tx = getEntityManager().getTransaction();
+        Session session= this.getSession();
+        Transaction t=session.getTransaction();
         try {
-            tx.begin();
-            getEntityManager().remove(entity);
-            tx.commit();
-        } catch (Throwable t) {
-            t.printStackTrace();
-            tx.rollback();
+            t.begin();
+            session.delete(entity);
+//            tx.begin();
+//            getEntityManager().remove(entity);
+//            tx.commit();
+            t.commit();
+        } catch (Throwable tr) {
+            tr.printStackTrace();
+            t.rollback();
         } finally {
-            close();
+            session.close();
         }
     }
 
     @Override
     public List<T> findAll()  {
-        Session session = (Session) getEntityManager().getDelegate();
+        Session session= this.getSession();
         return session.createCriteria(persistentClass).list();
     }
     
     
     @Override
     public List<T> findAllEqual(Serializable objeto){
-        Session session = (Session) getEntityManager().getDelegate();
+        Session session= this.getSession();
         Criteria c=session.createCriteria(persistentClass);   
         Map<String, Object> restrictions=ModelUtil.getRestrictions(objeto);
         for(String key: restrictions.keySet()){
@@ -188,7 +190,8 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
     
     @Override
     public List<T> findAllEqual(Map<String,Object> restrictions){
-        Session session = (Session) getEntityManager().getDelegate();
+        Session session= this.getSession();
+        Transaction t=session.getTransaction();
         Criteria c=session.createCriteria(persistentClass);
         for(String key: restrictions.keySet()){
             if(key!=null){
@@ -201,7 +204,8 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
     
     @Override
     public List<T> findAllLike(Map<String,Object> restrictions){
-        Session session = (Session) getEntityManager().getDelegate();
+        Session session= this.getSession();
+        Transaction t=session.getTransaction();
         Criteria c=session.createCriteria(persistentClass);
         for(String key: restrictions.keySet()){
             if(key!=null){
@@ -215,7 +219,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
 
     @Override
     public T findEqual(Map<String, Object> restrictions) {
-        Session session = (Session) getEntityManager().getDelegate();
+        Session session= this.getSession();
         Criteria c=session.createCriteria(persistentClass);
         for(String key: restrictions.keySet()){
             if(key!=null){
@@ -226,25 +230,18 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
         return (T) c.uniqueResult();
     }
     
-    protected void close() {
-        if (getEntityManager().isOpen()) {
-            getEntityManager().close();
-        }
-        //shutdown();
-    }
+//    protected void close() {
+//        if (getEntityManager().isOpen()) {
+//            getEntityManager().close();
+//        }
+//        //shutdown();
+//    }
 
-    private void shutdown() {
-        EntityManager em = EntityManagerUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        em.createNativeQuery("SHUTDOWN").executeUpdate();
-        em.close();
-    }
 
 
     @Override
     public T findEqual(T object) {
-      Session session = (Session) getEntityManager().getDelegate();
+      Session session= this.getSession();
         Criteria c=session.createCriteria(persistentClass);   
         Map<String, Object> restrictions=ModelUtil.getRestrictions(object);
         for(String key: restrictions.keySet()){

@@ -5,12 +5,10 @@
 package br.gov.saudecaruaru.bpai.data;
 
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
-import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizadoPK;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -21,14 +19,14 @@ import org.hibernate.Session;
 public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealizado> {
 
     public BIProcedimentoRealizadoDAO() {
-        super(EntityManagerUtil.getEntityManagerI());
+        //super(EntityManagerUtil.getEntityManagerI());
         
     }
     
     
         public List<ProcedimentoRealizado> findAllConsolidados(String competencia,int firstResult,int maxResult){
         List<Object[]> l=null;
-        Session session= (Session)this.getEntityManager().getDelegate();
+        Session session= this.getSession();
         try{
 //            example in SQL for get the procedimentos
 //            ===> first X skip Y equivalent in Mysql at limit Y,X <===
@@ -59,7 +57,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             ex.printStackTrace();
         }
         finally{
-            session.flush();
+            //session.flush();
             session.close();
             List<ProcedimentoRealizado> list= new ArrayList<ProcedimentoRealizado>();
             if(l!=null){
@@ -98,12 +96,12 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
         }
     }
     
+
     @Override
-    public EntityManager getEntityManager() {
-        if(!this.entityManager.isOpen()){
-           this.entityManager=EntityManagerUtil.getEntityManager();
-        }
-        return entityManager;
+    public Session getSession() {
+        return HibernateUtil.getSessionBpaI();
     }
+    
+    
     
 }
