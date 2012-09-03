@@ -35,13 +35,13 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
         int folha=1;
         int size=maxResults;
         int offset=0;
+        int seq=1;
         BIProcedimentoRealizadoDAO dao= (BIProcedimentoRealizadoDAO)this.getDao();
         //list para armazenar os procedimentos consolidados
         List<ProcedimentoRealizado> list=null;
         while(size==maxResults){
             list=dao.findAllConsolidados(competencia, offset, maxResults);
             size=list.size();
-            int seq=1;
             //gerar a sequência e a folha
             for(int i=0; i<size;i++){
                 
@@ -49,7 +49,7 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
                p.setNumeroFolha(""+folha);
                p.setSequenciaFolha(""+seq);
                 //incrementa a folha e inicia uma nova sequencia
-                if(i%20==0){
+                if(seq==20){
                     folha++;
                     seq=1;
                 }
