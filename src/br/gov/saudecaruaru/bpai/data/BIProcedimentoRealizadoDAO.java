@@ -91,12 +91,51 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
                     
                     list.add(pro);
                 }
+                l.clear();
             }
             return list;
         }
     }
     
+    public List<ProcedimentoRealizado> findAllProcedimentosIndividuais(String competencia,int firstResult,int maxResult){
+        List<ProcedimentoRealizado> list=new ArrayList<ProcedimentoRealizado>();
+        List<BIProcedimentoRealizado> l=null;
+        Session session= this.getSession();
+        try{
 
+            StringBuilder sql=new StringBuilder();
+            //campos a serem selecionados
+            sql.append("SELECT *");
+            //faz o somatório da quantidade de execuções
+            sql.append(" FROM BIProcedimentoRealizado pro");
+            //traz somente os procedimentos que devem ser consolidados
+            sql.append(" WHERE (pro.origemProcedimento=:origem)");
+            //it's create query
+            Query q=session.createQuery(sql.toString());
+            q.setParameter("origem", "BPI");
+            //paginacao dos resultados
+            q.setFirstResult(firstResult);
+            q.setMaxResults(maxResult);
+            l=q.list();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        finally{
+            //session.flush();
+            session.close();
+            if(l!=null){
+                //cada objeto de l contém um vetor que representa os campos selecionados
+                for(BIProcedimentoRealizado row: l){
+                    ProcedimentoRealizado pro=new ProcedimentoRealizado(row);
+                    list.add(pro);
+                }
+                l.clear();
+            }
+            return list;
+        }
+    
+    }
+    
     @Override
     public Session getSession() {
         return HibernateUtil.getSessionBpaI();
