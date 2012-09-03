@@ -26,8 +26,6 @@ public class BIProcedimentoRealizado implements Serializable{
     @EmbeddedId
     private BIProcedimentoRealizadoPK biProcedimentoRealizadoPK;
     
-    @Column(name = "PRD_CMP")
-    private String competencia;
 
     @Column(name = "PRD_PA")
     private String codigoProcedimento;
@@ -148,12 +146,11 @@ public class BIProcedimentoRealizado implements Serializable{
         this.quantidadeRealizada=procedimentoRealizado.getQuantidadeRealizada();
         this.sexoPaciente=procedimentoRealizado.getSexoPaciente();
         this.racaPaciente=procedimentoRealizado.getRacaPaciente();
-        this.competencia=procedimentoRealizado.getCompetencia();
         this.codigoProcedimento=procedimentoRealizado.getCodigoProcedimento();
         this.dataAtendimento=procedimentoRealizado.getDataAtendimento();
     }
     
-    public ProcedimentoRealizado getProcedimentoRaalizado(){
+    public ProcedimentoRealizado getProcedimentoRealizado(){
         ProcedimentoRealizado pr= new ProcedimentoRealizado();
         
         
@@ -199,14 +196,6 @@ public class BIProcedimentoRealizado implements Serializable{
 
     public void setCodigoProcedimento(String codigoProcedimento) {
         this.codigoProcedimento = codigoProcedimento;
-    }
-
-    public String getCompetencia() {
-        return competencia;
-    }
-
-    public void setCompetencia(String competencia) {
-        this.competencia = competencia;
     }
 
     public String getDataAtendimento() {

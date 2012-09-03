@@ -4,15 +4,13 @@
  */
 package br.gov.saudecaruaru.bpai.data;
 
-import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
-import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizadoPK;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityTransaction;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 
 /**
@@ -23,7 +21,7 @@ public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> 
     
         public List<ProcedimentoRealizado> findAllConsolidados(String competencia,int firstResult,int maxResult){
         List<Object[]> l=null;
-        Session session= (Session)this.getEntityManager().getDelegate();
+        Session session= this.getSession();
         try{
 //            example in SQL for get the procedimentos
 //            ===> first X skip Y equivalent in Mysql at limit Y,X <===
@@ -66,7 +64,7 @@ public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> 
                     pro.getProcedimentoRealizadoPK().setCboMedico((String)row[1]);
                     pro.setIdadePaciente((String)row[2]);
                     pro.setCodigoProcedimento((String)row[3]);
-                    pro.setCompetencia((String)row[4]);
+                    pro.getProcedimentoRealizadoPK().setCompetencia((String)row[4]);
                     pro.setPrdMvm((String)row[5]);
                     pro.setQuantidadeRealizada((Double) row[6]);
                     
@@ -92,16 +90,18 @@ public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> 
     
        
     public void save(List<ProcedimentoRealizado> list) {
-        EntityTransaction tx = getEntityManager().getTransaction();
+        Session session= this.getSession();
+        Transaction tx=session.getTransaction();
 
         try {
             tx.begin();
             int size=list.size();
             for(int i=0;i<size;i++){
-                this.getEntityManager().persist(list.get(i));
+                session.merge(list.get(i));
                 //divisível por 20
                 if(i%20==0){
-                    
+                    session.flush();
+                    session.clear();
                 }
                 System.out.println(list.get(i));
             }
@@ -110,7 +110,7 @@ public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> 
             t.printStackTrace();
             tx.rollback();
         } finally {
-            this.close();
+            session.close();
         }
     }
    

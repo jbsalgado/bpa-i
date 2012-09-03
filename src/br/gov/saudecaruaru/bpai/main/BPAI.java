@@ -83,7 +83,7 @@ public class BPAI {
         pk.setCnsMedico("980016277313811");
         pk.setCnesUnidade("3083721");
         pro.setCodigoProcedimento("0310010012");
-        pro.setCompetencia("201206");
+        pro.getBiProcedimentoRealizadoPK().setCompetencia("201206");
         pro.setDataAtendimento("20120606");
         //pro.setNumeroFolha("001");
         //pro.setSequenciaFolha("01");

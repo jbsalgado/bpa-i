@@ -13,8 +13,6 @@ import java.awt.Component;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -50,7 +48,7 @@ public class DataAtendimentoVerifier extends InputVerifier{
        ProcedimentoRealizado proRealizado = t.getProcedimentoRealizado();
        String valor = txtField.getText();
        String valorDtNas = proRealizado.getDataNascimentoPaciente();
-       Date competencia = DateUtil.parserStringToDate("yyyyMM", proRealizado.getCompetencia());
+       Date competencia = DateUtil.parserStringToDate("yyyyMM", proRealizado.getProcedimentoRealizadoPK().getCompetencia());
        Date dataAtendMesAno = DateUtil.parserStringToDate("MM/yyyy", valor.substring(3));
       
        

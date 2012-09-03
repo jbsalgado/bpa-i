@@ -19,9 +19,6 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     @EmbeddedId
     private ProcedimentoRealizadoPK procedimentoRealizadoPK; 
     
-    @Column(name = "PRD_CMP")
-    private String competencia;
-
     
     @Column(name = "PRD_PA")
     private String codigoProcedimento;
@@ -110,9 +107,8 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.procedimentoRealizadoPK = procedimentoRealizadoPK;
     }
 
-    public ProcedimentoRealizado(ProcedimentoRealizadoPK procedimentoRealizadoPK, String competencia, String codigoProcedimento, String dataAtendimento, String cnsPaciente, String nomePaciente, String dataNascimentoPaciente, String sexoPaciente, String codigoIBGECidadePaciente, String cidDoencaprocedimento, String idadePaciente, Double quantidadeRealizada, String caracterizacaoAtendimento, String numeroAutorizacao, String prdOrg, String prdMvm, String prdFlpa, String prdFlcbo, String prdFlca, String prdFlida, String prdFlqt, String prdFler, String prdFlmun, String prdFlcid, String racaPaciente, String etniaPaciente, String nacionalidadePaciente, String prdAdvqt) {
+    public ProcedimentoRealizado(ProcedimentoRealizadoPK procedimentoRealizadoPK,  String codigoProcedimento, String dataAtendimento, String cnsPaciente, String nomePaciente, String dataNascimentoPaciente, String sexoPaciente, String codigoIBGECidadePaciente, String cidDoencaprocedimento, String idadePaciente, Double quantidadeRealizada, String caracterizacaoAtendimento, String numeroAutorizacao, String prdOrg, String prdMvm, String prdFlpa, String prdFlcbo, String prdFlca, String prdFlida, String prdFlqt, String prdFler, String prdFlmun, String prdFlcid, String racaPaciente, String etniaPaciente, String nacionalidadePaciente, String prdAdvqt) {
         this.procedimentoRealizadoPK = procedimentoRealizadoPK;
-        this.competencia = competencia;
         this.codigoProcedimento = codigoProcedimento;
         this.dataAtendimento = dataAtendimento;
         this.cnsPaciente = cnsPaciente;
@@ -187,7 +183,6 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.quantidadeRealizada=procedimentoRealizado.getQuantidadeRealizada();
         this.sexoPaciente=procedimentoRealizado.getSexoPaciente();
         this.racaPaciente=procedimentoRealizado.getRacaPaciente();
-        this.competencia=procedimentoRealizado.getCompetencia();
         this.codigoProcedimento=procedimentoRealizado.getCodigoProcedimento();
         this.dataAtendimento=procedimentoRealizado.getDataAtendimento();
     }
@@ -213,13 +208,6 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.codigoProcedimento = codigoProcedimento;
     }
 
-    public String getCompetencia() {
-        return competencia;
-    }
-
-    public void setCompetencia(String competencia) {
-        this.competencia = competencia;
-    }
 
     public String getDataAtendimento() {
         return dataAtendimento;

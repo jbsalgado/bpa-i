@@ -21,6 +21,12 @@ public class ProcedimentoRealizadoPK implements Serializable,Cloneable{
     @Column(name = "PRD_UID")
     private String cnesUnidade;
     
+    
+    @Basic(optional = false)
+    @Column(name = "PRD_CMP")
+    private String competencia;
+
+    
     @Basic(optional = false)
     @Column(name = "PRD_CNSMED")
     private String cnsMedico;
@@ -66,6 +72,7 @@ public class ProcedimentoRealizadoPK implements Serializable,Cloneable{
        this.cnsMedico=procedimentoRealizadoPK.getCnsMedico();
        this.numeroFolha=procedimentoRealizadoPK.getNumeroFolha();
        this.sequenciaFolha=procedimentoRealizadoPK.getSequenciaFolha();
+       this.competencia=procedimentoRealizadoPK.getCompetencia();
    }  
 
     public String getCboMedico() {
@@ -91,7 +98,13 @@ public class ProcedimentoRealizadoPK implements Serializable,Cloneable{
     public void setCnsMedico(String cnsMedico) {
         this.cnsMedico = cnsMedico;
     }
+    public String getCompetencia() {
+        return competencia;
+    }
 
+    public void setCompetencia(String competencia) {
+        this.competencia = competencia;
+    }
 
     public String getNumeroFolha() {
         return numeroFolha;
@@ -121,6 +134,9 @@ public class ProcedimentoRealizadoPK implements Serializable,Cloneable{
         if ((this.cnesUnidade == null) ? (other.cnesUnidade != null) : !this.cnesUnidade.equals(other.cnesUnidade)) {
             return false;
         }
+        if ((this.competencia == null) ? (other.competencia != null) : !this.competencia.equals(other.competencia)) {
+            return false;
+        }
         if ((this.cnsMedico == null) ? (other.cnsMedico != null) : !this.cnsMedico.equals(other.cnsMedico)) {
             return false;
         }
@@ -138,18 +154,26 @@ public class ProcedimentoRealizadoPK implements Serializable,Cloneable{
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 47 * hash + (this.cnesUnidade != null ? this.cnesUnidade.hashCode() : 0);
-        hash = 47 * hash + (this.cnsMedico != null ? this.cnsMedico.hashCode() : 0);
-        hash = 47 * hash + (this.cboMedico != null ? this.cboMedico.hashCode() : 0);
-        hash = 47 * hash + (this.numeroFolha != null ? this.numeroFolha.hashCode() : 0);
-        hash = 47 * hash + (this.sequenciaFolha != null ? this.sequenciaFolha.hashCode() : 0);
+        int hash = 7;
+        hash = 79 * hash + (this.cnesUnidade != null ? this.cnesUnidade.hashCode() : 0);
+        hash = 79 * hash + (this.competencia != null ? this.competencia.hashCode() : 0);
+        hash = 79 * hash + (this.cnsMedico != null ? this.cnsMedico.hashCode() : 0);
+        hash = 79 * hash + (this.cboMedico != null ? this.cboMedico.hashCode() : 0);
+        hash = 79 * hash + (this.numeroFolha != null ? this.numeroFolha.hashCode() : 0);
+        hash = 79 * hash + (this.sequenciaFolha != null ? this.sequenciaFolha.hashCode() : 0);
         return hash;
     }
+
+   
 
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    @Override
+    public String toString() {
+        return "ProcedimentoRealizadoPK{" + "cnesUnidade=" + cnesUnidade + ", competencia=" + competencia + ", cnsMedico=" + cnsMedico + ", cboMedico=" + cboMedico + ", numeroFolha=" + numeroFolha + ", sequenciaFolha=" + sequenciaFolha + '}';
     }
     
     

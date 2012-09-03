@@ -71,7 +71,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
                     pro.getProcedimentoRealizadoPK().setCboMedico((String)row[1]);
                     pro.setIdadePaciente((String)row[2]);
                     pro.setCodigoProcedimento((String)row[3]);
-                    pro.setCompetencia((String)row[4]);
+                    pro.getProcedimentoRealizadoPK().setCompetencia((String)row[4]);
                     pro.setPrdMvm((String)row[5]);
                     pro.setQuantidadeRealizada((Double) row[6]);
                     

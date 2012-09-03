@@ -144,7 +144,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         jTextFieldMes.setText(competencia.substring(4));
         jTextFieldAno.setText(competencia.substring(0, 4));
         //seta a competencia vinda do banco
-        procedimentoRealizado.setCompetencia(competencia);
+        procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
         //inicializando nacionalidade: BRASIL
         jTextFieldUsuarioCodNac.setText(Diversas.CODIGO_NACIONALIDADE_BRASIL);
         procedimentoRealizado.setNacionalidadePaciente(Diversas.CODIGO_NACIONALIDADE_BRASIL);
@@ -1625,7 +1625,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             @Override
             public void focusLost(FocusEvent e) {
             
-               procedimentoRealizado.setCompetencia(((JTextField)e.getComponent()).getText()+jTextFieldMes.getText());
+               procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(((JTextField)e.getComponent()).getText()+jTextFieldMes.getText());
             }
         }); 
         
@@ -1895,7 +1895,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
           p.getProcedimentoRealizadoPK().setCnesUnidade(jTextFieldCnes.getText());
           p.getProcedimentoRealizadoPK().setCnsMedico(jTextFieldCnsProfiss.getText());
           p.getProcedimentoRealizadoPK().setCboMedico(jTextFieldCBO.getText());
-          p.setCompetencia(jTextFieldAno.getText()+jTextFieldMes.getText());
+          p.getProcedimentoRealizadoPK().setCompetencia(jTextFieldAno.getText()+jTextFieldMes.getText());
           p.getProcedimentoRealizadoPK().setNumeroFolha(jTextFieldFolha.getText());
           
       }
@@ -1914,7 +1914,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         this.procedimentoRealizado.setRacaPaciente(jComboBoxUsuarioRacaCor.getSelectedItem().toString().substring(0, 2));
         this.procedimentoRealizado.setCaracterizacaoAtendimento(c.cod());
         this.procedimentoRealizado.setNacionalidadePaciente(jTextFieldUsuarioCodNac.getText());
-        this.procedimentoRealizado.setCompetencia(competencia);
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
         this.procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(jTextFieldFolha.getText());
         this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(String.valueOf(sequencia));
       }
@@ -1964,9 +1964,9 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
               jTextFieldCnsProfiss.setText(p.getProcedimentoRealizadoPK().getCnsMedico());
               jTextFieldNomeProfiss.setText(p.getNomeProfissional());
               jTextFieldCBO.setText(p.getProcedimentoRealizadoPK().getCboMedico());
-              if(p.getCompetencia()!=null){
-                jTextFieldMes.setText(p.getCompetencia().substring(4));
-                jTextFieldAno.setText(p.getCompetencia().substring(0, 4));
+              if(p.getProcedimentoRealizadoPK().getCompetencia()!=null){
+                jTextFieldMes.setText(p.getProcedimentoRealizadoPK().getCompetencia().substring(4));
+                jTextFieldAno.setText(p.getProcedimentoRealizadoPK().getCompetencia().substring(0, 4));
               }
               jTextFieldFolha.setText(p.getProcedimentoRealizadoPK().getNumeroFolha());
              
