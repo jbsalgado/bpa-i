@@ -6,8 +6,11 @@ package br.gov.saudecaruaru.bpai.data;
 
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizadoPK;
+import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
+import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -23,7 +26,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
     }
     
     
-        public List<BIProcedimentoRealizado> findAllConsolidados(String competencia,int firstResult,int maxResult){
+        public List<ProcedimentoRealizado> findAllConsolidados(String competencia,int firstResult,int maxResult){
         List<Object[]> l=null;
         Session session= (Session)this.getEntityManager().getDelegate();
         try{
@@ -35,7 +38,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
 
             StringBuilder sql=new StringBuilder();
             //campos a serem selecionados
-            sql.append("SELECT  pro.procedimentoRealizadoPK.cnesUnidade, pro.procedimentoRealizadoPK.cboMedico,");
+            sql.append("SELECT  pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
             sql.append("pro.idadePaciente, pro.codigoProcedimento, pro.competencia,");
             //faz o somatório da quantidade de execuções
             sql.append("pro.prdMvm, SUM(pro.quantidadeRealizada) AS quantidadeRealizada");
@@ -43,7 +46,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             //traz somente os procedimentos que devem ser consolidados
             sql.append(" WHERE (pro.origemProcedimento=:origem)");
             //agrupa
-            sql.append(" GROUP BY pro.procedimentoRealizadoPK.cnesUnidade, pro.procedimentoRealizadoPK.cboMedico,");
+            sql.append(" GROUP BY pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
             sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.competencia,pro.prdMvm");
             //it's create query
             Query q=session.createQuery(sql.toString());
@@ -56,16 +59,18 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             ex.printStackTrace();
         }
         finally{
-            List<BIProcedimentoRealizado> list= new ArrayList<BIProcedimentoRealizado>();
+            session.flush();
+            session.close();
+            List<ProcedimentoRealizado> list= new ArrayList<ProcedimentoRealizado>();
             if(l!=null){
                 //cada objeto de l contém um vetor que representa os campos selecionados
                 for(Object[] row:l){
-                    BIProcedimentoRealizado pro=new BIProcedimentoRealizado(new BIProcedimentoRealizadoPK());
+                    ProcedimentoRealizado pro=new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
                     
                     //o tamanho do vetor é igual a quantidade de campos do select
                     //o índíce do campo no select é igual ao do vetor, começando por zero.
-                    pro.getBiProcedimentoRealizadoPK().setCnesUnidade((String)row[0]);
-                    pro.getBiProcedimentoRealizadoPK().setCboMedico((String)row[1]);
+                    pro.getProcedimentoRealizadoPK().setCnesUnidade((String)row[0]);
+                    pro.getProcedimentoRealizadoPK().setCboMedico((String)row[1]);
                     pro.setIdadePaciente((String)row[2]);
                     pro.setCodigoProcedimento((String)row[3]);
                     pro.setCompetencia((String)row[4]);
@@ -75,6 +80,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
                     //valores padrões
                     
                     pro.setOrigemProcedimento("BPA");
+                    pro.setNomePaciente("TESTE");
                     String flag="0";
                     pro.setPrdFlca(flag);
                     pro.setPrdFlcbo(flag);
@@ -92,5 +98,12 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
         }
     }
     
+    @Override
+    public EntityManager getEntityManager() {
+        if(!this.entityManager.isOpen()){
+           this.entityManager=EntityManagerUtil.getEntityManager();
+        }
+        return entityManager;
+    }
     
 }

@@ -32,23 +32,18 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     @Column(name = "PRD_CNSPAC")
     private String cnsPaciente;
     
-    @Basic(optional = false)
     @Column(name = "PRD_NMPAC")
     private String nomePaciente;
     
-    @Basic(optional = false)
     @Column(name = "PRD_DTNASC")
     private String dataNascimentoPaciente;
     
-    @Basic(optional = false)
     @Column(name = "PRD_SEXO")
     private String sexoPaciente;
     
     
-    @Basic(optional = false)
     @Column(name = "PRD_IBGE")
     private String codigoIBGECidadePaciente;
-    
     
     @Column(name = "PRD_CID")
     private String cidDoencaprocedimento;
@@ -62,8 +57,6 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     @Column(name = "PRD_QT_P")
     private Double quantidadeRealizada= 0.0;
     
-    
-    @Basic(optional = false)
     @Column(name = "PRD_CATEN")
     private String caracterizacaoAtendimento;
     
@@ -94,15 +87,12 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     private String prdFlcid;
     
     
-    @Basic(optional = false)
     @Column(name = "PRD_RACA")
     private String racaPaciente;
     
     @Column(name = "PRD_ETNIA")
     private String etniaPaciente;
     
-    
-    @Basic(optional = false)
     @Column(name = "PRD_NAC")
     private String nacionalidadePaciente;
     
@@ -110,7 +100,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     private String prdAdvqt;
 
     
-    private String nomeProfissional;
+    //private String nomeProfissional;
     
     public ProcedimentoRealizado() {
         this.procedimentoRealizadoPK = new ProcedimentoRealizadoPK();
@@ -489,16 +479,16 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     /**
      * @return the nomeProfissional
      */
-    public String getNomeProfissional() {
-        return nomeProfissional;
-    }
-
-    /**
-     * @param nomeProfissional the nomeProfissional to set
-     */
-    public void setNomeProfissional(String nomeProfissional) {
-        this.nomeProfissional = nomeProfissional;
-    }
+//    public String getNomeProfissional() {
+//        return nomeProfissional;
+//    }
+//
+//    /**
+//     * @param nomeProfissional the nomeProfissional to set
+//     */
+//    public void setNomeProfissional(String nomeProfissional) {
+//        this.nomeProfissional = nomeProfissional;
+//    }
 
    
  

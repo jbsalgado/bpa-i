@@ -44,7 +44,7 @@ public class BPAI {
         d.setDiversasPK(new DiversasPK());
         d.getDiversasPK().setCodigoTabela(Diversas.TABELA_PROFISSAO);
         
-        BIProcedimentoRealizadoDAO test= new BIProcedimentoRealizadoDAO();
+        BIProcedimentoRealizadoController test= new BIProcedimentoRealizadoController();
         ProcedimentoRealizadoDAO dao= new ProcedimentoRealizadoDAO();
         HashMap<String,Object> res= new HashMap<String, Object>();
         
@@ -92,10 +92,11 @@ public class BPAI {
         
         
     int i=0;
-    for(ProcedimentoRealizado p: dao.findAllConsolidados("", 0, 1000)){
-        i++;
-        System.out.println(p.getQuantidadeRealizada());
-    }
+//    for(ProcedimentoRealizado p: dao.findAllConsolidados("", 0, 30)){
+//        i++;
+//        System.out.println(p.getQuantidadeRealizada());
+//    }
+    test.findAllProcedimentosConsolidadosAndSave("201206", new ProcedimentoRealizadoDAO(), 30);
     System.out.println("Tamanho do resultado: "+i);
     }
 }

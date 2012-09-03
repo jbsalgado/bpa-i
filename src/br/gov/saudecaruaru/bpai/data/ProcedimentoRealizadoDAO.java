@@ -10,6 +10,7 @@ import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityTransaction;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -86,6 +87,30 @@ public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> 
                 }
             }
             return list;
+        }
+    }
+    
+       
+    public void save(List<ProcedimentoRealizado> list) {
+        EntityTransaction tx = getEntityManager().getTransaction();
+
+        try {
+            tx.begin();
+            int size=list.size();
+            for(int i=0;i<size;i++){
+                this.getEntityManager().persist(list.get(i));
+                //divisível por 20
+                if(i%20==0){
+                    
+                }
+                System.out.println(list.get(i));
+            }
+            tx.commit();
+        } catch (Throwable t) {
+            t.printStackTrace();
+            tx.rollback();
+        } finally {
+            this.close();
         }
     }
    

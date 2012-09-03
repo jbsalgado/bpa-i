@@ -56,4 +56,14 @@ public class BasecController < T extends Serializable>{
     public T findEqual(Map<String, Object> map){
         return (T) this.dao.findEqual(map);
     }
+
+    public GenericDAO getDao() {
+        return dao;
+    }
+
+    public void setDao(GenericDAO dao) {
+        this.dao = dao;
+    }
+    
+    
 }
