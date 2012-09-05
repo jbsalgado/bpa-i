@@ -1093,7 +1093,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             ex.printStackTrace();
         }
 
-        jTextFieldCBO.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("######"))));
+        try {
+            jTextFieldCBO.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("######")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         jLabel21.setText("CBO");
 
