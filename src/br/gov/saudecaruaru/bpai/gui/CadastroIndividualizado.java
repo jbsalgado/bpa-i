@@ -169,6 +169,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
          
         //atribui validadores
         jTextFieldNomeProfiss.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
+        jTextFieldCnes.setInputVerifier(new CnesVerifier(this, "CNES"));
         jTextFieldUsuarioNome.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
         jTextFieldProcQuant.setInputVerifier(new OnlyNumbers(this,"Quantidade"));
         jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this,"CNS"));
@@ -1249,7 +1250,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         this.initJTableDados();
         //pega o primeiro objeto da jTable e atribui ao modelo atual
         this.procedimentoRealizado = this.tableModelDados.getCloneElementList(0);
-        if(JOptionPane.showOptionDialog(this,"DESEJA INICIA A INCLUSÃO COM O MESMO CABEÇALHO?","Questão",
+        if(JOptionPane.showOptionDialog(this,"DESEJA INICIAR A INCLUSÃO COM O MESMO CABEÇALHO?","Questão",
                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null)==JOptionPane.YES_OPTION){
              //pega o valor do campo folha e converte para inteiro
              int folha = Integer.parseInt(jTextFieldFolha.getText());
