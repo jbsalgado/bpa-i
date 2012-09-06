@@ -37,7 +37,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             StringBuilder sql=new StringBuilder();
             //campos a serem selecionados
             sql.append("SELECT  pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
-            sql.append("pro.idadePaciente, pro.codigoProcedimento, pro.competencia,");
+            sql.append("pro.idadePaciente, pro.codigoProcedimento, pro.biProcedimentoRealizadoPK.competencia,");
             //faz o somatório da quantidade de execuções
             sql.append("pro.prdMvm, SUM(pro.quantidadeRealizada) AS quantidadeRealizada");
             sql.append(" FROM BIProcedimentoRealizado pro");
@@ -45,7 +45,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             sql.append(" WHERE (pro.origemProcedimento=:origem)");
             //agrupa
             sql.append(" GROUP BY pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
-            sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.competencia,pro.prdMvm");
+            sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.biProcedimentoRealizadoPK.competencia,pro.prdMvm");
             //it's create query
             Query q=session.createQuery(sql.toString());
             q.setParameter("origem", "BPA");

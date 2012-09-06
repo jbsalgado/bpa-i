@@ -32,7 +32,7 @@ public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> 
             StringBuilder sql=new StringBuilder();
             //campos a serem selecionados
             sql.append("SELECT  pro.procedimentoRealizadoPK.cnesUnidade, pro.procedimentoRealizadoPK.cboMedico,");
-            sql.append("pro.idadePaciente, pro.codigoProcedimento, pro.competencia,");
+            sql.append("pro.idadePaciente, pro.codigoProcedimento, pro.biProcedimentoRealizadoPK.competencia,");
             //faz o somatório da quantidade de execuções
             sql.append("pro.prdMvm, SUM(pro.quantidadeRealizada) AS quantidadeRealizada");
             sql.append(" FROM ProcedimentoRealizado pro");
@@ -40,7 +40,7 @@ public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> 
             sql.append(" WHERE (pro.origemProcedimento=:origem)");
             //agrupa
             sql.append(" GROUP BY pro.procedimentoRealizadoPK.cnesUnidade, pro.procedimentoRealizadoPK.cboMedico,");
-            sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.competencia,pro.prdMvm");
+            sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.biProcedimentoRealizadoPK.competencia,pro.prdMvm");
             //it's create query
             Query q=session.createQuery(sql.toString());
             q.setParameter("origem", "BPA");
