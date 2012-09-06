@@ -40,6 +40,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
      //controladores
      private DiversasController diversasController;
      private MedicoController medicoController;
+     private MedicoCboCnesController medicoCboCnesController;
      private PacienteController pacienteController;
      private MunicipioController municipioController;
      private ProcedimentoController procedimentoController;
@@ -87,6 +88,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         this.gestorCompetenciaController = new GestorCompetenciaController(); 
         this.diversasController = new DiversasController();
         this.medicoController= new MedicoController();
+        this.medicoCboCnesController=new MedicoCboCnesController();
         this.pacienteController=new PacienteController();
         this.municipioController= new MunicipioController();
         this.procedimentoController= new ProcedimentoController();
@@ -202,6 +204,8 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                 textField.setBackground(Color.WHITE); 
                 return true;
             }
+            
+            
         });
         
         
@@ -596,19 +600,19 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel1.setText("CNES");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel2.setText("CNS Profissional");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel3.setText("Nome Profissional");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel5.setText("Mês/Ano");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel6.setText("Folha");
 
         jTextFieldNomeProfiss.addActionListener(new java.awt.event.ActionListener() {
@@ -617,19 +621,19 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel7.setText(" /");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel9.setText("CNS");
 
         jLabel8.setText("Usuário Sequência :");
 
         jLabelUsuarioSeq.setText("01");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel10.setText("Nome ");
 
         jTextFieldUsuarioNome.addActionListener(new java.awt.event.ActionListener() {
@@ -638,15 +642,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel4.setText("Sexo");
 
         jLabel11.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel11.setText(" F/M");
         jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel12.setText("Dt. Nascimento");
 
         jTextFieldUsuarioNomeNac.setBackground(new java.awt.Color(153, 153, 153));
@@ -656,7 +660,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel14.setText("Nacionalidade");
 
         jTextFieldUsuarioNomeMunicip.setBackground(new java.awt.Color(153, 153, 153));
@@ -666,10 +670,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel13.setText("Município de Residência");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel15.setText("Raça/Cor");
 
         jTextFieldUsuarioDescEtnia.setBackground(new java.awt.Color(153, 153, 153));
@@ -686,7 +690,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel17.setText("Etnia");
 
         jTextFieldUsuarioCns.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###############"))));
@@ -832,7 +836,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
         jLabelProcSeq.setText("01");
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel20.setText("Dt. Atendimento");
 
         jTextFieldProcQuant.addActionListener(new java.awt.event.ActionListener() {
@@ -841,7 +845,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel22.setText("Quantidade");
 
         jTextFieldProcDescriDoenca.setBackground(new java.awt.Color(153, 153, 153));
@@ -851,10 +855,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel23.setText("Código");
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel24.setText("CID");
 
         jTextFieldProcDescricao.setBackground(new java.awt.Color(153, 153, 153));
@@ -871,13 +875,13 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel19.setText("Nº Autorização");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel18.setText("Caráter Atendimento");
 
-        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonIncluir.setText("Incluir");
         jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -890,7 +894,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonLimpar.setText("Limpar");
         jButtonLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1073,6 +1077,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jTextFieldCnsProfiss.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldCnsProfissFocusLost(evt);
+            }
+        });
 
         try {
             jTextFieldMes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
@@ -1092,6 +1101,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jTextFieldFolha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldFolhaFocusLost(evt);
+            }
+        });
 
         try {
             jTextFieldCBO.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("######")));
@@ -1290,6 +1304,15 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
     private void jButtonLimparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLimparMouseClicked
        this.clearFields();
     }//GEN-LAST:event_jButtonLimparMouseClicked
+
+    private void jTextFieldCnsProfissFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCnsProfissFocusLost
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTextFieldCnsProfissFocusLost
+
+    private void jTextFieldFolhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldFolhaFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldFolhaFocusLost
                                           
 
     private void jTextFieldCnsProfissActionPerformed(java.awt.event.ActionEvent evt) {                                                     
@@ -1592,7 +1615,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
               
             }
         });
-          
+
             jTextFieldCnsProfiss.addFocusListener(new FocusListener() {
 
             @Override
@@ -1602,10 +1625,41 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
             @Override
             public void focusLost(FocusEvent e) {
-            
-               procedimentoRealizado.getProcedimentoRealizadoPK().setCnsMedico( ((JTextField)e.getComponent()).getText());
-             
-                       
+                if(e.getOppositeComponent() instanceof JTextField && CadastroIndividualizado.this.procedimentoRealizado.getProcedimentoRealizadoPK().getCnsMedico()==null){
+                    System.out.println("Perdeu o foco");
+                    procedimentoRealizado.getProcedimentoRealizadoPK().setCnsMedico( ((JTextField)e.getComponent()).getText());
+                    //o campo está validado
+                    if(CadastroIndividualizado.this.jTextFieldCnsProfiss.getVerifyInputWhenFocusTarget()){
+                        Medico m= new Medico(CadastroIndividualizado.this.jTextFieldCnsProfiss.getText());
+                        m=CadastroIndividualizado.this.medicoController.findEqual(m);
+                        //preenche o nome do medico, caso ache
+                        if(m!=null){
+                            //preenche o nome do médico
+                            CadastroIndividualizado.this.jTextFieldNomeProfiss.setText(m.getNome());
+                            //modelo que receberá as restrições de busca
+                            MedicoCboCnesPK pk= new MedicoCboCnesPK();
+                            //unidade do médico
+                            pk.setMedicoCnesUnidade(CadastroIndividualizado.this.jTextFieldCnes.getText());
+                            //cns do médico
+                            pk.setMedicoCns(m.getCns());
+                            MedicoCboCnes medi= new MedicoCboCnes(pk);
+
+                            List<MedicoCboCnes> l=CadastroIndividualizado.this.medicoCboCnesController.findAllEqual(medi);
+                            //existe somente um único CBO para aquele médico na unidade
+                            if(l.size()==1){
+                                CadastroIndividualizado.this.jTextFieldCBO.setText(l.get(0).getMedicoCboCnesPK().getMedicoCbo());
+                                //muda o foco para o mês da competência
+                                CadastroIndividualizado.this.jTextFieldMes.requestFocus();
+                            }
+                            else{
+                                //muda o foco para o CBO do profissional
+                                CadastroIndividualizado.this.jTextFieldCBO.requestFocus();
+                            }
+                        }
+                    }
+
+
+                }
             }
         });
          jTextFieldNomeProfiss.addFocusListener(new FocusListener() {
@@ -1685,8 +1739,20 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
             @Override
             public void focusLost(FocusEvent e) {
-            
-               CadastroIndividualizado.this.procedimentoRealizado.setCnsPaciente(((JTextField)e.getComponent()).getText());
+                if(e.getOppositeComponent() instanceof JTextField && CadastroIndividualizado.this.procedimentoRealizado.getCnsPaciente()==null){
+                    CadastroIndividualizado.this.procedimentoRealizado.setCnsPaciente(((JTextField)e.getComponent()).getText());
+                    Paciente pa= new Paciente(CadastroIndividualizado.this.procedimentoRealizado.getCnsPaciente());
+                    pa=CadastroIndividualizado.this.pacienteController.findEqual(pa);
+                    if(pa!=null){
+                        CadastroIndividualizado.this.jTextFieldUsuarioNome.setText(pa.getNome());
+                        CadastroIndividualizado.this.jTextFieldUsuarioCodEtnia.setText(pa.getEtnia());
+                        CadastroIndividualizado.this.jTextFieldUsuarioCodMunicip.setText(pa.getCodigoIbgeCidade());
+                        CadastroIndividualizado.this.jTextFieldUsuarioCodNac.setText(pa.getNacionalidade());
+                        CadastroIndividualizado.this.jTextFieldUsuarioSexo.setText(pa.getSexo().toString());
+                        CadastroIndividualizado.this.jTextFieldUsarioDatNasc.setText(DateUtil.parseToDayMonthYear(pa.getDataNascimento(), false));
+                    }
+                }
+               
             }
         });
           
