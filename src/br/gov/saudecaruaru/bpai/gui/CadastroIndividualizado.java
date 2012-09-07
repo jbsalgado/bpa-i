@@ -1726,7 +1726,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                         //vai pegar a folha caso exista
                        ProcedimentoRealizado pr=(ProcedimentoRealizado) CadastroIndividualizado.this.procedimentoRealizado.clone();
                        //coloca a origem
-                       pr.setOrigemProcedimento(ProcedimentoRealizado.ORIGEM_INDIVIDUALIZADP);
+                       pr.setOrigemProcedimento(ProcedimentoRealizado.ORIGEM_INDIVIDUALIZADO);
                        //retira a nacionalidade
                        pr.setNacionalidadePaciente(null);
                        pr.setQuantidadeRealizada(null);
