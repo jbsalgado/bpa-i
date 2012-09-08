@@ -13,8 +13,8 @@ import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModel;
 import br.gov.saudecaruaru.bpai.util.Search;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Frame;
 import java.awt.event.*;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,8 +25,6 @@ import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.JTextComponent;
-import javax.swing.text.MaskFormatter;
-import org.hibernate.mapping.Collection;
 
 /**
  *
@@ -66,24 +64,27 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
      * Creates new form CadastroIndividualizado
      */
     public CadastroIndividualizado() {
-        //inicializa as opcoes do JOptionPane
-        UIManager.put("OptionPane.yesButtonText", "Sim");     
-        UIManager.put("OptionPane.noButtonText", "Não");   
-        UIManager.put("OptionPane.cancelButtonText", "Cancelar");
-        
-        
-        this.initInstances();
 
         this.initComponents();
        
         this.myInitComponents();
         
-        //seta o estado do frame para ocupar toda a tela
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
+
+    public CadastroIndividualizado(Frame owner) {
+        //super(owner);
+        this.initComponents();
+        this.myInitComponents();
+    }
+    
+    
     
     private void initInstances(){
         
+        //inicializa as opcoes do JOptionPane
+        UIManager.put("OptionPane.yesButtonText", "Sim");     
+        UIManager.put("OptionPane.noButtonText", "Não");   
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar");
 
          
         this.gestorCompetenciaController = new GestorCompetenciaController(); 
@@ -116,6 +117,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
     }
     
     private void myInitComponents(){
+        
+        //seta o estado do frame para ocupar toda a tela
+        this.setVisible(true);
+        this.initInstances();
         
         this.initJTableDados();
         //pega o primeiro objeto da jTable e atribui ao modelo atual
@@ -601,7 +606,9 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         jComboBoxEquipe = new javax.swing.JComboBox();
         jLabel25 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setName("Cadastro indivualizado"); // NOI18N
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel1.setText("CNES");
@@ -951,6 +958,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         });
 
         jButtonSair.setText("Sair");
+        jButtonSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonSairMouseClicked(evt);
+            }
+        });
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel26.setText("Serviço");
@@ -1139,7 +1151,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel25.setText("Equipe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1228,7 +1240,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -1337,6 +1349,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
     private void jComboBoxUsuarioClassificacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxUsuarioClassificacaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxUsuarioClassificacaoActionPerformed
+
+    private void jButtonSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSairMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButtonSairMouseClicked
                                           
 
     private void jTextFieldCnsProfissActionPerformed(java.awt.event.ActionEvent evt) {                                                     
@@ -2110,7 +2127,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                //atualiza a referência o procedimentoRealizado "global"
                CadastroIndividualizado.this.procedimentoRealizado=CadastroIndividualizado.this.tableModelDados.getCloneElementList(0);
                CadastroIndividualizado.this.jTable1.setRowSelectionInterval(0, 0);
-               CadastroIndividualizado.this.fillFields(CadastroIndividualizado.this.procedimentoRealizado, false);
+               CadastroIndividualizado.this.fillFields(CadastroIndividualizado.this.procedimentoRealizado, true);
            }
       
       }
