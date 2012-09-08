@@ -212,6 +212,8 @@ public class ProcedimentoRealizadoTableModel extends AbstractTableModel{
         fireTableCellUpdated(rowIndex, 11);
         fireTableCellUpdated(rowIndex, 12);
         fireTableCellUpdated(rowIndex, 13);
+        fireTableCellUpdated(rowIndex, 14);
+        fireTableCellUpdated(rowIndex, 15);
     }
  
     @Override
