@@ -19,7 +19,7 @@ import org.hibernate.Transaction;
  */
 public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> {
     
-        public List<ProcedimentoRealizado> findAllConsolidados(String competencia,int firstResult,int maxResult){
+   public List<ProcedimentoRealizado> findAllConsolidados(String competencia,int firstResult,int maxResult){
         List<Object[]> l=null;
         Session session= this.getSession();
         try{
@@ -84,6 +84,55 @@ public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> 
                     list.add(pro);
                 }
             }
+            session.close();
+            return list;
+        }
+    }
+   
+   
+   public List<ProcedimentoRealizado> findAllOnlyHeader(){
+        List<Object[]> l=null;
+        Session session= this.getSession();
+        try{
+
+            StringBuilder sql=new StringBuilder();
+            //campos a serem selecionados
+            sql.append("SELECT  pro.procedimentoRealizadoPK.cnesUnidade, pro.procedimentoRealizadoPK.cboMedico,");
+            sql.append(" pro.procedimentoRealizadoPK.numeroFolha, pro.procedimentoRealizadoPK.competencia,");
+            //faz o somatório da quantidade de execuções
+            sql.append("pro.procedimentoRealizadoPK.cnsMedico, COUNT(pro.procedimentoRealizadoPK.sequenciaFolha) AS VOID");
+            sql.append(" FROM ProcedimentoRealizado pro");
+            //traz somente os procedimentos que devem ser consolidados
+            //sql.append(" WHERE (pro.origemProcedimento=:origem)");
+            //agrupa
+            sql.append(" GROUP BY pro.procedimentoRealizadoPK.competencia, pro.procedimentoRealizadoPK.cnesUnidade,");
+            sql.append(" pro.procedimentoRealizadoPK.cnsMedico,pro.procedimentoRealizadoPK.cboMedico,pro.procedimentoRealizadoPK.numeroFolha");
+            //it's create query
+            Query q=session.createQuery(sql.toString());
+            //paginacao dos resultados
+            l=q.list();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        finally{
+            List<ProcedimentoRealizado> list= new ArrayList<ProcedimentoRealizado>();
+            if(l!=null){
+                //cada objeto de l contém um vetor que representa os campos selecionados
+                for(Object[] row:l){
+                    ProcedimentoRealizado pro=new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
+                    
+                    //o tamanho do vetor é igual a quantidade de campos do select
+                    //o índíce do campo no select é igual ao do vetor, começando por zero.
+                    pro.getProcedimentoRealizadoPK().setCnesUnidade((String)row[0]);
+                    pro.getProcedimentoRealizadoPK().setCboMedico((String)row[1]);
+                    pro.getProcedimentoRealizadoPK().setNumeroFolha((String)row[2]);
+                    pro.getProcedimentoRealizadoPK().setCompetencia((String)row[3]);
+                    pro.getProcedimentoRealizadoPK().setCnsMedico((String)row[4]);
+                    
+                    list.add(pro);
+                }
+            }
+            session.close();
             return list;
         }
     }
