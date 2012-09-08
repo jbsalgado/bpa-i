@@ -16,31 +16,18 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Albuquerque
  */
-public class ProcedimentoRealizadoTableModelHeader extends AbstractTableModel{
+public class ProcedimentoRealizadoTableModelHeader extends AbstractProcedimentoRealizadoTableModel{
 
-    private String[] columns= new String[]{"CNES","COMPETÊNCIA","CNS DO PROFISSIONAL","PROFISSIONAL","CBO","FOLHA"};
-    
-    private List<ProcedimentoRealizado> list;
 
     public ProcedimentoRealizadoTableModelHeader(List<ProcedimentoRealizado> list) {
-        this.list = list;
-    }
-    
-   
-    
-    @Override
-    public int getRowCount() {
-        return this.list.size();
-    }
-
-    @Override
-    public int getColumnCount() {
-        return this.columns.length;
+        super(list);
+        String[] columns= new String[]{"CNES","COMPETÊNCIA","CNS DO PROFISSIONAL","PROFISSIONAL","CBO","FOLHA"};
+        this.setColumns(columns);
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        ProcedimentoRealizado p=this.list.get(rowIndex);
+        ProcedimentoRealizado p=this.getList().get(rowIndex);
         switch(columnIndex){
             case 0: return p.getProcedimentoRealizadoPK().getCnesUnidade();
                 
@@ -58,67 +45,12 @@ public class ProcedimentoRealizadoTableModelHeader extends AbstractTableModel{
                     return "Ops!!! Erro";
         }
     }
-    
-    public ProcedimentoRealizado getCloneElementList(int rowIndex){
-          ProcedimentoRealizado p=this.list.get(rowIndex);
-        try {
-            ProcedimentoRealizado pClone =(ProcedimentoRealizado) p.clone();
-            pClone.setProcedimentoRealizadoPK((ProcedimentoRealizadoPK) p.getProcedimentoRealizadoPK().clone());
-            return pClone;
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(ProcedimentoRealizadoTableModel.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-        
-    }
 
-    public List<ProcedimentoRealizado> getList() {
-        return list;
-    }
-    
-    public List<ProcedimentoRealizado> getListWithOutEmptyElements(){
-        List<ProcedimentoRealizado> listNotEmpty = new ArrayList<ProcedimentoRealizado>();
-         for(ProcedimentoRealizado p : this.list){
-            if(p.getProcedimentoRealizadoPK().getCnesUnidade()!=null){
-               listNotEmpty.add(p);
-            }
-        }
-          return listNotEmpty;
-    }
-    public ProcedimentoRealizado getCloneElementListEmpty() {
-        for(ProcedimentoRealizado p : this.list){
-            if(p.getProcedimentoRealizadoPK().getCnesUnidade()==null){
-                try {
-                    ProcedimentoRealizado pClone =(ProcedimentoRealizado) p.clone();
-                     pClone.setProcedimentoRealizadoPK((ProcedimentoRealizadoPK) p.getProcedimentoRealizadoPK().clone());
-                    return pClone;
-                } catch (CloneNotSupportedException ex) {
-                    Logger.getLogger(ProcedimentoRealizadoTableModel.class.getName()).log(Level.SEVERE, null, ex);
-                    
-                }
-            }
-        }
-        return null;
-       
-    }
-    
-    
-    @Override
-    public String getColumnName(int column) {
-        
-        return this.columns[column];
-    }
- 
-    @Override
-    public Class getColumnClass(int columnIndex) {
-        //retorna a classe que representa a coluna
-        return String.class;
-    }
     
      @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         //pega o produto da linha
-        ProcedimentoRealizado model = this.list.get(rowIndex);
+        ProcedimentoRealizado model = this.getList().get(rowIndex);
  
         //verifica qual valor vai ser alterado
         switch(columnIndex){
@@ -147,7 +79,7 @@ public class ProcedimentoRealizadoTableModelHeader extends AbstractTableModel{
     
     public void setValueAt(ProcedimentoRealizado aValue, int rowIndex) {
         //pega o produto da linha
-        this.list.set(rowIndex, aValue);
+        this.getList().set(rowIndex, aValue);
  
  
         //avisa que os dados mudaram
@@ -158,43 +90,6 @@ public class ProcedimentoRealizadoTableModelHeader extends AbstractTableModel{
         fireTableCellUpdated(rowIndex, 5);
         fireTableCellUpdated(rowIndex, 6);
     }
- 
-    @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        //no nosso caso todas vão ser editáveis, entao retorna true pra todas
-        return false;
-    } 
-    
-    public void removeProcedimentoRealizado(int indexRow){
-        this.list.remove(indexRow);
-        fireTableRowsDeleted(indexRow, indexRow); 
-    }
-    
-    public void addProcedimentoRealizado(ProcedimentoRealizado model){
-        this.list.add(model);
-        
-        int ultimoIndex=this.getRowCount()-1;
-        
-        
-        this.fireTableRowsInserted(ultimoIndex, ultimoIndex);
-        
-    }
-    
- 
-    
-   
-    
-    public ProcedimentoRealizado getProcedimentoRealizado(int index){
-        return this.list.get(index);
-    }
-    
-    public void clean(){
-        this.list.clear();
-        fireTableDataChanged();
-    }
-    
-    public boolean isEmpty(){
-        return this.list.isEmpty();
-    }
+
     
 }
