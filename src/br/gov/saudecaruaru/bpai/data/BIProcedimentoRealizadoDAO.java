@@ -23,8 +23,15 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
         
     }
     
-    
-        public List<ProcedimentoRealizado> findAllConsolidados(String competencia,int firstResult,int maxResult){
+    /**
+     * Pega todos os procedimentos consolidados de forma páginada, mas de forma agrupada pelos seguintes campos:
+     * Cnes da unidade, CBO do profissional, Idade do paciente, código do procedimento e competência
+     * @param competencia - competência dos registros
+     * @param firstResult - o index do primeiro registro
+     * @param maxResult -  a quantidade máxima de resultados resultados
+     * @return  Lista de com os procedimentos realizados
+     */
+    public List<ProcedimentoRealizado> findAllConsolidados(String competencia,int firstResult,int maxResult){
         List<Object[]> l=null;
         Session session= this.getSession();
         try{
@@ -97,6 +104,13 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
         }
     }
     
+    /**
+     * Pega todos os procedimentos realizados que são individuais de forma páginada
+     * @param competencia - competência dos registros
+     * @param firstResult - o index do primeiro registro
+     * @param maxResult -  a quantidade máxima de resultados resultados
+     * @return  Lista de com os procedimentos realizados
+     */
     public List<ProcedimentoRealizado> findAllProcedimentosIndividuais(String competencia,int firstResult,int maxResult){
         List<ProcedimentoRealizado> list=new ArrayList<ProcedimentoRealizado>();
         List<BIProcedimentoRealizado> l=null;
