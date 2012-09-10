@@ -25,6 +25,18 @@ public class BasecController < T extends Serializable>{
         this.dao.save(modelo);
     }
     
+    public List<T> salvar(List<T> list){
+        return this.dao.save(list);
+    }
+    
+    public T merge(T entity){
+        return (T) this.dao.merge(entity);
+    }
+    
+    public List<T> merge(List<T> entityList){
+        return this.dao.merge(entityList);
+    }
+    
     public void atualizar(T modelo){
         this.dao.update(modelo);
     }

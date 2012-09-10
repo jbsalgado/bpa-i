@@ -8,8 +8,8 @@ import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
 import br.gov.saudecaruaru.bpai.data.BIProcedimentoRealizadoDAO;
-import br.gov.saudecaruaru.bpai.data.ProcedimentoDAO;
 import br.gov.saudecaruaru.bpai.data.ProcedimentoRealizadoDAO;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,12 +23,12 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
     }
     
     
-    public void salvar(List<ProcedimentoRealizado> procedimentosRealizados){
-        //salvando uma lista de procedimentos
-        for(ProcedimentoRealizado p : procedimentosRealizados){
-            salvar(new BIProcedimentoRealizado(p));
-        }
-    }
+//    public void salvar(List<ProcedimentoRealizado> procedimentosRealizados){
+//        //salvando uma lista de procedimentos
+//        for(ProcedimentoRealizado p : procedimentosRealizados){
+//            salvar(new BIProcedimentoRealizado(p));
+//        }
+//    }
     
     public void findAllProcedimentosConsolidadosAndSave(String competencia,ProcedimentoRealizadoDAO procedimentoDao, int maxResults){
         //folha a ser gerada
@@ -60,6 +60,14 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
             //incrementa a pagicacao
             offset+=maxResults;
         }
+    }
+    
+    public List<BIProcedimentoRealizado> parserProcedimentoRealizadoToBIProcedimentoRealizado(List<ProcedimentoRealizado> list){
+        List<BIProcedimentoRealizado> l= new ArrayList<BIProcedimentoRealizado>();
+        for(ProcedimentoRealizado p: list){
+            l.add(new BIProcedimentoRealizado(p));
+        }
+        return l;
     }
     
 }
