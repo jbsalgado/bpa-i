@@ -17,6 +17,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Procedimento implements Serializable {
     private static final long serialVersionUID = 1L;
     
+    private static Character BPAC ='0';  
+    private static Character BPAI ='1';  
+    private static Character BPAI_APAC ='2';  
+    private static Character APAC ='3';  
+    private static Character BPAC_APAC ='4';  
+    private static Character ATENCAO_DOMICILIAR ='5';  
+    private static Character AD_BPAC ='6';  
+    private static Character AD_BPAI ='7';  
+    private static Character AD_APAC ='8';  
+    private static Character AD_BPAI_APAC ='9';  
     
     @EmbeddedId
     private ProcedimentoPK procedimentoPk;
@@ -88,6 +98,7 @@ public class Procedimento implements Serializable {
     
 
     public Procedimento() {
+         this.procedimentoPk = new ProcedimentoPK();
     }
 
     public Procedimento(ProcedimentoPK procedimentoPk) {
@@ -118,7 +129,35 @@ public class Procedimento implements Serializable {
         this.exigeCBO = exigeCBO;
     }
 
-
+    public boolean isBPA(){
+        if(this.tipoDocumento.equals(Procedimento.BPAC) || this.tipoDocumento.equals(Procedimento.BPAC_APAC)|| 
+                this.tipoDocumento.equals(Procedimento.AD_BPAC)){
+            return true;
+        
+        }
+        return false;
+    }
+    
+    public boolean isBPI(){
+        if(this.tipoDocumento.equals(Procedimento.BPAI) || this.tipoDocumento.equals(Procedimento.AD_BPAI)|| 
+                this.tipoDocumento.equals(Procedimento.AD_BPAI_APAC) || this.tipoDocumento.equals(Procedimento.BPAI_APAC)){
+            return true;
+        
+        }
+        return false;
+    
+    }
+    
+    public String typeProcedimento(){
+        if(this.isBPA()){
+            return "BPA";
+        }else 
+            if(this.isBPI()){
+            return "BPI";
+        }else{
+            return "";
+        }
+    }
 
     public String getDescricao() {
         return descricao;
