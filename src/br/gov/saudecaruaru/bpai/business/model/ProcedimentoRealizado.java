@@ -16,6 +16,9 @@ import javax.persistence.*;
 public class ProcedimentoRealizado implements Serializable,Cloneable {
     private static final long serialVersionUID = 1L;
     
+    public static final String ORIGEM_CONSOLIDADO="BPA";
+    public static final String ORIGEM_INDIVIDUALIZADO="BPI";
+    
     @EmbeddedId
     private ProcedimentoRealizadoPK procedimentoRealizadoPK; 
     

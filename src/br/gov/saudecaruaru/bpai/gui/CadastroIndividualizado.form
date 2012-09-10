@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="name" type="java.lang.String" value="Cadastro indivualizado" noResource="true"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -27,15 +29,15 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
                   <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jSeparator2" alignment="1" max="32767" attributes="1"/>
+                  <Component id="jSeparator2" alignment="1" pref="1239" max="32767" attributes="1"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel25" min="-2" pref="154" max="-2" attributes="0"/>
-                                  <Component id="jComboBoxEquipe" min="-2" pref="501" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxEquipe" min="-2" pref="499" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="30" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jTextFieldMes" min="-2" pref="30" max="-2" attributes="0"/>
@@ -77,7 +79,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="545" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -114,13 +116,13 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldMes" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldAno" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldFolha" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jComboBoxEquipe" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jComboBoxEquipe" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
@@ -128,7 +130,7 @@
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -175,9 +177,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldNomeProfiss">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldNomeProfissActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
@@ -532,7 +531,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" alignment="0" pref="1217" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" attributes="0">
@@ -595,14 +594,14 @@
                                   <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="310" max="32767" attributes="0"/>
                           <Component id="jButtonIncluir" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jButtonLimpar" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jButtonGravar" min="-2" pref="82" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="1054" max="32767" attributes="0"/>
                           <Component id="jButtonSair" min="-2" pref="81" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -875,6 +874,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Sair"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonSairMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel26">
           <Properties>
@@ -932,9 +934,6 @@
           <Format format="#######" subtype="-1" type="5"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldCnesActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="jTextFieldCnsProfiss">
       <Properties>
@@ -949,9 +948,6 @@
           <Format format="##" subtype="-1" type="5"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldMesActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="jTextFieldAno">
       <Properties>

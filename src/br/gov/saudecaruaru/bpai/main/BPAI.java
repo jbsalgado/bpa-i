@@ -67,6 +67,8 @@ public class BPAI {
         
         BIProcedimentoRealizadoController ctrl= new BIProcedimentoRealizadoController();
         BIProcedimentoRealizado pro=new BIProcedimentoRealizado();
+//        BIProcedimentoRealizadoPK bIProcedimentoPK = new  BIProcedimentoRealizadoPK ();
+//        pro.setBiProcedimentoRealizadoPK(bIProcedimentoPK);
         
         pro.setCaracterizacaoAtendimento("02");
         pro.setCidDoencaprocedimento("Q730");
@@ -79,6 +81,7 @@ public class BPAI {
         pro.setCodigoIBGECidadePaciente("260410");
         pro.setDataNascimentoPaciente("19900112");
         BIProcedimentoRealizadoPK pk= new BIProcedimentoRealizadoPK();
+        pro.setBiProcedimentoRealizadoPK(pk);
         pk.setCboMedico("223505");
         pk.setCnsMedico("980016277313811");
         pk.setCnesUnidade("3083721");
