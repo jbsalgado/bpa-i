@@ -22,6 +22,12 @@ public class MedicoCboCnes implements Serializable {
     public MedicoCboCnes() {
     }
 
+    public MedicoCboCnes(ProcedimentoRealizado procedimentoRealizado){
+        this.medicoCboCnesPK=new MedicoCboCnesPK();
+        this.medicoCboCnesPK.setMedicoCbo(procedimentoRealizado.getProcedimentoRealizadoPK().getCboMedico());
+        this.medicoCboCnesPK.setMedicoCnesUnidade(procedimentoRealizado.getProcedimentoRealizadoPK().getCnesUnidade());
+        this.medicoCboCnesPK.setMedicoCns(procedimentoRealizado.getProcedimentoRealizadoPK().getCnsMedico());
+    }
     public MedicoCboCnes(MedicoCboCnesPK cadmedCboCnesPK) {
         this.medicoCboCnesPK = cadmedCboCnesPK;
     }

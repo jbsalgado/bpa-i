@@ -20,13 +20,16 @@ public class Medico implements Serializable {
     @Basic(optional = false)
     @Column(name = "CADMED_CNS")
     private String cns;
-    @Basic(optional = false)
     @Column(name = "CADMED_NOME")
     private String nome;
 
     public Medico() {
     }
 
+    public Medico(ProcedimentoRealizado procedimentoRealizado){
+        this.cns=procedimentoRealizado.getProcedimentoRealizadoPK().getCnsMedico();
+        this.nome=procedimentoRealizado.getNomeProfissional();
+    }
     public String getCns() {
         return cns;
     }
