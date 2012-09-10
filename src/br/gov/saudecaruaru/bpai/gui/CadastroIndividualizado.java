@@ -16,8 +16,11 @@ import java.awt.Component;
 import java.awt.Frame;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -52,6 +55,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
      
      private ProcedimentoRealizadoTableModel tableModelDados;
      private int sequencia=1;
+     
+     private List<BIProcedimentoRealizado> lBi;
+     private HashSet<Paciente> setPaciente;
+     private HashSet<Medico> setMedico;
+     private HashSet<MedicoCboCnes> setMedicoCboCnes;
      
      
     
@@ -97,6 +105,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         this.doencaController=new DoencaController();
         this.bIProcedimentoRealizadoController= new BIProcedimentoRealizadoController();
         this.procedimentoRealizadoController=new ProcedimentoRealizadoController();
+        
+        this.lBi=new ArrayList<BIProcedimentoRealizado>();
+        this.setPaciente=new HashSet<Paciente>();
+        this.setMedico= new HashSet<Medico>();
+        this.setMedicoCboCnes= new HashSet<MedicoCboCnes>();
         
         
         //instancia o modelo DiversasPk
@@ -1151,7 +1164,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             }
         });
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel25.setText("Equipe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -2073,8 +2086,38 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
       private void insertInDatabase(){
           
          
-         //insere o modelo no banco de dados
-          this.bIProcedimentoRealizadoController.salvar(this.tableModelDados.getListWithOutEmptyElements());
+         //insere o modelo no banco de dados do nosso banco de dados
+          List<ProcedimentoRealizado> l=this.tableModelDados.getListWithOutEmptyElements();
+          
+          //vai pegar os médicos e os pacientes
+          int size=l.size();
+          ProcedimentoRealizado p=null;
+          for(int i=0;i<size;i++){
+              p=l.get(i);
+              //pega o paciente
+              this.setPaciente.add(p.getPaciente());
+              //pega o médico
+              Medico m=p.getMedico();
+              m.setNome( m.getNome()==null?"      ":m.getNome());
+              this.setMedico.add(m);
+              //pega o MedicoCboCnes
+              this.setMedicoCboCnes.add(p.getMedicoCboCnes());
+              //cria um procedimentoRealizado a ser salvo no bando do sistema
+              this.lBi.add(new BIProcedimentoRealizado(p));
+          }
+          //salva todos os pacientes ou senão atualiza
+          this.pacienteController.merge(new ArrayList<Paciente>(this.setPaciente));
+          //salva todos os médicos ou senão atualiza
+          this.medicoController.merge(new ArrayList<Medico>(this.setMedico));
+          //salva todos os médicosCbosCnes ou senão atualiza
+          this.medicoCboCnesController.merge(new ArrayList<MedicoCboCnes>(this.setMedicoCboCnes));
+          //salva todos os procedimentos no banco próprio do sistema
+          this.bIProcedimentoRealizadoController.merge(this.lBi);
+          
+          //vai limpar os Sets
+          this.setPaciente.clear();
+          this.setMedico.clear();
+          this.setMedicoCboCnes.clear();
       }
       
       /**
