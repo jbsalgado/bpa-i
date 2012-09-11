@@ -22,6 +22,10 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
         super(new BIProcedimentoRealizadoDAO());
     }
     
+    public List<ProcedimentoRealizado> findAllOnlyHeader(){
+        return ((BIProcedimentoRealizadoDAO)this.getDao()).findAllOnlyHeader();
+    }
+    
     
 //    public void salvar(List<ProcedimentoRealizado> procedimentosRealizados){
 //        //salvando uma lista de procedimentos
@@ -66,6 +70,14 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
         List<BIProcedimentoRealizado> l= new ArrayList<BIProcedimentoRealizado>();
         for(ProcedimentoRealizado p: list){
             l.add(new BIProcedimentoRealizado(p));
+        }
+        return l;
+    }
+    
+    public List<ProcedimentoRealizado> parserBIProcedimentoRealizadoToProcedimentoRealizado(List<BIProcedimentoRealizado> list){
+        List<ProcedimentoRealizado> l= new ArrayList<ProcedimentoRealizado>();
+        for(BIProcedimentoRealizado p: list){
+            l.add(new ProcedimentoRealizado(p));
         }
         return l;
     }
