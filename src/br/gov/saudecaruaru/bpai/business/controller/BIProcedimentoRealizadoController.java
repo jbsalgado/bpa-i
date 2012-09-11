@@ -30,6 +30,7 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
         }
     }
     
+    
     public void findAllProcedimentosConsolidadosAndSave(String competencia,ProcedimentoRealizadoDAO procedimentoDao, int maxResults){
         //folha a ser gerada
         int folha=1;
