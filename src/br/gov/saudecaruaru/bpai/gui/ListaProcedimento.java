@@ -10,11 +10,13 @@
  */
 package br.gov.saudecaruaru.bpai.gui;
 
-import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoRealizadoController;
+import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
+import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelBody;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelHeader;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -28,7 +30,7 @@ public class ListaProcedimento extends javax.swing.JDialog {
     
     private ProcedimentoRealizadoTableModelHeader tableModelHeader;
     private ProcedimentoRealizadoTableModelBody tableModelBody;
-    private ProcedimentoRealizadoController procedimentoRealizadoController;
+    private BIProcedimentoRealizadoController biProcedimentoRealizadoController;
     /** Creates new form ListaProcedimento */
     public ListaProcedimento(java.awt.Frame parent, boolean modal) {
         //super(parent);
@@ -38,7 +40,7 @@ public class ListaProcedimento extends javax.swing.JDialog {
     
     private void myInitComponents(){
         
-        this.procedimentoRealizadoController= new ProcedimentoRealizadoController();
+        this.biProcedimentoRealizadoController= new BIProcedimentoRealizadoController();
         this.jcomboBoxFiltroActionPerformed(null);
         this.initJTableBody();
         this.initJTableHeader();
@@ -57,7 +59,7 @@ public class ListaProcedimento extends javax.swing.JDialog {
      * Configura a tabela que armazena o cabeçalho
      */
     public void initJTableHeader(){
-        this.tableModelHeader= new ProcedimentoRealizadoTableModelHeader(this.procedimentoRealizadoController.findAllOnlyHeader());
+        this.tableModelHeader= new ProcedimentoRealizadoTableModelHeader(this.biProcedimentoRealizadoController.findAllOnlyHeader());
         this.jTableHeader.setModel(tableModelHeader);
         this.jTableHeader.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         //quando a linha selecionada for mudada
@@ -74,7 +76,10 @@ public class ListaProcedimento extends javax.swing.JDialog {
                     //zera a quantidade padrão
                     pro.setQuantidadeRealizada(null);
                     //substitui a lista
-                    ListaProcedimento.this.tableModelBody.replaceAllProcedimentoRealizado(ListaProcedimento.this.procedimentoRealizadoController.findAllEqual(pro));
+                    List<BIProcedimentoRealizado> l=ListaProcedimento.this.biProcedimentoRealizadoController.findAllEqual(new BIProcedimentoRealizado(pro));
+                    
+                    ListaProcedimento.this.tableModelBody.replaceAllProcedimentoRealizado(ListaProcedimento.this.biProcedimentoRealizadoController.parserBIProcedimentoRealizadoToProcedimentoRealizado(l));
+                    l.clear();
                 }
                 //coloca uma lista vazia
                 else{
