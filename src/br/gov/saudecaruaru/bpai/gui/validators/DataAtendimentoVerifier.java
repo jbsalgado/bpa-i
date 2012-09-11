@@ -51,15 +51,6 @@ public class DataAtendimentoVerifier extends InputVerifier{
        String valor = txtField.getText();
        String valorDtNas = proRealizado.getDataNascimentoPaciente();
        
-       
-       Date competencia = DateUtil.parserStringToDate("yyyyMM", proRealizado.getProcedimentoRealizadoPK().getCompetencia());
-       Date dataAtendMesAno = DateUtil.parserStringToDate("MM/yyyy", valor.substring(3));
-       Date dataNasc = DateUtil.parserStringToDate("yyyyMMdd", valorDtNas);
-       
-       
-       
-       
-       
        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
       
       try{
@@ -73,6 +64,10 @@ public class DataAtendimentoVerifier extends InputVerifier{
            return false;
        }
       
+       Date competencia = DateUtil.parserStringToDate("yyyyMM", proRealizado.getProcedimentoRealizadoPK().getCompetencia());
+       Date dataAtendMesAno = DateUtil.parserStringToDate("MM/yyyy", valor.substring(3));
+       Date dataNasc = DateUtil.parserStringToDate("yyyyMMdd", valorDtNas);
+       
        if(dataAtend.before(dataInicio)){
            JOptionPane.showMessageDialog(this.component,fieldName+" DEVE SER MAIOR QUE "+DataAtendimentoVerifier.DATA_INICIO
                    +"!"

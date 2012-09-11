@@ -1933,7 +1933,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                CadastroIndividualizado.this.procedimentoRealizado.setDataAtendimento(dataAtend);
                //seta a idade do paciente ao modelo
                
-               String age = String.valueOf(DateUtil.getAge(jTextFieldUsarioDatNasc.getText(), jTextFieldProcDataAtend.getText()));
+               String age = String.valueOf(DateUtil.getAge(CadastroIndividualizado.this.procedimentoRealizado.getDataNascimentoPaciente(),CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()));
                CadastroIndividualizado.this.procedimentoRealizado.setIdadePaciente(age);
                }
            }
@@ -2243,7 +2243,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
           }
           jTextFieldProcDataAtend.setText(DateUtil.parseToDayMonthYear(p.getDataAtendimento(),true));
           jTextFieldProcCod.setText(p.getCodigoProcedimento());
-          jTextFieldProcQuant.setText(String.valueOf(p.getQuantidadeRealizada()));
+          if(p.getQuantidadeRealizada()==null){
+              jTextFieldProcQuant.setText("");
+          }else
+            jTextFieldProcQuant.setText(String.valueOf(p.getQuantidadeRealizada()));
           jTextFieldProcCID.setText(p.getCidDoencaprocedimento());
           jComboBoxProcCaraterAtend.setSelectedItem(p.getCaracterizacaoAtendimento());
           jTextFieldProcNumAut.setText(p.getNumeroAutorizacao());
