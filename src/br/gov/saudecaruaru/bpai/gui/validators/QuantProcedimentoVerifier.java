@@ -72,7 +72,7 @@ public class QuantProcedimentoVerifier extends InputVerifier{
       
       //faz a busca pelo Procedimento  digitado, se nao encontra notifica ao usuário
      
-               if (valor.isEmpty()) {  
+               if (valor.isEmpty() || valor.equals("0")) {  
                   txtField.setText("0"); 
                   return  MessagesErrors.exibeTelaContinuaErro(component,""," ERRO! QUANTIDADE ZERADA! ", txtField);
                     

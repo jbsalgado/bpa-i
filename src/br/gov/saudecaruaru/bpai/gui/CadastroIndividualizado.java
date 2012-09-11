@@ -1288,24 +1288,28 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         
         // metodo que pega os valores de alguns campos e adiciona-os ao modelo
         this.getValuesOfFieldsForModel();
-        //insere o modelo na jTable
-        this.insertInJTable();
+         if(this.tableModelDados.getCloneElementListEmpty()==null){
+           //insere o modelo na jTable
+          this.insertInJTable();
+          
         
-        ProcedimentoRealizado p = this.tableModelDados.getCloneElementListEmpty();
-        if(p!=null){
-            this.procedimentoRealizado = p;
-            this.fillHeaderModelProcedimentoRealizado(this.procedimentoRealizado);
-            
-        }else{
-             this.beginNewWindow();
-        }
-        
-         //zera os campos 
-        //this.clearFields();
-        //inicializa o modelo
-        //this.procedimentoRealizado = new ProcedimentoRealizado(String.valueOf(this.sequencia),jTextFieldCnes.getText(),
-          //                                                     jTextFieldCnsProfiss.getText(),jTextFieldCBO.getText(),jTextFieldAno.getText()+jTextFieldMes.getText(), jTextFieldFolha.getText(),jTextFieldNomeProfiss.getText());
-        this.fillFields(procedimentoRealizado, false);
+         }else{
+      
+            //insere o modelo na jTable
+            this.insertInJTable();
+
+            ProcedimentoRealizado p = this.tableModelDados.getCloneElementListEmpty();
+            if(p!=null){
+                this.procedimentoRealizado = p;
+                this.fillHeaderModelProcedimentoRealizado(this.procedimentoRealizado);
+                this.fillFields(procedimentoRealizado, false);
+            }else{
+                this.beginNewWindow();
+            }
+
+               
+         }
+       
 
 
     }//GEN-LAST:event_jButtonIncluirMouseClicked
@@ -1847,9 +1851,17 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
             @Override
             public void focusLost(FocusEvent e) {
+               //se o próximo componente for um jtextfield e o método ainda não tinha sido executado
+               if( e.getOppositeComponent() instanceof JTextField 
+                       && procedimentoRealizado.getDataNascimentoPaciente()==null){ 
+                if(jTextFieldUsarioDatNasc.getInputVerifier().shouldYieldFocus(jTextFieldUsarioDatNasc)){   
+                    //converte a data para o formato YYYMMdd 
+                    String dataNasc = DateUtil.parseToYearMonthDay(((JTextField)e.getComponent()).getText());
+                    CadastroIndividualizado.this.procedimentoRealizado.setDataNascimentoPaciente(dataNasc);
+                }
             
-               CadastroIndividualizado.this.procedimentoRealizado.setDataNascimentoPaciente(((JTextField)e.getComponent()).getText());
-              
+               }
+            
             }
         });
             
@@ -1920,13 +1932,25 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
 
             @Override
             public void focusLost(FocusEvent e) {
-            
-               CadastroIndividualizado.this.procedimentoRealizado.setDataAtendimento(((JTextField)e.getComponent()).getText());
-               //seta a idade do paciente ao modelo
+               //se o próximo componente for um jtextfield e o método ainda não tinha sido executado
+               if(e.getOppositeComponent() instanceof JTextField 
+                       && procedimentoRealizado.getDataAtendimento()==null){ 
+                if(jTextFieldProcDataAtend.getInputVerifier().shouldYieldFocus(jTextFieldProcDataAtend)){
+                //converte a data para o formato YYYYMMdd    
+                String dataAtend = DateUtil.parseToYearMonthDay(((JTextField)e.getComponent()).getText());    
+                CadastroIndividualizado.this.procedimentoRealizado.setDataAtendimento(dataAtend);
+                //seta a idade do paciente ao modelo
+
+                String age = String.valueOf(DateUtil.getAge(CadastroIndividualizado.this.procedimentoRealizado.getDataNascimentoPaciente(),CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()));
+                CadastroIndividualizado.this.procedimentoRealizado.setIdadePaciente(age);
+                }
                
-               String age = String.valueOf(DateUtil.getAge(jTextFieldUsarioDatNasc.getText(), jTextFieldProcDataAtend.getText()));
-               CadastroIndividualizado.this.procedimentoRealizado.setIdadePaciente(age);
-            }
+               }
+               
+           
+           }
+               
+               
         });
            
          jTextFieldProcCod.addFocusListener(new FocusListener() {
@@ -2070,11 +2094,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
        
         String competencia = jTextFieldAno.getText()+jTextFieldMes.getText();
         CaraterAtendimento c = (CaraterAtendimento) jComboBoxProcCaraterAtend.getSelectedItem();
-        String dataNasc  =     DateUtil.parseToYearMonthDay(jTextFieldUsarioDatNasc.getText());
-        String dataAtend  =    DateUtil.parseToYearMonthDay(jTextFieldProcDataAtend.getText());
+        //String dataNasc  =     DateUtil.parseToYearMonthDay(jTextFieldUsarioDatNasc.getText());
+        //String dataAtend  =    DateUtil.parseToYearMonthDay(jTextFieldProcDataAtend.getText());
          
         this.procedimentoRealizado.setSexoPaciente(jTextFieldUsuarioSexo.getText());
-        this.procedimentoRealizado.setDataNascimentoPaciente(dataNasc);  
+        //this.procedimentoRealizado.setDataNascimentoPaciente(dataNasc);  
         this.procedimentoRealizado.setCodigoIBGECidadePaciente(jTextFieldUsuarioCodMunicip.getText()); 
         this.procedimentoRealizado.setNacionalidadePaciente(jTextFieldUsuarioCodNac.getText());
         this.procedimentoRealizado.setRacaPaciente(jComboBoxUsuarioRacaCor.getSelectedItem().toString().substring(0, 2)); 
@@ -2082,7 +2106,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             this.procedimentoRealizado.setEtniaPaciente(jTextFieldUsuarioCodEtnia.getText());
         }
         
-        this.procedimentoRealizado.setDataAtendimento(dataAtend);
+        //this.procedimentoRealizado.setDataAtendimento(dataAtend);
         this.procedimentoRealizado.setCaracterizacaoAtendimento(c.cod());
        
         this.procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
@@ -2097,8 +2121,6 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         procedimento.setDigitoVerificador(digitoVerificador);
         //realiza uma busca pelo procedimento
         Procedimento pEncontrado = procedimentoController.findEqual(procedimento);
-            boolean bpa = pEncontrado.isBPA();
-            boolean bpi = pEncontrado.isBPI();
         String  tipo = pEncontrado.typeProcedimento();    
         //seta o tipo do procedimento (BPA ou BPAI)
         this.procedimentoRealizado.setOrigemProcedimento(tipo);
@@ -2247,7 +2269,10 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
           }
           jTextFieldProcDataAtend.setText(DateUtil.parseToDayMonthYear(p.getDataAtendimento(),true));
           jTextFieldProcCod.setText(p.getCodigoProcedimento());
-          jTextFieldProcQuant.setText(String.valueOf(p.getQuantidadeRealizada()));
+          if(p.getQuantidadeRealizada()==null){
+              jTextFieldProcQuant.setText("");
+          }else
+            jTextFieldProcQuant.setText(String.valueOf(p.getQuantidadeRealizada()));
           jTextFieldProcCID.setText(p.getCidDoencaprocedimento());
           jComboBoxProcCaraterAtend.setSelectedItem(p.getCaracterizacaoAtendimento());
           jTextFieldProcNumAut.setText(p.getNumeroAutorizacao());
