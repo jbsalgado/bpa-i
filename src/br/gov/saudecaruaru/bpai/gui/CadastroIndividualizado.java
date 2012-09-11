@@ -2082,11 +2082,11 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
        
         String competencia = jTextFieldAno.getText()+jTextFieldMes.getText();
         CaraterAtendimento c = (CaraterAtendimento) jComboBoxProcCaraterAtend.getSelectedItem();
-        String dataNasc  =     DateUtil.parseToYearMonthDay(jTextFieldUsarioDatNasc.getText());
-        String dataAtend  =    DateUtil.parseToYearMonthDay(jTextFieldProcDataAtend.getText());
+        //String dataNasc  =     DateUtil.parseToYearMonthDay(jTextFieldUsarioDatNasc.getText());
+        //String dataAtend  =    DateUtil.parseToYearMonthDay(jTextFieldProcDataAtend.getText());
          
         this.procedimentoRealizado.setSexoPaciente(jTextFieldUsuarioSexo.getText());
-        this.procedimentoRealizado.setDataNascimentoPaciente(dataNasc);  
+        //this.procedimentoRealizado.setDataNascimentoPaciente(dataNasc);  
         this.procedimentoRealizado.setCodigoIBGECidadePaciente(jTextFieldUsuarioCodMunicip.getText()); 
         this.procedimentoRealizado.setNacionalidadePaciente(jTextFieldUsuarioCodNac.getText());
         this.procedimentoRealizado.setRacaPaciente(jComboBoxUsuarioRacaCor.getSelectedItem().toString().substring(0, 2)); 
@@ -2094,7 +2094,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
             this.procedimentoRealizado.setEtniaPaciente(jTextFieldUsuarioCodEtnia.getText());
         }
         
-        this.procedimentoRealizado.setDataAtendimento(dataAtend);
+        //this.procedimentoRealizado.setDataAtendimento(dataAtend);
         this.procedimentoRealizado.setCaracterizacaoAtendimento(c.cod());
        
         this.procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);

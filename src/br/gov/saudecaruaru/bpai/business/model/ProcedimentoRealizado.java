@@ -55,7 +55,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     
     @Basic(optional = false)
     @Column(name = "PRD_QT_P")
-    private Double quantidadeRealizada= 0.0;
+    private Double quantidadeRealizada;
     
     @Column(name = "PRD_CATEN")
     private String caracterizacaoAtendimento;
