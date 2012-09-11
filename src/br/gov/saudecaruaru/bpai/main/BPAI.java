@@ -5,7 +5,6 @@
 package br.gov.saudecaruaru.bpai.main;
 
 import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
-import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.data.*;
 import br.gov.saudecaruaru.bpai.gui.SearchGeneric;

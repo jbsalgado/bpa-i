@@ -207,6 +207,15 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         return codigoProcedimento;
     }
 
+    public Medico getMedico(){
+        Medico me= new Medico(this);
+        return me;
+    }
+    
+    public MedicoCboCnes getMedicoCboCnes(){
+        MedicoCboCnes me= new MedicoCboCnes(this);
+        return me;
+    }
     public void setCodigoProcedimento(String codigoProcedimento) {
         this.codigoProcedimento = codigoProcedimento;
     }
@@ -421,20 +430,20 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     }
     
     public Paciente getPaciente(){
-        Paciente p= new Paciente();
+        Paciente p= new Paciente(this);
         
-        p.setCep(null);
-        p.setCns(this.cnsPaciente);
-        p.setCodigoIbgeCidade(this.codigoIBGECidadePaciente);
-        p.setComplemento(null);
-        p.setDataNascimento(this.dataNascimentoPaciente);
-        p.setEtnia(this.etniaPaciente);
-        p.setLogradouro(null);
-        p.setNacionalidade(this.nacionalidadePaciente);
-        p.setNome(this.nomePaciente);
-        p.setNomeMae(null);
-        p.setRaca(this.racaPaciente);
-        p.setSexo(this.sexoPaciente.charAt(0));
+//        p.setCep(null);
+//        p.setCns(this.cnsPaciente);
+//        p.setCodigoIbgeCidade(this.codigoIBGECidadePaciente);
+//        p.setComplemento(null);
+//        p.setDataNascimento(this.dataNascimentoPaciente);
+//        p.setEtnia(this.etniaPaciente);
+//        p.setLogradouro(null);
+//        p.setNacionalidade(this.nacionalidadePaciente);
+//        p.setNome(this.nomePaciente);
+//        p.setNomeMae(null);
+//        p.setRaca(this.racaPaciente);
+//        p.setSexo(this.sexoPaciente.charAt(0));
         
         return p;
     }

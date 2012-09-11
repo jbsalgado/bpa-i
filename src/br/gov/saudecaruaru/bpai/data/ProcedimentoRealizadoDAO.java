@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 
 /**
@@ -19,7 +18,15 @@ import org.hibernate.Transaction;
  */
 public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> {
     
-   public List<ProcedimentoRealizado> findAllConsolidados(String competencia,int firstResult,int maxResult){
+   /**
+     * Pega todos os procedimentos consolidados de forma páginada, mas de forma agrupada pelos seguintes campos:
+     * Cnes da unidade, CBO do profissional, Idade do paciente, código do procedimento e competência
+     * @param competencia - competência dos registros
+     * @param firstResult - o index do primeiro registro
+     * @param maxResult -  a quantidade máxima de resultados resultados
+     * @return  Lista de com os procedimentos realizados
+     */
+    public List<ProcedimentoRealizado> findAllConsolidados(String competencia,int firstResult,int maxResult){
         List<Object[]> l=null;
         Session session= this.getSession();
         try{
@@ -89,7 +96,12 @@ public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> 
         }
     }
    
-   
+   /**
+    * Devolve todos os procedimentos somente com os campos d cabeçalho preenchido.
+    * A saber: CNES da Unidade, CBO do profissional, Número da Folha, Competência e CNS do médico.
+    * Em outras palavaras: agrupa os resgistros pelos campos descritos acima.
+    * @return List<ProcedimentoRealizado> - A lista de todos os procedimentos encontrados
+    */
    public List<ProcedimentoRealizado> findAllOnlyHeader(){
         List<Object[]> l=null;
         Session session= this.getSession();
@@ -138,29 +150,29 @@ public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> 
     }
     
        
-    public void save(List<ProcedimentoRealizado> list) {
-        Session session= this.getSession();
-        Transaction tx=session.getTransaction();
-
-        try {
-            tx.begin();
-            int size=list.size();
-            for(int i=0;i<size;i++){
-                session.merge(list.get(i));
-                //divisível por 20
-                if(i%20==0){
-                    session.flush();
-                    session.clear();
-                }
-                System.out.println(list.get(i));
-            }
-            tx.commit();
-        } catch (Throwable t) {
-            t.printStackTrace();
-            tx.rollback();
-        } finally {
-            session.close();
-        }
-    }
+//    public void save(List<ProcedimentoRealizado> list) {
+//        Session session= this.getSession();
+//        Transaction tx=session.getTransaction();
+//
+//        try {
+//            tx.begin();
+//            int size=list.size();
+//            for(int i=0;i<size;i++){
+//                session.merge(list.get(i));
+//                //divisível por 20
+//                if(i%20==0){
+//                    session.flush();
+//                    session.clear();
+//                }
+//                System.out.println(list.get(i));
+//            }
+//            tx.commit();
+//        } catch (Throwable t) {
+//            t.printStackTrace();
+//            tx.rollback();
+//        } finally {
+//            session.close();
+//        }
+//    }
    
 }

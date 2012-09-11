@@ -64,6 +64,17 @@ public class Paciente implements Serializable {
     public Paciente() {
     }
 
+    public Paciente(ProcedimentoRealizado procedimentoRealizado){
+        this.cns=procedimentoRealizado.getCnsPaciente();
+        this.codigoIbgeCidade=procedimentoRealizado.getCodigoIBGECidadePaciente();
+        this.dataNascimento=procedimentoRealizado.getDataNascimentoPaciente();
+        this.etnia=procedimentoRealizado.getEtniaPaciente();
+        this.nacionalidade=procedimentoRealizado.getNacionalidadePaciente();
+        this.nome=procedimentoRealizado.getNomePaciente();
+        this.raca=procedimentoRealizado.getRacaPaciente();
+        this.sexo=procedimentoRealizado.getSexoPaciente().charAt(0);
+    }
+    
     public Paciente(String cns) {
         this.cns = cns;
     }

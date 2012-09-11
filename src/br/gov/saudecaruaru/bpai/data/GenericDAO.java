@@ -38,21 +38,86 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
 
     @Override
     public void save(T entity) {
-        //EntityTransaction tx = getEntityManager().getTransaction();
         Session session= this.getSession();
-
+        Transaction tr=session.getTransaction();
         try {
-//            tx.begin();
-//            getEntityManager().persist(entity);
-//            tx.commit();
-            session.beginTransaction();
+            tr.begin();
             session.persist(entity);
-            session.getTransaction().commit();
+            tr.commit();
         } catch (Throwable t) {
             t.printStackTrace();
-            session.getTransaction().rollback();
+            tr.rollback();
         } finally {
             session.close();
+        }
+    }
+    
+    public List<T> save(List<T> entity) {
+        Session session= this.getSession();
+        Transaction tr=session.getTransaction();
+        try {
+            tr.begin();
+            int size=entity.size();
+            for(int i=0;i<size;i++){
+                //salva o objeto
+                T obj=(T) session.save(entity.get(i));
+                //limpa a sessao
+                if((i+1)%20==0){
+                    session.flush();
+                    session.clear();
+                }
+                entity.set(i, obj);
+            }
+            tr.commit();
+        } catch (Throwable t) {
+            t.printStackTrace();
+            tr.rollback();
+        } finally {
+            session.close();
+            return entity;
+        }
+    }
+    
+    public T merge(T entity) {
+        Session session= this.getSession();
+        Transaction tr=session.getTransaction();
+
+        try {
+            tr.begin();
+            entity=(T) session.merge(entity);
+            tr.commit();
+        } catch (Throwable t) {
+            t.printStackTrace();
+            tr.rollback();
+        } finally {
+            session.close();
+            return entity;
+        }
+    }
+    
+   public List<T> merge(List<T> entity) {
+        Session session= this.getSession();
+        Transaction t=session.getTransaction();
+        try {
+            t.begin();
+            int size=entity.size();
+            for(int i=0;i<size;i++){
+                //salva o objeto
+                T obj=(T) session.merge(entity.get(i));
+                //limpa a sessao
+                if((i+1)%20==0){
+                    session.flush();
+                    session.clear();
+                }
+                entity.set(i, obj);
+            }
+            t.commit();
+        } catch (Throwable tr) {
+            tr.printStackTrace();
+            t.rollback();
+        } finally {
+            session.close();
+            return entity;
         }
     }
 
@@ -63,9 +128,6 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
         Transaction t=session.getTransaction();
         try {
             t.begin();
-//            tx.begin();
-//            getEntityManager().merge(entity);
-//            tx.commit();
             session.update(entity);
             t.commit();
         } catch (Throwable tr) {
@@ -79,15 +141,11 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
 
     @Override
     public void remove(T entity) {
-       // EntityTransaction tx = getEntityManager().getTransaction();
         Session session= this.getSession();
         Transaction t=session.getTransaction();
         try {
             t.begin();
             session.delete(entity);
-//            tx.begin();
-//            getEntityManager().remove(entity);
-//            tx.commit();
             t.commit();
         } catch (Throwable tr) {
             tr.printStackTrace();
