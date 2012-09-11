@@ -5,7 +5,6 @@
 package br.gov.saudecaruaru.bpai.main;
 
 import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
-import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.data.*;
 import br.gov.saudecaruaru.bpai.gui.SearchGeneric;
@@ -39,64 +38,65 @@ public class BPAI {
         }
         
         
-        BasicDAO<Diversas> t= new DiversasDAO();
-        Diversas d = new Diversas();
-        d.setDiversasPK(new DiversasPK());
-        d.getDiversasPK().setCodigoTabela(Diversas.TABELA_PROFISSAO);
-        
-        BIProcedimentoRealizadoController test= new BIProcedimentoRealizadoController();
-        ProcedimentoRealizadoDAO dao= new ProcedimentoRealizadoDAO();
-        HashMap<String,Object> res= new HashMap<String, Object>();
-        
-        res.put("procedimentoPk.competencia", "201206");
-        //d.setCdnDscr("Fisioterapeuta geral");
-        //HashMap<String, Object> rest=new HashMap<String, Object>();
-         ///rest.put("sCdnPK.cdnIt", "223605");
-        //rest.put("digitoVerificador", "3");
-//        List<Diversas> l=t.findAllEqual(d) ;
-//        Map<String,String> m=ModelUtil.getMapSearch(l, "diversasPK.codigoItemTabela", "descricaoItemTabela");
-//        for(String a: m.keySet()) {
-//           // System.out.println(a.getDescricao()+"/"+a.getProcedimentoPk().getCompetencia()+'/'+a.getProcedimentoPk().getId());
-//           //  System.out.println("Descrição: "+a.getCdnDscr()+"ID "+a.getSCdnPK().getCdnIt());
-//           System.out.println("codigo CBO: "+a+"/"+m.get(a));
-//        }
-// 
-//        System.out.println(l.size());
-//        System.out.println(SearchGeneric.getInstance().initModeSearch(new ProcedimentoController(),
-//                                            "procedimentoPk.id", "descricao","Id","Nome",res));
-        
-        BIProcedimentoRealizadoController ctrl= new BIProcedimentoRealizadoController();
-        BIProcedimentoRealizado pro=new BIProcedimentoRealizado();
-        
-        pro.setCaracterizacaoAtendimento("02");
-        pro.setCidDoencaprocedimento("Q730");
-        pro.setNacionalidadePaciente("010");
-        pro.setSexoPaciente("F");
-        pro.setNomePaciente("kauanne esthafane silva");
-        pro.setRacaPaciente("99");
-        pro.setQuantidadeRealizada(2d);
-        pro.setCnsPaciente("");
-        pro.setCodigoIBGECidadePaciente("260410");
-        pro.setDataNascimentoPaciente("19900112");
-        BIProcedimentoRealizadoPK pk= new BIProcedimentoRealizadoPK();
-        pk.setCboMedico("223505");
-        pk.setCnsMedico("980016277313811");
-        pk.setCnesUnidade("3083721");
-        pro.setCodigoProcedimento("0310010012");
-        pro.getBiProcedimentoRealizadoPK().setCompetencia("201206");
-        pro.setDataAtendimento("20120606");
-        //pro.setNumeroFolha("001");
-        //pro.setSequenciaFolha("01");
-        pro.setBiProcedimentoRealizadoPK(pk);
-        //ctrl.salvar(pro);
-        
-        
-    int i=0;
-//    for(ProcedimentoRealizado p: dao.findAllConsolidados("", 0, 30)){
-//        i++;
-//        System.out.println(p.getQuantidadeRealizada());
-//    }
-    test.findAllProcedimentosConsolidadosAndSave("201206", new ProcedimentoRealizadoDAO(), 30);
-    System.out.println("Tamanho do resultado: "+i);
+//        BasicDAO<Diversas> t= new DiversasDAO();
+//        Diversas d = new Diversas();
+//        d.setDiversasPK(new DiversasPK());
+//        d.getDiversasPK().setCodigoTabela(Diversas.TABELA_PROFISSAO);
+//        
+//        BIProcedimentoRealizadoController test= new BIProcedimentoRealizadoController();
+//        ProcedimentoRealizadoDAO dao= new ProcedimentoRealizadoDAO();
+//        HashMap<String,Object> res= new HashMap<String, Object>();
+//        dao.findAllOnlyHeader();
+//        
+//        res.put("procedimentoPk.competencia", "201206");
+//        //d.setCdnDscr("Fisioterapeuta geral");
+//        //HashMap<String, Object> rest=new HashMap<String, Object>();
+//         ///rest.put("sCdnPK.cdnIt", "223605");
+//        //rest.put("digitoVerificador", "3");
+////        List<Diversas> l=t.findAllEqual(d) ;
+////        Map<String,String> m=ModelUtil.getMapSearch(l, "diversasPK.codigoItemTabela", "descricaoItemTabela");
+////        for(String a: m.keySet()) {
+////           // System.out.println(a.getDescricao()+"/"+a.getProcedimentoPk().getCompetencia()+'/'+a.getProcedimentoPk().getId());
+////           //  System.out.println("Descrição: "+a.getCdnDscr()+"ID "+a.getSCdnPK().getCdnIt());
+////           System.out.println("codigo CBO: "+a+"/"+m.get(a));
+////        }
+//// 
+////        System.out.println(l.size());
+////        System.out.println(SearchGeneric.getInstance().initModeSearch(new ProcedimentoController(),
+////                                            "procedimentoPk.id", "descricao","Id","Nome",res));
+//        
+//        BIProcedimentoRealizadoController ctrl= new BIProcedimentoRealizadoController();
+//        BIProcedimentoRealizado pro=new BIProcedimentoRealizado();
+//        
+//        pro.setCaracterizacaoAtendimento("02");
+//        pro.setCidDoencaprocedimento("Q730");
+//        pro.setNacionalidadePaciente("010");
+//        pro.setSexoPaciente("F");
+//        pro.setNomePaciente("kauanne esthafane silva");
+//        pro.setRacaPaciente("99");
+//        pro.setQuantidadeRealizada(2d);
+//        pro.setCnsPaciente("");
+//        pro.setCodigoIBGECidadePaciente("260410");
+//        pro.setDataNascimentoPaciente("19900112");
+//        BIProcedimentoRealizadoPK pk= new BIProcedimentoRealizadoPK();
+//        pk.setCboMedico("223505");
+//        pk.setCnsMedico("980016277313811");
+//        pk.setCnesUnidade("3083721");
+//        pro.setCodigoProcedimento("0310010012");
+//        pro.getBiProcedimentoRealizadoPK().setCompetencia("201206");
+//        pro.setDataAtendimento("20120606");
+//        //pro.setNumeroFolha("001");
+//        //pro.setSequenciaFolha("01");
+//        pro.setBiProcedimentoRealizadoPK(pk);
+//        //ctrl.salvar(pro);
+//        
+//        
+//    int i=0;
+////    for(ProcedimentoRealizado p: dao.findAllConsolidados("", 0, 30)){
+////        i++;
+////        System.out.println(p.getQuantidadeRealizada());
+////    }
+//    test.findAllProcedimentosConsolidadosAndSave("201206", new ProcedimentoRealizadoDAO(), 30);
+//    System.out.println("Tamanho do resultado: "+i);
     }
 }
