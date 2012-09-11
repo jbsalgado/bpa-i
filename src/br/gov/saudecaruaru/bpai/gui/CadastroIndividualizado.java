@@ -1290,7 +1290,6 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
                 this.procedimentoRealizado = p;
                 this.fillHeaderModelProcedimentoRealizado(this.procedimentoRealizado);
                 this.fillFields(procedimentoRealizado, false);
-
             }else{
                 this.beginNewWindow();
             }
