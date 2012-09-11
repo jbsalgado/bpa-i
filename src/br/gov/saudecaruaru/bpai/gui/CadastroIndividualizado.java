@@ -1275,24 +1275,29 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         
         // metodo que pega os valores de alguns campos e adiciona-os ao modelo
         this.getValuesOfFieldsForModel();
-        //insere o modelo na jTable
-        this.insertInJTable();
+         if(this.tableModelDados.getCloneElementListEmpty()==null){
+           //insere o modelo na jTable
+          this.insertInJTable();
+          
         
-        ProcedimentoRealizado p = this.tableModelDados.getCloneElementListEmpty();
-        if(p!=null){
-            this.procedimentoRealizado = p;
-            this.fillHeaderModelProcedimentoRealizado(this.procedimentoRealizado);
-            
-        }else{
-             this.beginNewWindow();
-        }
-        
-         //zera os campos 
-        //this.clearFields();
-        //inicializa o modelo
-        //this.procedimentoRealizado = new ProcedimentoRealizado(String.valueOf(this.sequencia),jTextFieldCnes.getText(),
-          //                                                     jTextFieldCnsProfiss.getText(),jTextFieldCBO.getText(),jTextFieldAno.getText()+jTextFieldMes.getText(), jTextFieldFolha.getText(),jTextFieldNomeProfiss.getText());
-        this.fillFields(procedimentoRealizado, false);
+         }else{
+      
+            //insere o modelo na jTable
+            this.insertInJTable();
+
+            ProcedimentoRealizado p = this.tableModelDados.getCloneElementListEmpty();
+            if(p!=null){
+                this.procedimentoRealizado = p;
+                this.fillHeaderModelProcedimentoRealizado(this.procedimentoRealizado);
+                this.fillFields(procedimentoRealizado, false);
+
+            }else{
+                this.beginNewWindow();
+            }
+
+               
+         }
+       
 
 
     }//GEN-LAST:event_jButtonIncluirMouseClicked
@@ -2092,8 +2097,6 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
         procedimento.setDigitoVerificador(digitoVerificador);
         //realiza uma busca pelo procedimento
         Procedimento pEncontrado = procedimentoController.findEqual(procedimento);
-            boolean bpa = pEncontrado.isBPA();
-            boolean bpi = pEncontrado.isBPI();
         String  tipo = pEncontrado.typeProcedimento();    
         //seta o tipo do procedimento (BPA ou BPAI)
         this.procedimentoRealizado.setOrigemProcedimento(tipo);
