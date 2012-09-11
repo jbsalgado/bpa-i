@@ -57,7 +57,7 @@ public class CnesVerifier extends InputVerifier {
         cod = cns.substring(0,6);
         //System.out.println("Cod "+cod);
       
-      
+        
         soma = ((Integer.valueOf(cod.substring(0,1)).intValue()) * 7) +
                ((Integer.valueOf(cod.substring(1,2)).intValue()) * 6) +
                ((Integer.valueOf(cod.substring(2,3)).intValue()) * 5) +
