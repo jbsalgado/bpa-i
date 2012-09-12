@@ -26,7 +26,7 @@ import javax.swing.table.TableColumnModel;
  *
  * @author Albuquerque
  */
-public class ListaProcedimento extends javax.swing.JDialog {
+public class ListaProcedimento extends javax.swing.JFrame {
     
     private ProcedimentoRealizadoTableModelHeader tableModelHeader;
     private ProcedimentoRealizadoTableModelBody tableModelBody;
@@ -37,7 +37,11 @@ public class ListaProcedimento extends javax.swing.JDialog {
         this.initComponents();
         this.myInitComponents();
     }
-    
+    public ListaProcedimento() {
+        //super(parent);
+        this.initComponents();
+        this.myInitComponents();
+    }
     private void myInitComponents(){
         
         this.biProcedimentoRealizadoController= new BIProcedimentoRealizadoController();
