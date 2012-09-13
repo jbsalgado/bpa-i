@@ -18,6 +18,9 @@ import org.hibernate.Session;
  */
 public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> {
     
+    
+    
+    
    /**
      * Pega todos os procedimentos consolidados de forma páginada, mas de forma agrupada pelos seguintes campos:
      * Cnes da unidade, CBO do profissional, Idade do paciente, código do procedimento e competência
@@ -95,6 +98,8 @@ public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> 
             return list;
         }
     }
+    
+    
    
    /**
     * Devolve todos os procedimentos somente com os campos d cabeçalho preenchido.

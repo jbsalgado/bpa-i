@@ -22,7 +22,43 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
         //super(EntityManagerUtil.getEntityManagerI());
         
     }
-    
+    public String getNextFolha(BIProcedimentoRealizado BIProcedimentoRealizado){
+         Session session= this.getSession();
+         List l=null;
+        try{     
+            StringBuilder sql=new StringBuilder();
+            //campos a serem selecionados
+            sql.append("select MAX(pro.biProcedimentoRealizadoPK.numeroFolha)");
+            sql.append(" FROM BIProcedimentoRealizado pro");
+            //traz somente os procedimentos que devem ser consolidados
+            sql.append(" WHERE (pro.biProcedimentoRealizadoPK.cnesUnidade=:cnesUnidade)");
+            sql.append(" AND (pro.biProcedimentoRealizadoPK.competencia=:competencia)");
+            sql.append(" AND (pro.biProcedimentoRealizadoPK.cboMedico=:cbo)");
+            sql.append(" AND (pro.biProcedimentoRealizadoPK.cnsMedico=:cnsMedico)");
+            
+            //it's create query
+            Query q=session.createQuery(sql.toString());
+            q.setParameter("cnesUnidade", BIProcedimentoRealizado.getBiProcedimentoRealizadoPK().getCnesUnidade());
+            q.setParameter("competencia",  BIProcedimentoRealizado.getBiProcedimentoRealizadoPK().getCompetencia());
+            q.setParameter("cbo",  BIProcedimentoRealizado.getBiProcedimentoRealizadoPK().getCboMedico());
+            q.setParameter("cnsMedico",  BIProcedimentoRealizado.getBiProcedimentoRealizadoPK().getCnsMedico());
+            
+            l=q.list();
+            String f = "";
+            String folha = null;
+            for(Object row:l){
+               folha = (String)row;
+            }
+            if(folha!=null){
+                int nextFolha = (Integer.parseInt(folha)+1);
+                f = String.format("%03d",nextFolha);
+            }
+            return f;
+        }catch(Exception ex){
+            ex.printStackTrace();
+            return "";
+        }
+    }
     /**
      * Pega todos os procedimentos consolidados de forma páginada, mas de forma agrupada pelos seguintes campos:
      * Cnes da unidade, CBO do profissional, Idade do paciente, código do procedimento e competência
