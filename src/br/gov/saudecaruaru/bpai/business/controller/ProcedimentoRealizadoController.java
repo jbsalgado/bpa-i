@@ -21,4 +21,6 @@ public class ProcedimentoRealizadoController extends BasecController<Procediment
     public List<ProcedimentoRealizado> findAllOnlyHeader(){
         return ((ProcedimentoRealizadoDAO)this.getDao()).findAllOnlyHeader();
     }
+    
+    
 }

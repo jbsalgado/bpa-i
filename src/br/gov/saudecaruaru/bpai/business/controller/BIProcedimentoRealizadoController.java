@@ -26,6 +26,9 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
         return ((BIProcedimentoRealizadoDAO)this.getDao()).findAllOnlyHeader();
     }
     
+    public String getNextFolha(BIProcedimentoRealizado BIProcedimentoRealizado){
+        return ((BIProcedimentoRealizadoDAO)this.getDao()).getNextFolha(BIProcedimentoRealizado);
+    }
     
 //    public void salvar(List<ProcedimentoRealizado> procedimentosRealizados){
 //        //salvando uma lista de procedimentos
