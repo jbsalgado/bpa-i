@@ -2268,6 +2268,7 @@ public class CadastroIndividualizado extends javax.swing.JFrame implements TelaC
           jTextFieldUsarioDatNasc.setText(DateUtil.parseToDayMonthYear(p.getDataNascimentoPaciente(),true));
           jTextFieldUsuarioCodMunicip.setText(p.getCodigoIBGECidadePaciente());
          // jTextFieldUsuarioCodNac.setText(p.getNacionalidadePaciente());
+          
           jComboBoxUsuarioRacaCor.setSelectedItem(p.getRacaPaciente());
           if((jComboBoxUsuarioRacaCor.getSelectedItem()!=null) && (jComboBoxUsuarioRacaCor.getSelectedItem().toString().substring(0, 2).equals(Diversas.COD_RACA_COR_INDIGENA))){
               jTextFieldUsuarioCodEtnia.setText(p.getEtniaPaciente());
