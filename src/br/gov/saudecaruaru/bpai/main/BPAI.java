@@ -73,6 +73,7 @@ public class BPAI {
        BPAI.initDatabaseConfiguration();
        ListaProcedimento principal= new ListaProcedimento();
        principal.setVisible(true);
+       principal.setLocationRelativeTo(null);
         
     }
 }

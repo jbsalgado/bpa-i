@@ -297,7 +297,12 @@ public class ListaProcedimento extends javax.swing.JFrame {
 
     private void jbtnIncluirFolhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnIncluirFolhaMouseClicked
         // TODO add your handling code here:
-        new CadastroIndividualizado();
+        CadastroIndividualizado cad=new CadastroIndividualizado(this);
+        //cad.setVisible(true);
+        cad.setLocationRelativeTo(null);
+        cad.setModal(true);
+        cad.setVisible(true);
+    
     }//GEN-LAST:event_jbtnIncluirFolhaMouseClicked
 
     private void jTableHeaderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableHeaderMouseClicked
@@ -307,11 +312,15 @@ public class ListaProcedimento extends javax.swing.JFrame {
             int row=ListaProcedimento.this.jTableHeader.getSelectedRow();
             //tem linha selecionada
             if(row>=0){
-                CadastroIndividualizado cad=new CadastroIndividualizado();
+                CadastroIndividualizado cad=new CadastroIndividualizado(this);
                 ProcedimentoRealizado pro=this.tableModelHeader.getProcedimentoRealizado(row);
                 //zera a quantidade padrão
                 pro.setQuantidadeRealizada(null);
                 cad.findAllProcedimentosFolha(pro);
+                
+                cad.setLocationRelativeTo(null);
+                cad.setModal(true);
+                cad.setVisible(true);
             }
             
         }
