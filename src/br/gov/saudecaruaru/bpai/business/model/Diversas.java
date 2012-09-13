@@ -83,7 +83,7 @@ public class Diversas implements Serializable {
             return false;
         }
         final Diversas other = (Diversas) obj;
-        if (this.diversasPK != other.diversasPK && (this.diversasPK == null || !this.diversasPK.equals(other.diversasPK))) {
+        if (this.diversasPK != other.getDiversasPK() && (this.diversasPK == null || !this.diversasPK.equals(other.getDiversasPK()))) {
             return false;
         }
         return true;

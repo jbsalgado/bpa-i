@@ -11,6 +11,7 @@ import br.gov.saudecaruaru.bpai.gui.validators.*;
 import br.gov.saudecaruaru.bpai.util.DateUtil;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModel;
 import br.gov.saudecaruaru.bpai.util.Search;
+import com.towel.swing.combo.ObjectComboBoxModel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Frame;
@@ -53,6 +54,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      private GestorCompetenciaController gestorCompetenciaController;
      
      private ProcedimentoRealizadoTableModel tableModelDados;
+     private ObjectComboBoxModel<Diversas> objectComboBoxModelRacaCor;
      private int sequencia=1;
      
      private List<BIProcedimentoRealizado> lBi;
@@ -99,7 +101,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         UIManager.put("OptionPane.noButtonText", "Não");   
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");
 
-         
+        this.objectComboBoxModelRacaCor= new ObjectComboBoxModel<Diversas>();
+        this.objectComboBoxModelRacaCor.setFormatter(new DiversasFormatter());
         this.gestorCompetenciaController = new GestorCompetenciaController(); 
         this.diversasController = new DiversasController();
         this.medicoController= new MedicoController();
@@ -1616,17 +1619,19 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         diversas.getDiversasPK().setCodigoTabela(Diversas.TABELA_COR_INDIVIDUO);
         //realiza a busca no banco 
         List<Diversas> list = diversasController.findAllEqual(diversas);
-        //cria um vetor de string para popular o combobox
-        String[] comboListCor = new String[list.size()];
-        //preenche o vetor de String com os valores retornados do banco
-        for (int i=0;i<list.size();i++) {
-            //concatena o codigo e a descriacao da Cor e atribui ao vetor de String
-            comboListCor[i] = list.get(i).getDiversasPK().getCodigoItemTabela()+list.get(i).getDescricaoItemTabela();
-        }
-        //cria o modelo do combobox com as informações do banco
-        ComboBoxModel model = new DefaultComboBoxModel(comboListCor);
+        this.objectComboBoxModelRacaCor.setData(list);
+//        //cria um vetor de string para popular o combobox
+//        String[] comboListCor = new String[list.size()];
+//        //preenche o vetor de String com os valores retornados do banco
+//        for (int i=0;i<list.size();i++) {
+//            //concatena o codigo e a descriacao da Cor e atribui ao vetor de String
+//            comboListCor[i] = list.get(i).getDiversasPK().getCodigoItemTabela()+list.get(i).getDescricaoItemTabela();
+//        }
+//        //cria o modelo do combobox com as informações do banco
+        //ComboBoxModel model = new DefaultComboBoxModel(this.objectComboBoxModelRacaCor);
         //seta o modelo no combobox Cor
-        jComboBoxUsuarioRacaCor.setModel(model);
+        jComboBoxUsuarioRacaCor.setModel(this.objectComboBoxModelRacaCor);
+        this.selectItemJComboBoxRacaCor("99");
         
         
       
@@ -2293,7 +2298,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           
       }
     
-    
+      private void selectItemJComboBoxRacaCor(String codigoItem){
+          Diversas d= new Diversas(new DiversasPK(Diversas.TABELA_COR_INDIVIDUO,codigoItem ));
+          this.objectComboBoxModelRacaCor.setSelectedItem(d);
+          //d);
+         // this.jComboBoxUsuarioRacaCor.setSelectedIndex(this.jComboBoxUsuarioRacaCor.getSelectedIndex());
+          //this.objectComboBoxModelRacaCor.setSelectedObject(d);
+      }
 
 
 

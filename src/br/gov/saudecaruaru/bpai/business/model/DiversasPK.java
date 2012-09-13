@@ -55,10 +55,10 @@ public class DiversasPK implements Serializable {
             return false;
         }
         final DiversasPK other = (DiversasPK) obj;
-        if ((this.codigoTabela == null) ? (other.codigoTabela != null) : !this.codigoTabela.equals(other.codigoTabela)) {
+        if ((this.codigoTabela == null) ? (other.codigoTabela != null) : !this.codigoTabela.trim().equals(other.codigoTabela.trim())) {
             return false;
         }
-        if ((this.codigoItemTabela == null) ? (other.codigoItemTabela != null) : !this.codigoItemTabela.equals(other.codigoItemTabela)) {
+        if ((this.codigoItemTabela == null) ? (other.codigoItemTabela != null) : !this.codigoItemTabela.trim().equals(other.codigoItemTabela.trim())) {
             return false;
         }
         return true;
