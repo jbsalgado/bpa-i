@@ -1656,26 +1656,26 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
       
       private void addListenersFields(){
           
-          
-          jComboBoxUsuarioRacaCor.addItemListener(new ItemListener() {
-
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                 String itemRacaCor =  e.getItem().toString();
-                       
-                     
-                       //caso a cor/raca seja indigena habilita o campo etnia e faz ele ganhar o foco
-                       if(itemRacaCor.substring(0, 2).equals(Diversas.COD_RACA_COR_INDIGENA)){
-                           jTextFieldUsuarioCodEtnia.setEnabled(true);
-                          // jTextFieldUsuarioCodEtnia.requestFocus();
-                           
-                       }else{
-                           jTextFieldUsuarioCodEtnia.setEnabled(false);
-                           
-                       }
-               
-            }
-        });
+//          
+//          jComboBoxUsuarioRacaCor.addItemListener(new ItemListener() {
+//
+//            @Override
+//            public void itemStateChanged(ItemEvent e) {
+//                 String itemRacaCor =  e.getItem().toString();
+//                       
+//                     
+//                       //caso a cor/raca seja indigena habilita o campo etnia e faz ele ganhar o foco
+//                       if(itemRacaCor.substring(0, 2).equals(Diversas.COD_RACA_COR_INDIGENA)){
+//                           jTextFieldUsuarioCodEtnia.setEnabled(true);
+//                          // jTextFieldUsuarioCodEtnia.requestFocus();
+//                           
+//                       }else{
+//                           jTextFieldUsuarioCodEtnia.setEnabled(false);
+//                           
+//                       }
+//               
+//            }
+//        });
           
           
           
@@ -2313,7 +2313,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 //              }
 //          }
 //          
-          this.objectComboBoxModelRacaCor.setSelectedItem(d);
+          this.objectComboBoxModelRacaCor.setSelectedObject(d);
           System.out.println("teste");
       }
           //d);
