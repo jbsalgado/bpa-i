@@ -55,6 +55,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      
      private ProcedimentoRealizadoTableModel tableModelDados;
      private ObjectComboBoxModel<Diversas> objectComboBoxModelRacaCor;
+     private ObjectComboBoxModel<CaraterAtendimento> objectComboBoxModelCaraterAtend;
      private int sequencia=1;
      
      private List<BIProcedimentoRealizado> lBi;
@@ -102,7 +103,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");
 
         this.objectComboBoxModelRacaCor= new ObjectComboBoxModel<Diversas>();
+        this.objectComboBoxModelCaraterAtend= new ObjectComboBoxModel<CaraterAtendimento>();
         this.objectComboBoxModelRacaCor.setFormatter(new DiversasFormatter());
+        this.objectComboBoxModelCaraterAtend.setFormatter(new CaraterAtendimentoFormatter());
         this.gestorCompetenciaController = new GestorCompetenciaController(); 
         this.diversasController = new DiversasController();
         this.medicoController= new MedicoController();
@@ -1634,18 +1637,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         //ComboBoxModel model = new DefaultComboBoxModel(this.objectComboBoxModelRacaCor);
         //seta o modelo no combobox Cor
         jComboBoxUsuarioRacaCor.setModel(this.objectComboBoxModelRacaCor);
-        this.selectItemJComboBoxRacaCor("99");
-        
-        
-      
-        //inicializar comboBox Carater de Atendimento
-        CaraterAtendimento[] comboListCaraterAtend ={CaraterAtendimento.SEM_INFORMACAO,CaraterAtendimento.ELETIVO,CaraterAtendimento.URGENCIA,CaraterAtendimento.ACIDENTE_LOCAL,
-                                         CaraterAtendimento.ACIDENTE_EXTERNO,CaraterAtendimento.ACIDENTE_OUTROS,CaraterAtendimento.LESOES_OUTRAS};
-        
-        //cria o modelo do combobox com as informações do banco
-        ComboBoxModel modelCarater = new DefaultComboBoxModel(comboListCaraterAtend);
-        //seta o modelo no combobox Cor
-        jComboBoxProcCaraterAtend.setModel(modelCarater);
+       
+        //seta os objetos no modelo
+        this.objectComboBoxModelCaraterAtend.setData(CaraterAtendimento.LIST);
+        //seta o modelo no combobox CaraterAtendimento
+        jComboBoxProcCaraterAtend.setModel(objectComboBoxModelCaraterAtend);
     }
     
     
@@ -2022,7 +2018,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void focusLost(FocusEvent e) {
                CaraterAtendimento c = (CaraterAtendimento)((JComboBox)e.getComponent()).getSelectedItem(); 
-               CadastroIndividualizado.this.procedimentoRealizado.setCaracterizacaoAtendimento(c.cod());
+               CadastroIndividualizado.this.procedimentoRealizado.setCaracterizacaoAtendimento(c.getCodigo());
             }
         });
           
@@ -2110,7 +2106,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         Procedimento procedimento = new Procedimento();
        
         String competencia = jTextFieldAno.getText()+jTextFieldMes.getText();
-        CaraterAtendimento c = (CaraterAtendimento) jComboBoxProcCaraterAtend.getSelectedItem();
+        CaraterAtendimentoAntigo c = (CaraterAtendimentoAntigo) jComboBoxProcCaraterAtend.getSelectedItem();
         //String dataNasc  =     DateUtil.parseToYearMonthDay(jTextFieldUsarioDatNasc.getText());
         //String dataAtend  =    DateUtil.parseToYearMonthDay(jTextFieldProcDataAtend.getText());
          
@@ -2284,7 +2280,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           jTextFieldUsuarioCodMunicip.setText(p.getCodigoIBGECidadePaciente());
          // jTextFieldUsuarioCodNac.setText(p.getNacionalidadePaciente());
           
-          jComboBoxUsuarioRacaCor.setSelectedItem(p.getRacaPaciente());
+          //jComboBoxUsuarioRacaCor.setSelectedItem();
+          if(p.getRacaPaciente()!=null)
+            this.selectItemJComboBoxRacaCor(p.getRacaPaciente());
           if((jComboBoxUsuarioRacaCor.getSelectedItem()!=null) && (jComboBoxUsuarioRacaCor.getSelectedItem().toString().substring(0, 2).equals(Diversas.COD_RACA_COR_INDIGENA))){
               jTextFieldUsuarioCodEtnia.setText(p.getEtniaPaciente());
           }
@@ -2315,6 +2313,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 //          
           this.objectComboBoxModelRacaCor.setSelectedItem(d);
           System.out.println("teste");
+      }
+      
+      private void selectItemJComboBoxCaraterAtend(String codigoItem){
+          CaraterAtendimento c= new CaraterAtendimento(codigoItem,"");
+          
+          this.objectComboBoxModelCaraterAtend.setSelectedItem(c);
       }
           //d);
          // this.jComboBoxUsuarioRacaCor.setSelectedIndex(this.jComboBoxUsuarioRacaCor.getSelectedIndex());
