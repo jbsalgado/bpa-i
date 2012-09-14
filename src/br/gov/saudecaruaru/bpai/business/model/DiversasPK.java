@@ -27,7 +27,7 @@ public class DiversasPK implements Serializable {
 
     public DiversasPK(String codigoTabela, String codigoItemTabela) {
         this.codigoTabela = codigoTabela;
-        this.codigoItemTabela = codigoItemTabela;
+        this.codigoItemTabela = codigoItemTabela.trim();
     }
 
     public String getCodigoItemTabela() {
@@ -35,7 +35,7 @@ public class DiversasPK implements Serializable {
     }
 
     public void setCodigoItemTabela(String codigoItemTabela) {
-        this.codigoItemTabela = codigoItemTabela;
+        this.codigoItemTabela = codigoItemTabela.trim();
     }
 
     public String getCodigoTabela() {
@@ -67,8 +67,8 @@ public class DiversasPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + (this.codigoTabela != null ? this.codigoTabela.hashCode() : 0);
-        hash = 97 * hash + (this.codigoItemTabela != null ? this.codigoItemTabela.hashCode() : 0);
+        hash = 97 * hash + (this.codigoTabela != null ? this.codigoTabela.trim().hashCode() : 0);
+        hash = 97 * hash + (this.codigoItemTabela != null ? this.codigoItemTabela.trim().hashCode() : 0);
         return hash;
     }
 
