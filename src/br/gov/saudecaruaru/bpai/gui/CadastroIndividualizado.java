@@ -153,7 +153,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         //caso o objeto pego já possua informacoes, desabilita o cabeçalho
         this.fillFields(this.procedimentoRealizado, true); 
      
-       
+        
          this.jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
        
          this.initComboBoxs();
@@ -2059,28 +2059,26 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
        * Desabilita os campos do cabeçalho da tela
        */
       public void disableFieldsHeader(){
-            jTextFieldCnes.setEnabled(false);
-            jTextFieldCnsProfiss.setEnabled(false);
-            jTextFieldNomeProfiss.setEnabled(false);
-            jTextFieldCBO.setEnabled(false);
-            jTextFieldMes.setEnabled(false);
-            jTextFieldAno.setEnabled(false);
-            jTextFieldFolha.setEnabled(false);
+           this.changeStatusHeader(false);
       }
       
       /**
        * Abilita os campos do cabeçalho da tela
        */
       private void enableFieldsHeader(){
-            jTextFieldCnes.setEnabled(true);
-            jTextFieldCnsProfiss.setEnabled(true);
-            jTextFieldNomeProfiss.setEnabled(true);
-            jTextFieldCBO.setEnabled(true);
-            jTextFieldMes.setEnabled(true);
-            jTextFieldAno.setEnabled(true);
-            jTextFieldFolha.setEnabled(true);
+          this.changeStatusHeader(true);
       }
       
+      private void changeStatusHeader(boolean status){
+            jTextFieldCnes.setEnabled(status);
+            jTextFieldCnsProfiss.setEnabled(status);
+            jTextFieldNomeProfiss.setEnabled(status);
+            jTextFieldCBO.setEnabled(status);
+            jComboBoxEquipe.setEnabled(status);
+            jTextFieldMes.setEnabled(status);
+            jTextFieldAno.setEnabled(status);
+            jTextFieldFolha.setEnabled(status);
+      }
       /**
        * Desabilita os campos relacionados ao paciente/usuário
        */
@@ -2348,9 +2346,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           
           this.objectComboBoxModelCaraterAtend.setSelectedObject(c);
       }
-          //d);
-         // this.jComboBoxUsuarioRacaCor.setSelectedIndex(this.jComboBoxUsuarioRacaCor.getSelectedIndex());
-          //this.objectComboBoxModelRacaCor.setSelectedObject(d);
+          
       
 
 
