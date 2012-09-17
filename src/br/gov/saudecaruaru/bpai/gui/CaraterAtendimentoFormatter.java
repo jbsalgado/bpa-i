@@ -4,7 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.gui;
 
-import br.gov.saudecaruaru.bpai.business.model.CaraterAtendimentoAntigo;
+
 import br.gov.saudecaruaru.bpai.business.model.CaraterAtendimento;
 import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import com.towel.bean.Formatter;

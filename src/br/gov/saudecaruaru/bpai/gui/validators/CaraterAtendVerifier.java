@@ -28,8 +28,8 @@ public class CaraterAtendVerifier extends InputVerifier{
     @Override
     public boolean verify(JComponent input) {
         JComboBox comboBoxField = (JComboBox) input;
-        String valor = comboBoxField.getSelectedItem().toString();
-        if(valor.equals(CaraterAtendimento.SEM_INFORMACAO.desc())){
+        int index = comboBoxField.getSelectedIndex();
+        if(index==0){
              return  MessagesErrors.exibeTelaContinuaErro(component, fieldName,"INVÁLIDO!");
         }
         return true;

@@ -153,22 +153,22 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.fillFields(this.procedimentoRealizado, true); 
      
        
-       this.jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+         this.jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
        
-        this.initComboBoxs();
-        
-        //incializa os campos com busca por F2
-        this.initKeyPresseds();
-        
-        
-        //adicionando listeners
-        this.addListenersFields();
-        
-        //this.jPanel2.setp
-        
-        //adicionando listeners aos campos 
-        this.addListenersFields();
-        
+         this.initComboBoxs();
+         //incializa os campos com busca por F2
+         this.initKeyPresseds();
+         //adicionando listeners aos campos 
+         this.addListenersFields();
+         //disabilita alguns campos
+         this.disableSomeFields();
+         //inicializa alguns campos
+         this.initFields();
+         // Inicializa os validadores dos campos
+         this.initVerifiers();
+}
+   
+    private void disableSomeFields(){
         //desabilita alguns campos do usuario
         jTextFieldUsuarioNomeMunicip.setEnabled(false);
         jTextFieldUsuarioNomeNac.setEnabled(false);
@@ -178,8 +178,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldProcDescricao.setEnabled(false);
         //jTextFieldProcDescricaoProc.setText("ANALISE DE ALGUMA COISA");
         jTextFieldProcDescriDoenca.setEnabled(false);
-        
-        //inicializando campos 
+        //desabilitando etnia
+        jTextFieldUsuarioCodEtnia.setEnabled(false);
+    }
+    
+    private void initFields(){
+         //inicializando campos 
         //inicializando competencia
         String competencia = gestorCompetenciaController.getCompetenciaAtual();
         jTextFieldMes.setText(competencia.substring(4));
@@ -189,14 +193,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         //inicializando nacionalidade: BRASIL
         jTextFieldUsuarioCodNac.setText(Diversas.CODIGO_NACIONALIDADE_BRASIL);
         procedimentoRealizado.setNacionalidadePaciente(Diversas.CODIGO_NACIONALIDADE_BRASIL);
-        //desabilitando etnia
-        jTextFieldUsuarioCodEtnia.setEnabled(false);
-        
-        
-        //atribui mascaras a campos de texto
-        
-        //jTextFieldCBO =  new JFormattedTextField(getMCBO());
-         
+       
+    }
+    
+    private void initVerifiers(){
         //atribui validadores
         jTextFieldNomeProfiss.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
         jTextFieldCnes.setInputVerifier(new CnesVerifier(this, "CNES"));
@@ -276,13 +276,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 return true;
            }
         });
-        
-        
-        
-        
-        
     }
-   
     
     
     
@@ -1357,6 +1351,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         JTable j = (JTable)evt.getComponent();
         int row = j.getSelectedRow();
+        
         this.procedimentoRealizado = this.tableModelDados.getCloneElementList(row);
         fillFields(procedimentoRealizado,false);
     }//GEN-LAST:event_jTable1MouseClicked

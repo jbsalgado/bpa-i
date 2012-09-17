@@ -90,6 +90,21 @@ public class CaraterAtendimento {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CaraterAtendimento other = (CaraterAtendimento) obj;
+        if ((this.codigo == null) ? (other.codigo != null) : !this.codigo.equals(other.codigo)) {
+            return false;
+        }
+        return true;
+    }
     
     
     
