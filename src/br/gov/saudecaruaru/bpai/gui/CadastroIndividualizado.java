@@ -150,6 +150,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.initJTableDados();
         //pega o primeiro objeto da jTable e atribui ao modelo atual
         this.procedimentoRealizado = this.tableModelDados.getCloneElementList(0);
+        //caso o objeto pego já possua informacoes, desabilita o cabeçalho
         this.fillFields(this.procedimentoRealizado, true); 
      
        
@@ -166,6 +167,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
          this.initFields();
          // Inicializa os validadores dos campos
          this.initVerifiers();
+         
+       
 }
    
     private void disableSomeFields(){
@@ -1353,13 +1356,19 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
            this.enableFieldsHeader();
         }
     }
- 
+   
     
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         JTable j = (JTable)evt.getComponent();
         int row = j.getSelectedRow();
         
         this.procedimentoRealizado = this.tableModelDados.getCloneElementList(row);
+        //caso o objeto pego já possua informacoes, desabilita o cabeçalho
+        if(this.procedimentoRealizado.getProcedimentoRealizadoPK().getCnesUnidade()!=null){
+            this.disableFieldsHeader();
+        }else{
+            this.enableFieldsHeader();
+        }
         fillFields(procedimentoRealizado,false);
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -2049,7 +2058,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
       /**
        * Desabilita os campos do cabeçalho da tela
        */
-      private void disableFieldsHeader(){
+      public void disableFieldsHeader(){
             jTextFieldCnes.setEnabled(false);
             jTextFieldCnsProfiss.setEnabled(false);
             jTextFieldNomeProfiss.setEnabled(false);

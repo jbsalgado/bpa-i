@@ -317,7 +317,8 @@ public class ListaProcedimento extends javax.swing.JFrame {
                 //zera a quantidade padrão
                 pro.setQuantidadeRealizada(null);
                 cad.findAllProcedimentosFolha(pro);
-                
+                //desabilita os campos do cabeçalho
+                cad.disableFieldsHeader();
                 cad.setLocationRelativeTo(null);
                 cad.setModal(true);
                 cad.setVisible(true);
