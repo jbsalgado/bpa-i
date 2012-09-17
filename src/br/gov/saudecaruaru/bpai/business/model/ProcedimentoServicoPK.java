@@ -4,6 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.business.model;
 
+import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -13,7 +14,7 @@ import javax.persistence.Embeddable;
  * @author Albuquerque
  */
 @Embeddable
-public class ProcedimentoServicoPK {
+public class ProcedimentoServicoPK implements Serializable{
     
     @Basic(optional=false)
     @Column(name="PASRV_CMP")

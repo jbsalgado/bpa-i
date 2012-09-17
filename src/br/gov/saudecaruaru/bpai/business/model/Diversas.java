@@ -26,7 +26,7 @@ public class Diversas implements Serializable {
     
     
     public static final String COD_RACA_COR_INDIGENA="05";
-    
+    public static final String COD_RACA_COR_SEM_INFORMACAO="99";
     
     private static final long serialVersionUID = 1L;
     

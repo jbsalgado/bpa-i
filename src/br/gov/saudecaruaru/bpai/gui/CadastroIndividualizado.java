@@ -1914,8 +1914,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-            
-               CadastroIndividualizado.this.procedimentoRealizado.setRacaPaciente(((JComboBox)e.getComponent()).getSelectedItem().toString().substring(0,2));
+               int index = ((JComboBox)e.getComponent()).getSelectedIndex();
+               Diversas d = (Diversas) objectComboBoxModelRacaCor.getData().get(index);
+               CadastroIndividualizado.this.procedimentoRealizado.setRacaPaciente(d.getDiversasPK().getCodigoItemTabela().toString());
             }
         });
              
@@ -2017,8 +2018,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-               CaraterAtendimento c = (CaraterAtendimento)((JComboBox)e.getComponent()).getSelectedItem(); 
-               CadastroIndividualizado.this.procedimentoRealizado.setCaracterizacaoAtendimento(c.getCodigo());
+               int index = ((JComboBox)e.getComponent()).getSelectedIndex(); 
+               CaraterAtendimento c = (CaraterAtendimento) objectComboBoxModelCaraterAtend.getData().get(index);
+               CadastroIndividualizado.this.procedimentoRealizado.setCaracterizacaoAtendimento(c.getCodigo().toString());
+               
+              
+              
             }
         });
           
@@ -2106,7 +2111,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         Procedimento procedimento = new Procedimento();
        
         String competencia = jTextFieldAno.getText()+jTextFieldMes.getText();
-        CaraterAtendimentoAntigo c = (CaraterAtendimentoAntigo) jComboBoxProcCaraterAtend.getSelectedItem();
+        
+         int indexCarater = jComboBoxProcCaraterAtend.getSelectedIndex();
+         CaraterAtendimento c = (CaraterAtendimento) this.objectComboBoxModelCaraterAtend.getData().get(indexCarater);
+         int indexRaca = jComboBoxUsuarioRacaCor.getSelectedIndex();
+         Diversas d = (Diversas) this.objectComboBoxModelRacaCor.getData().get(indexRaca);
         //String dataNasc  =     DateUtil.parseToYearMonthDay(jTextFieldUsarioDatNasc.getText());
         //String dataAtend  =    DateUtil.parseToYearMonthDay(jTextFieldProcDataAtend.getText());
          
@@ -2114,13 +2123,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         //this.procedimentoRealizado.setDataNascimentoPaciente(dataNasc);  
         this.procedimentoRealizado.setCodigoIBGECidadePaciente(jTextFieldUsuarioCodMunicip.getText()); 
         this.procedimentoRealizado.setNacionalidadePaciente(jTextFieldUsuarioCodNac.getText());
-        this.procedimentoRealizado.setRacaPaciente(jComboBoxUsuarioRacaCor.getSelectedItem().toString().substring(0, 2)); 
+        this.procedimentoRealizado.setRacaPaciente(d.getDiversasPK().getCodigoItemTabela()); 
         if(this.procedimentoRealizado.getRacaPaciente().equals(Diversas.COD_RACA_COR_INDIGENA)){
             this.procedimentoRealizado.setEtniaPaciente(jTextFieldUsuarioCodEtnia.getText());
         }
         
         //this.procedimentoRealizado.setDataAtendimento(dataAtend);
-        this.procedimentoRealizado.setCaracterizacaoAtendimento(c.cod());
+        this.procedimentoRealizado.setCaracterizacaoAtendimento(c.getCodigo());
        
         this.procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
         this.procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(jTextFieldFolha.getText());
@@ -2283,6 +2292,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           //jComboBoxUsuarioRacaCor.setSelectedItem();
           if(p.getRacaPaciente()!=null)
             this.selectItemJComboBoxRacaCor(p.getRacaPaciente());
+          else
+            this.selectItemJComboBoxRacaCor(Diversas.COD_RACA_COR_SEM_INFORMACAO);  
           if((jComboBoxUsuarioRacaCor.getSelectedItem()!=null) && (jComboBoxUsuarioRacaCor.getSelectedItem().toString().substring(0, 2).equals(Diversas.COD_RACA_COR_INDIGENA))){
               jTextFieldUsuarioCodEtnia.setText(p.getEtniaPaciente());
           }
@@ -2292,8 +2303,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
               jTextFieldProcQuant.setText("");
           }else
             jTextFieldProcQuant.setText(String.valueOf(p.getQuantidadeRealizada()));
+          
           jTextFieldProcCID.setText(p.getCidDoencaprocedimento());
-          jComboBoxProcCaraterAtend.setSelectedItem(p.getCaracterizacaoAtendimento());
+          
+          if(p.getCaracterizacaoAtendimento()!=null){
+            this.selectItemJComboBoxCaraterAtend(p.getCaracterizacaoAtendimento());
+          }
+          else{
+            this.selectItemJComboBoxCaraterAtend(CaraterAtendimento.SEM_INFORMACAO);
+          }
           jTextFieldProcNumAut.setText(p.getNumeroAutorizacao());
           
           
@@ -2312,13 +2330,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 //          }
 //          
           this.objectComboBoxModelRacaCor.setSelectedObject(d);
-          System.out.println("teste");
       }
       
       private void selectItemJComboBoxCaraterAtend(String codigoItem){
           CaraterAtendimento c= new CaraterAtendimento(codigoItem,"");
           
-          this.objectComboBoxModelCaraterAtend.setSelectedItem(c);
+          this.objectComboBoxModelCaraterAtend.setSelectedObject(c);
       }
           //d);
          // this.jComboBoxUsuarioRacaCor.setSelectedIndex(this.jComboBoxUsuarioRacaCor.getSelectedIndex());

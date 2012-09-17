@@ -15,14 +15,14 @@ public class CaraterAtendimento {
     
     public static List<CaraterAtendimento> LIST = new ArrayList<CaraterAtendimento>(){
     };
-    
+    public static final String SEM_INFORMACAO = "01";
     static{
-        getList().add(new CaraterAtendimento("1","SEM INFORMAÇÃO"));
-        getList().add(new CaraterAtendimento("2","URGÊNCIA"));
-        getList().add(new CaraterAtendimento("3","ACIDENTE NO LOCAL DO TRABALHO OU A SERVICO DA EMPRESA"));
-        getList().add(new CaraterAtendimento("4","ACIDENTE NO TRAJETO PARA O TRABALHO"));
-        getList().add(new CaraterAtendimento("5","OUTROS TIPOS DE ACIDENTES DE TRÃNSITO"));
-        getList().add(new CaraterAtendimento("6","OUTROS TIPOS DE LESÕES E EVEN. POR AGENTES QUÍMICOS OU FÍSICOS"));
+        getList().add(new CaraterAtendimento("01","SEM INFORMAÇÃO"));
+        getList().add(new CaraterAtendimento("02","URGÊNCIA"));
+        getList().add(new CaraterAtendimento("03","ACIDENTE NO LOCAL DO TRABALHO OU A SERVICO DA EMPRESA"));
+        getList().add(new CaraterAtendimento("04","ACIDENTE NO TRAJETO PARA O TRABALHO"));
+        getList().add(new CaraterAtendimento("05","OUTROS TIPOS DE ACIDENTES DE TRÃNSITO"));
+        getList().add(new CaraterAtendimento("06","OUTROS TIPOS DE LESÕES E EVEN. POR AGENTES QUÍMICOS OU FÍSICOS"));
         
     }
 
