@@ -91,7 +91,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.biProcedimentoRealizadoPK.competencia,pro.prdMvm");
             //it's create query
             Query q=session.createQuery(sql.toString());
-            q.setParameter("origem", "BPA");
+            q.setParameter("origem", ProcedimentoRealizado.ORIGEM_CONSOLIDADO);
             //paginacao dos resultados
             q.setFirstResult(firstResult);
             q.setMaxResults(maxResult);
@@ -120,7 +120,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
                     
                     //valores padrões
                     
-                    pro.setOrigemProcedimento("BPA");
+                    pro.setOrigemProcedimento(ProcedimentoRealizado.ORIGEM_CONSOLIDADO);
                     pro.setNomePaciente("TESTE");
                     String flag="0";
                     pro.setPrdFlca(flag);
@@ -162,7 +162,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             sql.append(" WHERE (pro.origemProcedimento=:origem)");
             //it's create query
             Query q=session.createQuery(sql.toString());
-            q.setParameter("origem", "BPI");
+            q.setParameter("origem", ProcedimentoRealizado.ORIGEM_INDIVIDUALIZADO);
             //paginacao dos resultados
             q.setFirstResult(firstResult);
             q.setMaxResults(maxResult);

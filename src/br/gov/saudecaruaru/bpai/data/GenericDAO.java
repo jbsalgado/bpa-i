@@ -14,7 +14,6 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
-import javax.persistence.EntityManager;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -177,74 +176,6 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
         return c.list();
     }
     
-//    public List<T> reflection(Criteria c,Object objeto){
-//    Class classe = objeto.getClass();
-//       
-//        for (Field f : classe.getDeclaredFields()) {
-//            f.setAccessible(true);
-//            
-//            try {
-//                if(f.get(objeto)!=null){
-//                   if(f.get(objeto).getClass().getPackage().equals("br.gov.saudecaruaru.bpai.business.model")){
-//                        if(f.get(objeto).getClass().getDeclaredFields().length>0){
-//                            reflection(c,f.get(objeto));
-//                    }
-//                    }else
-//                        c.add(Restrictions.eq(f.getName(),f.get(objeto)));
-//                   
-//                        
-//                }
-//            } catch (IllegalArgumentException ex) {
-//                Logger.getLogger(GenericDAO.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (IllegalAccessException ex) {
-//                Logger.getLogger(GenericDAO.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            
-//        }
-//        return c.list();
-//    }
-    
-//    private Map<String, Object> getRestrictions(Object object){
-//        Class classes=object.getClass();
-//
-//        //Cria um map para armazenar os valores
-//        Map<String, Object> restrictions= new HashMap<String, Object>();
-//        //verifica se o objeto está dentro do pacote model
-//        if(classes.getPackage().getName().equals(GenericDAO.PACOTE_MODEL)){
-//            for(Field f: classes.getDeclaredFields()){
-//                f.setAccessible(true);
-//                //para cada campo declarado na classe vai varrê-lo
-//                try {
-//                    //verifica se o campo possui valor/referência
-//                    Object obj=f.get(object);
-//                    if(obj!=null){
-//                        if(f.isAnnotationPresent(javax.persistence.EmbeddedId.class)||f.isAnnotationPresent(javax.persistence.Column.class) ){
-//                            //verifica se o campo é um objeto de alguma classe do pacote model
-//                            //se for,vai chamar o método novamente
-//                            if(obj.getClass().getPackage().getName().equals(GenericDAO.PACOTE_MODEL)){
-//                                //pega o map devolvido e monta o nome dos atributos com o valor
-//                                Map<String, Object> m= this.getRestrictions(obj);
-//                                for(String key: m.keySet()){
-//                                    restrictions.put(f.getName()+"."+key, m.get(key));
-//                                }
-//                            }
-//                            else{
-//                                restrictions.put(f.getName(), f.get(object));
-//                            }
-//                        
-//                     }
-//                        
-//                    }
-//                } catch (IllegalArgumentException ex) {
-//                    Logger.getLogger(GenericDAO.class.getName()).log(Level.SEVERE, null, ex);
-//                } catch (IllegalAccessException ex) {
-//                    Logger.getLogger(GenericDAO.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//        }
-//        
-//        return restrictions;
-//    }
     
     @Override
     public List<T> findAllEqual(Map<String,Object> restrictions){
@@ -259,6 +190,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
         }
         return c.list();
     }
+    
     
     @Override
     public List<T> findAllLike(Map<String,Object> restrictions){
@@ -288,13 +220,6 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
         return (T) c.uniqueResult();
     }
     
-//    protected void close() {
-//        if (getEntityManager().isOpen()) {
-//            getEntityManager().close();
-//        }
-//        //shutdown();
-//    }
-
 
 
     @Override

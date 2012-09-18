@@ -5,7 +5,6 @@
 package br.gov.saudecaruaru.bpai.data;
 
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoServico;
-import java.io.Serializable;
 
 /**
  *
