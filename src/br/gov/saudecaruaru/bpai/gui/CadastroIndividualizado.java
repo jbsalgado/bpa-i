@@ -148,7 +148,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     }
     
     private void myInitComponents(){
-        
+       
         //seta o estado do frame para ocupar toda a tela
         //this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         //this.setVisible(true);
@@ -204,6 +204,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             //seta a competencia vinda do banco
             procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
         }
+        
+        jTextFieldUsuarioSexo.setText("");
         //inicializando nacionalidade: BRASIL
         jTextFieldUsuarioCodNac.setText(Diversas.CODIGO_NACIONALIDADE_BRASIL);
         procedimentoRealizado.setNacionalidadePaciente(Diversas.CODIGO_NACIONALIDADE_BRASIL);
