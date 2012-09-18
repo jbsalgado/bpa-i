@@ -18,6 +18,7 @@ import javax.persistence.Table;
 @Table(name="S_PASRV")
 public class ProcedimentoServico implements Serializable{
     
+    private static final long serialVersionUID = -1324L;
     @EmbeddedId
     private ProcedimentoServicoPK procedimentoServicoPK;
     
