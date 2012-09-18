@@ -27,7 +27,7 @@ public class DiversasPK implements Serializable {
 
     public DiversasPK(String codigoTabela, String codigoItemTabela) {
         this.codigoTabela = codigoTabela;
-        this.codigoItemTabela = codigoItemTabela.trim();
+        this.codigoItemTabela = codigoItemTabela;
     }
 
     public String getCodigoItemTabela() {
@@ -35,7 +35,7 @@ public class DiversasPK implements Serializable {
     }
 
     public void setCodigoItemTabela(String codigoItemTabela) {
-        this.codigoItemTabela = codigoItemTabela.trim();
+        this.codigoItemTabela = codigoItemTabela;
     }
 
     public String getCodigoTabela() {

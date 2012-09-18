@@ -57,19 +57,43 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
                p.setNumeroFolha(""+folha);
                p.setSequenciaFolha(""+seq);
                 //incrementa a folha e inicia uma nova sequencia
-                if(seq==20){
+                if(seq==ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
+                    //verifica se a quantidade de folhas chegou ao limite
+                    if(folha==ProcedimentoRealizado.MAXIMA_QUANTIDADE_FOLHA){
+                        folha=0;
+                    }
+                    //incrementa a folha
                     folha++;
-                    seq=1;
+                    seq=0;
                 }
               //incrementa a sequência
                seq++;
             }
+            //salva a lista no banco de dados
             procedimentoDao.save(list);
+            list.clear();
             //incrementa a pagicacao
             offset+=maxResults;
         }
     }
     
+    public void findAllProcedimentosIndividuaisAndSave(String competencia,ProcedimentoRealizadoDAO procedimentoDao, int maxResults){
+        BIProcedimentoRealizadoDAO dao=(BIProcedimentoRealizadoDAO)this.getDao();
+        
+        int size=maxResults;
+        int offset=0;
+        List<ProcedimentoRealizado> list=null;
+        
+        while(size==maxResults){
+            list=dao.findAllProcedimentosIndividuais(competencia, offset, maxResults);
+            size=list.size();
+            //salva os procedimentos no banco de dados do BPA
+            procedimentoDao.save(list);
+            //incremeta a linha que deve ser buscada
+            offset+=maxResults;
+            list.clear();
+        }
+    }
     public List<BIProcedimentoRealizado> parserProcedimentoRealizadoToBIProcedimentoRealizado(List<ProcedimentoRealizado> list){
         List<BIProcedimentoRealizado> l= new ArrayList<BIProcedimentoRealizado>();
         for(ProcedimentoRealizado p: list){

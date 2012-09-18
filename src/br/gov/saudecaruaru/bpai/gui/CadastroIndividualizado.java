@@ -49,12 +49,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      private DoencaController doencaController;
      private BIProcedimentoRealizadoController bIProcedimentoRealizadoController;
      private ProcedimentoRealizadoController procedimentoRealizadoController;
+     private ProcedimentoServicoController procedimentoServicoController;
      
      private ProcedimentoRealizado procedimentoRealizado;
      private GestorCompetenciaController gestorCompetenciaController;
      
      private ProcedimentoRealizadoTableModel tableModelDados;
      private ObjectComboBoxModel<Diversas> objectComboBoxModelRacaCor;
+     private ObjectComboBoxModel<Diversas> objectComboBoxModelServico;
+     private ObjectComboBoxModel<Diversas> objectComboBoxModelClassificaoServico;
      private ObjectComboBoxModel<CaraterAtendimento> objectComboBoxModelCaraterAtend;
      private int sequencia=1;
      
@@ -103,6 +106,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");
 
         this.objectComboBoxModelRacaCor= new ObjectComboBoxModel<Diversas>();
+        this.objectComboBoxModelServico= new ObjectComboBoxModel<Diversas>();
+        this.objectComboBoxModelClassificaoServico= new ObjectComboBoxModel<Diversas>();
+        
         this.objectComboBoxModelCaraterAtend= new ObjectComboBoxModel<CaraterAtendimento>();
         this.objectComboBoxModelRacaCor.setFormatter(new DiversasFormatter());
         this.objectComboBoxModelCaraterAtend.setFormatter(new CaraterAtendimentoFormatter());
@@ -116,6 +122,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.doencaController=new DoencaController();
         this.bIProcedimentoRealizadoController= new BIProcedimentoRealizadoController();
         this.procedimentoRealizadoController=new ProcedimentoRealizadoController();
+        this.procedimentoServicoController= new ProcedimentoServicoController();
         
         this.lBi=new ArrayList<BIProcedimentoRealizado>();
         this.setPaciente=new HashSet<Paciente>();
@@ -2003,7 +2010,21 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void focusLost(FocusEvent e) {
             
-               CadastroIndividualizado.this.procedimentoRealizado.setCodigoProcedimento(((JTextField)e.getComponent()).getText());
+               String codigo=((JTextField)e.getComponent()).getText();
+               CadastroIndividualizado.this.procedimentoRealizado.setCodigoProcedimento(codigo);
+               HashMap<String, Object> res=new HashMap<String, Object> ();
+               res.put("procedimentoServicoPK.codigoProcedimento", CadastroIndividualizado.this.procedimentoRealizado.getCodigoProcedimento().substring(0, 9));
+               res.put("procedimentoServicoPK.competencia", CadastroIndividualizado.this.procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia());
+               
+               if(CadastroIndividualizado.this.procedimentoServicoController.findEqual(res)!=null){
+                   
+                   List<Diversas> d=CadastroIndividualizado.this.diversasController.findAllClassificacaoServico(CadastroIndividualizado.this.procedimentoRealizado);
+                   CadastroIndividualizado.this.objectComboBoxModelClassificaoServico.setData(d);
+
+                   d=CadastroIndividualizado.this.diversasController.findAllServicos(CadastroIndividualizado.this.procedimentoRealizado);
+                   CadastroIndividualizado.this.objectComboBoxModelServico.setData(d);
+                   
+               }
             }
         });
           

@@ -21,4 +21,7 @@ public class ProcedimentoController extends BasecController<Procedimento> {
         super(new ProcedimentoDAO());
     }
     
+    
+    
+    
 }

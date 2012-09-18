@@ -36,7 +36,7 @@ public class ProcedimentoDoencaController extends BasecController<ProcedimentoDo
         return false;
     }
     
-    public boolean existProcedimentoEDoenca(String CID,String codProc){
+    public boolean existProcedimentoEDoenca(String CID,String codProc,String competencia){
         
         
        ProcedimentoDoencaPK  procedimentoDoencaPK = new ProcedimentoDoencaPK(); 
@@ -44,8 +44,10 @@ public class ProcedimentoDoencaController extends BasecController<ProcedimentoDo
        
         procedimentoDoenca.getProcedimentoDoencaPK().setProcedimentoCodigo(codProc);
         procedimentoDoenca.getProcedimentoDoencaPK().setCodigoCid(CID);
+        procedimentoDoenca.getProcedimentoDoencaPK().setCompetencia(competencia);
         
-        if(findAllEqual(procedimentoDoenca).isEmpty()){
+        
+        if(findEqual(procedimentoDoenca)==null){
             return false;
         }
         
