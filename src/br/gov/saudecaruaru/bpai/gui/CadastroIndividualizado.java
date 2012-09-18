@@ -926,6 +926,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 jButtonIncluirActionPerformed(evt);
             }
         });
+        jButtonIncluir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButtonIncluirKeyPressed(evt);
+            }
+        });
 
         jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonLimpar.setText("Limpar");
@@ -1401,6 +1406,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButtonSairMouseClicked
+
+    private void jButtonIncluirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButtonIncluirKeyPressed
+           if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+               this.jButtonIncluirMouseClicked(null);
+           }
+    }//GEN-LAST:event_jButtonIncluirKeyPressed
                                           
 
     private void jTextFieldCnsProfissActionPerformed(java.awt.event.ActionEvent evt) {                                                     
