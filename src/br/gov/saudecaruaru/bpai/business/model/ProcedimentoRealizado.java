@@ -190,6 +190,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.racaPaciente=procedimentoRealizado.getRacaPaciente();
         this.codigoProcedimento=procedimentoRealizado.getCodigoProcedimento();
         this.dataAtendimento=procedimentoRealizado.getDataAtendimento();
+        this.origemProcedimento=procedimentoRealizado.getOrigemProcedimento();
     }
     
     public void setPaciente(Paciente paciente){
