@@ -22,6 +22,14 @@ public class Diversas implements Serializable {
     public static final String TABELA_COR_INDIVIDUO="54";
     public static final String TABELA_ETNIA="58";
     public static final String TABELA_TIPO_PROCEDIMENTO="51";
+    /**
+     * Tabela de serviços
+     */
+    public static final String TABELA_SERVICO="05";
+    /**
+     * Código da classificação= código do serviço+código da classificação
+     */
+    public static final String TABELA_CLASSIFICACAO_SERVICO="06";
     public static final String CODIGO_NACIONALIDADE_BRASIL="010";
     
     
