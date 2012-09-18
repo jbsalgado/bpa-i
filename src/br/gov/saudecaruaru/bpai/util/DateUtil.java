@@ -46,7 +46,7 @@ public class DateUtil {
     }
     
      public static int getAge(String dataNasc,String data){
-          SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+          SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
           Date dateNasc;
           Date date;
       

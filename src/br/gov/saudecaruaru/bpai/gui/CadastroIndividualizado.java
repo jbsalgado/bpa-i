@@ -2097,22 +2097,35 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
       /**
        * Desabilita os campos relacionados ao paciente/usuário
        */
-      private void disabledFieldsUsuarioProcedimento(){
-          jTextFieldUsuarioCns.setEnabled(false);
-          jTextFieldUsuarioNome.setEnabled(false);
-          jTextFieldUsuarioSexo.setEnabled(false);
-          jTextFieldUsarioDatNasc.setEnabled(false);
-          jTextFieldUsuarioCodMunicip.setEnabled(false);
-          jTextFieldUsuarioCodNac.setEnabled(false);
-          jComboBoxUsuarioRacaCor.setEnabled(false);
-          jTextFieldUsuarioCodEtnia.setEnabled(false);
-          jTextFieldProcDataAtend.setEnabled(false);
-          jTextFieldProcCod.setEnabled(false);
-          jTextFieldProcQuant.setEnabled(false);
-          jTextFieldProcCID.setEnabled(false);
-          jComboBoxProcCaraterAtend.setEnabled(false);
-          jTextFieldProcNumAut.setEnabled(false);
-          //jTable1.setEnabled(false);
+      public void disabledFieldsProcedimento(){
+        this.changeStatusFieldsProcedimento(false);
+          
+      }
+      public void enableFieldsProcedimento(){
+        this.changeStatusFieldsProcedimento(true);
+          
+      }
+      
+      
+      
+      private void changeStatusFieldsProcedimento(boolean status){
+          jTextFieldUsuarioCns.setEnabled(status);
+          jTextFieldUsuarioNome.setEnabled(status);
+          jTextFieldUsuarioSexo.setEnabled(status);
+          jTextFieldUsarioDatNasc.setEnabled(status);
+          jTextFieldUsuarioCodMunicip.setEnabled(status);
+          jTextFieldUsuarioCodNac.setEnabled(status);
+          jComboBoxUsuarioRacaCor.setEnabled(status);
+          jTextFieldUsuarioCodEtnia.setEnabled(status);
+          jTextFieldProcDataAtend.setEnabled(status);
+          jTextFieldProcCod.setEnabled(status);
+          jTextFieldProcQuant.setEnabled(status);
+          jTextFieldProcCID.setEnabled(status);
+          jComboBoxProcCaraterAtend.setEnabled(status);
+          jTextFieldProcNumAut.setEnabled(status);
+          jTable1.setEnabled(status);
+          jButtonLimpar.setEnabled(status);  
+          jButtonIncluir.setEnabled(status);        
           
       }
       
