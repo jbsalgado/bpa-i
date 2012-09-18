@@ -123,6 +123,7 @@ public class BIProcedimentoRealizado implements Serializable{
     
     private void setBiProcedimentoRealizado(ProcedimentoRealizado procedimentoRealizado){
         this.biProcedimentoRealizadoPK= new BIProcedimentoRealizadoPK(procedimentoRealizado.getProcedimentoRealizadoPK());
+        this.origemProcedimento = procedimentoRealizado.getOrigemProcedimento();
         this.caracterizacaoAtendimento= procedimentoRealizado.getCaracterizacaoAtendimento();
         this.cidDoencaprocedimento= procedimentoRealizado.getCidDoencaprocedimento();
         this.cnsPaciente=procedimentoRealizado.getCnsPaciente();
