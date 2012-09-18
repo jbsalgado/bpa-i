@@ -155,7 +155,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
 
             StringBuilder sql=new StringBuilder();
             //campos a serem selecionados
-            sql.append("SELECT *");
+            sql.append("");
             //faz o somatório da quantidade de execuções
             sql.append(" FROM BIProcedimentoRealizado pro");
             //traz somente os procedimentos que devem ser consolidados
