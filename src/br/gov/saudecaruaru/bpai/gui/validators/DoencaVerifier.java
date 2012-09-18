@@ -10,6 +10,7 @@ import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoDoencaController
 import br.gov.saudecaruaru.bpai.business.model.Doenca;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoenca;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoencaPK;
+import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
 import java.awt.Color;
@@ -54,7 +55,12 @@ public class DoencaVerifier extends InputVerifier{
       JTextField txtField = (JTextField) input; 
       Doenca doencaSearchead = null;
       String valor = txtField.getText();
-      String codigoProc = t.getProcedimentoRealizado().getCodigoProcedimento().substring(0, 9);
+      ProcedimentoRealizado procedimentoRealizado = t.getProcedimentoRealizado();
+      String codigoProc = procedimentoRealizado.getCodigoProcedimento().substring(0, 9);
+      System.out.println(codigoProc);
+      System.out.println(valor);
+      System.out.println(procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia());
+      
       //seta o valor digitado no objeto
       doenca.setCodigo(valor);
       
@@ -77,7 +83,7 @@ public class DoencaVerifier extends InputVerifier{
                          return  MessagesErrors.exibeTelaContinuaErro(component,fieldName, " NÃO CADASTRADO!", txtField);
                 }else if(doencaSearchead.getSubcategoria()=='N'){
                      return  MessagesErrors.exibeTelaContinuaErro(component,fieldName," NÃO PERTENCA A UMA SUBCATEGORIA!", txtField);
-                }else if(!procedimentoDoencaController.existProcedimentoEDoenca(valor, codigoProc)){
+                }else if(!procedimentoDoencaController.existProcedimentoEDoenca(valor, codigoProc,procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia())){
                      return  MessagesErrors.exibeTelaContinuaErro(component,fieldName," PROCED. INCOMPATIVEL COM CID!", txtField);
                 }
                   txtField.setBackground(Color.WHITE);
