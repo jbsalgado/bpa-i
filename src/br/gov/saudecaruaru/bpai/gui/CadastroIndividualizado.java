@@ -1381,12 +1381,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         int row = j.getSelectedRow();
         
         this.procedimentoRealizado = this.tableModelDados.getCloneElementList(row);
-        //caso o objeto pego já possua informacoes, desabilita o cabeçalho
-        if(this.procedimentoRealizado.getProcedimentoRealizadoPK().getCnesUnidade()!=null){
-            this.disableFieldsHeader();
-        }else{
-            this.enableFieldsHeader();
-        }
         fillFields(procedimentoRealizado,false);
     }//GEN-LAST:event_jTable1MouseClicked
 
