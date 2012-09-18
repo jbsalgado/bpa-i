@@ -186,13 +186,17 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     }
     
     private void initFields(){
-         //inicializando campos 
+        //inicializando campos 
+        
         //inicializando competencia
         String competencia = gestorCompetenciaController.getCompetenciaAtual();
-        jTextFieldMes.setText(competencia.substring(4));
-        jTextFieldAno.setText(competencia.substring(0, 4));
-        //seta a competencia vinda do banco
-        procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
+        //verifica se existe competencia
+        if(!competencia.equals("")){
+            jTextFieldMes.setText(competencia.substring(4));
+            jTextFieldAno.setText(competencia.substring(0, 4));
+            //seta a competencia vinda do banco
+            procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
+        }
         //inicializando nacionalidade: BRASIL
         jTextFieldUsuarioCodNac.setText(Diversas.CODIGO_NACIONALIDADE_BRASIL);
         procedimentoRealizado.setNacionalidadePaciente(Diversas.CODIGO_NACIONALIDADE_BRASIL);

@@ -29,10 +29,11 @@ public class GestorCompetenciaController extends BasecController<GestorCompetenc
         GestorCompetencia gestorCompetencia = new GestorCompetencia();
         
         List<GestorCompetencia> list = findAll();
-        String competencia = list.get(0).getGestorCompetenciaPK().getCompetenciaMovimento();
-      
-        
-        return competencia;
+        if(!list.isEmpty()){
+            String competencia = list.get(0).getGestorCompetenciaPK().getCompetenciaMovimento();
+            return competencia;
+        }else
+            return "";
     }
     
     
