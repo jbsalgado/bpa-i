@@ -9,7 +9,6 @@ import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoenca;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoencaPK;
 import br.gov.saudecaruaru.bpai.data.GenericDAO;
 import br.gov.saudecaruaru.bpai.data.ProcedimentoDoencaDAO;
-import java.io.Serializable;
 
 /**
  *
@@ -36,7 +35,7 @@ public class ProcedimentoDoencaController extends BasecController<ProcedimentoDo
         return false;
     }
     
-    public boolean existProcedimentoEDoenca(String CID,String codProc){
+    public boolean existProcedimentoEDoenca(String CID,String codProc,String competencia){
         
         
        ProcedimentoDoencaPK  procedimentoDoencaPK = new ProcedimentoDoencaPK(); 
@@ -44,6 +43,7 @@ public class ProcedimentoDoencaController extends BasecController<ProcedimentoDo
        
         procedimentoDoenca.getProcedimentoDoencaPK().setProcedimentoCodigo(codProc);
         procedimentoDoenca.getProcedimentoDoencaPK().setCodigoCid(CID);
+        procedimentoDoenca.getProcedimentoDoencaPK().setCompetencia(competencia);
         
         if(findAllEqual(procedimentoDoenca).isEmpty()){
             return false;
