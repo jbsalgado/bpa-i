@@ -234,7 +234,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             }
         }
         
-        return (T) c.uniqueResult();
+                return (T) c.uniqueResult();
     }
 
 }

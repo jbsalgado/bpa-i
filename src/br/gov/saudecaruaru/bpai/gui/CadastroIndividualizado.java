@@ -110,7 +110,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.objectComboBoxModelClassificaoServico= new ObjectComboBoxModel<Diversas>();
         
         this.objectComboBoxModelCaraterAtend= new ObjectComboBoxModel<CaraterAtendimento>();
-        this.objectComboBoxModelRacaCor.setFormatter(new DiversasFormatter());
+        DiversasFormatter formatter=new DiversasFormatter();
+        this.objectComboBoxModelRacaCor.setFormatter(formatter);
+        this.objectComboBoxModelServico.setFormatter(formatter);
+        this.objectComboBoxModelClassificaoServico.setFormatter(formatter);
         this.objectComboBoxModelCaraterAtend.setFormatter(new CaraterAtendimentoFormatter());
         this.gestorCompetenciaController = new GestorCompetenciaController(); 
         this.diversasController = new DiversasController();
@@ -1071,13 +1074,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                                                 .addComponent(jLabel20)
                                                 .addComponent(jTextFieldProcDataAtend, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addGroup(jPanel2Layout.createSequentialGroup()
-                                                    .addComponent(jTextFieldProcCod, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                    .addComponent(jTextFieldProcDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(347, 347, 347))
+                                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                                    .addComponent(jTextFieldProcCod)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(jTextFieldProcDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jTextFieldProcQuant)))))
@@ -2013,21 +2018,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-            
-               String codigo=((JTextField)e.getComponent()).getText();
-               CadastroIndividualizado.this.procedimentoRealizado.setCodigoProcedimento(codigo);
-               HashMap<String, Object> res=new HashMap<String, Object> ();
-               res.put("procedimentoServicoPK.codigoProcedimento", CadastroIndividualizado.this.procedimentoRealizado.getCodigoProcedimento().substring(0, 9));
-               res.put("procedimentoServicoPK.competencia", CadastroIndividualizado.this.procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia());
-               
-               if(CadastroIndividualizado.this.procedimentoServicoController.findEqual(res)!=null){
-                   
-                   List<Diversas> d=CadastroIndividualizado.this.diversasController.findAllClassificacaoServico(CadastroIndividualizado.this.procedimentoRealizado);
-                   CadastroIndividualizado.this.objectComboBoxModelClassificaoServico.setData(d);
-
-                   d=CadastroIndividualizado.this.diversasController.findAllServicos(CadastroIndividualizado.this.procedimentoRealizado);
-                   CadastroIndividualizado.this.objectComboBoxModelServico.setData(d);
-                   
+                //perdeu o foco para a campo "quantidade"
+               if(e.getOppositeComponent() instanceof JTextField ){
+                   String codigo=CadastroIndividualizado.this.jTextFieldProcCod.getText();
+                   if(!codigo.isEmpty()){
+                       //caso os código sejam diferentes vai executar
+                       if(!codigo.equals(CadastroIndividualizado.this.procedimentoRealizado.getCodigoProcedimento())){
+                           CadastroIndividualizado.this.focusLostComboboxServico();
+                       }
+                   }
                }
             }
         });
@@ -2041,8 +2040,22 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-            
-               CadastroIndividualizado.this.procedimentoRealizado.setQuantidadeRealizada(Double.valueOf(((JTextField)e.getComponent()).getText()));
+                if(e.getOppositeComponent() instanceof JTextField ){
+                   String quantidade=CadastroIndividualizado.this.jTextFieldProcQuant.getText();
+                   if(!quantidade.isEmpty()){
+                       //caso as quantidades sejam diferentes vai executar
+                       try{
+                           Double d=Double.parseDouble(quantidade);
+
+                           if(!d.equals(CadastroIndividualizado.this.procedimentoRealizado.getQuantidadeRealizada())){
+                               CadastroIndividualizado.this.procedimentoRealizado.setQuantidadeRealizada(d); 
+                           }
+                       }catch(NumberFormatException ex){
+                       
+                       }
+                   }
+               }
+               
             }
         });
           
@@ -2055,7 +2068,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-            
+                
+                
                CadastroIndividualizado.this.procedimentoRealizado.setCidDoencaprocedimento(((JTextField)e.getComponent()).getText());
             }
         });
@@ -2122,22 +2136,35 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
       /**
        * Desabilita os campos relacionados ao paciente/usuário
        */
-      private void disabledFieldsUsuarioProcedimento(){
-          jTextFieldUsuarioCns.setEnabled(false);
-          jTextFieldUsuarioNome.setEnabled(false);
-          jTextFieldUsuarioSexo.setEnabled(false);
-          jTextFieldUsarioDatNasc.setEnabled(false);
-          jTextFieldUsuarioCodMunicip.setEnabled(false);
-          jTextFieldUsuarioCodNac.setEnabled(false);
-          jComboBoxUsuarioRacaCor.setEnabled(false);
-          jTextFieldUsuarioCodEtnia.setEnabled(false);
-          jTextFieldProcDataAtend.setEnabled(false);
-          jTextFieldProcCod.setEnabled(false);
-          jTextFieldProcQuant.setEnabled(false);
-          jTextFieldProcCID.setEnabled(false);
-          jComboBoxProcCaraterAtend.setEnabled(false);
-          jTextFieldProcNumAut.setEnabled(false);
-          //jTable1.setEnabled(false);
+      public void disabledFieldsProcedimento(){
+        this.changeStatusFieldsProcedimento(false);
+          
+      }
+      public void enableFieldsProcedimento(){
+        this.changeStatusFieldsProcedimento(true);
+          
+      }
+      
+      
+      
+      private void changeStatusFieldsProcedimento(boolean status){
+          jTextFieldUsuarioCns.setEnabled(status);
+          jTextFieldUsuarioNome.setEnabled(status);
+          jTextFieldUsuarioSexo.setEnabled(status);
+          jTextFieldUsarioDatNasc.setEnabled(status);
+          jTextFieldUsuarioCodMunicip.setEnabled(status);
+          jTextFieldUsuarioCodNac.setEnabled(status);
+          jComboBoxUsuarioRacaCor.setEnabled(status);
+          jTextFieldUsuarioCodEtnia.setEnabled(status);
+          jTextFieldProcDataAtend.setEnabled(status);
+          jTextFieldProcCod.setEnabled(status);
+          jTextFieldProcQuant.setEnabled(status);
+          jTextFieldProcCID.setEnabled(status);
+          jComboBoxProcCaraterAtend.setEnabled(status);
+          jTextFieldProcNumAut.setEnabled(status);
+          jTable1.setEnabled(status);
+          jButtonLimpar.setEnabled(status);  
+          jButtonIncluir.setEnabled(status);        
           
       }
       
@@ -2387,7 +2414,25 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           this.objectComboBoxModelCaraterAtend.setSelectedObject(c);
       }
           
+      //métodos focusLost
       
+      private void focusLostComboboxServico(){
+           String codigo=this.jTextFieldProcCod.getText();
+           this.procedimentoRealizado.setCodigoProcedimento(codigo);
+           HashMap<String, Object> res=new HashMap<String, Object> ();
+           res.put("procedimentoServicoPK.codigoProcedimento", this.procedimentoRealizado.getCodigoProcedimento().substring(0, 9));
+           res.put("procedimentoServicoPK.competencia", CadastroIndividualizado.this.procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia());
+           //preenche os combobox
+           if(this.procedimentoServicoController.findEqual(res)!=null){
+
+               List<Diversas> d=this.diversasController.findAllClassificacaoServico(CadastroIndividualizado.this.procedimentoRealizado);
+               this.objectComboBoxModelClassificaoServico.setData(d);
+
+               d=this.diversasController.findAllServicos(CadastroIndividualizado.this.procedimentoRealizado);
+               this.objectComboBoxModelServico.setData(d);
+
+               }
+      }
 
 
 

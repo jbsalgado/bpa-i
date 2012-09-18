@@ -45,7 +45,8 @@ public class ProcedimentoDoencaController extends BasecController<ProcedimentoDo
         procedimentoDoenca.getProcedimentoDoencaPK().setCodigoCid(CID);
         procedimentoDoenca.getProcedimentoDoencaPK().setCompetencia(competencia);
         
-        if(findAllEqual(procedimentoDoenca).isEmpty()){
+        
+        if(findEqual(procedimentoDoenca)==null){
             return false;
         }
         

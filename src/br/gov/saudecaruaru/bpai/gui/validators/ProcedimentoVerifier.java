@@ -64,7 +64,8 @@ public class ProcedimentoVerifier extends InputVerifier{
     @Override
     public boolean verify(JComponent input) {
       JTextField txtField = (JTextField) input; 
-      List<Procedimento> procedimentosSearchead = null;
+      Procedimento procedimentosSearchead = null;
+      ProcedimentoRealizado proRealizado = t.getProcedimentoRealizado(); 
       String valor = txtField.getText();
        //pega os sete primeiros digitos (que representam o codigo do procedimento)
       String codProc = valor.substring(0,9);
@@ -73,18 +74,18 @@ public class ProcedimentoVerifier extends InputVerifier{
     
       procedimento.getProcedimentoPk().setId(codProc);
       procedimento.setDigitoVerificador(digitoVerificador);
-      
+      procedimento.getProcedimentoPk().setCompetencia(proRealizado.getProcedimentoRealizadoPK().getCompetencia());
       //faz a busca pelo Procedimento  digitado, se nao encontra notifica ao usuário
-      procedimentosSearchead = procedimentoController.findAllEqual(this.procedimento);
+      procedimentosSearchead = procedimentoController.findEqual(this.procedimento);
                 //verifica se o procedimento existe
-                if (procedimentosSearchead.isEmpty()) {  
+                if (procedimentosSearchead==null) {  
                     return  MessagesErrors.exibeTelaContinuaErro(component, fieldName,"NÃO ENCONTRADO!", txtField);
                  // verifica se o procedimento é compativel com o CBO
                 }else {
-                        Procedimento pro = procedimentosSearchead.get(0);
-                        ProcedimentoRealizado proRealizado = t.getProcedimentoRealizado(); 
-                        int idadeMaxima = procedimentosSearchead.get(0).getIdadeMaximaPaciente();
-                        int idadeMinima = procedimentosSearchead.get(0).getIdadeMinimaPaciente();
+                        
+                        
+                        int idadeMaxima = procedimentosSearchead.getIdadeMaximaPaciente();
+                        int idadeMinima = procedimentosSearchead.getIdadeMinimaPaciente();
                         int idadePaciente = DateUtil.getAge(proRealizado.getDataNascimentoPaciente(),proRealizado.getDataAtendimento());
                     
                     
@@ -92,19 +93,24 @@ public class ProcedimentoVerifier extends InputVerifier{
                         if(!temProcedimentoECbo(valor.substring(0, 9),proRealizado.getProcedimentoRealizadoPK().getCboMedico())){
                             return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM CBO!", txtField);
                             //verifica se o procedimento exige sexo
-                        }else if(pro.exigeSexo()){
+                        }else if(procedimentosSearchead.exigeSexo()){
                             String sexo =proRealizado.getSexoPaciente();
                             //verifica se o sexo digitado é compativel com o exigido
-                        if(!pro.getSexo().toString().equals(sexo)){
-                                return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM O SEXO!", txtField);
-                        }
+                            if(!procedimentosSearchead.getSexo().toString().equals(sexo)){
+                                    return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM O SEXO!", txtField);
+                            }
 
                         }else  if(idadePaciente<idadeMinima || idadePaciente>idadeMaxima){
                                 return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM A IDADE!"+"\n IDADE MÍNIMA: "+idadeMinima+"\n IDADE MÁXIMA: "+idadeMaxima, txtField);
+                        }else  if(!procedimentosSearchead.isBPA() && !procedimentosSearchead.isBPI()){
+                                JOptionPane.showMessageDialog(this.component,"TIPO INVÁLIDO INVÁLIDO! (PERMITIDO SOMENTE BPA OU BPI)"
+                                        ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
+                                txtField.setBackground(Color.RED); 
+                                return  false;
                             }
                   }
                   txtField.setBackground(Color.WHITE);
-                  procNome.setText(procedimentosSearchead.get(0).getDescricao());
+                  procNome.setText(procedimentosSearchead.getDescricao());
                 return true;
        }
     

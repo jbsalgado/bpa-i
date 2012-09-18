@@ -48,7 +48,7 @@ public class BIProcedimentoRealizadoPK implements Serializable{
     }
     
     private void setProcedimentoRealizadoPk(ProcedimentoRealizadoPK procedimentoRealizadoPK){
-         this.cboMedico=procedimentoRealizadoPK.getCboMedico();
+        this.cboMedico=procedimentoRealizadoPK.getCboMedico();
         this.cnesUnidade=procedimentoRealizadoPK.getCnesUnidade();
         this.cnsMedico=procedimentoRealizadoPK.getCnsMedico();
         this.numeroFolha=procedimentoRealizadoPK.getNumeroFolha();
