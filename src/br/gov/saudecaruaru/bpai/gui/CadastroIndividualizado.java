@@ -1844,22 +1844,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void focusLost(FocusEvent e) {
                 //perdeu o foco para um campo e o objeto não tem um CNS
-                if(e.getOppositeComponent() instanceof JTextField && CadastroIndividualizado.this.procedimentoRealizado.getCnsPaciente()==null){
-                    CadastroIndividualizado.this.procedimentoRealizado.setCnsPaciente(((JTextField)e.getComponent()).getText());
-                    //pega um paciente
-                    Paciente pa= new Paciente(CadastroIndividualizado.this.procedimentoRealizado.getCnsPaciente());
-                    if(!pa.getCns().isEmpty()){
-                        pa=CadastroIndividualizado.this.pacienteController.findEqual(pa);
-                        if(pa!=null){
-                            CadastroIndividualizado.this.jTextFieldUsuarioNome.setText(pa.getNome());
-                            CadastroIndividualizado.this.jTextFieldUsuarioCodEtnia.setText(pa.getEtnia());
-                            CadastroIndividualizado.this.jTextFieldUsuarioCodMunicip.setText(pa.getCodigoIbgeCidade());
-                            CadastroIndividualizado.this.jTextFieldUsuarioCodNac.setText(pa.getNacionalidade());
-                            CadastroIndividualizado.this.jTextFieldUsuarioSexo.setText(pa.getSexo().toString());
-                            CadastroIndividualizado.this.jTextFieldUsarioDatNasc.setText(DateUtil.parseToDayMonthYear(pa.getDataNascimento(), false));
-                        }
-                    }
-                }
+                if(e.getOppositeComponent() instanceof JTextField ){
+                   String cns=CadastroIndividualizado.this.jTextFieldUsuarioCns.getText();
+                   if(!cns.isEmpty()){
+                       //caso os código sejam diferentes vai executar
+                       if(!cns.equals(CadastroIndividualizado.this.procedimentoRealizado.getCnsPaciente())){
+                           CadastroIndividualizado.this.focusLostFieldUsuarioCns();
+                       }
+                   }
+               }
                
             }
         });
@@ -2428,6 +2421,23 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                this.objectComboBoxModelServico.setData(d);
 
                }
+      }
+      
+      private void focusLostFieldUsuarioCns(){
+            CadastroIndividualizado.this.procedimentoRealizado.setCnsPaciente(this.jTextFieldUsuarioCns.getText());
+            //pega um paciente
+            Paciente pa= new Paciente(this.procedimentoRealizado.getCnsPaciente());
+            if(!pa.getCns().isEmpty()){
+                pa=this.pacienteController.findEqual(pa);
+                if(pa!=null){
+                    this.jTextFieldUsuarioNome.setText(pa.getNome());
+                    this.jTextFieldUsuarioCodEtnia.setText(pa.getEtnia());
+                    this.jTextFieldUsuarioCodMunicip.setText(pa.getCodigoIbgeCidade());
+                    this.jTextFieldUsuarioCodNac.setText(pa.getNacionalidade());
+                    this.jTextFieldUsuarioSexo.setText(pa.getSexo().toString());
+                    this.jTextFieldUsarioDatNasc.setText(DateUtil.parseToDayMonthYear(pa.getDataNascimento(), false));
+                }
+            }
       }
 
 
