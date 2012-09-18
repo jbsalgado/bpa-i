@@ -420,7 +420,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     }
 
     public void setRacaPaciente(String racaPaciente) {
-        this.racaPaciente = racaPaciente;
+        this.racaPaciente = racaPaciente.trim();
     }
 
     public String getSexoPaciente() {
