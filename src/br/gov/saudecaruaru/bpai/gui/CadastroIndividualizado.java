@@ -151,7 +151,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     }
     
     private void myInitComponents(){
-        
+       
         //seta o estado do frame para ocupar toda a tela
         //this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         //this.setVisible(true);
@@ -207,6 +207,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             //seta a competencia vinda do banco
             procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
         }
+        
+        jTextFieldUsuarioSexo.setText("");
         //inicializando nacionalidade: BRASIL
         jTextFieldUsuarioCodNac.setText(Diversas.CODIGO_NACIONALIDADE_BRASIL);
         procedimentoRealizado.setNacionalidadePaciente(Diversas.CODIGO_NACIONALIDADE_BRASIL);
@@ -1384,12 +1386,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         int row = j.getSelectedRow();
         
         this.procedimentoRealizado = this.tableModelDados.getCloneElementList(row);
-        //caso o objeto pego já possua informacoes, desabilita o cabeçalho
-        if(this.procedimentoRealizado.getProcedimentoRealizadoPK().getCnesUnidade()!=null){
-            this.disableFieldsHeader();
-        }else{
-            this.enableFieldsHeader();
-        }
         fillFields(procedimentoRealizado,false);
     }//GEN-LAST:event_jTable1MouseClicked
 
