@@ -113,6 +113,15 @@ public class BIProcedimentoRealizado implements Serializable{
     @Column(name = "PRD_ADVQT")
     private String prdAdvqt;
 
+    @Column(name = "PRD_SERVICO")
+    private String codigoServico;
+    
+    @Column(name = "PRD_CLASSIFICACAO")
+    private String codigoClassificacaoServico;
+    
+    @Column(name = "PRD_EQUIPE")
+    private String equipe;
+    
     public BIProcedimentoRealizado() {
     }
 
@@ -149,6 +158,9 @@ public class BIProcedimentoRealizado implements Serializable{
         this.racaPaciente=procedimentoRealizado.getRacaPaciente();
         this.codigoProcedimento=procedimentoRealizado.getCodigoProcedimento();
         this.dataAtendimento=procedimentoRealizado.getDataAtendimento();
+        this.codigoServico=procedimentoRealizado.getCodigoServico();
+        this.codigoClassificacaoServico=procedimentoRealizado.getCodigoClassificacaoServico();
+        this.equipe=procedimentoRealizado.getEquipe();
     }
     
     public ProcedimentoRealizado getProcedimentoRealizado(){
@@ -188,6 +200,30 @@ public class BIProcedimentoRealizado implements Serializable{
         this.etniaPaciente = etniaPaciente;
         this.nacionalidadePaciente = nacionalidadePaciente;
         this.prdAdvqt = prdAdvqt;
+    }
+
+    public String getCodigoClassificacaoServico() {
+        return codigoClassificacaoServico;
+    }
+
+    public void setCodigoClassificacaoServico(String codigoClassificacaoServico) {
+        this.codigoClassificacaoServico = codigoClassificacaoServico;
+    }
+
+    public String getCodigoServico() {
+        return codigoServico;
+    }
+
+    public void setCodigoServico(String codigoServico) {
+        this.codigoServico = codigoServico;
+    }
+
+    public String getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(String equipe) {
+        this.equipe = equipe;
     }
 
     

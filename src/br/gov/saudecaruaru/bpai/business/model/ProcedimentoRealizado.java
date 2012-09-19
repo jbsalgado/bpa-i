@@ -100,6 +100,15 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     
     @Column(name = "PRD_ADVQT")
     private String prdAdvqt;
+    
+    @Column(name = "PRD_SERVICO")
+    private String codigoServico;
+    
+    @Column(name = "PRD_CLASSIFICACAO")
+    private String codigoClassificacaoServico;
+    
+    @Column(name = "PRD_EQUIPE")
+    private String equipe;
 
     @Transient
     private String nomeProfissional;
@@ -112,7 +121,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.procedimentoRealizadoPK = procedimentoRealizadoPK;
     }
 
-    public ProcedimentoRealizado(ProcedimentoRealizadoPK procedimentoRealizadoPK,  String codigoProcedimento, String dataAtendimento, String cnsPaciente, String nomePaciente, String dataNascimentoPaciente, String sexoPaciente, String codigoIBGECidadePaciente, String cidDoencaprocedimento, String idadePaciente, Double quantidadeRealizada, String caracterizacaoAtendimento, String numeroAutorizacao, String prdOrg, String prdMvm, String prdFlpa, String prdFlcbo, String prdFlca, String prdFlida, String prdFlqt, String prdFler, String prdFlmun, String prdFlcid, String racaPaciente, String etniaPaciente, String nacionalidadePaciente, String prdAdvqt) {
+    public ProcedimentoRealizado(ProcedimentoRealizadoPK procedimentoRealizadoPK, String codigoProcedimento, String dataAtendimento, String cnsPaciente, String nomePaciente, String dataNascimentoPaciente, String sexoPaciente, String codigoIBGECidadePaciente, String cidDoencaprocedimento, String idadePaciente, Double quantidadeRealizada, String caracterizacaoAtendimento, String numeroAutorizacao, String origemProcedimento, String prdMvm, String prdFlpa, String prdFlcbo, String prdFlca, String prdFlida, String prdFlqt, String prdFler, String prdFlmun, String prdFlcid, String racaPaciente, String etniaPaciente, String nacionalidadePaciente, String prdAdvqt, String codigoServico, String codigoClassificacaoServico, String equipe, String nomeProfissional) {
         this.procedimentoRealizadoPK = procedimentoRealizadoPK;
         this.codigoProcedimento = codigoProcedimento;
         this.dataAtendimento = dataAtendimento;
@@ -126,7 +135,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.quantidadeRealizada = quantidadeRealizada;
         this.caracterizacaoAtendimento = caracterizacaoAtendimento;
         this.numeroAutorizacao = numeroAutorizacao;
-        this.origemProcedimento = prdOrg;
+        this.origemProcedimento = origemProcedimento;
         this.prdMvm = prdMvm;
         this.prdFlpa = prdFlpa;
         this.prdFlcbo = prdFlcbo;
@@ -140,10 +149,12 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.etniaPaciente = etniaPaciente;
         this.nacionalidadePaciente = nacionalidadePaciente;
         this.prdAdvqt = prdAdvqt;
+        this.codigoServico = codigoServico;
+        this.codigoClassificacaoServico = codigoClassificacaoServico;
+        this.equipe = equipe;
+        this.nomeProfissional = nomeProfissional;
     }
-    
-    
-   
+
     
     public ProcedimentoRealizado(String cnes,String cnsProfissional,String cbo,String competencia,String folha) {
         this.procedimentoRealizadoPK = new ProcedimentoRealizadoPK(cnes, cnsProfissional, cbo, competencia, folha);
@@ -191,6 +202,9 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.codigoProcedimento=procedimentoRealizado.getCodigoProcedimento();
         this.dataAtendimento=procedimentoRealizado.getDataAtendimento();
         this.origemProcedimento=procedimentoRealizado.getOrigemProcedimento();
+        this.codigoServico=procedimentoRealizado.getCodigoServico();
+        this.codigoClassificacaoServico=procedimentoRealizado.getCodigoClassificacaoServico();
+        this.equipe=procedimentoRealizado.getEquipe();
     }
     
     public void setPaciente(Paciente paciente){
@@ -203,6 +217,30 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.etniaPaciente=paciente.getEtnia();
         this.nacionalidadePaciente=paciente.getNacionalidade();
        // this.idadePaciente
+    }
+
+    public String getCodigoClassificacaoServico() {
+        return codigoClassificacaoServico;
+    }
+
+    public void setCodigoClassificacaoServico(String codigoClassificacaoServico) {
+        this.codigoClassificacaoServico = codigoClassificacaoServico;
+    }
+
+    public String getCodigoServico() {
+        return codigoServico;
+    }
+
+    public void setCodigoServico(String codigoServico) {
+        this.codigoServico = codigoServico;
+    }
+
+    public String getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(String equipe) {
+        this.equipe = equipe;
     }
     
     
