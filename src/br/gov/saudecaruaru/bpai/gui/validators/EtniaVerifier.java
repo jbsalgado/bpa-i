@@ -7,6 +7,7 @@ package br.gov.saudecaruaru.bpai.gui.validators;
 import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
 import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
+import br.gov.saudecaruaru.bpai.gui.CadastroIndividualizado;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import java.awt.Color;
 import java.awt.Component;
@@ -48,19 +49,23 @@ public class EtniaVerifier extends InputVerifier{
        JTextField txtField = (JTextField) input; 
       String valor = txtField.getText();
        //objeto procurado
-       Diversas diversasNacioSearchead = null;
+       Diversas diversasEtniaSearchead = null;
       //seta o valor digitado no objeto
       diversas.getDiversasPK().setCodigoItemTabela(valor);
-      
-      //faz a busca pelo CBO digitado, se nao encontra notifica ao usuário
-      diversasNacioSearchead = diversasController.findEqual(diversas);
+      diversasEtniaSearchead=CadastroIndividualizado.MAP_DIVERSAS.get(this.diversas.getDiversasPK());
+      if(diversasEtniaSearchead==null){
+          //faz a busca pelo CBO digitado, se nao encontra notifica ao usuário
+          diversasEtniaSearchead = diversasController.findEqual(diversas);
+      }
                 
-                if (diversasNacioSearchead==null) {  
-                    return  MessagesErrors.exibeTelaContinuaErro(component, fieldName,"INCORRETO!", txtField);
-                }
-                  txtField.setBackground(Color.WHITE);
-                   nacioNome.setText(diversasNacioSearchead.getDescricaoItemTabela());
-                return true;
+        if (diversasEtniaSearchead==null) {  
+            return  MessagesErrors.exibeTelaContinuaErro(component, fieldName,"INCORRETO!", txtField);
+        }
+        //guarda a busca no banco de dados
+        CadastroIndividualizado.MAP_DIVERSAS.put(diversasEtniaSearchead.getDiversasPK(), diversasEtniaSearchead);
+        txtField.setBackground(Color.WHITE);
+        nacioNome.setText(diversasEtniaSearchead.getDescricaoItemTabela());
+        return true;
        }
     
 }

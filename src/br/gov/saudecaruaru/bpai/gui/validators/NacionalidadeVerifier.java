@@ -8,6 +8,7 @@ import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
 import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
 import br.gov.saudecaruaru.bpai.business.model.Municipio;
+import br.gov.saudecaruaru.bpai.gui.CadastroIndividualizado;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.InputVerifier;
@@ -53,17 +54,21 @@ public class NacionalidadeVerifier extends InputVerifier{
       diversas.getDiversasPK().setCodigoItemTabela(valor);
       
       //faz a busca pelo CBO digitado, se nao encontra notifica ao usuário
-      diversasNacioSearchead = diversasController.findEqual(diversas);
+      diversasNacioSearchead=CadastroIndividualizado.MAP_DIVERSAS.get(this.diversas.getDiversasPK());
+      if(diversasNacioSearchead==null){
+        diversasNacioSearchead = diversasController.findEqual(diversas);
+      }
                 
-                if (diversasNacioSearchead==null) {  
+      if (diversasNacioSearchead==null) {  
                        JOptionPane.showMessageDialog(this.component,fieldName + " INCORRETO!", 
                 "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
                 txtField.setBackground(Color.RED);
                     return false;
-                }
-                  txtField.setBackground(Color.WHITE);
-                   nacioNome.setText(diversasNacioSearchead.getDescricaoItemTabela());
-                return true;
+       }
+      CadastroIndividualizado.MAP_DIVERSAS.put(diversasNacioSearchead.getDiversasPK(), diversasNacioSearchead);
+      txtField.setBackground(Color.WHITE);
+       nacioNome.setText(diversasNacioSearchead.getDescricaoItemTabela());
+       return true;
        }
     
 }

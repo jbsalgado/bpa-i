@@ -7,10 +7,9 @@ package br.gov.saudecaruaru.bpai.gui.validators;
 import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
 import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
+import br.gov.saudecaruaru.bpai.gui.CadastroIndividualizado;
 import java.awt.Color;
 import java.awt.Component;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -49,13 +48,22 @@ public class CBOVerifier extends InputVerifier{
       //seta o valor digitado no objeto
       diversas.getDiversasPK().setCodigoItemTabela(valor);
                 //faz a busca pelo CBO digitado, se nao encontra notifica ao usuário
-                if (diversasController.findEqual(diversas)==null) {  
+                //primeiro tenta buscar os que ja foram selecionados
+                Diversas d=CadastroIndividualizado.MAP_DIVERSAS.get(this.diversas.getDiversasPK());
+                if(d==null){
+                    //pega no banco de dados
+                        d=diversasController.findEqual(diversas);
+                }
+                //não encontrou pq não tem!
+                if (d==null) {  
                        JOptionPane.showMessageDialog(this.component,fieldName + " INCORRETO!", 
                 "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
                 txtField.setBackground(Color.RED);
                     return false;
                 }
-                  txtField.setBackground(Color.WHITE);
+                //vai adicionar o CBO
+                CadastroIndividualizado.MAP_DIVERSAS.put(d.getDiversasPK(), d);
+                txtField.setBackground(Color.WHITE);
                 return true;
        }
     
