@@ -4,9 +4,12 @@ package br.gov.saudecaruaru.bpai.gui;
 
 
 
+import br.gov.saudecaruaru.bpai.gui.formatter.CaraterAtendimentoFormatter;
+import br.gov.saudecaruaru.bpai.gui.formatter.DiversasFormatter;
 import br.gov.saudecaruaru.bpai.business.controller.*;
 import br.gov.saudecaruaru.bpai.business.model.*;
 
+import br.gov.saudecaruaru.bpai.gui.formatter.EquipeFormatter;
 import br.gov.saudecaruaru.bpai.gui.validators.*;
 import br.gov.saudecaruaru.bpai.util.DateUtil;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModel;
@@ -35,7 +38,10 @@ import javax.swing.text.JTextComponent;
  */
 public class CadastroIndividualizado extends javax.swing.JDialog implements TelaCadastroI{
     
-     
+     //armazenamento de variáveis para a busca dos dados ficar mais rápida
+     public static HashMap<String, Equipe> MAP_EQUIPE= new HashMap<String, Equipe>();
+     public static HashMap<Object, Diversas> MAP_DIVERSAS= new HashMap<Object, Diversas>();
+     public static HashMap<Object, Paciente> MAP_PACIENTE= new HashMap<Object, Paciente>();
      
      private Diversas diversas;
      private DiversasPK diversasPk;
@@ -50,6 +56,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      private BIProcedimentoRealizadoController bIProcedimentoRealizadoController;
      private ProcedimentoRealizadoController procedimentoRealizadoController;
      private ProcedimentoServicoController procedimentoServicoController;
+     private EquipeController equipeController;
      
      private ProcedimentoRealizado procedimentoRealizado;
      private GestorCompetenciaController gestorCompetenciaController;
@@ -59,6 +66,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      private ObjectComboBoxModel<Diversas> objectComboBoxModelServico;
      private ObjectComboBoxModel<Diversas> objectComboBoxModelClassificaoServico;
      private ObjectComboBoxModel<CaraterAtendimento> objectComboBoxModelCaraterAtend;
+     private ObjectComboBoxModel<Equipe> objectComboBoxModelEquipe;
      private int sequencia=1;
      
      private List<BIProcedimentoRealizado> lBi;
@@ -108,13 +116,16 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.objectComboBoxModelRacaCor= new ObjectComboBoxModel<Diversas>();
         this.objectComboBoxModelServico= new ObjectComboBoxModel<Diversas>();
         this.objectComboBoxModelClassificaoServico= new ObjectComboBoxModel<Diversas>();
-        
         this.objectComboBoxModelCaraterAtend= new ObjectComboBoxModel<CaraterAtendimento>();
+        this.objectComboBoxModelEquipe= new ObjectComboBoxModel<Equipe>();
+        
         DiversasFormatter formatter=new DiversasFormatter();
         this.objectComboBoxModelRacaCor.setFormatter(formatter);
         this.objectComboBoxModelServico.setFormatter(formatter);
         this.objectComboBoxModelClassificaoServico.setFormatter(formatter);
         this.objectComboBoxModelCaraterAtend.setFormatter(new CaraterAtendimentoFormatter());
+        this.objectComboBoxModelEquipe.setFormatter(new EquipeFormatter());
+        
         this.gestorCompetenciaController = new GestorCompetenciaController(); 
         this.diversasController = new DiversasController();
         this.medicoController= new MedicoController();
@@ -126,6 +137,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.bIProcedimentoRealizadoController= new BIProcedimentoRealizadoController();
         this.procedimentoRealizadoController=new ProcedimentoRealizadoController();
         this.procedimentoServicoController= new ProcedimentoServicoController();
+        this.equipeController= new EquipeController();
         
         this.lBi=new ArrayList<BIProcedimentoRealizado>();
         this.setPaciente=new HashSet<Paciente>();
@@ -1657,6 +1669,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         
         this.jComboBoxUsuarioServico.setModel(this.objectComboBoxModelServico);
         this.jComboBoxUsuarioClassificacao.setModel(this.objectComboBoxModelClassificaoServico);
+        this.jComboBoxEquipe.setModel(this.objectComboBoxModelEquipe);
         
         //inicializar comboBox Cor
         //seta no modelo Diversas o codigo referente a tabela Cor no banco
@@ -1690,28 +1703,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
       
       private void addListenersFields(){
           
-//          
-//          jComboBoxUsuarioRacaCor.addItemListener(new ItemListener() {
-//
-//            @Override
-//            public void itemStateChanged(ItemEvent e) {
-//                 String itemRacaCor =  e.getItem().toString();
-//                       
-//                     
-//                       //caso a cor/raca seja indigena habilita o campo etnia e faz ele ganhar o foco
-//                       if(itemRacaCor.substring(0, 2).equals(Diversas.COD_RACA_COR_INDIGENA)){
-//                           jTextFieldUsuarioCodEtnia.setEnabled(true);
-//                          // jTextFieldUsuarioCodEtnia.requestFocus();
-//                           
-//                       }else{
-//                           jTextFieldUsuarioCodEtnia.setEnabled(false);
-//                           
-//                       }
-//               
-//            }
-//        });
-          
-          
           
           jTextFieldCnes.addFocusListener(new FocusListener() {
 
@@ -1722,7 +1713,16 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-               procedimentoRealizado.getProcedimentoRealizadoPK().setCnesUnidade(jTextFieldCnes.getText());
+                                //perdeu o foco para um campo e o objeto não tem um CNS
+                if(e.getOppositeComponent() instanceof JTextField ){
+                   String cnes=CadastroIndividualizado.this.jTextFieldCnes.getText();
+                   if(!cnes.isEmpty()){
+                       //caso os cnes's sejam diferentes vai executar
+                       if(!cnes.equals(CadastroIndividualizado.this.procedimentoRealizado.getProcedimentoRealizadoPK().getCnesUnidade())){
+                           CadastroIndividualizado.this.focusLostFieldCnes();
+                       }
+                   }
+               }
               
             }
         });
@@ -2414,11 +2414,20 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
            //preenche os combobox
            if(this.procedimentoServicoController.findEqual(res)!=null){
 
+               //busca as classificaçoes dos serviços que o procedimento tem
                List<Diversas> d=this.diversasController.findAllClassificacaoServico(CadastroIndividualizado.this.procedimentoRealizado);
                this.objectComboBoxModelClassificaoServico.setData(d);
-
+               //seleciona a primeira classificação
+               if(!d.isEmpty()){
+                    this.jComboBoxUsuarioClassificacao.setSelectedIndex(0);
+               }
+               //busca todos os serviços que o procedimento tem
                d=this.diversasController.findAllServicos(CadastroIndividualizado.this.procedimentoRealizado);
                this.objectComboBoxModelServico.setData(d);
+               //seleciona o primeiro serviço
+               if(!d.isEmpty()){
+                    this.jComboBoxUsuarioServico.setSelectedIndex(0);
+               }
 
                }
       }
@@ -2426,10 +2435,16 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
       private void focusLostFieldUsuarioCns(){
             CadastroIndividualizado.this.procedimentoRealizado.setCnsPaciente(this.jTextFieldUsuarioCns.getText());
             //pega um paciente
-            Paciente pa= new Paciente(this.procedimentoRealizado.getCnsPaciente());
-            if(!pa.getCns().isEmpty()){
-                pa=this.pacienteController.findEqual(pa);
+            Paciente p= new Paciente(this.procedimentoRealizado.getCnsPaciente());
+            if(!p.getCns().isEmpty()){
+                Paciente pa=CadastroIndividualizado.MAP_PACIENTE.get(p.getCns());
+                //não achou nos pacientes já encontrados
+                if(pa==null){
+                    //pega no banco de dados
+                    pa=this.pacienteController.findEqual(pa);
+                }
                 if(pa!=null){
+                    CadastroIndividualizado.MAP_PACIENTE.put(pa.getCns(), pa);
                     this.jTextFieldUsuarioNome.setText(pa.getNome());
                     this.jTextFieldUsuarioCodEtnia.setText(pa.getEtnia());
                     this.jTextFieldUsuarioCodMunicip.setText(pa.getCodigoIbgeCidade());
@@ -2440,6 +2455,21 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
       }
 
+  private void focusLostFieldCnes(){
+        String cnes=this.jTextFieldCnes.getText();
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setCnesUnidade(cnes);
+        //vai buscar a equipe caso exista
+        //criação de restrições
+        HashMap<String,Object> res= new HashMap<String, Object>();
+        res.put("equipePK.cnes", cnes);
+        res.put("equipePK.competencia", this.procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia());
+        List<Equipe> equipes=this.equipeController.findAllEqual(res);
+        //devolveu algo
+        if(!equipes.isEmpty()){
+            this.objectComboBoxModelEquipe.setData(equipes);
+            this.jComboBoxEquipe.setSelectedIndex(0);
+        }
+  }
 
 
 }
