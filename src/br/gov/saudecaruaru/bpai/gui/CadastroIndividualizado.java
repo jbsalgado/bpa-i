@@ -43,6 +43,16 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      public static HashMap<Object, Diversas> MAP_DIVERSAS= new HashMap<Object, Diversas>();
      public static HashMap<Object, Paciente> MAP_PACIENTE= new HashMap<Object, Paciente>();
      
+    
+         
+    
+
+    /**
+     * @return the listFieldsHeader
+     */
+    public  List<Component> getListFieldsHeader() {
+        return listFieldsHeader;
+    }
      private Diversas diversas;
      private DiversasPK diversasPk;
      //controladores
@@ -73,7 +83,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      private Set<Paciente> setPaciente;
      private Set<Medico> setMedico;
      private Set<MedicoCboCnes> setMedicoCboCnes;
-  
+     
+     private  List<Component> listFieldsHeader = new ArrayList<Component>();
+     private  List<Component> listFieldsProcedimento = new ArrayList<Component>();
+     private  List<Component> listFieldsDates = new ArrayList<Component>();
      
     /**
      * Creates new form CadastroIndividualizado
@@ -149,8 +162,62 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         diversas = new  Diversas();
         diversasPk = new DiversasPK();
         diversas.setDiversasPK(diversasPk);
+        
+        //inicializa a lista com as referencias aos campso do cabeçalho
+        this.initListFieldsHeader();
+        this.initListFieldsProcedimento();
+        this.initListFieldsDates();
     }
+    private void initListFieldsHeader(){
+       listFieldsHeader= new ArrayList<Component>();
+       listFieldsHeader.add(jTextFieldCnes);
+       listFieldsHeader.add(jTextFieldCnsProfiss);
+       listFieldsHeader.add(jTextFieldNomeProfiss);
+       listFieldsHeader.add(jTextFieldCBO);
+       listFieldsHeader.add(jTextFieldMes);
+       listFieldsHeader.add(jTextFieldAno);
+       listFieldsHeader.add(jTextFieldFolha);
 
+    }
+    
+     private void initListFieldsDates(){
+       listFieldsDates= new ArrayList<Component>();
+       listFieldsDates.add(jTextFieldUsarioDatNasc);
+       listFieldsDates.add(jTextFieldProcDataAtend);
+     }
+    
+     private void initListFieldsProcedimento(){
+       listFieldsProcedimento= new ArrayList<Component>();
+        //seta as referencias dos textsFields na lista
+        //LEMBRE-SE QUE A ORDEM É IMPORTANTE PORQUE A VALIDACAO DE UM TEXTFIELD (nos input verifiers)
+        //PODEM DEPENDER DO VALOR DE OUTRO
+        getListFieldsProcedimento().add(jTextFieldUsarioDatNasc);
+        getListFieldsProcedimento().add(jTextFieldUsuarioNome);
+        getListFieldsProcedimento().add(jTextFieldUsuarioSexo);
+        getListFieldsProcedimento().add(jTextFieldUsuarioCodMunicip);
+        getListFieldsProcedimento().add(jTextFieldProcDataAtend);
+        getListFieldsProcedimento().add(jTextFieldProcCod);
+       
+     }
+    
+    private boolean textFieldVerifier(List<Component> listComponents){
+     
+        for(Component c:listComponents){
+            if(c instanceof JTextField){
+                JTextField field = ((JTextField)c);
+                String value = field.getText().replace("/"," ").trim();
+                if(value.isEmpty()){
+                     //rquisista o foco
+                     field.requestFocus();
+                     //perde o foco
+                     field.transferFocus();
+                     return false;
+                 
+                }
+            }  
+ }
+      return true;
+}
     private void insertInJTable() {
         try{
          //insere o modelo Procedimento realizado na jTable
@@ -174,7 +241,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.procedimentoRealizado = this.tableModelDados.getCloneElementList(0);
         //caso o objeto pego já possua informacoes, desabilita o cabeçalho
         this.fillFields(this.procedimentoRealizado, true); 
-     
+        this.disabledFieldsProcedimento();
         
          this.jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
        
@@ -666,34 +733,34 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Cadastro indivualizado"); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("CNES");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("CNS Profissional");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Nome Profissional");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Mês/Ano");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Folha");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText(" /");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("CNS");
 
         jLabel8.setText("Usuário Sequência :");
 
         jLabelUsuarioSeq.setText("01");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setText("Nome ");
 
         jTextFieldUsuarioNome.addActionListener(new java.awt.event.ActionListener() {
@@ -702,15 +769,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Sexo");
 
         jLabel11.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText(" F/M");
         jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setText("Dt. Nascimento");
 
         jTextFieldUsuarioNomeNac.setBackground(new java.awt.Color(153, 153, 153));
@@ -720,7 +787,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel14.setText("Nacionalidade");
 
         jTextFieldUsuarioNomeMunicip.setBackground(new java.awt.Color(153, 153, 153));
@@ -730,10 +797,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel13.setText("Município de Residência");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel15.setText("Raça/Cor");
 
         jTextFieldUsuarioDescEtnia.setBackground(new java.awt.Color(153, 153, 153));
@@ -750,7 +817,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel17.setText("Etnia");
 
         jTextFieldUsuarioCns.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###############"))));
@@ -893,7 +960,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jLabelProcSeq.setText("01");
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel20.setText("Dt. Atendimento");
 
         jTextFieldProcQuant.addActionListener(new java.awt.event.ActionListener() {
@@ -902,7 +969,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel22.setText("Quantidade");
 
         jTextFieldProcDescriDoenca.setBackground(new java.awt.Color(153, 153, 153));
@@ -912,10 +979,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel23.setText("Código");
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel24.setText("CID");
 
         jTextFieldProcDescricao.setBackground(new java.awt.Color(153, 153, 153));
@@ -932,13 +999,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel19.setText("Nº Autorização");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel18.setText("Caráter Atendimento");
 
-        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonIncluir.setText("Incluir");
         jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -956,7 +1023,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonLimpar.setText("Limpar");
         jButtonLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1025,7 +1092,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel26.setText("Serviço");
 
         jComboBoxUsuarioServico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -1035,7 +1102,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel27.setText("Classificação");
 
         jComboBoxUsuarioClassificacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -1204,7 +1271,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             ex.printStackTrace();
         }
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel21.setText("CBO");
 
         jComboBoxEquipe.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -1214,7 +1281,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel25.setText("Equipe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1337,7 +1404,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     }//GEN-LAST:event_jTextFieldProcQuantActionPerformed
 
     private void jButtonIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirMouseClicked
-        
+        if(this.textFieldVerifier(getListFieldsProcedimento())){
         // metodo que pega os valores de alguns campos e adiciona-os ao modelo
         this.getValuesOfFieldsForModel();
          if(this.tableModelDados.getCloneElementListEmpty()==null){
@@ -1363,7 +1430,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
          }
        
 
-
+        }
     }//GEN-LAST:event_jButtonIncluirMouseClicked
 
     private void beginNewWindow(){
@@ -1638,6 +1705,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         return procedimentoRealizado;
     }
 
+    /**
+     * @return the listFieldsProcedimento
+     */
+    public List<Component> getListFieldsProcedimento() {
+        return listFieldsProcedimento;
+    }
+
 
 
     //classe validadora para o campo CNSUsuario
@@ -1778,8 +1852,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-            
-               procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(((JTextField)e.getComponent()).getText()+jTextFieldMes.getText());
+                  if(e.getOppositeComponent() instanceof JTextField){
+                    procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(((JTextField)e.getComponent()).getText()+jTextFieldMes.getText());
+                    enableFieldsProcedimento();
+               }
             }
         }); 
         
@@ -1797,16 +1873,19 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-                //se o próximo componente for um jtextfield e o método ainda não tinha sido executado
-               if(e.getOppositeComponent() instanceof JTextField && procedimentoRealizado.getProcedimentoRealizadoPK().getNumeroFolha()==null){
+               //se o próximo componente for um jtextfield 
+               if(e.getOppositeComponent() instanceof JTextField){
                    //pega o número da folha
                    procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(((JTextField)e.getComponent()).getText());
 
                    if(jTextFieldFolha.getInputVerifier().shouldYieldFocus(jTextFieldFolha)){
-                        //desabilita os campos do cabeçalho da tela que são 
-                        //referentes as informações da unidade e do usuário      
-                        disableFieldsHeader();
-
+                        //List<String> emptyFields = 
+                        if(textFieldVerifier(getListFieldsHeader())){
+                            //desabilita os campos do cabeçalho da tela que são 
+                            //referentes as informações da unidade e do usuário      
+                            disableFieldsHeader();
+                            
+                        }  
 
                    }
                     try {
@@ -1895,8 +1974,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-               //se o próximo componente for um jtextfield e o método ainda não tinha sido executado
-               if( e.getOppositeComponent() instanceof JTextField 
+               //se o próximo componente for um Component e o método ainda não tinha sido executado
+               if( e.getOppositeComponent() instanceof Component 
                        && procedimentoRealizado.getDataNascimentoPaciente()==null){ 
                 if(jTextFieldUsarioDatNasc.getInputVerifier().shouldYieldFocus(jTextFieldUsarioDatNasc)){   
                     //converte a data para o formato YYYMMdd 
@@ -2002,20 +2081,24 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusGained(FocusEvent e) {
-               
+                //textFieldVerifier(listFieldsDates);
             }
 
             @Override
             public void focusLost(FocusEvent e) {
                 //perdeu o foco para a campo "quantidade"
                if(e.getOppositeComponent() instanceof JTextField ){
+                  
                    String codigo=CadastroIndividualizado.this.jTextFieldProcCod.getText();
                    if(!codigo.isEmpty()){
+                       
                        //caso os código sejam diferentes vai executar
                        if(!codigo.equals(CadastroIndividualizado.this.procedimentoRealizado.getCodigoProcedimento())){
                            CadastroIndividualizado.this.focusLostComboboxServico();
                        }
+                       
                    }
+               
                }
             }
         });

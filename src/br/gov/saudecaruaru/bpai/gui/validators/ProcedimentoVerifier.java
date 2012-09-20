@@ -74,40 +74,52 @@ public class ProcedimentoVerifier extends InputVerifier{
     
       procedimento.getProcedimentoPk().setId(codProc);
       procedimento.setDigitoVerificador(digitoVerificador);
-      procedimento.getProcedimentoPk().setCompetencia(proRealizado.getProcedimentoRealizadoPK().getCompetencia());
+      //procedimento.getProcedimentoPk().setCompetencia(proRealizado.getProcedimentoRealizadoPK().getCompetencia());
+      
+      //VALOR ESTÁTICO PARA TESTES
+      procedimento.getProcedimentoPk().setCompetencia("201208");
       //faz a busca pelo Procedimento  digitado, se nao encontra notifica ao usuário
       procedimentosSearchead = procedimentoController.findEqual(this.procedimento);
                 //verifica se o procedimento existe
                 if (procedimentosSearchead==null) {  
+                    
                     return  MessagesErrors.exibeTelaContinuaErro(component, fieldName,"NÃO ENCONTRADO!", txtField);
                  // verifica se o procedimento é compativel com o CBO
                 }else {
-                        
+                        int idadePaciente = 1000;
                         
                         int idadeMaxima = procedimentosSearchead.getIdadeMaximaPaciente();
                         int idadeMinima = procedimentosSearchead.getIdadeMinimaPaciente();
-                        int idadePaciente = DateUtil.getAge(proRealizado.getDataNascimentoPaciente(),proRealizado.getDataAtendimento());
+                        if(proRealizado.getDataNascimentoPaciente()!=null && proRealizado.getDataAtendimento()!=null ){
+                            idadePaciente =   DateUtil.getAge(proRealizado.getDataNascimentoPaciente(),proRealizado.getDataAtendimento());
+                        }
+                      
                     
                     
                     
                         if(!temProcedimentoECbo(valor.substring(0, 9),proRealizado.getProcedimentoRealizadoPK().getCboMedico())){
                             return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM CBO!", txtField);
                             //verifica se o procedimento exige sexo
-                        }else if(procedimentosSearchead.exigeSexo()){
+                        }
+                        if(procedimentosSearchead.exigeSexo()){
                             String sexo =proRealizado.getSexoPaciente();
                             //verifica se o sexo digitado é compativel com o exigido
                             if(!procedimentosSearchead.getSexo().toString().equals(sexo)){
                                     return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM O SEXO!", txtField);
                             }
 
-                        }else  if(idadePaciente<idadeMinima || idadePaciente>idadeMaxima){
+                        } 
+                            
+                        if((idadePaciente<idadeMinima) || (idadePaciente>idadeMaxima)){
                                 return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM A IDADE!"+"\n IDADE MÍNIMA: "+idadeMinima+"\n IDADE MÁXIMA: "+idadeMaxima, txtField);
-                        }else  if(!procedimentosSearchead.isBPA() && !procedimentosSearchead.isBPI()){
+                        } 
+                        if(!procedimentosSearchead.isBPA() && !procedimentosSearchead.isBPI()){
                                 JOptionPane.showMessageDialog(this.component,"TIPO INVÁLIDO INVÁLIDO! (PERMITIDO SOMENTE BPA OU BPI)"
                                         ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
                                 txtField.setBackground(Color.RED); 
                                 return  false;
                             }
+                        
                   }
                   txtField.setBackground(Color.WHITE);
                   procNome.setText(procedimentosSearchead.getDescricao());
