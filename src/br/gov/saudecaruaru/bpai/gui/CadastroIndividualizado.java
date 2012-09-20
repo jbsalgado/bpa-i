@@ -1874,7 +1874,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void focusLost(FocusEvent e) {
                //se o próximo componente for um jtextfield 
-               if(e.getOppositeComponent() instanceof JTextField){
+               if(e.getOppositeComponent() instanceof Component){
                    //pega o número da folha
                    procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(((JTextField)e.getComponent()).getText());
 
