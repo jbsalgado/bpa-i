@@ -2230,7 +2230,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           jTextFieldProcDataAtend.setEnabled(status);
           jTextFieldProcCod.setEnabled(status);
           jTextFieldProcQuant.setEnabled(status);
-          jComboBoxEquipe.setEnabled(status);
+          jComboBoxUsuarioClassificacao.setEnabled(status);
           jComboBoxUsuarioServico.setEnabled(status);
           jTextFieldProcCID.setEnabled(status);
           jComboBoxProcCaraterAtend.setEnabled(status);
