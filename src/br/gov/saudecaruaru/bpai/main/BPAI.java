@@ -9,6 +9,7 @@ import br.gov.saudecaruaru.bpai.data.*;
 import br.gov.saudecaruaru.bpai.gui.EscolhaBanco;
 import br.gov.saudecaruaru.bpai.gui.ListaProcedimento;
 import br.gov.saudecaruaru.bpai.gui.SearchGeneric;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -74,6 +75,7 @@ public class BPAI {
        ListaProcedimento principal= new ListaProcedimento();
        principal.setVisible(true);
        principal.setLocationRelativeTo(null);
+       principal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
     }
 }

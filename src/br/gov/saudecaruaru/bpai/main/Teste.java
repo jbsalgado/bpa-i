@@ -4,16 +4,16 @@
  */
 package br.gov.saudecaruaru.bpai.main;
 
+import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
+import br.gov.saudecaruaru.bpai.business.controller.EquipeController;
 import br.gov.saudecaruaru.bpai.business.controller.SistemaController;
 import br.gov.saudecaruaru.bpai.business.model.Diversas;
-import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
+import br.gov.saudecaruaru.bpai.business.model.Equipe;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
-import br.gov.saudecaruaru.bpai.business.model.ProcedimentoServico;
 import br.gov.saudecaruaru.bpai.data.DiversasDAO;
-import br.gov.saudecaruaru.bpai.data.ProcedimentoServicoDAO;
-import java.awt.SystemColor;
-
+import br.gov.saudecaruaru.bpai.data.HibernateUtil;
+import br.gov.saudecaruaru.bpai.data.ProcedimentoRealizadoDAO;
 /**
  *
  * @author Albuquerque
@@ -21,8 +21,11 @@ import java.awt.SystemColor;
 public class Teste {
     public static void main(String[] args){
         SistemaController.loadConfigurations();
-        testeDiversasServicos();
-        testeDiversasTabelaClassificacaoServico();
+        HibernateUtil.createIndices();
+//        testeExportacaoProcedimentosIndividuais();
+//        testeExportacaoProcedimentosCosolidados();
+//        testeEquipes();
+        init();
     }
     
     public static void testeDiversasServicos(){
@@ -44,5 +47,26 @@ public class Teste {
         }
 
         
+    }
+    
+    public static void testeExportacaoProcedimentosIndividuais(){
+        BIProcedimentoRealizadoController con= new BIProcedimentoRealizadoController();
+        con.findAllProcedimentosIndividuaisAndSave(null, new ProcedimentoRealizadoDAO(), 50);
+    }
+    
+    public static void testeExportacaoProcedimentosCosolidados(){
+        BIProcedimentoRealizadoController con= new BIProcedimentoRealizadoController();
+        con.findAllProcedimentosConsolidadosAndSave(null, new ProcedimentoRealizadoDAO(), 50);
+    }
+    
+    public static void testeEquipes(){
+        EquipeController equipe= new EquipeController();
+        for(Equipe e: equipe.findAll()){
+            System.out.println(e);
+        }
+    }
+    
+    public static void init(){
+        HibernateUtil.createIndices();
     }
 }
