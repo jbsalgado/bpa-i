@@ -157,67 +157,109 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
     @Override
     public List<T> findAll()  {
         Session session= this.getSession();
-        return session.createCriteria(persistentClass).list();
+        List<T> l=null;
+        try{
+            l= session.createCriteria(persistentClass).list();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        finally{
+            session.close();
+            return l;
+        }
     }
     
     
     @Override
     public List<T> findAllEqual(Serializable objeto){
         Session session= this.getSession();
-        Criteria c=session.createCriteria(persistentClass);   
-        Map<String, Object> restrictions=ModelUtil.getRestrictions(objeto);
-        for(String key: restrictions.keySet()){
-            if(key!=null){
-                c.add(Restrictions.eq(key, restrictions.get(key)));
-                        
+        List<T> l=null;
+        try{
+            Criteria c=session.createCriteria(persistentClass);   
+            Map<String, Object> restrictions=ModelUtil.getRestrictions(objeto);
+            for(String key: restrictions.keySet()){
+                if(key!=null){
+                    c.add(Restrictions.eq(key, restrictions.get(key)));
+
+                }
             }
+            l=c.list();
+        }catch(Exception ex){
+            ex.printStackTrace();
         }
-        
-        return c.list();
+        finally{
+            session.close();
+            return l;
+        }
     }
     
     
     @Override
     public List<T> findAllEqual(Map<String,Object> restrictions){
         Session session= this.getSession();
-        Transaction t=session.getTransaction();
-        Criteria c=session.createCriteria(persistentClass);
-        for(String key: restrictions.keySet()){
-            if(key!=null){
-                c.add(Restrictions.eq(key, restrictions.get(key)));
-                        
+        List<T> l=null;
+        try{
+            Criteria c=session.createCriteria(persistentClass);
+            for(String key: restrictions.keySet()){
+                if(key!=null){
+                    c.add(Restrictions.eq(key, restrictions.get(key)));
+
+                }
             }
+            l=c.list();
+        }catch(Exception ex){
+            ex.printStackTrace();
         }
-        return c.list();
+        finally{
+           session.close();
+           return l;
+        }
     }
     
     
     @Override
     public List<T> findAllLike(Map<String,Object> restrictions){
         Session session= this.getSession();
-        Transaction t=session.getTransaction();
-        Criteria c=session.createCriteria(persistentClass);
-        for(String key: restrictions.keySet()){
-            if(key!=null){
-                c.add(Restrictions.like(key, restrictions.get(key).toString(), MatchMode.START));
-                        
+        List<T> l=null;
+        try{
+            Criteria c=session.createCriteria(persistentClass);
+            for(String key: restrictions.keySet()){
+                if(key!=null){
+                    c.add(Restrictions.like(key, restrictions.get(key).toString(), MatchMode.START));
+
+                }
             }
+            l = c.list();
+        }catch(Exception ex){
+            ex.printStackTrace();
         }
-        return c.list();
+        finally{
+            session.close();
+            return l;
+        }
     }
 
 
     @Override
     public T findEqual(Map<String, Object> restrictions) {
         Session session= this.getSession();
-        Criteria c=session.createCriteria(persistentClass);
-        for(String key: restrictions.keySet()){
-            if(key!=null){
-                c.add(Restrictions.eq(key, restrictions.get(key)));
-                        
+        T t=null;
+        try{
+            Criteria c=session.createCriteria(persistentClass);
+            for(String key: restrictions.keySet()){
+                if(key!=null){
+                    c.add(Restrictions.eq(key, restrictions.get(key)));
+
+                }
             }
+            t=(T) c.uniqueResult();
+        }catch(Exception ex){
+            ex.printStackTrace();
         }
-        return (T) c.uniqueResult();
+        finally{
+            session.close();
+            return t;
+        }
     }
     
 
@@ -225,16 +267,24 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
     @Override
     public T findEqual(T object) {
       Session session= this.getSession();
-        Criteria c=session.createCriteria(persistentClass);   
-        Map<String, Object> restrictions=ModelUtil.getRestrictions(object);
-        for(String key: restrictions.keySet()){
-            if(key!=null){
-                c.add(Restrictions.eq(key, restrictions.get(key)));
-                        
+      T t=null;
+        try{
+            Criteria c=session.createCriteria(persistentClass);   
+            Map<String, Object> restrictions=ModelUtil.getRestrictions(object);
+            for(String key: restrictions.keySet()){
+                if(key!=null){
+                    c.add(Restrictions.eq(key, restrictions.get(key)));
+
+                }
             }
+             t=(T) c.uniqueResult();
+        }catch(Exception ex){
+            ex.printStackTrace();
         }
-        
-                return (T) c.uniqueResult();
+        finally{
+            session.close();
+            return t;
+        }
     }
 
 }

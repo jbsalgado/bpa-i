@@ -1586,47 +1586,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         // TODO add your handling code here:
     }                                             
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /*
-         * Set the Nimbus look and feel
-         */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the
-         * default look and feel. For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroIndividualizado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroIndividualizado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroIndividualizado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroIndividualizado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /*
-         * Create and display the form
-         */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new CadastroIndividualizado().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonGravar;
     private javax.swing.JButton jButtonIncluir;
@@ -2544,14 +2503,16 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.procedimentoRealizado.getProcedimentoRealizadoPK().setCnesUnidade(cnes);
         //vai buscar a equipe caso exista
         //criação de restrições
+        String competencia=this.procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia();
+        
         HashMap<String,Object> res= new HashMap<String, Object>();
         res.put("equipePK.cnes", cnes);
-        res.put("equipePK.competencia", this.procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia());
+        res.put("equipePK.competencia", competencia);
         List<Equipe> equipes=this.equipeController.findAllEqual(res);
         //devolveu algo
         if(!equipes.isEmpty()){
+            this.objectComboBoxModelEquipe.setSelectedItem(equipes.get(0));
             this.objectComboBoxModelEquipe.setData(equipes);
-            this.jComboBoxEquipe.setSelectedIndex(0);
         }
   }
 
