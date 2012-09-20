@@ -4,8 +4,11 @@
  */
 package br.gov.saudecaruaru.bpai.data;
 
+import java.util.List;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
@@ -115,4 +118,22 @@ public class HibernateUtil {
         return sessionFactoryBpaI.openSession();
     }
 
+    public static void createIndices(){
+        Session s=HibernateUtil.getSession();
+        Transaction t=null;
+        try{
+            SQLQuery sql=s.createSQLQuery("SELECT RDB$INDEX_NAME  FROM RDB$INDICES WHERE RDB$RELATION_NAME='S_EQESF' and RDB$INDEX_NAME='S_EQESF_CMP_CNES';");
+            List l=sql.list();
+            if(l.isEmpty()){
+                t=s.beginTransaction();
+                sql=s.createSQLQuery("CREATE INDEX S_EQESF_CMP_CNES ON S_EQESF( ESF_CMP,ESF_CNES );");
+                sql.executeUpdate();
+                t.commit();
+            }
+            s.close();
+        }catch(Exception ex){
+            t.rollback();
+            ex.printStackTrace();
+        }
+    }
 }
