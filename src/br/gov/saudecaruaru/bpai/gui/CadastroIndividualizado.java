@@ -2071,7 +2071,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-                if(e.getOppositeComponent() instanceof JTextField ){
+                if(e.getOppositeComponent() instanceof JComboBox ){
                    String quantidade=CadastroIndividualizado.this.jTextFieldProcQuant.getText();
                    if(!quantidade.isEmpty()){
                        //caso as quantidades sejam diferentes vai executar
@@ -2219,14 +2219,14 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         Procedimento procedimento = new Procedimento();
        
         String competencia = jTextFieldAno.getText()+jTextFieldMes.getText();
-        
+         
          int indexCarater = jComboBoxProcCaraterAtend.getSelectedIndex();
          CaraterAtendimento c = (CaraterAtendimento) this.objectComboBoxModelCaraterAtend.getData().get(indexCarater);
          int indexRaca = jComboBoxUsuarioRacaCor.getSelectedIndex();
          Diversas d = (Diversas) this.objectComboBoxModelRacaCor.getData().get(indexRaca);
         //String dataNasc  =     DateUtil.parseToYearMonthDay(jTextFieldUsarioDatNasc.getText());
         //String dataAtend  =    DateUtil.parseToYearMonthDay(jTextFieldProcDataAtend.getText());
-         
+        this.procedimentoRealizado.setCnsPaciente(jTextFieldUsuarioCns.getText());
         this.procedimentoRealizado.setSexoPaciente(jTextFieldUsuarioSexo.getText());
         //this.procedimentoRealizado.setDataNascimentoPaciente(dataNasc);  
         this.procedimentoRealizado.setCodigoIBGECidadePaciente(jTextFieldUsuarioCodMunicip.getText()); 
@@ -2251,10 +2251,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         procedimento.setDigitoVerificador(digitoVerificador);
         //realiza uma busca pelo procedimento
         Procedimento pEncontrado = procedimentoController.findEqual(procedimento);
-        String  tipo = pEncontrado.typeProcedimento();    
-        //seta o tipo do procedimento (BPA ou BPAI)
-        this.procedimentoRealizado.setOrigemProcedimento(tipo);
-     
+        if(pEncontrado!=null){
+            String  tipo = pEncontrado.typeProcedimento();    
+            //seta o tipo do procedimento (BPA ou BPAI)
+            this.procedimentoRealizado.setOrigemProcedimento(tipo);
+        }
       }
       
       /**
