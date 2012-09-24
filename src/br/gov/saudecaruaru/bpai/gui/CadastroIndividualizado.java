@@ -1935,7 +1935,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             public void focusLost(FocusEvent e) {
                //se o próximo componente for um Component e o método ainda não tinha sido executado
                if( e.getOppositeComponent() instanceof Component 
-                       && procedimentoRealizado.getDataNascimentoPaciente()==null){ 
+                       /*&& procedimentoRealizado.getDataNascimentoPaciente()==null*/){ 
                 if(jTextFieldUsarioDatNasc.getInputVerifier().shouldYieldFocus(jTextFieldUsarioDatNasc)){   
                     //converte a data para o formato YYYMMdd 
                     String dataNasc = DateUtil.parseToYearMonthDay(((JTextField)e.getComponent()).getText());
@@ -2016,17 +2016,23 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void focusLost(FocusEvent e) {
                //se o próximo componente for um jtextfield e o método ainda não tinha sido executado
-               if(e.getOppositeComponent() instanceof JTextField 
-                       && procedimentoRealizado.getDataAtendimento()==null){ 
-                if(jTextFieldProcDataAtend.getInputVerifier().shouldYieldFocus(jTextFieldProcDataAtend)){
-                //converte a data para o formato YYYYMMdd    
-                String dataAtend = DateUtil.parseToYearMonthDay(((JTextField)e.getComponent()).getText());    
-                CadastroIndividualizado.this.procedimentoRealizado.setDataAtendimento(dataAtend);
-                //seta a idade do paciente ao modelo
+               if(e.getOppositeComponent() instanceof JTextField){ 
+                   String dataAtend = ((JTextField)e.getComponent()).getText();
+                   if(!dataAtend.isEmpty()){
+                        //converte a data para o formato YYYYMMdd    
+                        dataAtend = DateUtil.parseToYearMonthDay(dataAtend);
+                        //caso as data sejam diferentes vai executar e o formato do conteudo do campo for válido
+                        if(!dataAtend.equals(CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()) &&
+                            jTextFieldProcDataAtend.getInputVerifier().shouldYieldFocus(jTextFieldProcDataAtend)){
+                   
+                            CadastroIndividualizado.this.procedimentoRealizado.setDataAtendimento(dataAtend);
+                            
 
-                String age = String.valueOf(DateUtil.getAge(CadastroIndividualizado.this.procedimentoRealizado.getDataNascimentoPaciente(),CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()));
-                CadastroIndividualizado.this.procedimentoRealizado.setIdadePaciente(age);
+                           
                 }
+                   
+                   }
+              
                
                }
                
@@ -2040,6 +2046,21 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusGained(FocusEvent e) {
+                //se o proximo elemento for um textField
+                if(e.getOppositeComponent() instanceof JTextField ){
+                    //se as datas nao forem nulas
+                    if(CadastroIndividualizado.this.procedimentoRealizado.getDataNascimentoPaciente()!=null && CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()!=null){
+                        String dataNasc = CadastroIndividualizado.this.jTextFieldUsarioDatNasc.getText();
+                        String dataAtend = CadastroIndividualizado.this.jTextFieldProcDataAtend.getText();
+                        //se alguma data for diferente da que está persistida no objeto
+                        if(!dataNasc.equals(CadastroIndividualizado.this.procedimentoRealizado.getDataNascimentoPaciente()) || !dataAtend.equals(CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento())){
+                            //obtem a idade do paciente
+                            String age = String.valueOf(DateUtil.getAge(CadastroIndividualizado.this.procedimentoRealizado.getDataNascimentoPaciente(),CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()));
+                            //seta no modelo
+                            CadastroIndividualizado.this.procedimentoRealizado.setIdadePaciente(age);
+                        }
+                    }
+                }
                 //textFieldVerifier(listFieldsDates);
             }
 

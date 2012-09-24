@@ -57,7 +57,7 @@ public class DateUtil {
             date = format.parse(data);
             return getAge(dateNasc,date);
        }catch(ParseException e){
-       
+        e.printStackTrace();
         return 0;
        }
         
