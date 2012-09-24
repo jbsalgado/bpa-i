@@ -2086,7 +2086,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-                throw new UnsupportedOperationException("Not supported yet.");
+               
             }
         });
         
@@ -2100,7 +2100,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-                throw new UnsupportedOperationException("Not supported yet.");
+                
             }
         });
         
@@ -2114,7 +2114,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-                throw new UnsupportedOperationException("Not supported yet.");
+               
             }
         });
       }
