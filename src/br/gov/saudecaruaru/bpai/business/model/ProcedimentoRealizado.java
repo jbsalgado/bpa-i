@@ -283,7 +283,8 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     }
 
     public void setCidDoencaprocedimento(String cidDoencaprocedimento) {
-        this.cidDoencaprocedimento = cidDoencaprocedimento;
+        //seta somente Strings Uppercase
+        this.cidDoencaprocedimento = cidDoencaprocedimento.toUpperCase();
     }
 
     public String getCnsPaciente() {
