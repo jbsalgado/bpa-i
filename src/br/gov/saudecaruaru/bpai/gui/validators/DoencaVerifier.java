@@ -54,7 +54,7 @@ public class DoencaVerifier extends InputVerifier{
     public boolean verify(JComponent input) {
       JTextField txtField = (JTextField) input; 
       Doenca doencaSearchead = null;
-      String valor = txtField.getText();
+      String valor = txtField.getText().toUpperCase();
       ProcedimentoRealizado procedimentoRealizado = t.getProcedimentoRealizado();
       String codigoProc = procedimentoRealizado.getCodigoProcedimento().substring(0, 9);
       System.out.println(codigoProc);
