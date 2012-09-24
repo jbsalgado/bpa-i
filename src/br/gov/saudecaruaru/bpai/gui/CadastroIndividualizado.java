@@ -675,34 +675,34 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Cadastro indivualizado"); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("CNES");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("CNS Profissional");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Nome Profissional");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Mês/Ano");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Folha");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText(" /");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("CNS");
 
         jLabel8.setText("Usuário Sequência :");
 
         jLabelUsuarioSeq.setText("01");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setText("Nome ");
 
         jTextFieldUsuarioNome.addActionListener(new java.awt.event.ActionListener() {
@@ -711,15 +711,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Sexo");
 
         jLabel11.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText(" F/M");
         jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setText("Dt. Nascimento");
 
         jTextFieldUsuarioNomeNac.setBackground(new java.awt.Color(153, 153, 153));
@@ -729,7 +729,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel14.setText("Nacionalidade");
 
         jTextFieldUsuarioNomeMunicip.setBackground(new java.awt.Color(153, 153, 153));
@@ -739,10 +739,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel13.setText("Município de Residência");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel15.setText("Raça/Cor");
 
         jTextFieldUsuarioDescEtnia.setBackground(new java.awt.Color(153, 153, 153));
@@ -759,7 +759,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel17.setText("Etnia");
 
         jTextFieldUsuarioCns.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###############"))));
@@ -902,7 +902,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jLabelProcSeq.setText("01");
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel20.setText("Dt. Atendimento");
 
         jTextFieldProcQuant.addActionListener(new java.awt.event.ActionListener() {
@@ -911,7 +911,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel22.setText("Quantidade");
 
         jTextFieldProcDescriDoenca.setBackground(new java.awt.Color(153, 153, 153));
@@ -921,10 +921,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel23.setText("Código");
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel24.setText("CID");
 
         jTextFieldProcDescricao.setBackground(new java.awt.Color(153, 153, 153));
@@ -941,13 +941,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel19.setText("Nº Autorização");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel18.setText("Caráter Atendimento");
 
-        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonIncluir.setText("Incluir");
         jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -965,7 +965,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonLimpar.setText("Limpar");
         jButtonLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1034,7 +1034,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel26.setText("Serviço");
 
         jComboBoxUsuarioServico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -1044,7 +1044,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel27.setText("Classificação");
 
         jComboBoxUsuarioClassificacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -1213,7 +1213,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             ex.printStackTrace();
         }
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel21.setText("CBO");
 
         jComboBoxEquipe.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -1223,7 +1223,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel25.setText("Equipe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1894,7 +1894,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusGained(FocusEvent e) {
-               
+               //abre o combobox ao ganhar o foco 
+               jComboBoxUsuarioRacaCor.setPopupVisible(true);
             }
 
             @Override
@@ -2046,7 +2047,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusGained(FocusEvent e) {
-               
+               //abre o combobox ao ganhar o foco 
+               jComboBoxProcCaraterAtend.setPopupVisible(true);
             }
 
             @Override
@@ -2074,7 +2076,47 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
           
+        jComboBoxEquipe.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               //abre o combobox ao ganhar o foco 
+               jComboBoxEquipe.setPopupVisible(true);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
         
+        jComboBoxUsuarioServico.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               //abre o combobox ao ganhar o foco 
+               jComboBoxUsuarioServico.setPopupVisible(true);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
+        
+        jComboBoxUsuarioClassificacao.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                //abre o combobox ao ganhar o foco 
+               jComboBoxUsuarioClassificacao.setPopupVisible(true);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
       }
       
       /**
