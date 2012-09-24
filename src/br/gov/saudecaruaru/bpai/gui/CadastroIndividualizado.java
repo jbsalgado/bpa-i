@@ -1840,8 +1840,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
     private void initComboBoxs(){
         
-        this.jComboBoxUsuarioServico.setModel(this.objectComboBoxModelServico);
-        this.jComboBoxUsuarioClassificacao.setModel(this.objectComboBoxModelClassificaoServico);
+        
+        initComboBoxServico();
+        initComboBoxClassificacao();
         this.jComboBoxEquipe.setModel(this.objectComboBoxModelEquipe);
         
         //inicializar comboBox Cor
@@ -1868,7 +1869,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jComboBoxProcCaraterAtend.setModel(objectComboBoxModelCaraterAtend);
     }
     
-    
+    private void initComboBoxServico(){
+        this.jComboBoxUsuarioServico.setModel(this.objectComboBoxModelServico);
+    }
+    private void initComboBoxClassificacao(){
+        this.jComboBoxUsuarioClassificacao.setModel(this.objectComboBoxModelClassificaoServico);
+    }
    
     
      
@@ -2522,6 +2528,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
        // jTextFieldMes;
         //jTextFieldNomeProfiss.setText("");
         jTextFieldProcCID.setText("");
+        jTextFieldProcDescriDoenca.setText("");
         jTextFieldProcCod.setText("");
         jTextFieldProcDataAtend.setText("");
         jTextFieldProcDescriDoenca.setText("");
@@ -2624,11 +2631,22 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           else{
             this.selectItemJComboBoxCaraterAtend(CaraterAtendimento.SEM_INFORMACAO);
           }
+          if(p.getCodigoServico()!=null){
+          }else{
+             initComboBoxServico();
+           }
+          
+          if(p.getCodigoClassificacaoServico()!=null){
+          }else{
+            initComboBoxClassificacao();
+           }
           jTextFieldProcNumAut.setText(p.getNumeroAutorizacao());
           
           
           jTextFieldUsuarioNomeNac.setText("");
           jTextFieldProcDescricao.setText("");
+          jTextFieldUsuarioNomeMunicip.setText("");
+          jTextFieldProcDescriDoenca.setText("");
           
       }
     
