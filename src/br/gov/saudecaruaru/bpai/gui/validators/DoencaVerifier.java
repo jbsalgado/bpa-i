@@ -81,10 +81,17 @@ public class DoencaVerifier extends InputVerifier{
                 //faz a busca pelo Codigo do municipio digitado, se nao encontra notifica ao usuário
                 if (doencaSearchead==null) {  
                          return  MessagesErrors.exibeTelaContinuaErro(component,fieldName, " NÃO CADASTRADO!", txtField);
-                }else if(doencaSearchead.getSubcategoria()=='N'){
-                     return  MessagesErrors.exibeTelaContinuaErro(component,fieldName," NÃO PERTENCA A UMA SUBCATEGORIA!", txtField);
-                }else if(!procedimentoDoencaController.existProcedimentoEDoenca(valor, codigoProc,procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia())){
-                     return  MessagesErrors.exibeTelaContinuaErro(component,fieldName," PROCED. INCOMPATIVEL COM CID!", txtField);
+                }else{
+                    
+                    if(doencaSearchead.getSubcategoria()=='N'){
+                        return  MessagesErrors.exibeTelaContinuaErro(component,fieldName," NÃO PERTENCA A UMA SUBCATEGORIA!", txtField);
+                    }
+
+                    if(!procedimentoDoencaController.existProcedimentoEDoenca(valor, codigoProc,procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia())){
+                        return  MessagesErrors.exibeTelaContinuaErro(component,fieldName," PROCED. INCOMPATIVEL COM CID!", txtField);
+                    }
+                    
+                    doencaNome.setText(doencaSearchead.getDescricao());
                 }
                   txtField.setBackground(Color.WHITE);
                   doencaNome.setText(doencaSearchead.getDescricao());

@@ -119,7 +119,8 @@ public class ProcedimentoVerifier extends InputVerifier{
                                 txtField.setBackground(Color.RED); 
                                 return  false;
                             }
-                        
+                        //exibe a descricao do Procedimento no campo de descricao 
+                        procNome.setText(procedimentosSearchead.getDescricao());
                   }
                   txtField.setBackground(Color.WHITE);
                   procNome.setText(procedimentosSearchead.getDescricao());
