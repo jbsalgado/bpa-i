@@ -239,7 +239,7 @@ public class SearchGeneric extends javax.swing.JDialog {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if(SearchGeneric.this.jTextField1.getText().length()>4){
+                if(SearchGeneric.this.jTextField1.getText().length()>2){
                     SearchGeneric.this.updateTable(SearchGeneric.this.search());
                 }
             }
@@ -372,9 +372,17 @@ public class SearchGeneric extends javax.swing.JDialog {
         
         List<Search> l=new ArrayList<Search>();
         String search=this.jTextField1.getText().toUpperCase();
+        int item=this.jComboBox1.getSelectedIndex();
         for(Search s: this.listAll){
-            if(s.getDescription().startsWith(search)){
-                l.add(s);
+            if(item==1){
+                if(s.getId().startsWith(search)){
+                    l.add(s);
+                }
+            }
+            else{
+                if(s.getDescription().startsWith(search)){
+                    l.add(s);
+                }
             }
         }
 
