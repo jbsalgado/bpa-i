@@ -311,7 +311,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldUsuarioNome.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
         jTextFieldProcQuant.setInputVerifier(new OnlyNumbers(this,"Quantidade"));
         jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this,"CNS"));
-        jTextFieldUsuarioCns.setInputVerifier(new CNSUsuarioVerifier(this, "CNS"));
+        jTextFieldUsuarioCns.setInputVerifier(new CnsUsuarioVerifier(this, "CNS",this));
         jTextFieldCBO.setInputVerifier(new CBOVerifier(this, "CBO"));
         jTextFieldUsuarioCodNac.setInputVerifier(new NacionalidadeVerifier(this, "Nacionalidade",jTextFieldUsuarioNomeNac));
         jTextFieldUsuarioCodMunicip.setInputVerifier(new MunicipioVerifier(this,"Municipio",jTextFieldUsuarioNomeMunicip));
@@ -323,67 +323,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldProcQuant.setInputVerifier(new QuantProcedimentoVerifier(this, "Quantidade",this));
         jTextFieldProcDataAtend.setInputVerifier(new DataAtendimentoVerifier(this, "Data Atendimento",this,jTextFieldUsarioDatNasc));
         jTextFieldAno.setInputVerifier(new CompetenciaVerifier(this,"Ano", jTextFieldMes));
-        jTextFieldFolha.setInputVerifier(new InputVerifier() {
-
-            @Override
-            public boolean verify(JComponent input) {
-                JTextField textField = (JTextField) input;
-                String valor = textField.getText().trim();
-                if (valor.equals("000") || valor.isEmpty()) {  
-                      JOptionPane.showMessageDialog(CadastroIndividualizado.this," Folha Inválida!",   
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                //seta cor vermelha
-                textField.setBackground(Color.RED);  
-                return false;  
-                } 
-                //seta cor branca
-                textField.setBackground(Color.WHITE); 
-                return true;
-            }
-            
-            
-        });
-        
-        
-        jTextFieldMes.setInputVerifier(new InputVerifier() {
-
-            @Override
-            public boolean verify(JComponent input) {
-                JTextField mes = (JTextField) input;
-                //expressão regular para mês
-                Pattern p = Pattern.compile("([0-9]|0[1-9]|[1][0-2])");  
-                Matcher m = p.matcher(mes.getText());  
-                if (!m.find()) {  
-                      JOptionPane.showMessageDialog(CadastroIndividualizado.this," Mês Inválido!",   
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                //seta cor vermelha
-                mes.setBackground(Color.RED);  
-                return false;  
-                } 
-                //seta cor branca
-                mes.setBackground(Color.WHITE); 
-                return true;
-           }
-        });
-        
-        jTextFieldUsuarioSexo.setInputVerifier(new InputVerifier() {
-
-            @Override
-            public boolean verify(JComponent input) {
-                JTextField sexo = (JTextField) input;
-                //expressão regular para sexo (só permite M ou F)
-                Pattern p = Pattern.compile("^[M|F]$");  
-                Matcher m = p.matcher(sexo.getText());  
-                if (!m.find()) {  
-                      JOptionPane.showMessageDialog(CadastroIndividualizado.this," Sexo Inválido!",   
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE);  
-                sexo.setBackground(Color.RED); 
-                return false;  
-                } 
-                sexo.setBackground(Color.WHITE); 
-                return true;
-           }
-        });
+        jTextFieldFolha.setInputVerifier(new FolhaVerifier(this, "Folha"));
+        jTextFieldMes.setInputVerifier(new MesVerifier(this, "Mês"));
+        jTextFieldUsuarioSexo.setInputVerifier(new SexoVerifier(this, "Sexo"));
     }
     
     
@@ -954,34 +896,34 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Cadastro indivualizado"); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("CNES");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("CNS Profissional");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Nome Profissional");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Mês/Ano");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Folha");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText(" /");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("CNS");
 
         jLabel8.setText("Usuário Sequência :");
 
         jLabelUsuarioSeq.setText("01");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setText("Nome ");
 
         jTextFieldUsuarioNome.addActionListener(new java.awt.event.ActionListener() {
@@ -990,15 +932,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Sexo");
 
         jLabel11.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText(" F/M");
         jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setText("Dt. Nascimento");
 
         jTextFieldUsuarioNomeNac.setBackground(new java.awt.Color(153, 153, 153));
@@ -1008,7 +950,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel14.setText("Nacionalidade");
 
         jTextFieldUsuarioNomeMunicip.setBackground(new java.awt.Color(153, 153, 153));
@@ -1018,10 +960,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel13.setText("Município de Residência");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel15.setText("Raça/Cor");
 
         jTextFieldUsuarioDescEtnia.setBackground(new java.awt.Color(153, 153, 153));
@@ -1038,7 +980,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel17.setText("Etnia");
 
         jTextFieldUsuarioCns.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###############"))));
@@ -1181,7 +1123,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jLabelProcSeq.setText("01");
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel20.setText("Dt. Atendimento");
 
         jTextFieldProcQuant.addActionListener(new java.awt.event.ActionListener() {
@@ -1190,7 +1132,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel22.setText("Quantidade");
 
         jTextFieldProcDescriDoenca.setBackground(new java.awt.Color(153, 153, 153));
@@ -1200,10 +1142,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel23.setText("Código");
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel24.setText("CID");
 
         jTextFieldProcDescricao.setBackground(new java.awt.Color(153, 153, 153));
@@ -1220,13 +1162,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel19.setText("Nº Autorização");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel18.setText("Caráter Atendimento");
 
-        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonIncluir.setText("Incluir");
         jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1244,7 +1186,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonLimpar.setText("Limpar");
         jButtonLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1313,7 +1255,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel26.setText("Serviço");
 
         jComboBoxUsuarioServico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -1323,7 +1265,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel27.setText("Classificação");
 
         jComboBoxUsuarioClassificacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -1492,7 +1434,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             ex.printStackTrace();
         }
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel21.setText("CBO");
 
         jComboBoxEquipe.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -1502,7 +1444,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel25.setText("Equipe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1893,32 +1835,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     }
 
 
-
-    //classe validadora para o campo CNSUsuario
-    private class CNSUsuarioVerifier extends CnsVerifier{
-        private Component component=null;
-        public CNSUsuarioVerifier(Component component, String fieldName) {
-            super(component, fieldName);
-            this.component=component;
-        }
-
-        @Override
-        public boolean verify(JComponent input) {
-             JTextComponent txtField = (JTextField) input; 
-             String valor = txtField.getText().trim();
-             if(!valor.isEmpty()){
-             if(valor.equals(jTextFieldCnsProfiss.getText())){
-                  JOptionPane.showMessageDialog(this.component," CNS do Usuário é igual ao CNS do profissional!", 
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                txtField.setBackground(Color.RED);
-                return false;
-             }
-            return super.verify(input);
-            }
-             return true;
-        }
-}
-    
     private void initComboBoxs(){
         
         this.jComboBoxUsuarioServico.setModel(this.objectComboBoxModelServico);
@@ -2156,7 +2072,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             public void focusLost(FocusEvent e) {
                //se o próximo componente for um Component e o método ainda não tinha sido executado
                if( e.getOppositeComponent() instanceof Component 
-                       && procedimentoRealizado.getDataNascimentoPaciente()==null){ 
+                       /*&& procedimentoRealizado.getDataNascimentoPaciente()==null*/){ 
                 if(jTextFieldUsarioDatNasc.getInputVerifier().shouldYieldFocus(jTextFieldUsarioDatNasc)){   
                     //converte a data para o formato YYYMMdd 
                     String dataNasc = DateUtil.parseToYearMonthDay(((JTextField)e.getComponent()).getText());
@@ -2199,7 +2115,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusGained(FocusEvent e) {
-               
+               //abre o combobox ao ganhar o foco 
+               jComboBoxUsuarioRacaCor.setPopupVisible(true);
             }
 
             @Override
@@ -2237,17 +2154,23 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void focusLost(FocusEvent e) {
                //se o próximo componente for um jtextfield e o método ainda não tinha sido executado
-               if(e.getOppositeComponent() instanceof JTextField 
-                       && procedimentoRealizado.getDataAtendimento()==null){ 
-                if(jTextFieldProcDataAtend.getInputVerifier().shouldYieldFocus(jTextFieldProcDataAtend)){
-                //converte a data para o formato YYYYMMdd    
-                String dataAtend = DateUtil.parseToYearMonthDay(((JTextField)e.getComponent()).getText());    
-                CadastroIndividualizado.this.procedimentoRealizado.setDataAtendimento(dataAtend);
-                //seta a idade do paciente ao modelo
+               if(e.getOppositeComponent() instanceof JTextField){ 
+                   String dataAtend = ((JTextField)e.getComponent()).getText();
+                   if(!dataAtend.isEmpty()){
+                        //converte a data para o formato YYYYMMdd    
+                        dataAtend = DateUtil.parseToYearMonthDay(dataAtend);
+                        //caso as data sejam diferentes vai executar e o formato do conteudo do campo for válido
+                        if(!dataAtend.equals(CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()) &&
+                            jTextFieldProcDataAtend.getInputVerifier().shouldYieldFocus(jTextFieldProcDataAtend)){
+                   
+                            CadastroIndividualizado.this.procedimentoRealizado.setDataAtendimento(dataAtend);
+                            
 
-                String age = String.valueOf(DateUtil.getAge(CadastroIndividualizado.this.procedimentoRealizado.getDataNascimentoPaciente(),CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()));
-                CadastroIndividualizado.this.procedimentoRealizado.setIdadePaciente(age);
+                           
                 }
+                   
+                   }
+              
                
                }
                
@@ -2261,6 +2184,21 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusGained(FocusEvent e) {
+                //se o proximo elemento for um textField
+                if(e.getOppositeComponent() instanceof JTextField ){
+                    //se as datas nao forem nulas
+                    if(CadastroIndividualizado.this.procedimentoRealizado.getDataNascimentoPaciente()!=null && CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()!=null){
+                        String dataNasc = CadastroIndividualizado.this.jTextFieldUsarioDatNasc.getText();
+                        String dataAtend = CadastroIndividualizado.this.jTextFieldProcDataAtend.getText();
+                        //se alguma data for diferente da que está persistida no objeto
+                        if(!dataNasc.equals(CadastroIndividualizado.this.procedimentoRealizado.getDataNascimentoPaciente()) || !dataAtend.equals(CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento())){
+                            //obtem a idade do paciente
+                            String age = String.valueOf(DateUtil.getAge(CadastroIndividualizado.this.procedimentoRealizado.getDataNascimentoPaciente(),CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()));
+                            //seta no modelo
+                            CadastroIndividualizado.this.procedimentoRealizado.setIdadePaciente(age);
+                        }
+                    }
+                }
                 //textFieldVerifier(listFieldsDates);
             }
 
@@ -2330,7 +2268,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusGained(FocusEvent e) {
-               
+               //abre o combobox ao ganhar o foco 
+               jComboBoxProcCaraterAtend.setPopupVisible(true);
             }
 
             @Override
@@ -2358,7 +2297,47 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
           
+        jComboBoxEquipe.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               //abre o combobox ao ganhar o foco 
+               jComboBoxEquipe.setPopupVisible(true);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+               
+            }
+        });
         
+        jComboBoxUsuarioServico.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               //abre o combobox ao ganhar o foco 
+               jComboBoxUsuarioServico.setPopupVisible(true);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                
+            }
+        });
+        
+        jComboBoxUsuarioClassificacao.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                //abre o combobox ao ganhar o foco 
+               jComboBoxUsuarioClassificacao.setPopupVisible(true);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+               
+            }
+        });
       }
       
       /**

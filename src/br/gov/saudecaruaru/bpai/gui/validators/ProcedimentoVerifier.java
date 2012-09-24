@@ -89,9 +89,10 @@ public class ProcedimentoVerifier extends InputVerifier{
                         
                         int idadeMaxima = procedimentosSearchead.getIdadeMaximaPaciente();
                         int idadeMinima = procedimentosSearchead.getIdadeMinimaPaciente();
-                        if(proRealizado.getDataNascimentoPaciente()!=null && proRealizado.getDataAtendimento()!=null ){
-                            idadePaciente =   DateUtil.getAge(proRealizado.getDataNascimentoPaciente(),proRealizado.getDataAtendimento());
-                        }
+                        //if(proRealizado.getDataNascimentoPaciente()!=null && proRealizado.getDataAtendimento()!=null ){
+                        if(proRealizado.getIdadePaciente()!=null)    
+                            idadePaciente = Integer.parseInt(proRealizado.getIdadePaciente());  //DateUtil.getAge(proRealizado.getDataNascimentoPaciente(),proRealizado.getDataAtendimento());
+                       // }
                       
                     
                     
@@ -118,7 +119,8 @@ public class ProcedimentoVerifier extends InputVerifier{
                                 txtField.setBackground(Color.RED); 
                                 return  false;
                             }
-                        
+                        //exibe a descricao do Procedimento no campo de descricao 
+                        procNome.setText(procedimentosSearchead.getDescricao());
                   }
                   txtField.setBackground(Color.WHITE);
                   procNome.setText(procedimentosSearchead.getDescricao());
