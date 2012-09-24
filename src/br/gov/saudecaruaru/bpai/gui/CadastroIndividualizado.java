@@ -308,7 +308,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldUsuarioNome.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
         jTextFieldProcQuant.setInputVerifier(new OnlyNumbers(this,"Quantidade"));
         jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this,"CNS"));
-        jTextFieldUsuarioCns.setInputVerifier(new CNSUsuarioVerifier(this, "CNS"));
+        jTextFieldUsuarioCns.setInputVerifier(new CnsUsuarioVerifier(this, "CNS",this));
         jTextFieldCBO.setInputVerifier(new CBOVerifier(this, "CBO"));
         jTextFieldUsuarioCodNac.setInputVerifier(new NacionalidadeVerifier(this, "Nacionalidade",jTextFieldUsuarioNomeNac));
         jTextFieldUsuarioCodMunicip.setInputVerifier(new MunicipioVerifier(this,"Municipio",jTextFieldUsuarioNomeMunicip));
@@ -320,67 +320,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldProcQuant.setInputVerifier(new QuantProcedimentoVerifier(this, "Quantidade",this));
         jTextFieldProcDataAtend.setInputVerifier(new DataAtendimentoVerifier(this, "Data Atendimento",this,jTextFieldUsarioDatNasc));
         jTextFieldAno.setInputVerifier(new CompetenciaVerifier(this,"Ano", jTextFieldMes));
-        jTextFieldFolha.setInputVerifier(new InputVerifier() {
-
-            @Override
-            public boolean verify(JComponent input) {
-                JTextField textField = (JTextField) input;
-                String valor = textField.getText().trim();
-                if (valor.equals("000") || valor.isEmpty()) {  
-                      JOptionPane.showMessageDialog(CadastroIndividualizado.this," Folha Inválida!",   
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                //seta cor vermelha
-                textField.setBackground(Color.RED);  
-                return false;  
-                } 
-                //seta cor branca
-                textField.setBackground(Color.WHITE); 
-                return true;
-            }
-            
-            
-        });
-        
-        
-        jTextFieldMes.setInputVerifier(new InputVerifier() {
-
-            @Override
-            public boolean verify(JComponent input) {
-                JTextField mes = (JTextField) input;
-                //expressão regular para mês
-                Pattern p = Pattern.compile("([0-9]|0[1-9]|[1][0-2])");  
-                Matcher m = p.matcher(mes.getText());  
-                if (!m.find()) {  
-                      JOptionPane.showMessageDialog(CadastroIndividualizado.this," Mês Inválido!",   
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                //seta cor vermelha
-                mes.setBackground(Color.RED);  
-                return false;  
-                } 
-                //seta cor branca
-                mes.setBackground(Color.WHITE); 
-                return true;
-           }
-        });
-        
-        jTextFieldUsuarioSexo.setInputVerifier(new InputVerifier() {
-
-            @Override
-            public boolean verify(JComponent input) {
-                JTextField sexo = (JTextField) input;
-                //expressão regular para sexo (só permite M ou F)
-                Pattern p = Pattern.compile("^[M|F]$");  
-                Matcher m = p.matcher(sexo.getText());  
-                if (!m.find()) {  
-                      JOptionPane.showMessageDialog(CadastroIndividualizado.this," Sexo Inválido!",   
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE);  
-                sexo.setBackground(Color.RED); 
-                return false;  
-                } 
-                sexo.setBackground(Color.WHITE); 
-                return true;
-           }
-        });
+        jTextFieldFolha.setInputVerifier(new FolhaVerifier(this, "Folha"));
+        jTextFieldMes.setInputVerifier(new MesVerifier(this, "Mês"));
+        jTextFieldUsuarioSexo.setInputVerifier(new SexoVerifier(this, "Sexo"));
     }
     
     
@@ -1672,32 +1614,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     }
 
 
-
-    //classe validadora para o campo CNSUsuario
-    private class CNSUsuarioVerifier extends CnsVerifier{
-        private Component component=null;
-        public CNSUsuarioVerifier(Component component, String fieldName) {
-            super(component, fieldName);
-            this.component=component;
-        }
-
-        @Override
-        public boolean verify(JComponent input) {
-             JTextComponent txtField = (JTextField) input; 
-             String valor = txtField.getText().trim();
-             if(!valor.isEmpty()){
-             if(valor.equals(jTextFieldCnsProfiss.getText())){
-                  JOptionPane.showMessageDialog(this.component," CNS do Usuário é igual ao CNS do profissional!", 
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                txtField.setBackground(Color.RED);
-                return false;
-             }
-            return super.verify(input);
-            }
-             return true;
-        }
-}
-    
     private void initComboBoxs(){
         
         this.jComboBoxUsuarioServico.setModel(this.objectComboBoxModelServico);
