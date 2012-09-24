@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +43,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      public static HashMap<String, Equipe> MAP_EQUIPE= new HashMap<String, Equipe>();
      public static HashMap<Object, Diversas> MAP_DIVERSAS= new HashMap<Object, Diversas>();
      public static HashMap<Object, Paciente> MAP_PACIENTE= new HashMap<Object, Paciente>();
+     public static HashMap<Object, Municipio> MAP_MUNICIPIO= new HashMap<Object, Municipio>();
+     
      
     
          
@@ -386,7 +389,17 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     
     
     private void initKeyPresseds(){
-        //para cns do médico
+        //campo do CNES
+        this.jTextFieldCnes.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldCnsProfiss.requestFocusInWindow();
+                }
+            }
+        });
+        
         this.jTextFieldCnsProfiss.addKeyListener(new KeyAdapter() {
              public void keyPressed(java.awt.event.KeyEvent evt) {
                  //o usuário clicou F2
@@ -398,11 +411,24 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         CadastroIndividualizado.this.jTextFieldCnsProfiss.setText(m.getId());
                     }
                 }
+                //teclou "enter"
+                else if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldNomeProfiss.requestFocusInWindow();
+                }
             }
              
         
         });
-        
+        //campo para o nome do profissional
+        this.jTextFieldNomeProfiss.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldCBO.requestFocusInWindow();
+                }
+            }
+        });
          //para CBO do profissional
         this.jTextFieldCBO.addKeyListener(new KeyAdapter() {
              public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -415,12 +441,61 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         CadastroIndividualizado.this.jTextFieldCBO.setText(m.getId());
                     }
                 }
+                if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jComboBoxEquipe.requestFocusInWindow();
+                } 
+                
             }
              
         
         });
         
-        //para pacientes/cnd do paciente
+        
+        
+        //combobox da equipe
+        this.jComboBoxEquipe.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+               if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldMes.requestFocusInWindow();
+                } 
+            }
+        });
+        //campo mês da competência
+        this.jTextFieldMes.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldAno.requestFocusInWindow();
+                } 
+            }
+        });
+        //campo ano da competência
+        this.jTextFieldAno.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldFolha.requestFocusInWindow();
+                } 
+            }
+        });
+        
+        //folha da competência
+        
+        this.jTextFieldFolha.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldUsuarioCns.requestFocusInWindow();
+                } 
+            }
+        });
+        
+        //para pacientes/cns do paciente
         this.jTextFieldUsuarioCns.addKeyListener(new KeyAdapter() {
              public void keyPressed(java.awt.event.KeyEvent evt) {
                  //o usuário clicou F2
@@ -432,9 +507,46 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         CadastroIndividualizado.this.jTextFieldUsuarioCns.setText(m.getId());
                     }
                 }
+                if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldUsuarioNome.requestFocusInWindow();
+                }
             }
              
         
+        });
+        
+        
+        //campo nome do paciente/usuário
+        this.jTextFieldUsuarioNome.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldUsuarioSexo.requestFocusInWindow();
+                } 
+            }
+        });
+        
+        //campo sexo do paciente/usuário
+        this.jTextFieldUsuarioSexo.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldUsarioDatNasc.requestFocusInWindow();
+                } 
+            }
+        });
+        
+        //campo data de nascimento do paciente/usuário
+        this.jTextFieldUsarioDatNasc.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldUsuarioCodMunicip.requestFocusInWindow();
+                } 
+            }
         });
         
         //para município
@@ -451,6 +563,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         CadastroIndividualizado.this.jTextFieldUsuarioNomeMunicip.setText(m.getDescription());
                     }
                 }
+                
+                if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldUsuarioCodNac.requestFocusInWindow();
+                } 
             }
              
         
@@ -470,9 +586,51 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         CadastroIndividualizado.this.jTextFieldUsuarioNomeNac.setText(m.getDescription());
                     }
                 }
+                if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jComboBoxUsuarioRacaCor.requestFocusInWindow();
+                } 
             }
              
         
+        });
+        //combobox raça/cor
+        this.jComboBoxUsuarioRacaCor.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    //pega o codigo do elemento selecionado
+                    String codigo=CadastroIndividualizado.this.objectComboBoxModelRacaCor.getSelectedObject().getDiversasPK().getCodigoItemTabela();
+                    if(Diversas.COD_RACA_COR_INDIGENA.equals(codigo)){
+                        CadastroIndividualizado.this.jTextFieldUsuarioCodEtnia.requestFocusInWindow();
+                    }
+                    else{
+                        CadastroIndividualizado.this.jTextFieldProcDataAtend.requestFocusInWindow();
+                    }
+                } 
+            }
+        });
+        
+        //campo código da etnia
+        this.jTextFieldUsuarioCodEtnia.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldProcDataAtend.requestFocusInWindow();
+                } 
+            }
+        });
+        
+        //campo data de atendimento
+        this.jTextFieldProcDataAtend.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldProcCod.requestFocusInWindow();
+                } 
+            }
         });
         
         //para procedimento realizado
@@ -489,10 +647,47 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         CadastroIndividualizado.this.jTextFieldProcDescricao.setText(m.getDescricao());
                     }
                 }
+                if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldProcQuant.requestFocusInWindow();
+                } 
             }
              
         
         });
+        
+        //campo quantidade de vezes que o procedimento foi executado
+        this.jTextFieldProcQuant.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jComboBoxUsuarioServico.requestFocusInWindow();
+                } 
+            }
+        });
+        
+        //comboxo de serviço
+        this.jComboBoxUsuarioServico.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jComboBoxUsuarioClassificacao.requestFocusInWindow();
+                } 
+            }
+        });
+        
+        //campo quantidade de vezes que o procedimento foi executado
+        this.jComboBoxUsuarioClassificacao.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldProcCID.requestFocusInWindow();
+                } 
+            }
+        });
+        
         //para procedimento realizado
         this.jTextFieldProcCID.addKeyListener(new KeyAdapter() {
              public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -507,9 +702,35 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         CadastroIndividualizado.this.jTextFieldProcDescriDoenca.setText(m.getDescription());
                     }
                 }
+                
+                if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jComboBoxProcCaraterAtend.requestFocusInWindow();
+                } 
             }
              
         
+        });
+        
+        //combobox caráter de atendimento
+        this.jComboBoxProcCaraterAtend.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jTextFieldProcNumAut.requestFocusInWindow();
+                } 
+            }
+        });
+        
+        //campo número de autorização
+        this.jTextFieldProcNumAut.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    CadastroIndividualizado.this.jButtonIncluir.requestFocusInWindow();
+                } 
+            }
         });
     }
     
@@ -571,7 +792,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      * @return Search objeto de pesquisa com um identificador e uma descrição
      */
     private Search keyPressedJTextFieldCnsProfiss(){
-        return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.medicoController, "cns", "nome","CNS", "Nome");
+        return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.medicoController, "cns", "nome","CNS", "Nome",new HashMap<String, Object>());
     }
     
      /**
@@ -593,7 +814,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      */
     private Search keyPressedJTextFieldUsuarioCns(){
         
-        return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.pacienteController, "cns", "nome","CNS", "Nome");
+        return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.pacienteController, "cns", "nome","CNS", "Nome",new HashMap<String, Object>());
     }
     
     /**
@@ -646,7 +867,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         //restrição para qualquer busca
         return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.doencaController, 
                                                         "codigo", "descricao",
-                                                        "Código", "Descrição");
+                                                        "Código", "Descrição",new HashMap<String, Object>());
     }
     
     
@@ -1885,7 +2106,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 if(e.getOppositeComponent() instanceof JTextField ){
                    String cns=CadastroIndividualizado.this.jTextFieldUsuarioCns.getText();
                    if(!cns.isEmpty()){
-                       //caso os código sejam diferentes vai executar
+                       //caso os códigos sejam diferentes vai executar
                        if(!cns.equals(CadastroIndividualizado.this.procedimentoRealizado.getCnsPaciente())){
                            CadastroIndividualizado.this.focusLostFieldUsuarioCns();
                        }
