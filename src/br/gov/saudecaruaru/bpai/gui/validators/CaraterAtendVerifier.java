@@ -6,6 +6,7 @@ package br.gov.saudecaruaru.bpai.gui.validators;
 
 import br.gov.saudecaruaru.bpai.business.model.CaraterAtendimento;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.*;
 
@@ -30,8 +31,10 @@ public class CaraterAtendVerifier extends InputVerifier{
         JComboBox comboBoxField = (JComboBox) input;
         int index = comboBoxField.getSelectedIndex();
         if(index==0){
+              comboBoxField.setBackground(Color.RED);
              return  MessagesErrors.exibeTelaContinuaErro(component, fieldName,"INVÁLIDO!");
         }
+         comboBoxField.setBackground(Color.GRAY);
         return true;
     }
     

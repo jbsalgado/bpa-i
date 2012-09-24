@@ -255,7 +255,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
          //inicializa alguns campos
          this.initFields();
          // Inicializa os validadores dos campos
-         this.initVerifiers();
+         this.setVerifiers();
          
        
 }
@@ -301,7 +301,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
        
     }
     
-    private void initVerifiers(){
+    private void setVerifiers(){
         //atribui validadores
         jTextFieldNomeProfiss.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
         jTextFieldCnes.setInputVerifier(new CnesVerifier(this, "CNES"));
@@ -323,6 +323,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldFolha.setInputVerifier(new FolhaVerifier(this, "Folha"));
         jTextFieldMes.setInputVerifier(new MesVerifier(this, "Mês"));
         jTextFieldUsuarioSexo.setInputVerifier(new SexoVerifier(this, "Sexo"));
+        jComboBoxEquipe.setInputVerifier(new ComboBoxVerifier(this, "Equipe"));
+        jComboBoxUsuarioServico.setInputVerifier(new ComboBoxVerifier(this, "Serviço"));
+        jComboBoxEquipe.setInputVerifier(new ComboBoxVerifier(this, "Classificação"));
     }
     
     
