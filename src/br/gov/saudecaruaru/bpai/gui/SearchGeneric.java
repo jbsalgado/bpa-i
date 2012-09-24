@@ -16,6 +16,7 @@ import br.gov.saudecaruaru.bpai.util.Search;
 import br.gov.saudecaruaru.bpai.util.SearchTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,8 +53,8 @@ public class SearchGeneric extends javax.swing.JDialog {
     
     //modelTable utlizado para popular a tabela
     private SearchTableModel tableModel;
-    //restricçoes aplicadas a qualquer pesquisa
-    private Map<String, Object> restrictions;
+    //lista com todos os dados
+    private List<Search> listAll;
     //implementação do padrão singleton
     public static SearchGeneric instance=null;
     //controlador utilizado para realizar a pesquisa
@@ -306,12 +307,9 @@ public class SearchGeneric extends javax.swing.JDialog {
      * @param labelFieldDescription um label para o atributo fieldDescription
      * @return devolve um objeto Search, caso o usuário tenha pesquisado e selecionado algum, senão, devolve null
      */
-    public Search initModeSearch(BasecController controller,String fieldId,String FieldDescription, String labelFieldId,String labelFieldDescription){
+    public Search initModeSearch(BasecController controller,String fieldId,String FieldDescription, String labelFieldId,String labelFieldDescription, Map<String, Object> restrictions){
         this.selectedSearch=null;
         this.jTextField1.setText(null);
-        if(this.restrictions==null){
-            this.restrictions= new HashMap<String,Object>();
-        }
         //monta o cabeçalho da tabela
         this.header[0]=labelFieldId;
         this.header[1]=labelFieldDescription;
@@ -328,34 +326,34 @@ public class SearchGeneric extends javax.swing.JDialog {
         this.tableLista.setModel(this.tableModel);
         //inicia algumas oncfigurações da tabela
         this.initTable();
-        
+        this.listAll=ModelUtil.getListSearch(this.basicController.findAllEqual(restrictions),fieldId,FieldDescription);
+        this.tableModel.addSearchAll(this.listAll);
         
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setModal(true);
         this.setVisible(true);
-        this.restrictions=this.restrictions= new HashMap<String,Object>();
         //quando terminar vai retornar o valor da seleção
         return this.selectedSearch;
     }
-    
-    /**
-     * Método que inicializa a tela de pesquisa.
-     * Qualquer objeto que seja persistido no banco pode ser pesquisado, desde que tenha um controlador.
-     * @param controller controlador utilizado para buscar os dados
-     * @param fieldId atributo do objeto que representa uma chave ou um valor a ser retornado
-     * @param FieldDescription atributo do objeto que representa ums descrição dele
-     * @param labelFieldId um label do para o atributo fieldId
-     * @param labelFieldDescription um label para o atributo fieldDescription
-     * @param restrictions um Map que deve conter restrições padrões para qualquer pesquisa. Key=atributo, value=valor para o atributo
-     * @return devolve um objeto Search, caso o usuário tenha pesquisado e selecionado algum, senão, devolve null
-     */
-    public Search initModeSearch(BasecController controller,String fieldId,
-                                    String FieldDescription, String labelFieldId,
-                                        String labelFieldDescription, Map<String, Object> restrictions){
-        //vai iniciar restrições gerais na pesquisa seja ela qual for
-        this.restrictions=restrictions;
-        return this.initModeSearch(controller, fieldId, FieldDescription, labelFieldId, labelFieldDescription);
-    }
+//    
+//    /**
+//     * Método que inicializa a tela de pesquisa.
+//     * Qualquer objeto que seja persistido no banco pode ser pesquisado, desde que tenha um controlador.
+//     * @param controller controlador utilizado para buscar os dados
+//     * @param fieldId atributo do objeto que representa uma chave ou um valor a ser retornado
+//     * @param FieldDescription atributo do objeto que representa ums descrição dele
+//     * @param labelFieldId um label do para o atributo fieldId
+//     * @param labelFieldDescription um label para o atributo fieldDescription
+//     * @param restrictions um Map que deve conter restrições padrões para qualquer pesquisa. Key=atributo, value=valor para o atributo
+//     * @return devolve um objeto Search, caso o usuário tenha pesquisado e selecionado algum, senão, devolve null
+//     */
+//    public Search initModeSearch(BasecController controller,String fieldId,
+//                                    String FieldDescription, String labelFieldId,
+//                                        String labelFieldDescription, Map<String, Object> restrictions){
+//        //vai iniciar restrições gerais na pesquisa seja ela qual for
+//        this.restrictions=restrictions;
+//        return this.initModeSearch(controller, fieldId, FieldDescription, labelFieldId, labelFieldDescription);
+//    }
     
     private void updateTable(List<Search> rows){
         this.tableModel.clean();
@@ -371,21 +369,16 @@ public class SearchGeneric extends javax.swing.JDialog {
     }
     
     private List<Search> search(){
-        //cria um map para montar as restrições
-        Map<String, Object> res= new HashMap<String, Object>();
-        res.putAll(this.restrictions);
-        //faz a busca de acordo com o campo escolhido no cambobox
-        if(this.jComboBox1.getSelectedItem().toString().equals(this.header[0])){
-           res.put(this.fieldId, this.jTextField1.getText());
+        
+        List<Search> l=new ArrayList<Search>();
+        String search=this.jTextField1.getText().toUpperCase();
+        for(Search s: this.listAll){
+            if(s.getDescription().startsWith(search)){
+                l.add(s);
+            }
         }
-        else{
-           res.put(this.fieldDescription, this.jTextField1.getText());
-        }
-        //faz a busca
-        List l=this.basicController.findAllLike(res);
-        System.out.println(l.size());
 
-        return ModelUtil.getListSearch(l, fieldId, fieldDescription);
+        return l;
         
     }
     

@@ -87,7 +87,7 @@ public class ModelUtil {
                     String str1=ModelUtil.getValueField(object, fieldId);
                     String str2=ModelUtil.getValueField(object, fieldDescription);
                     if(str1!=null && str2!=null){
-                        listSearch.add(new Search(str1, str2));
+                        listSearch.add(new Search(str1, str2.toUpperCase()));
                     }
                 }
             }

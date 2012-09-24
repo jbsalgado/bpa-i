@@ -8,6 +8,7 @@ package br.gov.saudecaruaru.bpai.gui.validators;
 import br.gov.saudecaruaru.bpai.business.controller.MunicipioController;
 import br.gov.saudecaruaru.bpai.business.model.Municipio;
 import br.gov.saudecaruaru.bpai.business.model.MunicipioPK;
+import br.gov.saudecaruaru.bpai.gui.CadastroIndividualizado;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.InputVerifier;
@@ -55,18 +56,21 @@ public class MunicipioVerifier extends InputVerifier{
       municipio.getMunicipioPK().setUf(codUf);
     
       municipio.getMunicipioPK().setCodigoMunicipio(codMun);
-      
-      municipioSearchead = municipioController.findEqual(municipio);
-                //faz a busca pelo Codigo do municipio digitado, se nao encontra notifica ao usuário
-                if (municipioSearchead==null) {  
-                       JOptionPane.showMessageDialog(this.component,fieldName + " INCORRETO!", 
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                txtField.setBackground(Color.RED);
-                    return false;
-                }
-                  txtField.setBackground(Color.WHITE);
-                  municNome.setText(municipioSearchead.getNome());
-                return true;
+      municipioSearchead=CadastroIndividualizado.MAP_MUNICIPIO.get(municipio.getMunicipioPK());
+      if(municipioSearchead==null){
+        municipioSearchead = municipioController.findEqual(municipio);
+      }
+        //faz a busca pelo Codigo do municipio digitado, se nao encontra notifica ao usuário
+        if (municipioSearchead==null) {  
+               JOptionPane.showMessageDialog(this.component,fieldName + " INCORRETO!", 
+                                            "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
+                                            txtField.setBackground(Color.RED);
+            return false;
+        }
+        CadastroIndividualizado.MAP_MUNICIPIO.put(municipioSearchead.getMunicipioPK(), municipioSearchead);
+          txtField.setBackground(Color.WHITE);
+          municNome.setText(municipioSearchead.getNome());
+        return true;
        }
     
 }
