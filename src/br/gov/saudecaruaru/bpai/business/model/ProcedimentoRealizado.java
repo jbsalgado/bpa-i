@@ -4,6 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.business.model;
 
+import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -219,6 +220,98 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
        // this.idadePaciente
     }
 
+    public void preencherAtributosVazios(){
+        if(this.origemProcedimento.equals(ORIGEM_CONSOLIDADO)){
+            
+            if( this.getProcedimentoRealizadoPK().getCnsMedico()==null? true: this.getProcedimentoRealizadoPK().getCnsMedico().isEmpty()){
+                this.getProcedimentoRealizadoPK().setCnsMedico("               ");
+            }
+            if(this.nomePaciente == null ? true: this.nomePaciente.isEmpty()){
+                this.nomePaciente="                              ";
+            }
+            if( this.sexoPaciente == null ? true: this.sexoPaciente.isEmpty() ){
+                this.sexoPaciente=" ";
+            }
+            if( this.dataNascimentoPaciente == null ? true : this.dataNascimentoPaciente.isEmpty()){
+                this.dataNascimentoPaciente="        ";
+            }
+            if( this.codigoIBGECidadePaciente == null ? true : this.codigoIBGECidadePaciente.isEmpty() ){
+                this.codigoIBGECidadePaciente="      ";
+            }
+            if( this.nacionalidadePaciente ==  null ? true :  this.nacionalidadePaciente.isEmpty()){
+                this.nacionalidadePaciente="   ";
+            }
+            if( this.racaPaciente == null ? true: this.racaPaciente.isEmpty()){
+                this.racaPaciente="  ";
+            }
+            if( this.idadePaciente== null ? true : this.idadePaciente.isEmpty()){
+                this.idadePaciente="000";
+            }
+            if( this.caracterizacaoAtendimento== null ? true : this.caracterizacaoAtendimento.isEmpty()){
+                this.caracterizacaoAtendimento="  ";
+            } 
+            if( this.dataAtendimento == null ? true : this.dataAtendimento.isEmpty()){
+                this.dataAtendimento="        ";
+            }
+        }
+        
+        if(this.cidDoencaprocedimento == null ? true : this.cidDoencaprocedimento.isEmpty()){
+            this.cidDoencaprocedimento="    ";
+        }
+        if(this.cnsPaciente==null ? true : this.cnsPaciente.isEmpty()){
+            this.cnsPaciente="               ";
+        }
+        
+        if(this.codigoClassificacaoServico==null ? true : this.codigoClassificacaoServico.isEmpty()){
+            this.codigoClassificacaoServico="   ";
+        }
+        if(this.codigoServico==null ? true : this.codigoServico.isEmpty()){
+            this.codigoServico="   ";
+        }
+        if(this.equipe==null ? true : this.equipe.isEmpty()){
+            this.equipe="            ";
+        }
+        if(this.etniaPaciente == null ? true : this.equipe.isEmpty()){
+            this.etniaPaciente="    ";
+        }
+        if(this.numeroAutorizacao == null ? true : this.numeroAutorizacao.isEmpty()){
+            this.numeroAutorizacao="             ";
+        }
+        if(this.prdAdvqt==null? true : this.prdAdvqt.isEmpty()){
+            this.prdAdvqt="  ";
+        }
+        if(this.prdFlca== null ? true : this.prdFlca.isEmpty()){
+            this.prdFlca="0";
+        }
+        if( this.prdFlcbo == null ? true : this.prdFlcbo.isEmpty()){
+            this.prdFlcbo="0";
+        }
+        if( this.prdFlcid == null ? true : this.prdFlcid.isEmpty()){
+            this.prdFlcid="0";
+        }
+        if( this.prdFler == null ? true : this.prdFler.isEmpty()){
+            this.prdFler="0";
+        }
+        if( this.prdFlida == null ? true : this.prdFlida.isEmpty()){
+            this.prdFlida="0";
+        }
+        if( this.prdFlmun == null ? true : this.prdFlmun.isEmpty()){
+            this.prdFlmun="0";
+        }
+        if( this.prdFlpa == null ? true : this.prdFlpa.isEmpty()){
+            this.prdFlpa="0";
+        }
+        if( this.prdFlqt == null ? true : this.prdFlqt.isEmpty()){
+            this.prdFlqt="0";
+        }
+        
+
+        String tmp=this.getProcedimentoRealizadoPK().getNumeroFolha();
+        this.getProcedimentoRealizadoPK().setNumeroFolha(ModelUtil.completar(tmp, 3, '0'));
+
+        tmp=this.getProcedimentoRealizadoPK().getSequenciaFolha();
+        this.getProcedimentoRealizadoPK().setSequenciaFolha(ModelUtil.completar(tmp, 2, '0'));
+    }
     public String getCodigoClassificacaoServico() {
         return codigoClassificacaoServico;
     }
