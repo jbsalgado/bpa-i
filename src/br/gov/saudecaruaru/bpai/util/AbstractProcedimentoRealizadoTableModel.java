@@ -139,7 +139,7 @@ public abstract class AbstractProcedimentoRealizadoTableModel extends AbstractTa
    public void replaceAllProcedimentoRealizado(List<ProcedimentoRealizado> list){
        this.list.clear();
        int primeiroIndex=list.size()-1;
-        primeiroIndex=primeiroIndex<0?0:primeiroIndex;
+        //primeiroIndex= primeiroIndex < 0 ? 0 : primeiroIndex;
         
         this.list.addAll(list);
         int ultimoIndex=this.getRowCount()-1;

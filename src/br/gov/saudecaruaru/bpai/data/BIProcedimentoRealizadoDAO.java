@@ -87,8 +87,8 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             //traz somente os procedimentos que devem ser consolidados
             sql.append(" WHERE (pro.origemProcedimento=:origem)");
             //agrupa
-            sql.append(" GROUP BY pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
-            sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.biProcedimentoRealizadoPK.competencia,pro.prdMvm");
+            sql.append(" GROUP BY pro.biProcedimentoRealizadoPK.competencia,pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
+            sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.prdMvm");
             //it's create query
             Query q=session.createQuery(sql.toString());
             q.setParameter("origem", ProcedimentoRealizado.ORIGEM_CONSOLIDADO);
@@ -121,16 +121,17 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
                     //valores padrões
                     
                     pro.setOrigemProcedimento(ProcedimentoRealizado.ORIGEM_CONSOLIDADO);
-                    pro.setNomePaciente("TESTE");
-                    String flag="0";
-                    pro.setPrdFlca(flag);
-                    pro.setPrdFlcbo(flag);
-                    pro.setPrdFlcid(flag);
-                    pro.setPrdFler(flag);
-                    pro.setPrdFlida(flag);
-                    pro.setPrdFlmun(flag);
-                    pro.setPrdFlpa(flag);
-                    pro.setPrdFlqt(flag);
+                    pro.preencherAtributosVazios();
+//                    pro.setNomePaciente("TESTE");
+//                    String flag="0";
+//                    pro.setPrdFlca(flag);
+//                    pro.setPrdFlcbo(flag);
+//                    pro.setPrdFlcid(flag);
+//                    pro.setPrdFler(flag);
+//                    pro.setPrdFlida(flag);
+//                    pro.setPrdFlmun(flag);
+//                    pro.setPrdFlpa(flag);
+//                    pro.setPrdFlqt(flag);
                     
                     list.add(pro);
                 }
@@ -177,6 +178,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
                 //cada objeto de l contém um vetor que representa os campos selecionados
                 for(BIProcedimentoRealizado row: l){
                     ProcedimentoRealizado pro=new ProcedimentoRealizado(row);
+                    pro.preencherAtributosVazios();
                     list.add(pro);
                 }
                 l.clear();
