@@ -2652,6 +2652,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           }
           
           if(p.getCodigoClassificacaoServico()!=null){
+            
               //this.selectItemJComboBoxClassificacao(p.getCodigoServico()+p.getCodigoClassificacaoServico());
           
           }else{
