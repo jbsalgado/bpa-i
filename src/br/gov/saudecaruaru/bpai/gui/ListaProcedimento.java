@@ -73,24 +73,24 @@ public class ListaProcedimento extends javax.swing.JFrame {
 
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                int row=ListaProcedimento.this.jTableHeader.getSelectedRow();
-                //tem linha selecionada
-                if(row>=0){
-                    
-                    //Pega o procedimento realizado de acordo com a linha selecionada na tabela
-                    ProcedimentoRealizado pro=ListaProcedimento.this.tableModelHeader.getProcedimentoRealizado(row);
-                    //zera a quantidade padrão
-                    pro.setQuantidadeRealizada(null);
-                    //substitui a lista
-                    List<BIProcedimentoRealizado> l=ListaProcedimento.this.biProcedimentoRealizadoController.findAllEqual(new BIProcedimentoRealizado(pro));
-                    
-                    ListaProcedimento.this.tableModelBody.replaceAllProcedimentoRealizado(ListaProcedimento.this.biProcedimentoRealizadoController.parserBIProcedimentoRealizadoToProcedimentoRealizado(l));
-                    l.clear();
-                }
-                //coloca uma lista vazia
-                else{
-                    ListaProcedimento.this.tableModelBody.replaceAllProcedimentoRealizado(new ArrayList<ProcedimentoRealizado>());
-                }
+                    int row=ListaProcedimento.this.jTableHeader.getSelectedRow();
+                    //tem linha selecionada
+                    if(row>=0){
+
+                        //Pega o procedimento realizado de acordo com a linha selecionada na tabela
+                        ProcedimentoRealizado pro=ListaProcedimento.this.tableModelHeader.getProcedimentoRealizado(row);
+                        //zera a quantidade padrão
+                        pro.setQuantidadeRealizada(null);
+                        //substitui a lista
+                        List<BIProcedimentoRealizado> l=ListaProcedimento.this.biProcedimentoRealizadoController.findAllEqual(new BIProcedimentoRealizado(pro));
+
+                        ListaProcedimento.this.tableModelBody.replaceAllProcedimentoRealizado(ListaProcedimento.this.biProcedimentoRealizadoController.parserBIProcedimentoRealizadoToProcedimentoRealizado(l));
+                        l.clear();
+                    }
+                    //coloca uma lista vazia
+                    else{
+                        ListaProcedimento.this.tableModelBody.replaceAllProcedimentoRealizado(new ArrayList<ProcedimentoRealizado>());
+                    }
                
             }
         });
@@ -123,6 +123,12 @@ public class ListaProcedimento extends javax.swing.JFrame {
         this.tableModelBody=new ProcedimentoRealizadoTableModelBody(new ArrayList<ProcedimentoRealizado>());
         this.jTableBody.setModel(this.tableModelBody);
         this.jTableBody.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        
+        this.ajustarTamanhoTabelas();
+
+    }
+    
+    private void ajustarTamanhoTabelas(){
         
        TableColumnModel columns=this.jTableBody.getColumnModel();
         //coluna sequência
@@ -161,6 +167,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         jTableBody = new javax.swing.JTable();
         jbtnIncluirFolha = new javax.swing.JButton();
         jbtnSair = new javax.swing.JButton();
+        jButtonAtualizar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -238,6 +245,19 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
+        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonAtualizar.setText("Atualizar");
+        jButtonAtualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonAtualizarMouseClicked(evt);
+            }
+        });
+        jButtonAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAtualizarActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("Arquivo");
         jMenuBar1.add(jMenu1);
 
@@ -266,12 +286,13 @@ public class ListaProcedimento extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jbtnIncluirFolha)
                         .addGap(483, 483, 483)
                         .addComponent(jbtnSair))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,9 +303,11 @@ public class ListaProcedimento extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(25, 25, 25)
-                                .addComponent(jbtnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabelTipoPesquisa)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jbtnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(jButtonAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelTipoPesquisa))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -298,7 +321,8 @@ public class ListaProcedimento extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcomboBoxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnPesquisar)
-                    .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonAtualizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -370,7 +394,21 @@ public class ListaProcedimento extends javax.swing.JFrame {
         this.jMenuItem1MouseClicked(null);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAtualizarActionPerformed
+
+    private void jButtonAtualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAtualizarMouseClicked
+        // TODO add your handling code here:
+        this.tableModelHeader.replaceAllProcedimentoRealizado(this.biProcedimentoRealizadoController.findAllOnlyHeader());
+        if(!this.tableModelHeader.isEmpty()){
+            this.jTableHeader.setRowSelectionInterval(0, 0);
+        }
+       this.ajustarTamanhoTabelas(); 
+    }//GEN-LAST:event_jButtonAtualizarMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAtualizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelTipoPesquisa;
     private javax.swing.JMenu jMenu1;
