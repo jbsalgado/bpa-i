@@ -224,7 +224,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     }
 
     public void setCodigoClassificacaoServico(String codigoClassificacaoServico) {
-        this.codigoClassificacaoServico = codigoClassificacaoServico;
+        this.codigoClassificacaoServico = codigoClassificacaoServico.trim();
     }
 
     public String getCodigoServico() {
@@ -232,7 +232,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     }
 
     public void setCodigoServico(String codigoServico) {
-        this.codigoServico = codigoServico;
+        this.codigoServico = codigoServico.trim();
     }
 
     public String getEquipe() {

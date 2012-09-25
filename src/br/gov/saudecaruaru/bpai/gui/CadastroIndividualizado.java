@@ -2316,8 +2316,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-               
-            }
+               int index = ((JComboBox)e.getComponent()).getSelectedIndex();
+               if(index>=0){
+                    Equipe equipe = (Equipe) objectComboBoxModelEquipe.getData().get(index);
+                    CadastroIndividualizado.this.procedimentoRealizado.setEquipe(equipe.getEquipePK().getSequencia()+equipe.getArea());
+               }
+               }
         });
         
         jComboBoxUsuarioServico.addFocusListener(new FocusListener() {
@@ -2330,7 +2334,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-                
+               int index = ((JComboBox)e.getComponent()).getSelectedIndex();
+               if(index>=0){
+               Diversas d = (Diversas) objectComboBoxModelServico.getData().get(index);
+               CadastroIndividualizado.this.procedimentoRealizado.setCodigoServico(d.getDiversasPK().getCodigoItemTabela().toString());
+               }
             }
         });
         
@@ -2344,7 +2352,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-               
+               int index = ((JComboBox)e.getComponent()).getSelectedIndex();
+               if(index>=0){
+               Diversas d = (Diversas) objectComboBoxModelClassificaoServico.getData().get(index);
+               CadastroIndividualizado.this.procedimentoRealizado.setCodigoClassificacaoServico(d.getDiversasPK().getCodigoItemTabela().substring(3));
+               }
             }
         });
       }
@@ -2632,11 +2644,17 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             this.selectItemJComboBoxCaraterAtend(CaraterAtendimento.SEM_INFORMACAO);
           }
           if(p.getCodigoServico()!=null){
+               initComboBoxServico();
+               this.selectItemJComboBoxServico(p.getCodigoServico());
+               
           }else{
              initComboBoxServico();
-           }
+          }
           
           if(p.getCodigoClassificacaoServico()!=null){
+              initComboBoxClassificacao();
+              this.selectItemJComboBoxClassificacao(p.getCodigoServico()+p.getCodigoClassificacaoServico());
+          
           }else{
             initComboBoxClassificacao();
            }
@@ -2667,6 +2685,18 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           
           this.objectComboBoxModelCaraterAtend.setSelectedObject(c);
       }
+      
+       private void selectItemJComboBoxServico(String codigoItem){
+           Diversas d= new Diversas(new DiversasPK(Diversas.TABELA_SERVICO,codigoItem ));
+          
+          this.objectComboBoxModelServico.setSelectedObject(d);
+      }
+       
+       private void selectItemJComboBoxClassificacao(String codigoItem){
+          Diversas d= new Diversas(new DiversasPK(Diversas.TABELA_CLASSIFICACAO_SERVICO,codigoItem));
+          
+          this.objectComboBoxModelClassificaoServico.setSelectedObject(d);
+      } 
           
       //métodos focusLost
       
