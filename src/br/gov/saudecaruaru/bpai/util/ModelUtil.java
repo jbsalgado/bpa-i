@@ -146,4 +146,16 @@ public class ModelUtil {
         }
         return value;
     }
+    
+    public static String completar(String str,int tamanho, Character caractere){
+        if((str == null ? false: !(str.length()>=tamanho))){
+            StringBuilder s= new StringBuilder();
+            for(int i=str.length();i<tamanho;i++){
+                s.append(caractere);
+            }
+            s.append(str);
+            return s.toString();
+        }
+        return str;
+    }
 }
