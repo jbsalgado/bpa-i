@@ -9,6 +9,7 @@ import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
 import br.gov.saudecaruaru.bpai.data.BIProcedimentoRealizadoDAO;
 import br.gov.saudecaruaru.bpai.data.ProcedimentoRealizadoDAO;
+import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,8 +55,9 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
             for(int i=0; i<size;i++){
                 
                ProcedimentoRealizadoPK p=list.get(i).getProcedimentoRealizadoPK();
-               p.setNumeroFolha(""+folha);
-               p.setSequenciaFolha(""+seq);
+               p.setNumeroFolha(ModelUtil.completar(""+folha, 3, '0'));
+               p.setSequenciaFolha(ModelUtil.completar(""+seq, 2, '0'));
+               
                 //incrementa a folha e inicia uma nova sequencia
                 if(seq==ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
                     //verifica se a quantidade de folhas chegou ao limite
