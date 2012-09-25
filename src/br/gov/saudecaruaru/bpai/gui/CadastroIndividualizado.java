@@ -2644,7 +2644,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             this.selectItemJComboBoxCaraterAtend(CaraterAtendimento.SEM_INFORMACAO);
           }
           if(p.getCodigoServico()!=null){
-               initComboBoxServico();
+               focusLostComboboxServico();
                this.selectItemJComboBoxServico(p.getCodigoServico());
                
           }else{
@@ -2652,8 +2652,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           }
           
           if(p.getCodigoClassificacaoServico()!=null){
-              initComboBoxClassificacao();
-              this.selectItemJComboBoxClassificacao(p.getCodigoServico()+p.getCodigoClassificacaoServico());
+              //this.selectItemJComboBoxClassificacao(p.getCodigoServico()+p.getCodigoClassificacaoServico());
           
           }else{
             initComboBoxClassificacao();
