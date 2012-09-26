@@ -242,6 +242,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.initJTableDados();
         //pega o primeiro objeto da jTable e atribui ao modelo atual
         this.procedimentoRealizado = this.tableModelDados.getCloneElementList(0);
+        
         //caso o objeto pego já possua informacoes, desabilita o cabeçalho
         this.fillFields(this.procedimentoRealizado, true); 
         this.disabledFieldsProcedimento();
@@ -1573,9 +1574,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         if(this.textFieldVerifier(getListFieldsProcedimento())){
         // metodo que pega os valores de alguns campos e adiciona-os ao modelo
         this.getValuesOfFieldsForModel();
+         //se não houver elemento vazio siginifica que a operação é de edição
+         //nesse caso salva o objeto 
          if(this.tableModelDados.getCloneElementListEmpty()==null){
            //insere o modelo na jTable
           this.insertInJTable();
+         
           
         
          }else{
@@ -1585,9 +1589,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             ProcedimentoRealizado p = this.tableModelDados.getCloneElementListEmpty();
             if(p!=null){
+               // this.jTable1.changeSelection(1,1,false, false);
+               
                 this.procedimentoRealizado = p;
                 this.fillHeaderModelProcedimentoRealizado(this.procedimentoRealizado);
                 this.fillFields(procedimentoRealizado, false);
+                nextLineJTabel(this.jTable1);
             }else{
                 this.beginNewWindow();
             }
@@ -1598,7 +1605,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         }
     }//GEN-LAST:event_jButtonIncluirMouseClicked
-
+    private void nextLineJTabel(JTable jTable){
+        if(jTable!=null){
+            int nextIndex = jTable.getSelectedRow()+1;
+            int quantLines = jTable.getModel().getRowCount();
+            if(nextIndex<quantLines){
+                jTable.changeSelection(nextIndex,0,false, false);
+            }
+        }
+    }
     private void beginNewWindow(){
         this.insertInDatabase();
         //inicia a jTable
