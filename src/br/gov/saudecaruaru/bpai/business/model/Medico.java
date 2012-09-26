@@ -43,7 +43,13 @@ public class Medico implements Serializable {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        if(nome!=null){
+            if(nome.length()>=30){
+                this.nome = nome.substring(0, 30);
+                return;
+            }
+        }
+            this.nome = nome;
     }
 
     @Override

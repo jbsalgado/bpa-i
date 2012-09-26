@@ -42,6 +42,7 @@ public abstract class AbstractProcedimentoRealizadoTableModel extends AbstractTa
         return this.columns.length;
     }
 
+    
     @Override
     public abstract Object getValueAt(int rowIndex, int columnIndex);
     
@@ -108,7 +109,7 @@ public abstract class AbstractProcedimentoRealizadoTableModel extends AbstractTa
  
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        //no nosso caso todas vão ser editáveis, entao retorna true pra todas
+        //no nosso caso todas vÃ£o ser editÃ¡veis, entao retorna true pra todas
         return false;
     } 
     

@@ -22,6 +22,7 @@ public class ProcedimentoRealizadoTableModelBody  extends AbstractProcedimentoRe
     
     
 
+    
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         ProcedimentoRealizado p=this.getList().get(rowIndex);

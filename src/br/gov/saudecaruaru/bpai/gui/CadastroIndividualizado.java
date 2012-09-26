@@ -2050,9 +2050,17 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-            
-               CadastroIndividualizado.this.procedimentoRealizado.setNomePaciente(((JTextField)e.getComponent()).getText());
+            if(e.getOppositeComponent() instanceof JTextField ){
+               String nomeUsuario = ((JTextField)e.getComponent()).getText();
+               if(nomeUsuario!=null){
+                    if(!nomeUsuario.equals(CadastroIndividualizado.this.procedimentoRealizado.getNomePaciente())){
+                        CadastroIndividualizado.this.procedimentoRealizado.setNomePaciente(((JTextField)e.getComponent()).getText());
+                    }
+               }
             }
+            
+            }
+            
         });
            
             jTextFieldUsuarioSexo.addFocusListener(new FocusListener() {

@@ -121,6 +121,7 @@ public class ProcedimentoRealizadoTableModel extends AbstractProcedimentoRealiza
         fireTableCellUpdated(rowIndex, columnIndex); 
     }
     
+    @Override
     public void setValueAt(ProcedimentoRealizado aValue, int rowIndex) {
         //pega o produto da linha
         this.getList().set(rowIndex, aValue);

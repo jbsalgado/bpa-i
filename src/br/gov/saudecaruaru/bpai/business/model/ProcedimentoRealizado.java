@@ -433,7 +433,13 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     }
 
     public void setNomePaciente(String nomePaciente) {
-        this.nomePaciente = nomePaciente;
+        if(nomePaciente!=null){
+            if(nomePaciente.length()>=30){
+                this.nomePaciente = nomePaciente.substring(0,30);
+                return;
+            }
+        }
+            this.nomePaciente = nomePaciente;
     }
 
     public String getNumeroAutorizacao() {
