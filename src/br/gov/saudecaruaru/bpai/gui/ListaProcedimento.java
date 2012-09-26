@@ -71,8 +71,11 @@ public class ListaProcedimento extends javax.swing.JFrame {
         //quando a linha selecionada for mudada
         this.jTableHeader.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
+            
             @Override
             public void valueChanged(ListSelectionEvent e) {
+                //as mudanças da seleção ainda estão ocorrendo
+                if(!e.getValueIsAdjusting()){
                     int row=ListaProcedimento.this.jTableHeader.getSelectedRow();
                     //tem linha selecionada
                     if(row>=0){
@@ -91,6 +94,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
                     else{
                         ListaProcedimento.this.tableModelBody.replaceAllProcedimentoRealizado(new ArrayList<ProcedimentoRealizado>());
                     }
+                }
                
             }
         });
@@ -351,6 +355,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         CadastroIndividualizado cad=new CadastroIndividualizado(this);
         //cad.setVisible(true);
         cad.setLocationRelativeTo(null);
+        cad.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         cad.setModal(true);
         cad.setVisible(true);
     
@@ -373,8 +378,9 @@ public class ListaProcedimento extends javax.swing.JFrame {
                 //precisa abilitar esses campos poruqe por padrão eles são desabilitados
                 cad.enableFieldsProcedimento();
                 cad.setLocationRelativeTo(null);
-                cad.setVisible(true);
                 cad.setModal(true);
+                cad.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                cad.setVisible(true);
             }
             
         }
