@@ -5,12 +5,7 @@
 package br.gov.saudecaruaru.bpai.util;
 
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
-import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.table.AbstractTableModel;
 
 /**
  *
@@ -47,7 +42,7 @@ public class ProcedimentoRealizadoTableModelHeader extends AbstractProcedimentoR
     }
 
     
-     @Override
+  
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         //pega o produto da linha
         ProcedimentoRealizado model = this.getList().get(rowIndex);
