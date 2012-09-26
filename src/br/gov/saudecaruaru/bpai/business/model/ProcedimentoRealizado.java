@@ -220,6 +220,9 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
        // this.idadePaciente
     }
 
+    /**
+     * Preenche os camps com valores padrões e formata os campos númericos
+     */
     public void preencherAtributosVazios(){
         if(this.origemProcedimento.equals(ORIGEM_CONSOLIDADO)){
             
@@ -244,9 +247,6 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
             if( this.racaPaciente == null ? true: this.racaPaciente.isEmpty()){
                 this.racaPaciente="  ";
             }
-            if( this.idadePaciente== null ? true : this.idadePaciente.isEmpty()){
-                this.idadePaciente="000";
-            }
             if( this.caracterizacaoAtendimento== null ? true : this.caracterizacaoAtendimento.isEmpty()){
                 this.caracterizacaoAtendimento="  ";
             } 
@@ -257,6 +257,10 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         
         if(this.cidDoencaprocedimento == null ? true : this.cidDoencaprocedimento.isEmpty()){
             this.cidDoencaprocedimento="    ";
+        }
+
+        if( this.idadePaciente== null ? true : this.idadePaciente.isEmpty()){
+            this.idadePaciente=ModelUtil.completar(""+this.idadePaciente, 3, '0');
         }
         if(this.cnsPaciente==null ? true : this.cnsPaciente.isEmpty()){
             this.cnsPaciente="               ";

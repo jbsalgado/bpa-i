@@ -237,6 +237,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         //seta o estado do frame para ocupar toda a tela
         //this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         //this.setVisible(true);
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                CadastroIndividualizado.this.dispose();
+            }
+        });
         this.initInstances();
         
         this.initJTableDados();
@@ -340,7 +347,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldCnsProfiss.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldCnes.transferFocus();
                 }
             }
         });
@@ -358,7 +365,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 }
                 //teclou "enter"
                 else if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldNomeProfiss.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldCnsProfiss.transferFocus();
                 }
             }
              
@@ -370,7 +377,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldCBO.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldNomeProfiss.transferFocus();
                 }
             }
         });
@@ -387,7 +394,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     }
                 }
                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jComboBoxEquipe.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldCBO.transferFocus();
                 } 
                 
             }
@@ -403,7 +410,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldMes.requestFocusInWindow();
+                    CadastroIndividualizado.this.jComboBoxEquipe.transferFocus();
                 } 
             }
         });
@@ -413,7 +420,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldAno.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldMes.transferFocus();
                 } 
             }
         });
@@ -423,7 +430,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldFolha.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldAno.transferFocus();
                 } 
             }
         });
@@ -435,7 +442,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldUsuarioCns.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldFolha.transferFocus();
                 } 
             }
         });
@@ -453,7 +460,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     }
                 }
                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldUsuarioNome.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldUsuarioCns.transferFocus();
                 }
             }
              
@@ -467,7 +474,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldUsuarioSexo.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldUsuarioNome.transferFocus();
                 } 
             }
         });
@@ -478,7 +485,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldUsarioDatNasc.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldUsuarioSexo.transferFocus();
                 } 
             }
         });
@@ -489,7 +496,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldUsuarioCodMunicip.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldUsarioDatNasc.transferFocus();
                 } 
             }
         });
@@ -510,7 +517,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 }
                 
                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldUsuarioCodNac.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldUsuarioCodMunicip.transferFocus();
                 } 
             }
              
@@ -532,7 +539,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     }
                 }
                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jComboBoxUsuarioRacaCor.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldUsuarioCodNac.transferFocus();
                 } 
             }
              
@@ -544,14 +551,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    //pega o codigo do elemento selecionado
-                    String codigo=CadastroIndividualizado.this.objectComboBoxModelRacaCor.getSelectedObject().getDiversasPK().getCodigoItemTabela();
-                    if(Diversas.COD_RACA_COR_INDIGENA.equals(codigo)){
-                        CadastroIndividualizado.this.jTextFieldUsuarioCodEtnia.requestFocusInWindow();
-                    }
-                    else{
-                        CadastroIndividualizado.this.jTextFieldProcDataAtend.requestFocusInWindow();
-                    }
+                        CadastroIndividualizado.this.jComboBoxUsuarioRacaCor.transferFocus();
+                    
                 } 
             }
         });
@@ -562,7 +563,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldProcDataAtend.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldUsuarioCodEtnia.transferFocus();
                 } 
             }
         });
@@ -573,7 +574,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldProcCod.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldProcDataAtend.transferFocus();
                 } 
             }
         });
@@ -593,7 +594,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     }
                 }
                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldProcQuant.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldProcCod.transferFocus();
                 } 
             }
              
@@ -606,7 +607,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jComboBoxUsuarioServico.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldProcQuant.transferFocus();
                 } 
             }
         });
@@ -617,7 +618,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jComboBoxUsuarioClassificacao.requestFocusInWindow();
+                    CadastroIndividualizado.this.jComboBoxUsuarioServico.transferFocus();
                 } 
             }
         });
@@ -628,7 +629,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldProcCID.requestFocusInWindow();
+                    CadastroIndividualizado.this.jComboBoxUsuarioClassificacao.transferFocus();
                 } 
             }
         });
@@ -649,7 +650,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 }
                 
                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jComboBoxProcCaraterAtend.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldProcCID.transferFocus();
                 } 
             }
              
@@ -662,7 +663,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jTextFieldProcNumAut.requestFocusInWindow();
+                    CadastroIndividualizado.this.jComboBoxProcCaraterAtend.transferFocus();
                 } 
             }
         });
@@ -673,7 +674,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    CadastroIndividualizado.this.jButtonIncluir.requestFocusInWindow();
+                    CadastroIndividualizado.this.jTextFieldProcNumAut.transferFocus();
                 } 
             }
         });
@@ -899,34 +900,34 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Cadastro indivualizado"); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel1.setText("CNES");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel2.setText("CNS Profissional");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel3.setText("Nome Profissional");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel5.setText("Mês/Ano");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel6.setText("Folha");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel7.setText(" /");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel9.setText("CNS");
 
         jLabel8.setText("Usuário Sequência :");
 
         jLabelUsuarioSeq.setText("01");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel10.setText("Nome ");
 
         jTextFieldUsuarioNome.addActionListener(new java.awt.event.ActionListener() {
@@ -935,15 +936,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel4.setText("Sexo");
 
         jLabel11.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel11.setText(" F/M");
         jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel12.setText("Dt. Nascimento");
 
         jTextFieldUsuarioNomeNac.setBackground(new java.awt.Color(153, 153, 153));
@@ -953,7 +954,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel14.setText("Nacionalidade");
 
         jTextFieldUsuarioNomeMunicip.setBackground(new java.awt.Color(153, 153, 153));
@@ -963,10 +964,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel13.setText("Município de Residência");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel15.setText("Raça/Cor");
 
         jTextFieldUsuarioDescEtnia.setBackground(new java.awt.Color(153, 153, 153));
@@ -983,7 +984,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel17.setText("Etnia");
 
         jTextFieldUsuarioCns.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###############"))));
@@ -1126,7 +1127,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jLabelProcSeq.setText("01");
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel20.setText("Dt. Atendimento");
 
         jTextFieldProcQuant.addActionListener(new java.awt.event.ActionListener() {
@@ -1135,7 +1136,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel22.setText("Quantidade");
 
         jTextFieldProcDescriDoenca.setBackground(new java.awt.Color(153, 153, 153));
@@ -1145,10 +1146,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel23.setText("Código");
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel24.setText("CID");
 
         jTextFieldProcDescricao.setBackground(new java.awt.Color(153, 153, 153));
@@ -1165,13 +1166,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel19.setText("Nº Autorização");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel18.setText("Caráter Atendimento");
 
-        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonIncluir.setText("Incluir");
         jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1189,7 +1190,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonLimpar.setText("Limpar");
         jButtonLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1258,7 +1259,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel26.setText("Serviço");
 
         jComboBoxUsuarioServico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -1268,7 +1269,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel27.setText("Classificação");
 
         jComboBoxUsuarioClassificacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -1437,7 +1438,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             ex.printStackTrace();
         }
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel21.setText("CBO");
 
         jComboBoxEquipe.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -1447,7 +1448,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel25.setText("Equipe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1959,7 +1960,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             public void focusLost(FocusEvent e) {
                   if(e.getOppositeComponent() instanceof JTextField){
                     procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(((JTextField)e.getComponent()).getText()+jTextFieldMes.getText());
-                    enableFieldsProcedimento();
+                    
                }
             }
         }); 
@@ -1989,6 +1990,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                             //desabilita os campos do cabeçalho da tela que são 
                             //referentes as informações da unidade e do usuário      
                             disableFieldsHeader();
+                            enableFieldsProcedimento();
+                            CadastroIndividualizado.this.jTextFieldUsuarioCns.requestFocusInWindow();
                             
                         }  
 
@@ -2120,7 +2123,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                CadastroIndividualizado.this.procedimentoRealizado.setNacionalidadePaciente(((JTextField)e.getComponent()).getText());
             }
         });
-             jComboBoxUsuarioRacaCor.addFocusListener(new FocusListener() {
+        jComboBoxUsuarioRacaCor.addFocusListener(new FocusListener() {
 
             @Override
             public void focusGained(FocusEvent e) {
@@ -2133,6 +2136,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                int index = ((JComboBox)e.getComponent()).getSelectedIndex();
                Diversas d = (Diversas) objectComboBoxModelRacaCor.getData().get(index);
                CadastroIndividualizado.this.procedimentoRealizado.setRacaPaciente(d.getDiversasPK().getCodigoItemTabela().toString());
+               if(d.getDiversasPK().getCodigoItemTabela().trim().equals(Diversas.COD_RACA_COR_INDIGENA)){
+                   CadastroIndividualizado.this.jTextFieldUsuarioCodEtnia.setEnabled(true);
+                   CadastroIndividualizado.this.jTextFieldUsuarioCodEtnia.requestFocusInWindow();
+               }
             }
         });
              
