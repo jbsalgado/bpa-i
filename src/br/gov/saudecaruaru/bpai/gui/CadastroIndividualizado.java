@@ -30,6 +30,8 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.JTextComponent;
 
@@ -83,6 +85,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      private int sequencia=1;
      
      private List<BIProcedimentoRealizado> lBIProcedimentoRealizados;
+     private List<ProcedimentoRealizado> listProcedimentoRealizados;
      private Set<Paciente> setPaciente;
      private Set<Medico> setMedico;
      private Set<MedicoCboCnes> setMedicoCboCnes;
@@ -156,6 +159,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.equipeController= new EquipeController();
         
         this.lBIProcedimentoRealizados=new ArrayList<BIProcedimentoRealizado>();
+        this.listProcedimentoRealizados=new ArrayList<ProcedimentoRealizado>();
         this.setPaciente=new HashSet<Paciente>();
         this.setMedico= new HashSet<Medico>();
         this.setMedicoCboCnes= new HashSet<MedicoCboCnes>();
@@ -249,6 +253,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.initJTableDados();
         //pega o primeiro objeto da jTable e atribui ao modelo atual
         this.procedimentoRealizado = this.tableModelDados.getCloneElementList(0);
+        
         //caso o objeto pego já possua informacoes, desabilita o cabeçalho
         this.fillFields(this.procedimentoRealizado, true); 
         this.disabledFieldsProcedimento();
@@ -731,6 +736,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
        //inicia o ScrollPanel
        //this.jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.);
        
+       this.jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(!e.getValueIsAdjusting()){
+                    CadastroIndividualizado.this.selectionObjectAndFillFields();
+                }
+            }
+        });
     }
     //todos os keyPressed
     
@@ -854,12 +868,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldUsuarioDescEtnia = new javax.swing.JTextField();
         jComboBoxUsuarioRacaCor = new javax.swing.JComboBox();
         jLabel17 = new javax.swing.JLabel();
-        jTextFieldUsuarioCns = new javax.swing.JFormattedTextField();
         jTextFieldUsuarioSexo = new javax.swing.JFormattedTextField();
         jTextFieldUsarioDatNasc = new javax.swing.JFormattedTextField();
         jTextFieldUsuarioCodEtnia = new javax.swing.JFormattedTextField();
         jTextFieldUsuarioCodMunicip = new javax.swing.JFormattedTextField();
         jTextFieldUsuarioCodNac = new javax.swing.JFormattedTextField();
+        jTextFieldUsuarioCns = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabelProcSeq = new javax.swing.JLabel();
@@ -887,6 +901,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jComboBoxUsuarioServico = new javax.swing.JComboBox();
         jLabel27 = new javax.swing.JLabel();
         jComboBoxUsuarioClassificacao = new javax.swing.JComboBox();
+        jButton1 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jTextFieldCnes = new javax.swing.JFormattedTextField();
         jTextFieldCnsProfiss = new javax.swing.JFormattedTextField();
@@ -988,8 +1003,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel17.setText("Etnia");
 
-        jTextFieldUsuarioCns.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###############"))));
-
         try {
             jTextFieldUsuarioSexo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("U")));
         } catch (java.text.ParseException ex) {
@@ -1020,6 +1033,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             ex.printStackTrace();
         }
 
+        try {
+            jTextFieldUsuarioCns.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###############")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -1034,8 +1053,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldUsuarioCns, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jTextFieldUsuarioCns, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldUsuarioNome, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1093,13 +1112,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextFieldUsuarioNome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(jTextFieldUsuarioSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldUsarioDatNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jTextFieldUsuarioCns, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldUsuarioNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldUsuarioCns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel11)
+                        .addComponent(jTextFieldUsuarioSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldUsarioDatNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -1280,6 +1299,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
+        jButton1.setText("Atualizar");
+        jButton1.setToolTipText("");
+        jButton1.setEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -1336,7 +1359,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                                                 .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jTextFieldProcQuant)))))
                                 .addGap(0, 3, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 310, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1381,7 +1406,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButtonIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                                .addComponent(jButton1))
                             .addComponent(jButtonLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(4, 4, 4))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -1544,6 +1571,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
+        jTextFieldCnsProfiss.getAccessibleContext().setAccessibleDescription("");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1573,27 +1602,48 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
     private void jButtonIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirMouseClicked
         if(this.textFieldVerifier(getListFieldsProcedimento())){
-            // metodo que pega os valores de alguns campos e adiciona-os ao modelo
-            this.getValuesOfFieldsForModel();
-             if(this.tableModelDados.getCloneElementListEmpty()==null){
-                   //insere o modelo na jTable
-                  this.insertInJTable();
-             }else{
-                 //insere o modelo na jTable
-                this.insertInJTable();
+        // metodo que pega os valores de alguns campos e adiciona-os ao modelo
+        this.getValuesOfFieldsForModel();
+         //se não houver elemento vazio siginifica que a operação é de edição
+         //nesse caso salva o objeto 
+         if(this.tableModelDados.getCloneElementListEmpty()==null){
+           //insere o modelo na jTable
+            this.insertInJTable();
+         
+          
+        
+         }else{
+      
+            //insere o modelo na jTable
+            this.insertInJTable();
 
-                ProcedimentoRealizado p = this.tableModelDados.getCloneElementListEmpty();
-                if(p!=null){
-                    this.procedimentoRealizado = p;
-                    this.fillHeaderModelProcedimentoRealizado(this.procedimentoRealizado);
-                    this.fillFields(procedimentoRealizado, false);
-                }else{
-                    this.beginNewWindow();
-                }
-             }
+            ProcedimentoRealizado p = this.tableModelDados.getCloneElementListEmpty();
+            if(p!=null){
+               // this.jTable1.changeSelection(1,1,false, false);
+               
+                this.procedimentoRealizado = p;
+                this.fillHeaderModelProcedimentoRealizado(this.procedimentoRealizado);
+                this.fillFields(procedimentoRealizado, false);
+                nextLineJTabel(this.jTable1);
+            }else{
+                this.beginNewWindow();
+            }
+
+               
+         }
+       
+
         }
     }//GEN-LAST:event_jButtonIncluirMouseClicked
-
+    private void nextLineJTabel(JTable jTable){
+        if(jTable!=null){
+            int nextIndex = jTable.getSelectedRow()+1;
+            int quantLines = jTable.getModel().getRowCount();
+            if(nextIndex<quantLines){
+                jTable.changeSelection(nextIndex,0,false, false);
+            }
+        }
+    }
     private void beginNewWindow(){
         this.insertInDatabase();
         //inicia a jTable
@@ -1622,12 +1672,17 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
    
     
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        JTable j = (JTable)evt.getComponent();
-        int row = j.getSelectedRow();
-        this.procedimentoRealizado = this.tableModelDados.getCloneElementList(row);
-        fillFields(procedimentoRealizado,false);
+        
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void selectionObjectAndFillFields(){
+        int row = this.jTable1.getSelectedRow();
+        if(row>=0){
+            this.procedimentoRealizado = this.tableModelDados.getCloneElementList(row);
+            fillFields(procedimentoRealizado,false);
+            fillHeaderModelProcedimentoRealizado(this.procedimentoRealizado);
+        }
+    }
     private void jButtonGravarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGravarMouseClicked
         this.beginNewWindow();
         
@@ -1747,6 +1802,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     }                                             
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonGravar;
     private javax.swing.JButton jButtonIncluir;
     private javax.swing.JButton jButtonLimpar;
@@ -2559,7 +2615,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldProcNumAut.setText("");
         jTextFieldProcQuant.setText("");
         jTextFieldUsarioDatNasc.setText("");
-        jTextFieldUsuarioCns.setText("");
+        jTextFieldUsuarioCns.setValue(null);
         jTextFieldUsuarioCodEtnia.setText("");
         jTextFieldUsuarioCodMunicip.setText("");
         //jTextFieldUsuarioCodNac.setText("");

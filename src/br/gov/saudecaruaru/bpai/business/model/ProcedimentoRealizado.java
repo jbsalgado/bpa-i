@@ -332,6 +332,31 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.codigoServico = codigoServico.trim();
     }
 
+    public boolean isComplete(){
+        if(this.procedimentoRealizadoPK==null){
+            return false;
+        }
+        if(this.procedimentoRealizadoPK.getCboMedico() ==null ? true : this.procedimentoRealizadoPK.getCboMedico().isEmpty()){
+            return false;
+        }
+        if(this.procedimentoRealizadoPK.getCnesUnidade() ==null ? true : this.procedimentoRealizadoPK.getCnesUnidade().isEmpty()){
+            return false;
+        }
+        if(this.procedimentoRealizadoPK.getCnsMedico() ==null ? true : this.procedimentoRealizadoPK.getCnsMedico().isEmpty()){
+            return false;
+        }
+        if(this.procedimentoRealizadoPK.getCompetencia() ==null ? true : this.procedimentoRealizadoPK.getCompetencia().isEmpty()){
+            return false;
+        }
+        if(this.procedimentoRealizadoPK.getNumeroFolha() ==null ? true : this.procedimentoRealizadoPK.getNumeroFolha().isEmpty()){
+            return false;
+        }
+        if(this.procedimentoRealizadoPK.getSequenciaFolha() ==null ? true : this.procedimentoRealizadoPK.getSequenciaFolha().isEmpty()){
+            return false;
+        }
+        
+        return true;
+    }
     public String getEquipe() {
         return equipe;
     }
