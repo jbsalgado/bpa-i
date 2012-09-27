@@ -82,7 +82,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      private ObjectComboBoxModel<Equipe> objectComboBoxModelEquipe;
      private int sequencia=1;
      
-     private List<BIProcedimentoRealizado> lBi;
+     private List<BIProcedimentoRealizado> lBIProcedimentoRealizados;
      private Set<Paciente> setPaciente;
      private Set<Medico> setMedico;
      private Set<MedicoCboCnes> setMedicoCboCnes;
@@ -155,7 +155,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.procedimentoServicoController= new ProcedimentoServicoController();
         this.equipeController= new EquipeController();
         
-        this.lBi=new ArrayList<BIProcedimentoRealizado>();
+        this.lBIProcedimentoRealizados=new ArrayList<BIProcedimentoRealizado>();
         this.setPaciente=new HashSet<Paciente>();
         this.setMedico= new HashSet<Medico>();
         this.setMedicoCboCnes= new HashSet<MedicoCboCnes>();
@@ -318,7 +318,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldUsuarioNome.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
         jTextFieldProcQuant.setInputVerifier(new OnlyNumbers(this,"Quantidade"));
         jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this,"CNS"));
-        jTextFieldUsuarioCns.setInputVerifier(new CnsUsuarioVerifier(this, "CNS",this));
+        //jTextFieldUsuarioCns.setInputVerifier(new CnsUsuarioVerifier(this, "CNS",this));
         jTextFieldCBO.setInputVerifier(new CBOVerifier(this, "CBO"));
         jTextFieldUsuarioCodNac.setInputVerifier(new NacionalidadeVerifier(this, "Nacionalidade",jTextFieldUsuarioNomeNac));
         jTextFieldUsuarioCodMunicip.setInputVerifier(new MunicipioVerifier(this,"Municipio",jTextFieldUsuarioNomeMunicip));
@@ -449,8 +449,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         
         //para pacientes/cns do paciente
         this.jTextFieldUsuarioCns.addKeyListener(new KeyAdapter() {
+            @Override
              public void keyPressed(java.awt.event.KeyEvent evt) {
-                 //o usuário clicou F2
+                 //o usuário clicou F1
                 if(evt.getKeyCode()==KeyEvent.VK_F1){
                     Search m=CadastroIndividualizado.this.keyPressedJTextFieldUsuarioCns();
                     //o usuário selecionou um registro
@@ -1572,31 +1573,24 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
     private void jButtonIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirMouseClicked
         if(this.textFieldVerifier(getListFieldsProcedimento())){
-        // metodo que pega os valores de alguns campos e adiciona-os ao modelo
-        this.getValuesOfFieldsForModel();
-         if(this.tableModelDados.getCloneElementListEmpty()==null){
-           //insere o modelo na jTable
-          this.insertInJTable();
-          
-        
-         }else{
-      
-            //insere o modelo na jTable
-            this.insertInJTable();
+            // metodo que pega os valores de alguns campos e adiciona-os ao modelo
+            this.getValuesOfFieldsForModel();
+             if(this.tableModelDados.getCloneElementListEmpty()==null){
+                   //insere o modelo na jTable
+                  this.insertInJTable();
+             }else{
+                 //insere o modelo na jTable
+                this.insertInJTable();
 
-            ProcedimentoRealizado p = this.tableModelDados.getCloneElementListEmpty();
-            if(p!=null){
-                this.procedimentoRealizado = p;
-                this.fillHeaderModelProcedimentoRealizado(this.procedimentoRealizado);
-                this.fillFields(procedimentoRealizado, false);
-            }else{
-                this.beginNewWindow();
-            }
-
-               
-         }
-       
-
+                ProcedimentoRealizado p = this.tableModelDados.getCloneElementListEmpty();
+                if(p!=null){
+                    this.procedimentoRealizado = p;
+                    this.fillHeaderModelProcedimentoRealizado(this.procedimentoRealizado);
+                    this.fillFields(procedimentoRealizado, false);
+                }else{
+                    this.beginNewWindow();
+                }
+             }
         }
     }//GEN-LAST:event_jButtonIncluirMouseClicked
 
@@ -1630,7 +1624,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         JTable j = (JTable)evt.getComponent();
         int row = j.getSelectedRow();
-        
         this.procedimentoRealizado = this.tableModelDados.getCloneElementList(row);
         fillFields(procedimentoRealizado,false);
     }//GEN-LAST:event_jTable1MouseClicked
@@ -2032,12 +2025,14 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             public void focusLost(FocusEvent e) {
                 //perdeu o foco para um campo e o objeto não tem um CNS
                 if(e.getOppositeComponent() instanceof JTextField ){
-                   String cns=CadastroIndividualizado.this.jTextFieldUsuarioCns.getText();
+                   String cns=CadastroIndividualizado.this.jTextFieldUsuarioCns.getText().trim();
                    if(!cns.isEmpty()){
                        //caso os códigos sejam diferentes vai executar
                        if(!cns.equals(CadastroIndividualizado.this.procedimentoRealizado.getCnsPaciente())){
                            CadastroIndividualizado.this.focusLostFieldUsuarioCns();
                        }
+                   }else{
+                       //jTextFieldUsuarioCns.setv
                    }
                }
                
@@ -2503,6 +2498,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
          
          //insere o modelo no banco de dados do nosso banco de dados
           List<ProcedimentoRealizado> l=this.tableModelDados.getListWithOutEmptyElements();
+          List<BIProcedimentoRealizado> biProList=new ArrayList<BIProcedimentoRealizado>();
           
           //vai pegar os médicos e os pacientes
           int size=l.size();
@@ -2523,7 +2519,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
               //pega o MedicoCboCnes e adiciona no Set
               this.setMedicoCboCnes.add(p.getMedicoCboCnes());
               //cria um procedimentoRealizado a ser salvo no bando do sistema
-              this.lBi.add(new BIProcedimentoRealizado(p));
+              biProList.add(new BIProcedimentoRealizado(p));
           }
           //salva todos os pacientes ou senão atualiza
           this.pacienteController.merge(new ArrayList<Paciente>(this.setPaciente));
@@ -2532,7 +2528,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           //salva todos os médicosCbosCnes ou senão atualiza
           this.medicoCboCnesController.merge(new ArrayList<MedicoCboCnes>(this.setMedicoCboCnes));
           //salva todos os procedimentos no banco próprio do sistema
-          this.bIProcedimentoRealizadoController.merge(this.lBi);
+          this.bIProcedimentoRealizadoController.merge(biProList);
           
           
           
@@ -2743,7 +2739,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
       }
       
       private void focusLostFieldUsuarioCns(){
-            CadastroIndividualizado.this.procedimentoRealizado.setCnsPaciente(this.jTextFieldUsuarioCns.getText());
+            this.procedimentoRealizado.setCnsPaciente(this.jTextFieldUsuarioCns.getText());
             //pega um paciente
             Paciente p= new Paciente(this.procedimentoRealizado.getCnsPaciente());
             if(!p.getCns().isEmpty()){
@@ -2754,7 +2750,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     pa=this.pacienteController.findEqual(p);
                 }
                 if(pa!=null){
-                    CadastroIndividualizado.MAP_PACIENTE.put(pa.getCns(), pa);
+                    //CadastroIndividualizado.MAP_PACIENTE.put(pa.getCns(), pa);
                     this.jTextFieldUsuarioNome.setText(pa.getNome());
                     this.jTextFieldUsuarioCodEtnia.setText(pa.getEtnia());
                     this.jTextFieldUsuarioCodMunicip.setText(pa.getCodigoIbgeCidade());

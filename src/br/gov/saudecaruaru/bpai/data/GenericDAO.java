@@ -41,7 +41,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
         Transaction tr=session.getTransaction();
         try {
             tr.begin();
-            session.persist(entity);
+            session.save(entity);
             tr.commit();
         } catch (Throwable t) {
             t.printStackTrace();

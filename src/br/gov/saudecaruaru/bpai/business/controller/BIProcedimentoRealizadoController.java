@@ -31,12 +31,7 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
         return ((BIProcedimentoRealizadoDAO)this.getDao()).getNextFolha(BIProcedimentoRealizado);
     }
     
-//    public void salvar(List<ProcedimentoRealizado> procedimentosRealizados){
-//        //salvando uma lista de procedimentos
-//        for(ProcedimentoRealizado p : procedimentosRealizados){
-//            salvar(new BIProcedimentoRealizado(p));
-//        }
-//    }
+
     
     
     public void findAllProcedimentosConsolidadosAndSave(String competencia,ProcedimentoRealizadoDAO procedimentoDao, int maxResults){

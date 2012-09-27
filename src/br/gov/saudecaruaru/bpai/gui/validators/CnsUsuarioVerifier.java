@@ -33,13 +33,14 @@ public class CnsUsuarioVerifier extends CnsVerifier{
              
              String valor = txtField.getText().trim();
              if(!valor.isEmpty() && proRealizado.getProcedimentoRealizadoPK().getCnsMedico()!=null ){
-             if(valor.equals(proRealizado.getProcedimentoRealizadoPK().getCnsMedico())){
-                  JOptionPane.showMessageDialog(this.component," CNS do Usuário é igual ao CNS do profissional!", 
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                txtField.setBackground(Color.RED);
-                return false;
-             }
-            return super.verify(input);
+                 
+                 if(valor.equals(proRealizado.getProcedimentoRealizadoPK().getCnsMedico())){
+                      JOptionPane.showMessageDialog(this.component," CNS do Usuário é igual ao CNS do profissional!", 
+                    "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
+                    txtField.setBackground(Color.RED);
+                    return false;
+                 }
+                return super.verify(input);
             }
              return true;
         }
