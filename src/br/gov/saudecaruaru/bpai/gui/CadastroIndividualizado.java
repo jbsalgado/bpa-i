@@ -4,6 +4,8 @@ package br.gov.saudecaruaru.bpai.gui;
 
 
 
+import br.gov.saudecaruaru.bpai.gui.documents.CnsDocument;
+import br.gov.saudecaruaru.bpai.gui.documents.OnlyLettersDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.CaraterAtendimentoFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.DiversasFormatter;
 import br.gov.saudecaruaru.bpai.business.controller.*;
@@ -291,6 +293,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     private void initFields(){
         //inicializando campos 
         jTextFieldUsuarioCns.setDocument(new CnsDocument());
+        jTextFieldNomeProfiss.setDocument(new OnlyLettersDocument());
+        jTextFieldUsuarioNome.setDocument(new OnlyLettersDocument());
         //inicializando competencia
         String competencia = gestorCompetenciaController.getCompetenciaAtual();
         //verifica se existe competencia
@@ -317,9 +321,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     
     private void setVerifiers(){
         //atribui validadores
-        jTextFieldNomeProfiss.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
+        //jTextFieldNomeProfiss.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
         jTextFieldCnes.setInputVerifier(new CnesVerifier(this, "CNES"));
-        jTextFieldUsuarioNome.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
+        //jTextFieldUsuarioNome.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
         jTextFieldProcQuant.setInputVerifier(new OnlyNumbers(this,"Quantidade"));
         jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this,"CNS"));
         //jTextFieldUsuarioCns.setInputVerifier(new CnsUsuarioVerifier(this, "CNS",this));
@@ -920,11 +924,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Cadastro indivualizado"); // NOI18N
-        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                teste(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel1.setText("CNES");
@@ -1209,6 +1208,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 jButtonIncluirMouseClicked(evt);
             }
         });
+        jButtonIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncluirActionPerformed(evt);
+            }
+        });
         jButtonIncluir.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jButtonIncluirKeyPressed(evt);
@@ -1294,24 +1298,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jComboBoxUsuarioClassificacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonAtualizar.setText("Atualizar");
         jButtonAtualizar.setToolTipText("");
         jButtonAtualizar.setEnabled(false);
-        jButtonAtualizar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonAtualizarMouseClicked(evt);
-            }
-        });
 
-        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButtonCancelar.setEnabled(false);
-        jButtonCancelar.setLabel("Cancelar");
-        jButtonCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCancelarMouseClicked(evt);
-            }
-        });
+        jButtonCancelar.setText("Cancelar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1369,13 +1360,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                                                 .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jTextFieldProcQuant)))))
                                 .addGap(0, 3, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                         .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonAtualizar)
+                        .addGap(27, 27, 27)
                         .addComponent(jButtonCancelar)
-                        .addGap(16, 16, 16)
+                        .addGap(36, 36, 36)
                         .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButtonGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1420,7 +1411,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                            .addComponent(jButtonAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonAtualizar)
                             .addComponent(jButtonCancelar))
                         .addGap(5, 5, 5))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -1728,6 +1719,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             
         }
     }//GEN-LAST:event_jButtonAtualizarMouseClicked
+
+    private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonIncluirActionPerformed
                                           
 
     private void jTextFieldCnsProfissActionPerformed(java.awt.event.ActionEvent evt) {                                                     

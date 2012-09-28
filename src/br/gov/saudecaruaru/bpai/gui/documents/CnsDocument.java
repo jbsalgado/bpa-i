@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.gui;
+package br.gov.saudecaruaru.bpai.gui.documents;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

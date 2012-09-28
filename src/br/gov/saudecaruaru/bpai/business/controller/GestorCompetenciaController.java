@@ -28,7 +28,7 @@ public class GestorCompetenciaController extends BasecController<GestorCompetenc
         if(!list.isEmpty()){
             GestorCompetencia g=list.get(0);
             if(g instanceof GestorCompetencia && g!=null){
-            String competencia = list.get(0).getGestorCompetenciaPK().getCompetenciaMovimento();
+            String competencia = list.get(0).getCompetenciaMovimento();
                 return competencia;
             }
         }

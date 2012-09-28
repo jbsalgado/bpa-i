@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
@@ -79,12 +80,13 @@ public class DataAtendimentoVerifier extends InputVerifier{
                    ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
          txtField.setBackground(Color.RED); 
            return false;
-       }else if(dataAtendMesAno.after(competencia)){
-         JOptionPane.showMessageDialog(this.component," A DATA DE ATENDIMENTO NÃO DEVE SER MAIOR QUE A COMPETÊNCIA ATUAL!"
-                   ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
-         txtField.setBackground(Color.RED); 
-           return false;
        }
+//       else if(dataAtendMesAno.after(competencia)){
+//         JOptionPane.showMessageDialog(this.component," A DATA DE ATENDIMENTO NÃO DEVE SER MAIOR QUE A COMPETÊNCIA ATUAL!"
+//                   ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
+//         txtField.setBackground(Color.RED); 
+//           return false;
+//       }
        txtField.setBackground(Color.WHITE);
       
        return true;

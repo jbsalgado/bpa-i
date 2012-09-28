@@ -47,13 +47,21 @@ public class CompetenciaVerifier extends InputVerifier{
     
       //seta o valor digitado no objeto
       String competencia = valor+mes;
-                if (!competencia.equals(gestorCompetenciaController.getCompetenciaAtual())) {  
-                       JOptionPane.showMessageDialog(this.component, " COMPETÊNCIA INVÁLIDA!", 
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE);
-                textFieldMes.requestFocus();
-                return false;
-                }
-                  txtField.setBackground(Color.WHITE);
+      String competenciaAtual = gestorCompetenciaController.getCompetenciaAtual();
+           
+               
+                    int dif = Integer.parseInt(competenciaAtual)-Integer.parseInt(competencia);
+                    //é permitido até 4 meses do mes atual 
+                     // (implementar posteriormente a diferenca entre objetos DATE)
+                    if(dif>4 || dif<0){  
+                        JOptionPane.showMessageDialog(this.component, " COMPETÊNCIA INVÁLIDA!", 
+                        "Erro de validação!", JOptionPane.ERROR_MESSAGE);
+                        textFieldMes.requestFocus();
+                        return false;
+                    }
+                
+                
+                txtField.setBackground(Color.WHITE);
                 return true;
        }
     
