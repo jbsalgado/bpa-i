@@ -5,23 +5,22 @@
 package br.gov.saudecaruaru.bpai.gui.formatter;
 
 
-import br.gov.saudecaruaru.bpai.business.model.CaraterAtendimento;
-import br.gov.saudecaruaru.bpai.business.model.Diversas;
+import br.gov.saudecaruaru.bpai.business.model.Mes;
 import com.towel.bean.Formatter;
 
 /**
  *
  * @author Junior Pires
  */
-public class CaraterAtendimentoFormatter implements Formatter{
+public class MesFormatter implements Formatter{
 
     @Override
     public Object format(Object o) {
-        CaraterAtendimento c= (CaraterAtendimento) o;
-        if(c==null){
+        Mes m= (Mes) o;
+        if(m==null){
             return "";
         }
-       return c.getCodigo()+" - "+c.getDescricao();
+       return m.getDescricao();
     }
 
     @Override
@@ -31,7 +30,7 @@ public class CaraterAtendimentoFormatter implements Formatter{
 
     @Override
     public String getName() {
-       return "CaraterAtendimento";
+       return "Mes";
     }
     
 }

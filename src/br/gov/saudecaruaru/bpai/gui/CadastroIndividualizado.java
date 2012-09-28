@@ -4,6 +4,8 @@ package br.gov.saudecaruaru.bpai.gui;
 
 
 
+import br.gov.saudecaruaru.bpai.gui.documents.CnsDocument;
+import br.gov.saudecaruaru.bpai.gui.documents.OnlyLettersDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.CaraterAtendimentoFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.DiversasFormatter;
 import br.gov.saudecaruaru.bpai.business.controller.*;
@@ -295,6 +297,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     private void initFields(){
         //inicializando campos 
         jTextFieldUsuarioCns.setDocument(new CnsDocument());
+        jTextFieldNomeProfiss.setDocument(new OnlyLettersDocument());
+        jTextFieldUsuarioNome.setDocument(new OnlyLettersDocument());
         //inicializando competencia
         String competencia = gestorCompetenciaController.getCompetenciaAtual();
         //verifica se existe competencia
@@ -321,9 +325,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     
     private void setVerifiers(){
         //atribui validadores
-        jTextFieldNomeProfiss.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
+        //jTextFieldNomeProfiss.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
         jTextFieldCnes.setInputVerifier(new CnesVerifier(this, "CNES"));
-        jTextFieldUsuarioNome.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
+        //jTextFieldUsuarioNome.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
         jTextFieldProcQuant.setInputVerifier(new OnlyNumbers(this,"Quantidade"));
         jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this,"CNS"));
         //jTextFieldUsuarioCns.setInputVerifier(new CnsUsuarioVerifier(this, "CNS",this));
