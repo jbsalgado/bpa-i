@@ -17,36 +17,19 @@ import javax.persistence.Embeddable;
 public class GestorCompetenciaPK implements Serializable {
     
     @Basic(optional = false)
-    @Column(name = "CTR_MVM")
-    private String competenciaMovimento;
+    @Column(name = "CTR_ID")
+    private String competenciaId;
     
-    @Basic(optional = false)
-    @Column(name = "CTR_NOME")
-    private String nomeResponsavel;
+   
 
     public GestorCompetenciaPK() {
     }
 
-    public GestorCompetenciaPK(String competenciaMovimento, String nomeResponsavel) {
-        this.competenciaMovimento = competenciaMovimento;
-        this.nomeResponsavel = nomeResponsavel;
+    public GestorCompetenciaPK(String competenciaId) {
+        this.competenciaId = competenciaId;
     }
 
-    public String getCompetenciaMovimento() {
-        return competenciaMovimento;
-    }
-
-    public void setCompetenciaMovimento(String competenciaMovimento) {
-        this.competenciaMovimento = competenciaMovimento;
-    }
-
-    public String getNomeResponsavel() {
-        return nomeResponsavel;
-    }
-
-    public void setNomeResponsavel(String nomeResponsavel) {
-        this.nomeResponsavel = nomeResponsavel;
-    }
+   
 
     @Override
     public boolean equals(Object obj) {
@@ -57,26 +40,37 @@ public class GestorCompetenciaPK implements Serializable {
             return false;
         }
         final GestorCompetenciaPK other = (GestorCompetenciaPK) obj;
-        if ((this.competenciaMovimento == null) ? (other.competenciaMovimento != null) : !this.competenciaMovimento.equals(other.competenciaMovimento)) {
+        if ((this.competenciaId == null) ? (other.competenciaId != null) : !this.competenciaId.equals(other.competenciaId)) {
             return false;
         }
-        if ((this.nomeResponsavel == null) ? (other.nomeResponsavel != null) : !this.nomeResponsavel.equals(other.nomeResponsavel)) {
-            return false;
-        }
+        
         return true;
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 89 * hash + (this.competenciaMovimento != null ? this.competenciaMovimento.hashCode() : 0);
-        hash = 89 * hash + (this.nomeResponsavel != null ? this.nomeResponsavel.hashCode() : 0);
+        hash = 89 * hash + (this.competenciaId != null ? this.competenciaId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public String toString() {
-        return competenciaMovimento+"=" + competenciaMovimento + ", nomeResponsavel=" + nomeResponsavel + '}';
+        return competenciaId+"=" + competenciaId +'}';
+    }
+
+    /**
+     * @return the competenciaId
+     */
+    public String getCompetenciaId() {
+        return competenciaId;
+    }
+
+    /**
+     * @param competenciaId the competenciaId to set
+     */
+    public void setCompetenciaId(String competenciaId) {
+        this.competenciaId = competenciaId;
     }
     
     

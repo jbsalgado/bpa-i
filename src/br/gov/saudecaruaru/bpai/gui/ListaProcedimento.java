@@ -176,6 +176,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -200,7 +201,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableHeader);
 
-        jcomboBoxFiltro.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jcomboBoxFiltro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jcomboBoxFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CNS DO PROFISSIONAL", "CNES", "COMPETÊNCIA", "CBO", "PROFISSIONAL" }));
         jcomboBoxFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,16 +209,16 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Filtro de Pesquisa");
 
-        jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextFieldPesquisa.setToolTipText("");
 
-        jbtnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jbtnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbtnPesquisar.setText("Pesquisar");
 
-        jLabelTipoPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabelTipoPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelTipoPesquisa.setText("tipo");
 
         jTableBody.setModel(new javax.swing.table.DefaultTableModel(
@@ -233,7 +234,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTableBody);
 
-        jbtnIncluirFolha.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jbtnIncluirFolha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbtnIncluirFolha.setText("Incluir folha");
         jbtnIncluirFolha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -241,7 +242,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jbtnSair.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jbtnSair.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbtnSair.setText("Sair");
         jbtnSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -280,6 +281,19 @@ public class ListaProcedimento extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem1);
 
+        jMenuItem2.setText("Alterar Competência");
+        jMenuItem2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem2MouseClicked(evt);
+            }
+        });
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -290,28 +304,28 @@ public class ListaProcedimento extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jbtnIncluirFolha)
-                        .addGap(483, 483, 483)
-                        .addComponent(jbtnSair))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jcomboBoxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(25, 25, 25)
-                                .addComponent(jbtnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(jButtonAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabelTipoPesquisa))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addComponent(jbtnIncluirFolha)
+                                .addGap(483, 483, 483)
+                                .addComponent(jbtnSair))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jcomboBoxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(25, 25, 25)
+                                        .addComponent(jbtnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(jButtonAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabelTipoPesquisa))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -413,6 +427,17 @@ public class ListaProcedimento extends javax.swing.JFrame {
        this.ajustarTamanhoTabelas(); 
     }//GEN-LAST:event_jButtonAtualizarMouseClicked
 
+    private void jMenuItem2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MouseClicked
+        AlteraCompetencia alt = new AlteraCompetencia(this, true);
+        alt.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        alt.setLocationRelativeTo(this);
+        alt.setVisible(true);        
+    }//GEN-LAST:event_jMenuItem2MouseClicked
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+            this.jMenuItem2MouseClicked(null);      
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtualizar;
     private javax.swing.JLabel jLabel1;
@@ -421,6 +446,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableBody;

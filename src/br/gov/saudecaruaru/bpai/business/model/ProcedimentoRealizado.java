@@ -660,7 +660,9 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.nomeProfissional = nomeProfissional;
     }
 
-   
+   public ProcedimentoRealizado getOnlyHeader(){
+       return new ProcedimentoRealizado(this.getProcedimentoRealizadoPK());
+   }
  
     
     
