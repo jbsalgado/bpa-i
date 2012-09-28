@@ -6,6 +6,8 @@ package br.gov.saudecaruaru.bpai.business.model;
 
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.*;
 
 /**
@@ -356,6 +358,17 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         }
         
         return true;
+    }
+    
+    public ProcedimentoRealizado getOnlyHeader(){
+        ProcedimentoRealizadoPK pr=null;
+        try {
+            pr = (ProcedimentoRealizadoPK) this.procedimentoRealizadoPK.clone();
+            pr.setSequenciaFolha(null);
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(ProcedimentoRealizado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new ProcedimentoRealizado(pr);
     }
     public String getEquipe() {
         return equipe;
