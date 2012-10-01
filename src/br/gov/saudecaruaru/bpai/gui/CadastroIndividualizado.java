@@ -1522,8 +1522,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                      //nesse caso salva o objeto;
                     this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(ModelUtil.completar(""+this.sequenciaFolha, 2, '0'));
                     if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
-                        //salva o paciente, o médico e o medico com CBO e CNS
-                        this.pacienteController.merge(this.procedimentoRealizado.getPaciente());
+                        //salva o paciente, o médico e o médico com CBO e CNS
+                        Paciente p=this.procedimentoRealizado.getPaciente();
+                        if( p.getCns() == null ? true : !p.getCns().isEmpty() ){
+                            this.pacienteController.merge(p);
+                        }
                         this.medicoCboCnesController.merge(this.procedimentoRealizado.getMedicoCboCnes());
                         this.medicoController.merge(this.procedimentoRealizado.getMedico());
                         //pega uma nova referencia para procedimentoRealizado já com cabeçalho
