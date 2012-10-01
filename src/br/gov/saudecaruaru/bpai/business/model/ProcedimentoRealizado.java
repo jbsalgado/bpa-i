@@ -301,6 +301,10 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         if(this.cidDoencaprocedimento == null ? true : this.cidDoencaprocedimento.isEmpty()){
             this.cidDoencaprocedimento="    ";
         }
+        
+        if(this.nomeProfissional == null ? true : this.nomeProfissional.isEmpty()){
+            this.nomeProfissional="                              ";
+        }
 
         if( this.idadePaciente== null ? true : this.idadePaciente.isEmpty()){
             this.idadePaciente=ModelUtil.completar(""+this.idadePaciente, 3, '0');
