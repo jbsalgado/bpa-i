@@ -90,6 +90,11 @@ public class AlteraCompetencia extends javax.swing.JDialog {
         });
 
         jButtonCompetenciaSair.setText("Sair");
+        jButtonCompetenciaSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCompetenciaSairMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -157,6 +162,10 @@ public class AlteraCompetencia extends javax.swing.JDialog {
         }
        
     }//GEN-LAST:event_jButtonCompetenciaGravarMouseClicked
+
+    private void jButtonCompetenciaSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCompetenciaSairMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_jButtonCompetenciaSairMouseClicked
 
     /**
      * @param args the command line arguments
