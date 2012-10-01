@@ -157,7 +157,48 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.equipe = equipe;
         this.nomeProfissional = nomeProfissional;
     }
-
+    
+    public ProcedimentoRealizado(ProcedimentoRealizado procedimentoRealizado){
+        
+        this.procedimentoRealizadoPK= new ProcedimentoRealizadoPK();
+        this.procedimentoRealizadoPK.setCboMedico(procedimentoRealizado.getProcedimentoRealizadoPK().getCboMedico());
+        this.procedimentoRealizadoPK.setCnesUnidade(procedimentoRealizado.getProcedimentoRealizadoPK().getCnesUnidade());
+        this.procedimentoRealizadoPK.setCnsMedico(procedimentoRealizado.getProcedimentoRealizadoPK().getCnsMedico());
+        this.procedimentoRealizadoPK.setCompetencia(procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia());
+        this.procedimentoRealizadoPK.setNumeroFolha(procedimentoRealizado.getProcedimentoRealizadoPK().getNumeroFolha());
+        this.procedimentoRealizadoPK.setSequenciaFolha(procedimentoRealizado.getProcedimentoRealizadoPK().getSequenciaFolha());
+        
+        this.caracterizacaoAtendimento= procedimentoRealizado.getCaracterizacaoAtendimento();
+        this.cidDoencaprocedimento= procedimentoRealizado.getCidDoencaprocedimento();
+        this.cnsPaciente=procedimentoRealizado.getCnsPaciente();
+        this.codigoIBGECidadePaciente=procedimentoRealizado.getCodigoIBGECidadePaciente();
+        this.dataNascimentoPaciente=procedimentoRealizado.getDataNascimentoPaciente();
+        this.etniaPaciente=procedimentoRealizado.getEtniaPaciente();
+        this.idadePaciente=procedimentoRealizado.getIdadePaciente();
+        this.nacionalidadePaciente=procedimentoRealizado.getNacionalidadePaciente();
+        this.nomePaciente=procedimentoRealizado.getNomePaciente();
+        this.numeroAutorizacao=procedimentoRealizado.getNumeroAutorizacao();
+        this.prdAdvqt=procedimentoRealizado.getPrdAdvqt();
+        this.prdFlca=procedimentoRealizado.getPrdFlca();
+        this.prdFlcbo=procedimentoRealizado.getPrdFlcbo();
+        this.prdFlcid=procedimentoRealizado.getPrdFlcid();
+        this.prdFler=procedimentoRealizado.getPrdFler();
+        this.prdFlida=procedimentoRealizado.getPrdFlida();
+        this.prdFlmun=procedimentoRealizado.getPrdFlmun();
+        this.prdFlpa=procedimentoRealizado.getPrdFlpa();
+        this.prdFlqt=procedimentoRealizado.getPrdFlqt();
+        this.prdMvm=procedimentoRealizado.getPrdMvm();
+        this.quantidadeRealizada=procedimentoRealizado.getQuantidadeRealizada();
+        this.sexoPaciente=procedimentoRealizado.getSexoPaciente();
+        this.racaPaciente=procedimentoRealizado.getRacaPaciente();
+        this.codigoProcedimento=procedimentoRealizado.getCodigoProcedimento();
+        this.dataAtendimento=procedimentoRealizado.getDataAtendimento();
+        this.origemProcedimento=procedimentoRealizado.getOrigemProcedimento();
+        this.codigoServico=procedimentoRealizado.getCodigoServico();
+        this.codigoClassificacaoServico=procedimentoRealizado.getCodigoClassificacaoServico();
+        this.equipe=procedimentoRealizado.getEquipe();
+        this.nomeProfissional=procedimentoRealizado.getNomeProfissional();
+    }
     
     public ProcedimentoRealizado(String cnes,String cnsProfissional,String cbo,String competencia,String folha) {
         this.procedimentoRealizadoPK = new ProcedimentoRealizadoPK(cnes, cnsProfissional, cbo, competencia, folha);
@@ -672,11 +713,5 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     public void setNomeProfissional(String nomeProfissional) {
         this.nomeProfissional = nomeProfissional;
     }
-
-   public ProcedimentoRealizado getOnlyHeader(){
-       return new ProcedimentoRealizado(this.getProcedimentoRealizadoPK());
-   }
- 
-    
     
 }
