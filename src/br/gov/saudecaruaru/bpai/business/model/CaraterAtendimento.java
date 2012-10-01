@@ -91,7 +91,9 @@ public class CaraterAtendimento {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
-
+   
+    
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

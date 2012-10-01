@@ -35,6 +35,14 @@ public class GestorCompetenciaController extends BasecController<GestorCompetenc
         return "";
     }
     
+    public boolean haveCompetencia(){
+        List<GestorCompetencia> list = findAll();
+        if(list.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+    
     
     
     

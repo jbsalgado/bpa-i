@@ -37,7 +37,13 @@ public class GestorCompetencia implements Serializable {
         this.competenciaMovimento = competenciaMovimento;
     }
 
+    public String getCompetenciaMes(){
+        return this.getCompetenciaMovimento().substring(4);
+    }
     
+    public String getCompetenciaAno(){
+        return this.getCompetenciaMovimento().substring(0,4);
+    }
     
 
     @Override

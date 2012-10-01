@@ -713,5 +713,9 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     public void setNomeProfissional(String nomeProfissional) {
         this.nomeProfissional = nomeProfissional;
     }
+
+  
+ 
+    
     
 }

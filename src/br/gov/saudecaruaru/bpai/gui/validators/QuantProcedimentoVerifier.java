@@ -74,7 +74,10 @@ public class QuantProcedimentoVerifier extends InputVerifier{
      
                if (valor.isEmpty() || valor.equals("0")) {  
                   txtField.setText("0"); 
-                  return  MessagesErrors.exibeTelaContinuaErro(component,""," ERRO! QUANTIDADE ZERADA! ", txtField);
+                   JOptionPane.showMessageDialog(this.component,"ERRO! QUANTIDADE ZERADA! "
+                                        ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
+                                txtField.setBackground(Color.RED); 
+                   return  false;
                     
                 }else{
                     String proc = t.getProcedimentoRealizado().getCodigoProcedimento();

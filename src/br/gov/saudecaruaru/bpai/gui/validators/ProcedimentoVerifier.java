@@ -82,9 +82,16 @@ public class ProcedimentoVerifier extends InputVerifier{
                 //verifica se o procedimento existe
                 if (procedimentosSearchead==null) {  
                     
-                    return  MessagesErrors.exibeTelaContinuaErro(component, fieldName,"NÃO ENCONTRADO!", txtField);
-                 // verifica se o procedimento é compativel com o CBO
+                   JOptionPane.showMessageDialog(this.component,"PROCEDIMENTO NÃO ENCONTRADO!"
+                                        ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
+                                txtField.setBackground(Color.RED); 
+                                return  false;
+                 
                 }else {
+                    
+                       
+                        
+                        
                         int idadePaciente = 1000;
                         
                         int idadeMaxima = procedimentosSearchead.getIdadeMaximaPaciente();
@@ -95,8 +102,8 @@ public class ProcedimentoVerifier extends InputVerifier{
                        // }
                       
                     
-                    
-                    
+                        
+                        // verifica se o procedimento é compativel com o CBO
                         if(!temProcedimentoECbo(valor.substring(0, 9),proRealizado.getProcedimentoRealizadoPK().getCboMedico())){
                             return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM CBO!", txtField);
                             //verifica se o procedimento exige sexo

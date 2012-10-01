@@ -9,9 +9,14 @@ import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import br.gov.saudecaruaru.bpai.business.model.GestorCompetencia;
 import br.gov.saudecaruaru.bpai.business.model.GestorCompetenciaPK;
 import br.gov.saudecaruaru.bpai.business.model.Mes;
+import br.gov.saudecaruaru.bpai.gui.documents.AnoDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.MesFormatter;
+import br.gov.saudecaruaru.bpai.gui.validators.AnoCompetenciaVerifier;
 import com.towel.swing.combo.ObjectComboBoxModel;
+import java.awt.Component;
+import java.util.List;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -32,20 +37,57 @@ public class AlteraCompetencia extends javax.swing.JDialog {
         myInitComponents();
         
     }
-    
+     
     private void initInstances(){
-     this.objectComboBoxModelMes= new ObjectComboBoxModel<Mes>();
+      this.objectComboBoxModelMes= new ObjectComboBoxModel<Mes>();
         
         MesFormatter formatter=new MesFormatter();
         this.objectComboBoxModelMes.setFormatter(formatter);
+        
+        competenciaController = new GestorCompetenciaController();
+        
+      
     }
     
     private void myInitComponents(){
         initInstances();
         
+        jTextFieldCompetenciaAno.setDocument(new AnoDocument());
+        jTextFieldCompetenciaAno.setInputVerifier(new AnoCompetenciaVerifier(this, "Ano"));
+        jTextFieldCompetenciaAno.requestFocus();
         initCombobox();
+        initValueFields();
+    }
+    //inicializa a tela em modo critico: a tela só pode ser fechada se a competencia for valida
+    public void initCritical(){
+        jButtonCompetenciaSair.setEnabled(false);
+        this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        this.setVisible(true);
+        this.setLocationRelativeTo(null);
     }
     
+      
+ 
+ public void initValueFields(){
+        
+        List<GestorCompetencia>  listGc = competenciaController.findAll();
+        if(!listGc.isEmpty()){
+            String mes = listGc.get(0).getCompetenciaMes();
+            String ano = listGc.get(0).getCompetenciaAno();
+            
+            this.selectItemJComboBoxCompetenciaMes(mes);
+            
+            
+            jTextFieldCompetenciaAno.setText(ano);
+        }
+    }
+    
+     private void selectItemJComboBoxCompetenciaMes(String codigoItem){
+          Mes m= new Mes(codigoItem, "");   
+          this.objectComboBoxModelMes.setSelectedObject(m);
+     }
+
+  
     private void initCombobox(){
         objectComboBoxModelMes.setData(Mes.getLIST());
         this.jComboBoxCompetenciaMes.setModel(objectComboBoxModelMes);
@@ -90,6 +132,11 @@ public class AlteraCompetencia extends javax.swing.JDialog {
         });
 
         jButtonCompetenciaSair.setText("Sair");
+        jButtonCompetenciaSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCompetenciaSairMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,7 +195,7 @@ public class AlteraCompetencia extends javax.swing.JDialog {
         String competencia = ano+mes;
         
         GestorCompetencia gestorCompetencia = new GestorCompetencia(new GestorCompetenciaPK("1"),competencia);
-        competenciaController = new GestorCompetenciaController();
+        
         try {
              competenciaController.merge(gestorCompetencia);
              this.dispose();
@@ -157,6 +204,11 @@ public class AlteraCompetencia extends javax.swing.JDialog {
         }
        
     }//GEN-LAST:event_jButtonCompetenciaGravarMouseClicked
+
+    private void jButtonCompetenciaSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCompetenciaSairMouseClicked
+        if(jButtonCompetenciaSair.isEnabled())
+            this.dispose();
+    }//GEN-LAST:event_jButtonCompetenciaSairMouseClicked
 
     /**
      * @param args the command line arguments

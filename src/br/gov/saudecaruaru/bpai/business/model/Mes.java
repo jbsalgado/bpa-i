@@ -77,4 +77,28 @@ public class Mes {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
+    
+    
+      @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (descricao!= null ? descricao.hashCode() : 0);
+        return hash;
+    }
+
+   @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Mes other = (Mes) obj;
+        if ((this.codigo == null) ? (other.codigo != null) : !this.codigo.equals(other.codigo)) {
+            return false;
+        }
+        return true;
+    }
 }
