@@ -1525,7 +1525,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
                         //salva o paciente, o médico e o médico com CBO e CNS
                         Paciente p=this.procedimentoRealizado.getPaciente();
-                        if( p.getCns() == null ? true : !p.getCns().isEmpty() ){
+                        if( p.getCns() == null ? true : !p.getCns().trim().isEmpty() ){
                             this.pacienteController.merge(p);
                         }
                         this.medicoCboCnesController.merge(this.procedimentoRealizado.getMedicoCboCnes());
@@ -1651,7 +1651,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
                 //salva o paciente, o médico e o médico com CBO e CNS
                 Paciente p=this.procedimentoRealizado.getPaciente();
-                if( p.getCns() == null ? true : !p.getCns().isEmpty() ){
+                if( p.getCns() == null ? true : !p.getCns().trim().isEmpty() ){
                     this.pacienteController.merge(p);
                 }
                 this.medicoCboCnesController.merge(this.procedimentoRealizado.getMedicoCboCnes());
