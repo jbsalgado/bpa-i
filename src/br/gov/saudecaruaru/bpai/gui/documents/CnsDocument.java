@@ -20,7 +20,7 @@ public class CnsDocument extends PlainDocument{
     public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
        Pattern p = Pattern.compile("^[0-9]+$"); 
        Matcher m = p.matcher(str);
-        if(this.getLength()>10 || !m.find())
+        if(this.getLength()>14 || !m.find())
             return;
         super.insertString(offs, str, a);
     }
