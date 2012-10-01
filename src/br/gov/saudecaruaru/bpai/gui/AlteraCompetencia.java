@@ -58,7 +58,7 @@ public class AlteraCompetencia extends javax.swing.JDialog {
         initCombobox();
         initValueFields();
     }
-    
+    //inicializa a tela em modo critico: a tela só pode ser fechada se a competencia for valida
     public void initCritical(){
         jButtonCompetenciaSair.setEnabled(false);
         this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
