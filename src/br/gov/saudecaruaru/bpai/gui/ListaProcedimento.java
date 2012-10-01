@@ -389,8 +389,6 @@ public class ListaProcedimento extends javax.swing.JFrame {
                 cad.findAllProcedimentosFolha(pro);
                 //desabilita os campos do cabeçalho
                 cad.disableFieldsHeader();
-                //precisa abilitar esses campos poruqe por padrão eles são desabilitados
-                cad.enableFieldsProcedimento();
                 cad.setLocationRelativeTo(null);
                 cad.setModal(true);
                 cad.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
