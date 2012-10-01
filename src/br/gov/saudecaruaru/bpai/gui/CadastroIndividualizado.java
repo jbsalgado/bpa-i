@@ -17,7 +17,6 @@ import br.gov.saudecaruaru.bpai.util.DateUtil;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModel;
 import br.gov.saudecaruaru.bpai.util.Search;
-import com.sun.org.apache.bcel.internal.generic.BIPUSH;
 import com.towel.swing.combo.ObjectComboBoxModel;
 import java.awt.Component;
 import java.awt.Frame;
@@ -30,10 +29,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumnModel;
-import javax.swing.text.JTextComponent;
 
 /**
  *
@@ -269,8 +265,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
          // Inicializa os validadores dos campos
          this.setVerifiers();
          
-         if(this.sequenciaFolha>2){
-             this.jButtonGravar.setEnabled(false);
+         if(this.sequenciaFolha> ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
              this.jButtonAtualizar.setEnabled(false);
          }
        
@@ -560,8 +555,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                        CadastroIndividualizado.this.jComboBoxUsuarioRacaCor.transferFocus();
-                    
+                        int index = ((JComboBox)e.getComponent()).getSelectedIndex();
+                       Diversas d = (Diversas) objectComboBoxModelRacaCor.getData().get(index);
+                       CadastroIndividualizado.this.procedimentoRealizado.setRacaPaciente(d.getDiversasPK().getCodigoItemTabela().toString());
+                       if(d.getDiversasPK().getCodigoItemTabela().trim().equals(Diversas.COD_RACA_COR_INDIGENA)){
+                            CadastroIndividualizado.this.jTextFieldUsuarioCodEtnia.setEnabled(true);
+                       }else{
+                            CadastroIndividualizado.this.jTextFieldUsuarioCodEtnia.setEnabled(false);
+                       }
+                       CadastroIndividualizado.this.jComboBoxUsuarioRacaCor.transferFocus();
                 } 
             }
         });
@@ -728,18 +730,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
        columns.getColumn(13).setPreferredWidth(80);
        //coluna nacionalidade do paciente
        columns.getColumn(14).setPreferredWidth(80);
-       //inicia o ScrollPanel
-       //this.jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.);
-       
-       this.jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if(!e.getValueIsAdjusting()){
-                    //CadastroIndividualizado.this.selectionObjectAndFillFields();
-                }
-            }
-        });
        
        this.gerarSequencia();
     }
@@ -747,8 +737,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     public void gerarSequencia(){
        //pega o tamanho da lista na tabela
        int size=this.tableModelDados.getRowCount();
-       
-       this.sequenciaFolha=size+1;
+       if(size<ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
+        this.sequenciaFolha=size+1;
+       }
+       else{
+           this.sequenciaFolha=0;
+       }
        
        String seq=ModelUtil.completar(this.sequenciaFolha+"", 2,'0');
        this.jLabelUsuarioSeq.setText(seq);
@@ -903,7 +897,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldProcCod = new javax.swing.JFormattedTextField();
         jTextFieldProcCID = new javax.swing.JFormattedTextField();
         jTextFieldProcNumAut = new javax.swing.JFormattedTextField();
-        jButtonGravar = new javax.swing.JButton();
         jButtonSair = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
         jComboBoxUsuarioServico = new javax.swing.JComboBox();
@@ -955,12 +948,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel10.setText("Nome ");
 
-        jTextFieldUsuarioNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldUsuarioNomeActionPerformed(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel4.setText("Sexo");
 
@@ -973,21 +960,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel12.setText("Dt. Nascimento");
 
         jTextFieldUsuarioNomeNac.setBackground(new java.awt.Color(153, 153, 153));
-        jTextFieldUsuarioNomeNac.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldUsuarioNomeNacActionPerformed(evt);
-            }
-        });
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel14.setText("Nacionalidade");
 
         jTextFieldUsuarioNomeMunicip.setBackground(new java.awt.Color(153, 153, 153));
-        jTextFieldUsuarioNomeMunicip.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldUsuarioNomeMunicipActionPerformed(evt);
-            }
-        });
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel13.setText("Município de Residência");
@@ -996,18 +973,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel15.setText("Raça/Cor");
 
         jTextFieldUsuarioDescEtnia.setBackground(new java.awt.Color(153, 153, 153));
-        jTextFieldUsuarioDescEtnia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldUsuarioDescEtniaActionPerformed(evt);
-            }
-        });
 
         jComboBoxUsuarioRacaCor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxUsuarioRacaCor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxUsuarioRacaCorActionPerformed(evt);
-            }
-        });
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel17.setText("Etnia");
@@ -1159,21 +1126,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel20.setText("Dt. Atendimento");
 
-        jTextFieldProcQuant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldProcQuantActionPerformed(evt);
-            }
-        });
-
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel22.setText("Quantidade");
 
         jTextFieldProcDescriDoenca.setBackground(new java.awt.Color(153, 153, 153));
-        jTextFieldProcDescriDoenca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldProcDescriDoencaActionPerformed(evt);
-            }
-        });
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel23.setText("Código");
@@ -1182,18 +1138,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel24.setText("CID");
 
         jTextFieldProcDescricao.setBackground(new java.awt.Color(153, 153, 153));
-        jTextFieldProcDescricao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldProcDescricaoActionPerformed(evt);
-            }
-        });
 
         jComboBoxProcCaraterAtend.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxProcCaraterAtend.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxProcCaraterAtendActionPerformed(evt);
-            }
-        });
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel19.setText("Nº Autorização");
@@ -1208,11 +1154,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 jButtonIncluirMouseClicked(evt);
             }
         });
-        jButtonIncluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonIncluirActionPerformed(evt);
-            }
-        });
         jButtonIncluir.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jButtonIncluirKeyPressed(evt);
@@ -1224,11 +1165,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jButtonLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonLimparMouseClicked(evt);
-            }
-        });
-        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLimparActionPerformed(evt);
             }
         });
 
@@ -1274,13 +1210,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             ex.printStackTrace();
         }
 
-        jButtonGravar.setText("Gravar");
-        jButtonGravar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonGravarMouseClicked(evt);
-            }
-        });
-
         jButtonSair.setText("Sair");
         jButtonSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1298,11 +1227,24 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jComboBoxUsuarioClassificacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonAtualizar.setText("Atualizar");
         jButtonAtualizar.setToolTipText("");
         jButtonAtualizar.setEnabled(false);
+        jButtonAtualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonAtualizarMouseClicked(evt);
+            }
+        });
 
+        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setEnabled(false);
+        jButtonCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCancelarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1360,7 +1302,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                                                 .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jTextFieldProcQuant)))))
                                 .addGap(0, 3, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                         .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonAtualizar)
@@ -1368,10 +1310,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         .addComponent(jButtonCancelar)
                         .addGap(36, 36, 36)
                         .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButtonGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1054, Short.MAX_VALUE)
-                        .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButtonSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -1431,9 +1370,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 .addGap(7, 7, 7)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGravar)
-                    .addComponent(jButtonSair))
+                .addComponent(jButtonSair)
                 .addContainerGap())
         );
 
@@ -1574,54 +1511,45 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLimparActionPerformed
-
-    private void jComboBoxProcCaraterAtendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxProcCaraterAtendActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxProcCaraterAtendActionPerformed
-
-    private void jTextFieldProcDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProcDescricaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldProcDescricaoActionPerformed
-
-    private void jTextFieldProcDescriDoencaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProcDescriDoencaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldProcDescriDoencaActionPerformed
-
-    private void jTextFieldProcQuantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProcQuantActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldProcQuantActionPerformed
-
     private void jButtonIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirMouseClicked
-        if(this.textFieldVerifier(getListFieldsProcedimento())){
-            // metodo que pega os valores de alguns campos e adiciona-os ao modelo
-            if(this.sequenciaFolha<=2){
-                this.getValuesOfFieldsForModel();
-                 //se não houver elemento vazio siginifica que a operação é de edição
-                 //nesse caso salva o objeto;
-                this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(ModelUtil.completar(""+this.sequenciaFolha, 2, '0'));
-                if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
-                    this.procedimentoRealizado=this.procedimentoRealizado.getOnlyHeader();
-                    this.updateJTable( this.procedimentoRealizado);
-                    this.fillFields(this.procedimentoRealizado, true);
-                    //gera a sequência
-                    this.gerarSequencia();
-                    //a folha foi preenchida
-                    if(this.sequenciaFolha>2){
-                        this.initNewFolha();
+        try{
+            if(this.textFieldVerifier(getListFieldsProcedimento())){
+                // metodo que pega os valores de alguns campos e adiciona-os ao modelo
+                int itensFolha=this.tableModelDados.getRowCount();
+                if(itensFolha<ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
+                    this.getValuesOfFieldsForModel();
+                     //se não houver elemento vazio siginifica que a operação é de edição
+                     //nesse caso salva o objeto;
+                    this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(ModelUtil.completar(""+this.sequenciaFolha, 2, '0'));
+                    if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
+                        //salva o paciente, o médico e o medico com CBO e CNS
+                        this.pacienteController.merge(this.procedimentoRealizado.getPaciente());
+                        this.medicoCboCnesController.merge(this.procedimentoRealizado.getMedicoCboCnes());
+                        this.medicoController.merge(this.procedimentoRealizado.getMedico());
+                        //pega uma nova referencia para procedimentoRealizado já com cabeçalho
+                        this.procedimentoRealizado=this.procedimentoRealizado.getOnlyHeader();
+                        this.updateJTable( this.procedimentoRealizado);
+                        this.fillFields(this.procedimentoRealizado, true);
+                        //gera a sequência
+                        this.gerarSequencia();
+                        //a folha foi preenchida
+                        itensFolha=this.tableModelDados.getRowCount();
+                        if(itensFolha>=ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
+                            this.initNewFolha();
+                        }
+                    }
+                    else{
+                    System.out.println("Deu merda!");
                     }
                 }
                 else{
-                System.out.println("Deu merda!");
+                    JOptionPane.showMessageDialog(this, "A folha já está completa!\nUma nova folha será gerada.");
                 }
-            }
-            else{
-                JOptionPane.showConfirmDialog(this, "A folha já está completa!\nUma nova folha será gerada.");
-                this.initNewFolha();
-            }
 
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+             JOptionPane.showMessageDialog(this, "Ops! Um erro inesperado aconteceu! Relate o problema  aos desenvolvedores!");
         }
     }//GEN-LAST:event_jButtonIncluirMouseClicked
 
@@ -1652,31 +1580,34 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.gerarSequencia();
     }
    
+    private void insertOrUpdateState(){
+        if(this.tableModelDados.getRowCount()>=ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
+            this.disableFieldsHeader();
+            this.disabledFieldsProcedimento();
+            this.jButtonIncluir.setEnabled(false);
+        }
+        else{
+            this.enableFieldsProcedimento();
+            this.jButtonIncluir.setEnabled(true);
+        }
+    }
     
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        if(this.tableModelDados.getRowCount()>0){
+        if(this.jTable1.getSelectedRow()>=0){
+            //preenche os campos
+            ProcedimentoRealizado p=this.tableModelDados.getProcedimentoRealizado(this.jTable1.getSelectedRow());
+            this.procedimentoRealizado=new ProcedimentoRealizado(p);
+            this.fillFields(procedimentoRealizado, true);
+            //abilitar e desabilitar campos
+            this.disableFieldsHeader();
+            this.enableFieldsProcedimento();
+            
             //desabilita os botoes para editar
             this.jButtonCancelar.setEnabled(true);
             this.jButtonIncluir.setEnabled(false);
             this.jButtonAtualizar.setEnabled(true);
-            //preenche os campos
-            this.procedimentoRealizado=this.tableModelDados.getProcedimentoRealizado(this.jTable1.getSelectedRow());
-            this.fillFields(procedimentoRealizado, true);
         }
     }//GEN-LAST:event_jTable1MouseClicked
-
-//    private void selectionObjectAndFillFields(){
-//        int row = this.jTable1.getSelectedRow();
-//        if(row>=0){
-//            this.procedimentoRealizado = this.tableModelDados.getCloneElementList(row);
-//            fillFields(procedimentoRealizado,false);
-//            fillHeaderModelProcedimentoRealizado(this.procedimentoRealizado);
-//        }
-//    }
-    private void jButtonGravarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGravarMouseClicked
-        this.initNewFolha();
-        
-    }//GEN-LAST:event_jButtonGravarMouseClicked
 
     private void jButtonLimparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLimparMouseClicked
        this.clearFields();
@@ -1699,121 +1630,39 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
     private void jButtonCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCancelarMouseClicked
         // TODO add your handling code here:
+        this.jTable1.getSelectionModel().clearSelection();
         this.jButtonCancelar.setEnabled(false);
-        this.jButtonIncluir.setEnabled(true);
         this.jButtonAtualizar.setEnabled(false);
+        this.procedimentoRealizado=new ProcedimentoRealizado(this.procedimentoRealizado.getOnlyHeader());
+        this.fillFields(this.procedimentoRealizado, true);
+        this.insertOrUpdateState();
     }//GEN-LAST:event_jButtonCancelarMouseClicked
 
     private void jButtonAtualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAtualizarMouseClicked
         // TODO add your handling code here:
         if(this.textFieldVerifier(this.listFieldsProcedimento)){
-            this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado));
+            
+            if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
+                //salvou com sucesso
                 this.procedimentoRealizado=this.procedimentoRealizado.getOnlyHeader();
+                this.jTable1.getSelectionModel().clearSelection();
                 this.updateJTable(this.procedimentoRealizado);
                 //desabilita os botões
                 this.jButtonCancelar.setEnabled(false);
-                this.jButtonIncluir.setEnabled(true);
                 this.jButtonAtualizar.setEnabled(false);
                 this.fillFields(this.procedimentoRealizado, true);
                 this.gerarSequencia();
+                
+                this.insertOrUpdateState();
+            }
             
         }
     }//GEN-LAST:event_jButtonAtualizarMouseClicked
-
-    private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonIncluirActionPerformed
-                                          
-
-    private void jTextFieldCnsProfissActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-        // TODO add your handling code here:
-    }                                                    
-
-    private void jTextFieldNomeProfissActionPerformed(java.awt.event.ActionEvent evt) {                                                      
-        // TODO add your handling code here:
-    }                                                     
-
-    private void jTextFieldUsuarioSexoActionPerformed(java.awt.event.ActionEvent evt) {                                                      
-        // TODO add your handling code here:
-    }                                                     
-
-                                              
-
-    private void jTextFieldAnoActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }                                             
-
-    private void jTextFieldFolhaActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        // TODO add your handling code here:
-    }                                               
-
-    private void jTextFieldUsuarioCnsActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-        // TODO add your handling code here:
-    }                                                    
-
-    private void jTextFieldUsuarioNomeActionPerformed(java.awt.event.ActionEvent evt) {                                                      
-        // TODO add your handling code here:
-    }                                                     
-
-    private void jTextFieldUsarioDatNascActionPerformed(java.awt.event.ActionEvent evt) {                                                        
-        // TODO add your handling code here:
-    }                                                       
-
-    private void jTextFieldUsuarioCodMunicipActionPerformed(java.awt.event.ActionEvent evt) {                                                            
-        // TODO add your handling code here:
-    }                                                           
-
-    private void jTextFieldUsuarioNomeMunicipActionPerformed(java.awt.event.ActionEvent evt) {                                                             
-        // TODO add your handling code here:
-    }                                                            
-
-    private void jTextFieldUsuarioCodNacActionPerformed(java.awt.event.ActionEvent evt) {                                                        
-        // TODO add your handling code here:
-    }                                                       
-
-    private void jTextFieldUsuarioNomeNacActionPerformed(java.awt.event.ActionEvent evt) {                                                         
-        // TODO add your handling code here:
-    }                                                        
-
-    private void jTextFieldProcDataAtendActionPerformed(java.awt.event.ActionEvent evt) {                                                        
-        // TODO add your handling code here:
-    }                                                       
-                                                        
-
-    private void jTextFieldProcCodActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        // TODO add your handling code here:
-    }                                                 
-
-    private void jTextFieldProcCIDActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        // TODO add your handling code here:
-    }                                                 
-
-    private void jTextFieldProcDescricaoProcActionPerformed(java.awt.event.ActionEvent evt) {                                                            
-        // TODO add your handling code here:
-    }                                                           
-
-    private void jTextFieldUsuarioEtniaActionPerformed(java.awt.event.ActionEvent evt) {                                                       
-        // TODO add your handling code here:
-    }                                                      
-
-    private void jTextFieldUsuarioDescEtniaActionPerformed(java.awt.event.ActionEvent evt) {                                                           
-        // TODO add your handling code here:
-    }                                                          
-
-    private void jComboBoxUsuarioRacaCorActionPerformed(java.awt.event.ActionEvent evt) {                                                        
-        // TODO add your handling code here:
-    }                                                       
-
-   
-
-    private void jTextFieldCBOActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }                                             
+                                             
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtualizar;
     private javax.swing.JButton jButtonCancelar;
-    private javax.swing.JButton jButtonGravar;
     private javax.swing.JButton jButtonIncluir;
     private javax.swing.JButton jButtonLimpar;
     private javax.swing.JButton jButtonSair;
@@ -2201,6 +2050,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                    CadastroIndividualizado.this.jTextFieldUsuarioCodEtnia.setEnabled(true);
                    CadastroIndividualizado.this.jTextFieldUsuarioCodEtnia.requestFocusInWindow();
                }
+               else{
+                   CadastroIndividualizado.this.jTextFieldUsuarioCodEtnia.setEnabled(false);
+               }
             }
         });
              
@@ -2289,7 +2141,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                        
                        //caso os código sejam diferentes vai executar
                        if(!codigo.equals(CadastroIndividualizado.this.procedimentoRealizado.getCodigoProcedimento())){
-                           CadastroIndividualizado.this.focusLostComboboxServico();
+                           CadastroIndividualizado.this.focusLostTextFieldProcCod();
                        }
                        
                    }
@@ -2456,11 +2308,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
       /**
        * Desabilita os campos relacionados ao paciente/usuário
        */
-      public void disabledFieldsProcedimento(){
+      private void disabledFieldsProcedimento(){
         this.changeStatusFieldsProcedimento(false);
           
       }
-      public void enableFieldsProcedimento(){
+      private void enableFieldsProcedimento(){
         this.changeStatusFieldsProcedimento(true);
           
       }
@@ -2483,7 +2335,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           jTextFieldProcCID.setEnabled(status);
           jComboBoxProcCaraterAtend.setEnabled(status);
           jTextFieldProcNumAut.setEnabled(status);
-          jTable1.setEnabled(status);
           jButtonLimpar.setEnabled(status);  
           jButtonIncluir.setEnabled(status);        
           
@@ -2645,6 +2496,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           
           //incremeta a sequencia
           this.gerarSequencia();
+          
+          this.insertOrUpdateState();
       
       }
       /**
@@ -2702,7 +2555,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             this.selectItemJComboBoxCaraterAtend(CaraterAtendimento.SEM_INFORMACAO);
           }
           if(p.getCodigoServico()!=null){
-               focusLostComboboxServico();
+               focusLostTextFieldProcCod();
                this.selectItemJComboBoxServico(p.getCodigoServico());
                
           }else{
@@ -2758,7 +2611,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           
       //métodos focusLost
       
-      private void focusLostComboboxServico(){
+      private void focusLostTextFieldProcCod(){
            String codigo=this.jTextFieldProcCod.getText();
            this.procedimentoRealizado.setCodigoProcedimento(codigo);
            HashMap<String, Object> res=new HashMap<String, Object> ();
