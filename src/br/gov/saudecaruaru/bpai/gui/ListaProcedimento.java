@@ -11,7 +11,9 @@
 package br.gov.saudecaruaru.bpai.gui;
 
 import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
+import br.gov.saudecaruaru.bpai.business.controller.GestorCompetenciaController;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
+import br.gov.saudecaruaru.bpai.business.model.GestorCompetencia;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelBody;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelHeader;
@@ -33,6 +35,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
     private ProcedimentoRealizadoTableModelHeader tableModelHeader;
     private ProcedimentoRealizadoTableModelBody tableModelBody;
     private BIProcedimentoRealizadoController biProcedimentoRealizadoController;
+    private GestorCompetenciaController gestorCompetenciaController;
     /** Creates new form ListaProcedimento */
     public ListaProcedimento(java.awt.Frame parent, boolean modal) {
         //super(parent);
@@ -47,10 +50,16 @@ public class ListaProcedimento extends javax.swing.JFrame {
     private void myInitComponents(){
         
         this.biProcedimentoRealizadoController= new BIProcedimentoRealizadoController();
+        this.gestorCompetenciaController = new GestorCompetenciaController();
         this.jcomboBoxFiltroActionPerformed(null);
         this.initJTableBody();
         this.initJTableHeader();
         
+        
+        if(!this.gestorCompetenciaController.haveCompetencia()){
+             AlteraCompetencia alt = new AlteraCompetencia(this, true);
+             alt.initCritical();
+         }
         
         this.addWindowListener(new java.awt.event.WindowAdapter() {
 

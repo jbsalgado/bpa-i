@@ -9,10 +9,14 @@ import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import br.gov.saudecaruaru.bpai.business.model.GestorCompetencia;
 import br.gov.saudecaruaru.bpai.business.model.GestorCompetenciaPK;
 import br.gov.saudecaruaru.bpai.business.model.Mes;
+import br.gov.saudecaruaru.bpai.gui.documents.AnoDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.MesFormatter;
+import br.gov.saudecaruaru.bpai.gui.validators.AnoCompetenciaVerifier;
 import com.towel.swing.combo.ObjectComboBoxModel;
+import java.awt.Component;
 import java.util.List;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,7 +37,7 @@ public class AlteraCompetencia extends javax.swing.JDialog {
         myInitComponents();
         
     }
-    
+     
     private void initInstances(){
       this.objectComboBoxModelMes= new ObjectComboBoxModel<Mes>();
         
@@ -41,18 +45,31 @@ public class AlteraCompetencia extends javax.swing.JDialog {
         this.objectComboBoxModelMes.setFormatter(formatter);
         
         competenciaController = new GestorCompetenciaController();
+        
+      
     }
     
     private void myInitComponents(){
         initInstances();
         
+        jTextFieldCompetenciaAno.setDocument(new AnoDocument());
+        jTextFieldCompetenciaAno.setInputVerifier(new AnoCompetenciaVerifier(this, "Ano"));
+        jTextFieldCompetenciaAno.requestFocus();
         initCombobox();
-        initFields();
+        initValueFields();
+    }
+    
+    public void initCritical(){
+        jButtonCompetenciaSair.setEnabled(false);
+        this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        this.setVisible(true);
+        this.setLocationRelativeTo(null);
     }
     
       
- 	
- public void initFields(){
+ 
+ public void initValueFields(){
+        
         List<GestorCompetencia>  listGc = competenciaController.findAll();
         if(!listGc.isEmpty()){
             String mes = listGc.get(0).getCompetenciaMes();
@@ -189,7 +206,8 @@ public class AlteraCompetencia extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCompetenciaGravarMouseClicked
 
     private void jButtonCompetenciaSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCompetenciaSairMouseClicked
-        this.dispose();
+        if(jButtonCompetenciaSair.isEnabled())
+            this.dispose();
     }//GEN-LAST:event_jButtonCompetenciaSairMouseClicked
 
     /**
