@@ -84,6 +84,8 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
         try {
             tr.begin();
             entity=(T) session.merge(entity);
+            session.flush();
+            session.clear();
             tr.commit();
         } catch (Throwable t) {
             t.printStackTrace();
@@ -128,6 +130,8 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
         try {
             t.begin();
             session.update(entity);
+            session.flush();
+            session.clear();
             t.commit();
         } catch (Throwable tr) {
             tr.printStackTrace();
@@ -183,6 +187,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
 
                 }
             }
+            session.clear();
             l=c.list();
         }catch(Exception ex){
             ex.printStackTrace();

@@ -17,8 +17,8 @@ import br.gov.saudecaruaru.bpai.util.DateUtil;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModel;
 import br.gov.saudecaruaru.bpai.util.Search;
+import com.sun.org.apache.bcel.internal.generic.BIPUSH;
 import com.towel.swing.combo.ObjectComboBoxModel;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Frame;
 import java.awt.event.*;
@@ -26,12 +26,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -50,17 +47,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      public static HashMap<Object, Paciente> MAP_PACIENTE= new HashMap<Object, Paciente>();
      public static HashMap<Object, Municipio> MAP_MUNICIPIO= new HashMap<Object, Municipio>();
      
-     
-    
-         
-    
-
-    /**
-     * @return the listFieldsHeader
-     */
-    public  List<Component> getListFieldsHeader() {
-        return listFieldsHeader;
-    }
      private Diversas diversas;
      private DiversasPK diversasPk;
      //controladores
@@ -85,7 +71,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      private ObjectComboBoxModel<Diversas> objectComboBoxModelClassificaoServico;
      private ObjectComboBoxModel<CaraterAtendimento> objectComboBoxModelCaraterAtend;
      private ObjectComboBoxModel<Equipe> objectComboBoxModelEquipe;
-     private int sequencia=1;
      private int sequenciaFolha;
      
      private List<BIProcedimentoRealizado> lBIProcedimentoRealizados;
@@ -126,7 +111,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         
     }
     
-    
+        /**
+     * @return the listFieldsHeader
+     */
+    public  List<Component> getListFieldsHeader() {
+        return listFieldsHeader;
+    }
     
     
     private void initInstances(){
@@ -245,9 +235,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     
     private void myInitComponents(){
        
-        //seta o estado do frame para ocupar toda a tela
-        //this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        //this.setVisible(true);
+        //os listerners do Tela
         this.addWindowListener(new java.awt.event.WindowAdapter() {
 
             @Override
@@ -255,12 +243,16 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 CadastroIndividualizado.this.dispose();
             }
         });
+        
         this.initInstances();
         
         this.initJTableDados();
         
         //caso o objeto pego já possua informacoes, desabilita o cabeçalho
         this.fillFields(this.procedimentoRealizado, true); 
+        String seq=ModelUtil.completar(this.sequenciaFolha+"", 2, '0');
+        this.jLabelUsuarioSeq.setText(seq);
+        this.jLabelProcSeq.setText(seq);
         this.disabledFieldsProcedimento();
         
          this.jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -277,6 +269,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
          // Inicializa os validadores dos campos
          this.setVerifiers();
          
+         if(this.sequenciaFolha>2){
+             this.jButtonGravar.setEnabled(false);
+             this.jButtonAtualizar.setEnabled(false);
+         }
        
 }
    
@@ -745,12 +741,18 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
        
-       
+       this.gerarSequencia();
+    }
+    
+    public void gerarSequencia(){
+       //pega o tamanho da lista na tabela
        int size=this.tableModelDados.getRowCount();
-       if(size<=19){
-           this.sequencia=size+1;
-           this.jLabelUsuarioSeq.setText(this.sequencia+"");
-       }
+       
+       this.sequenciaFolha=size+1;
+       
+       String seq=ModelUtil.completar(this.sequenciaFolha+"", 2,'0');
+       this.jLabelUsuarioSeq.setText(seq);
+       this.jLabelProcSeq.setText(seq);
     }
     //todos os keyPressed
     
@@ -907,7 +909,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jComboBoxUsuarioServico = new javax.swing.JComboBox();
         jLabel27 = new javax.swing.JLabel();
         jComboBoxUsuarioClassificacao = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        jButtonAtualizar = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jTextFieldCnes = new javax.swing.JFormattedTextField();
         jTextFieldCnsProfiss = new javax.swing.JFormattedTextField();
@@ -1289,25 +1292,17 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel26.setText("Serviço");
 
         jComboBoxUsuarioServico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxUsuarioServico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxUsuarioServicoActionPerformed(evt);
-            }
-        });
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel27.setText("Classificação");
 
         jComboBoxUsuarioClassificacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxUsuarioClassificacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxUsuarioClassificacaoActionPerformed(evt);
-            }
-        });
 
-        jButton1.setText("Atualizar");
-        jButton1.setToolTipText("");
-        jButton1.setEnabled(false);
+        jButtonAtualizar.setText("Atualizar");
+        jButtonAtualizar.setToolTipText("");
+        jButtonAtualizar.setEnabled(false);
+
+        jButtonCancelar.setText("Cancelar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1365,10 +1360,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                                                 .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jTextFieldProcQuant)))))
                                 .addGap(0, 3, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                         .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonAtualizar)
+                        .addGap(27, 27, 27)
+                        .addComponent(jButtonCancelar)
                         .addGap(36, 36, 36)
                         .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -1413,8 +1410,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1)
-                            .addComponent(jButtonIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                            .addComponent(jButtonIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                            .addComponent(jButtonAtualizar)
+                            .addComponent(jButtonCancelar))
                         .addGap(5, 5, 5))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1475,11 +1473,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel21.setText("CBO");
 
         jComboBoxEquipe.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxEquipe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxEquipeActionPerformed(evt);
-            }
-        });
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel25.setText("Equipe");
@@ -1585,10 +1578,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonLimparActionPerformed
 
-    private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
-    
-    }//GEN-LAST:event_jButtonIncluirActionPerformed
-
     private void jComboBoxProcCaraterAtendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxProcCaraterAtendActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxProcCaraterAtendActionPerformed
@@ -1608,54 +1597,35 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     private void jButtonIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirMouseClicked
         if(this.textFieldVerifier(getListFieldsProcedimento())){
             // metodo que pega os valores de alguns campos e adiciona-os ao modelo
-            this.getValuesOfFieldsForModel();
-             //se não houver elemento vazio siginifica que a operação é de edição
-             //nesse caso salva o objeto;
-            this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(ModelUtil.completar(""+this.sequenciaFolha, 2, '0'));
-            if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
-                this.procedimentoRealizado=this.procedimentoRealizado.getOnlyHeader();
-                this.updateJTable( this.procedimentoRealizado);
-                this.fillFields(this.procedimentoRealizado, true);
-                ++this.sequenciaFolha;
-                //a folha foi preenchida
-                if(this.sequenciaFolha>2){
-                    this.initNewFolha();
+            if(this.sequenciaFolha<=2){
+                this.getValuesOfFieldsForModel();
+                 //se não houver elemento vazio siginifica que a operação é de edição
+                 //nesse caso salva o objeto;
+                this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(ModelUtil.completar(""+this.sequenciaFolha, 2, '0'));
+                if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
+                    this.procedimentoRealizado=this.procedimentoRealizado.getOnlyHeader();
+                    this.updateJTable( this.procedimentoRealizado);
+                    this.fillFields(this.procedimentoRealizado, true);
+                    //gera a sequência
+                    this.gerarSequencia();
+                    //a folha foi preenchida
+                    if(this.sequenciaFolha>2){
+                        this.initNewFolha();
+                    }
+                }
+                else{
+                System.out.println("Deu merda!");
                 }
             }
             else{
-            System.out.println("Deu merda!");
+                JOptionPane.showConfirmDialog(this, "A folha já está completa!\nUma nova folha será gerada.");
+                this.initNewFolha();
             }
-//             if(this.tableModelDados.getCloneElementListEmpty()==null){
-//               //insere o modelo na jTable
-//                this.insertInJTable();
-//
-//
-//
-//             }else{
-//
-//                //insere o modelo na jTable
-//                this.insertInJTable();
-//
-//                ProcedimentoRealizado p = this.tableModelDados.getCloneElementListEmpty();
-//                if(p!=null){
-//                   // this.jTable1.changeSelection(1,1,false, false);
-//
-//                    this.procedimentoRealizado = p;
-//                    this.fillHeaderModelProcedimentoRealizado(this.procedimentoRealizado);
-//                    this.fillFields(procedimentoRealizado, false);
-//                    nextLineJTabel(this.jTable1);
-//                }else{
-//                    this.beginNewWindow();
-//                }
-//
-//             }
 
         }
     }//GEN-LAST:event_jButtonIncluirMouseClicked
 
     private void initNewFolha(){
-        //inicia a jTable
-        this.initJTableDados();
         //pega o primeiro objeto da jTable e atribui ao modelo atual
         int opcao=JOptionPane.showOptionDialog(this,"DESEJA INICIAR A INCLUSÃO COM O MESMO CABEÇALHO?","Questão",
                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -1675,13 +1645,24 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
            //habilita os campos do cabeçalho
            this.enableFieldsHeader();
         }
-        this.tableModelDados.clean();
+        
+        //inicia a jTable
+        this.initJTableDados();
         this.fillFields(this.procedimentoRealizado, true);
+        this.gerarSequencia();
     }
    
     
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        
+        if(this.tableModelDados.getRowCount()>0){
+            //desabilita os botoes para editar
+            this.jButtonCancelar.setEnabled(true);
+            this.jButtonIncluir.setEnabled(false);
+            this.jButtonAtualizar.setEnabled(true);
+            //preenche os campos
+            this.procedimentoRealizado=this.tableModelDados.getProcedimentoRealizado(this.jTable1.getSelectedRow());
+            this.fillFields(procedimentoRealizado, true);
+        }
     }//GEN-LAST:event_jTable1MouseClicked
 
 //    private void selectionObjectAndFillFields(){
@@ -1701,18 +1682,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
        this.clearFields();
     }//GEN-LAST:event_jButtonLimparMouseClicked
 
-    private void jComboBoxEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxEquipeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxEquipeActionPerformed
-
-    private void jComboBoxUsuarioServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxUsuarioServicoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxUsuarioServicoActionPerformed
-
-    private void jComboBoxUsuarioClassificacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxUsuarioClassificacaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxUsuarioClassificacaoActionPerformed
-
     private void jButtonSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSairMouseClicked
         // TODO add your handling code here:
         this.dispose();
@@ -1723,6 +1692,37 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                this.jButtonIncluirMouseClicked(null);
            }
     }//GEN-LAST:event_jButtonIncluirKeyPressed
+
+    private void teste(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_teste
+        // TODO add your handling code here:
+    }//GEN-LAST:event_teste
+
+    private void jButtonCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCancelarMouseClicked
+        // TODO add your handling code here:
+        this.jButtonCancelar.setEnabled(false);
+        this.jButtonIncluir.setEnabled(true);
+        this.jButtonAtualizar.setEnabled(false);
+    }//GEN-LAST:event_jButtonCancelarMouseClicked
+
+    private void jButtonAtualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAtualizarMouseClicked
+        // TODO add your handling code here:
+        if(this.textFieldVerifier(this.listFieldsProcedimento)){
+            this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado));
+                this.procedimentoRealizado=this.procedimentoRealizado.getOnlyHeader();
+                this.updateJTable(this.procedimentoRealizado);
+                //desabilita os botões
+                this.jButtonCancelar.setEnabled(false);
+                this.jButtonIncluir.setEnabled(true);
+                this.jButtonAtualizar.setEnabled(false);
+                this.fillFields(this.procedimentoRealizado, true);
+                this.gerarSequencia();
+            
+        }
+    }//GEN-LAST:event_jButtonAtualizarMouseClicked
+
+    private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonIncluirActionPerformed
                                           
 
     private void jTextFieldCnsProfissActionPerformed(java.awt.event.ActionEvent evt) {                                                     
@@ -1811,7 +1811,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     }                                             
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonAtualizar;
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonGravar;
     private javax.swing.JButton jButtonIncluir;
     private javax.swing.JButton jButtonLimpar;
@@ -2529,7 +2530,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
        
         this.procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
         this.procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(jTextFieldFolha.getText());
-        this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(String.valueOf(sequencia));
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(String.valueOf(this.sequenciaFolha));
         
        
         
@@ -2641,6 +2642,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           this.updateJTable(procedimentoRealizado);
           this.procedimentoRealizado= procedimentoRealizado;
           this.fillFields(procedimentoRealizado, true);
+          
+          //incremeta a sequencia
+          this.gerarSequencia();
       
       }
       /**
@@ -2661,9 +2665,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
              
               
           }
-          String sequenciaFolha = p.getProcedimentoRealizadoPK().getSequenciaFolha();
-          jLabelUsuarioSeq.setText(sequenciaFolha);
-          jLabelProcSeq.setText(sequenciaFolha);
+          String seqFolha = p.getProcedimentoRealizadoPK().getSequenciaFolha();
+          if(seqFolha!=null){
+            this.sequenciaFolha=Integer.parseInt(seqFolha);
+          }
+          jLabelUsuarioSeq.setText(seqFolha);
+          jLabelProcSeq.setText(seqFolha);
           jTextFieldUsuarioCns.setText(p.getCnsPaciente());
           jTextFieldUsuarioNome.setText(p.getNomePaciente());
           jTextFieldUsuarioSexo.setText(p.getSexoPaciente());
