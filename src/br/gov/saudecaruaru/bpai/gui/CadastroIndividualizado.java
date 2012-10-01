@@ -2533,7 +2533,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(String.valueOf(this.sequenciaFolha));
         
        
-        
+     
         Character digitoVerificador = this.procedimentoRealizado.getCodigoProcedimento().charAt(9);
         procedimento.getProcedimentoPk().setId(this.procedimentoRealizado.getCodigoProcedimento().substring(0,9));
         procedimento.getProcedimentoPk().setCompetencia(this.procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia());
