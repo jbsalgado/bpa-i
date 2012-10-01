@@ -11,6 +11,7 @@ import br.gov.saudecaruaru.bpai.business.model.GestorCompetenciaPK;
 import br.gov.saudecaruaru.bpai.business.model.Mes;
 import br.gov.saudecaruaru.bpai.gui.formatter.MesFormatter;
 import com.towel.swing.combo.ObjectComboBoxModel;
+import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -34,18 +35,42 @@ public class AlteraCompetencia extends javax.swing.JDialog {
     }
     
     private void initInstances(){
-     this.objectComboBoxModelMes= new ObjectComboBoxModel<Mes>();
+      this.objectComboBoxModelMes= new ObjectComboBoxModel<Mes>();
         
         MesFormatter formatter=new MesFormatter();
         this.objectComboBoxModelMes.setFormatter(formatter);
+        
+        competenciaController = new GestorCompetenciaController();
     }
     
     private void myInitComponents(){
         initInstances();
         
         initCombobox();
+        initFields();
     }
     
+      
+ 	
+ public void initFields(){
+        List<GestorCompetencia>  listGc = competenciaController.findAll();
+        if(!listGc.isEmpty()){
+            String mes = listGc.get(0).getCompetenciaMes();
+            String ano = listGc.get(0).getCompetenciaAno();
+            
+            this.selectItemJComboBoxCompetenciaMes(mes);
+            
+            
+            jTextFieldCompetenciaAno.setText(ano);
+        }
+    }
+    
+     private void selectItemJComboBoxCompetenciaMes(String codigoItem){
+          Mes m= new Mes(codigoItem, "");   
+          this.objectComboBoxModelMes.setSelectedObject(m);
+     }
+
+  
     private void initCombobox(){
         objectComboBoxModelMes.setData(Mes.getLIST());
         this.jComboBoxCompetenciaMes.setModel(objectComboBoxModelMes);
@@ -153,7 +178,7 @@ public class AlteraCompetencia extends javax.swing.JDialog {
         String competencia = ano+mes;
         
         GestorCompetencia gestorCompetencia = new GestorCompetencia(new GestorCompetenciaPK("1"),competencia);
-        competenciaController = new GestorCompetenciaController();
+        
         try {
              competenciaController.merge(gestorCompetencia);
              this.dispose();
