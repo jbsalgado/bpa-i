@@ -6,6 +6,8 @@ package br.gov.saudecaruaru.bpai.business.model;
 
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.*;
@@ -414,6 +416,44 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
             Logger.getLogger(ProcedimentoRealizado.class.getName()).log(Level.SEVERE, null, ex);
         }
         return new ProcedimentoRealizado(pr);
+    }
+    
+    public ServicoControllerwsdl.ProcedimentoRealizado getProcedimentoRealizadoParaEnviar(){
+        ServicoControllerwsdl.ProcedimentoRealizado pro= new ServicoControllerwsdl.ProcedimentoRealizado();
+        ServicoControllerwsdl.Paciente pac=new ServicoControllerwsdl.Paciente();
+        
+        pac.setCidade(this.codigoIBGECidadePaciente);
+        pac.setCns(this.cnsPaciente);
+        pac.setData_nascimento(new Date());
+        pac.setEtnia(this.etniaPaciente);
+        pac.setNacionalidade(this.nacionalidadePaciente);
+        pac.setNome(this.nomePaciente);
+        pac.setRaca(this.racaPaciente);
+        pac.setSexo(this.sexoPaciente);
+        
+        pro.setPaciente(pac);
+        pro.setCaracter_atendimento(this.caracterizacaoAtendimento);
+        pro.setCid(this.cidDoencaprocedimento);
+        pro.setClassificacao(this.codigoClassificacaoServico);
+        pro.setCompetencia(this.getProcedimentoRealizadoPK().getCompetencia());
+        pro.setCompetencia_movimento(this.prdMvm);
+        pro.setData_atendimento(new Date());
+        pro.setEquipe(this.equipe);
+        pro.setFolha(this.procedimentoRealizadoPK.getNumeroFolha());
+        if( this.idadePaciente==null? false : !this.idadePaciente.trim().isEmpty()){
+            pro.setIdade_paciente(BigInteger.valueOf(Long.parseLong(this.idadePaciente)));
+        }
+        pro.setNumero_autorizacao(this.numeroAutorizacao);
+        pro.setOrigem(this.origemProcedimento);
+        pro.setProcedimento(this.codigoProcedimento);
+        pro.setProfissional_cbo(this.getProcedimentoRealizadoPK().getCboMedico());
+        pro.setProfissional_cns(this.getProcedimentoRealizadoPK().getCnsMedico());
+        pro.setQuantidade(BigInteger.valueOf(this.quantidadeRealizada.longValue()));
+        pro.setSequencia(this.procedimentoRealizadoPK.getSequenciaFolha());
+        pro.setServico(this.codigoServico);
+        pro.setUnidade(this.procedimentoRealizadoPK.getCnesUnidade());
+        
+        return pro;
     }
     public String getEquipe() {
         return equipe;

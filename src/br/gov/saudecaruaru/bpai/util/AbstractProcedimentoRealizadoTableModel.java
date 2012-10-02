@@ -66,7 +66,7 @@ public abstract class AbstractProcedimentoRealizadoTableModel extends AbstractTa
     public List<ProcedimentoRealizado> getListWithOutEmptyElements(){
         List<ProcedimentoRealizado> listNotEmpty = new ArrayList<ProcedimentoRealizado>();
          for(ProcedimentoRealizado p : this.list){
-            if(p.getProcedimentoRealizadoPK().getCnesUnidade()!=null){
+            if(p.isComplete()){
                listNotEmpty.add(p);
             }
         }
@@ -74,7 +74,7 @@ public abstract class AbstractProcedimentoRealizadoTableModel extends AbstractTa
     }
     public ProcedimentoRealizado getCloneElementListEmpty() {
         for(ProcedimentoRealizado p : this.list){
-            if(p.getProcedimentoRealizadoPK().getCnesUnidade()==null){
+            if(!p.isComplete()){
                 try {
                     ProcedimentoRealizado pClone =(ProcedimentoRealizado) p.clone();
                      pClone.setProcedimentoRealizadoPK((ProcedimentoRealizadoPK) p.getProcedimentoRealizadoPK().clone());

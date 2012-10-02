@@ -1659,6 +1659,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.jButtonAtualizar.setEnabled(false);
         this.procedimentoRealizado=new ProcedimentoRealizado(this.procedimentoRealizado.getOnlyHeader());
         this.fillFields(this.procedimentoRealizado, true);
+        this.gerarSequencia();
         this.insertOrUpdateState();
     }//GEN-LAST:event_jButtonCancelarMouseClicked
 

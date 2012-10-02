@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -25,10 +26,12 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
     
 
     private final Class<T> persistentClass;
+    private final Logger logger;
 
     public GenericDAO() {
         //this.entityManager = EntityManagerUtil.getEntityManager();
         this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        this.logger=Logger.getLogger(persistentClass);
     }
     
     public Session getSession(){
@@ -43,9 +46,11 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             tr.begin();
             session.save(entity);
             tr.commit();
+            this.logger.info("=> Método save executado com sucesso. Objeto: "+entity);
         } catch (Throwable t) {
             t.printStackTrace();
             tr.rollback();
+            this.logger.error("=> Erro ao tentar executar o método save. Objeto: "+entity);
         } finally {
             session.close();
         }
@@ -68,9 +73,11 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
                 entity.set(i, obj);
             }
             tr.commit();
+            this.logger.info("=> Método save [list] executado com sucesso. Tamanho da lista: "+entity.size());
         } catch (Throwable t) {
             t.printStackTrace();
             tr.rollback();
+            this.logger.error("=> Erro ao tentar executar o método save [list]. Tamanho da lista: "+entity.size());
         } finally {
             session.close();
             return entity;
@@ -87,9 +94,11 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             session.flush();
             session.clear();
             tr.commit();
+            this.logger.info("=> Método merge executado com sucesso. Objeto: "+entity);
         } catch (Throwable t) {
             t.printStackTrace();
             tr.rollback();
+            this.logger.error("=> Erro ao tentar executar o método merge. Objeto: "+entity);
         } finally {
             session.close();
             return entity;
@@ -113,9 +122,12 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
                 entity.set(i, obj);
             }
             t.commit();
+            
+            this.logger.info("=> Método merge [list] executado com sucesso. Tamanho da lista: "+entity.size());
         } catch (Throwable tr) {
             tr.printStackTrace();
             t.rollback();
+            this.logger.error("=> Erro ao tentar executar o método merge [list]. Tamanho da lista: "+entity.size());
         } finally {
             session.close();
             return entity;
@@ -133,9 +145,11 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             session.flush();
             session.clear();
             t.commit();
+            this.logger.info("=> Método update executado com sucesso. Objeto: "+entity);
         } catch (Throwable tr) {
             tr.printStackTrace();
             t.rollback();
+            this.logger.error("=> Erro ao tentar executar o método update. Objeto: "+entity);
         } finally {
             session.close();
         }
@@ -150,9 +164,11 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             t.begin();
             session.delete(entity);
             t.commit();
+            this.logger.info("=> Método remove executado com sucesso. Objeto: "+entity);
         } catch (Throwable tr) {
             tr.printStackTrace();
             t.rollback();
+            this.logger.error("=> Erro ao tentar executar o método remove. Objeto: "+entity);
         } finally {
             session.close();
         }
@@ -166,6 +182,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             l= session.createCriteria(persistentClass).list();
         }catch(Exception ex){
             ex.printStackTrace();
+            this.logger.error("=> Erro ao tentar executar o método findAll.");
         }
         finally{
             session.close();
@@ -191,6 +208,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             l=c.list();
         }catch(Exception ex){
             ex.printStackTrace();
+            this.logger.error("=> Erro ao tentar executar o método findAllEqual [serializable].");
         }
         finally{
             session.close();
@@ -214,6 +232,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             l=c.list();
         }catch(Exception ex){
             ex.printStackTrace();
+            this.logger.error("=> Erro ao tentar executar o método findAllEqual [map<string,object>]");
         }
         finally{
            session.close();
@@ -237,6 +256,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             l = c.list();
         }catch(Exception ex){
             ex.printStackTrace();
+            this.logger.error("=> Erro ao tentar executar o método findAllLike [map<string, object>]");
         }
         finally{
             session.close();
@@ -260,6 +280,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             t=(T) c.uniqueResult();
         }catch(Exception ex){
             ex.printStackTrace();
+            this.logger.error("=> Erro ao tentar executar o método findEqual [map<string,object>].");
         }
         finally{
             session.close();
@@ -285,6 +306,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
              t=(T) c.uniqueResult();
         }catch(Exception ex){
             ex.printStackTrace();
+            this.logger.error("=> Erro ao tentar executar o método findEqual [object].");
         }
         finally{
             session.close();
