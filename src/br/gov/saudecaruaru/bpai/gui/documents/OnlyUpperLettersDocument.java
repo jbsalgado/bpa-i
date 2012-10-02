@@ -14,7 +14,7 @@ import javax.swing.text.PlainDocument;
  *
  * @author Junior Pires
  */
-public class OnlyLettersDocument extends PlainDocument{
+public class OnlyUpperLettersDocument extends PlainDocument{
     
     @Override 
     public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
@@ -22,7 +22,7 @@ public class OnlyLettersDocument extends PlainDocument{
        Matcher m = p.matcher(str);
         if(!m.find())
             return;
-        super.insertString(offs, str, a);
+        super.insertString(offs, str.toUpperCase(), a);
     }
     
 }

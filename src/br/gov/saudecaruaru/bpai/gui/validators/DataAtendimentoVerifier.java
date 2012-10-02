@@ -14,6 +14,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -50,8 +52,24 @@ public class DataAtendimentoVerifier extends InputVerifier{
        ProcedimentoRealizado proRealizado = t.getProcedimentoRealizado();
        
        String valor = txtField.getText();
-       String valorDtNas = proRealizado.getDataNascimentoPaciente();
        
+       //VALIDA O FORMATO DA DATA
+       if(!DateUtil.isValidBrDate(valor)){
+           JOptionPane.showMessageDialog(this.component,fieldName+" INCORRETO!"
+                   +"\n FORMATO INVALIDO","Erro de validação!", JOptionPane.ERROR_MESSAGE);
+         txtField.setBackground(Color.RED);    
+           return false;
+       }
+       
+       
+       
+       
+       
+       
+       String valorDtNas = proRealizado.getDataNascimentoPaciente();
+       if(valorDtNas.isEmpty()){
+           
+       }
        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
       
       try{

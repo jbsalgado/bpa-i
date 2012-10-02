@@ -14,15 +14,16 @@ import javax.swing.text.PlainDocument;
  *
  * @author Junior Pires
  */
-public class CnsDocument extends PlainDocument{
+public class SexoDocument extends PlainDocument{
     
-    @Override
+    @Override 
     public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
-       Pattern p = Pattern.compile("^[0-9]+$"); 
+       //expressão regular para sexo (só permite M ou F)
+       Pattern p = Pattern.compile("^[(mM)|(fF)]$");  
        Matcher m = p.matcher(str);
-        if(this.getLength()>14 || !m.find())
+        if(this.getLength()>0 ||!m.find())
             return;
-        super.insertString(offs, str, a);
+        super.insertString(offs, str.toUpperCase(), a);
     }
     
 }

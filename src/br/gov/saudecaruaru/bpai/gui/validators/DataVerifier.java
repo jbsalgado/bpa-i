@@ -5,6 +5,7 @@
 package br.gov.saudecaruaru.bpai.gui.validators;
 
 
+import br.gov.saudecaruaru.bpai.util.DateUtil;
 import java.awt.Color;
 import java.awt.Component;
 import java.text.ParseException;
@@ -35,14 +36,11 @@ public class DataVerifier extends InputVerifier{
     public boolean verify(JComponent input) {
        JTextField txtField = (JTextField) input;
        String valor = txtField.getText();
-       SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-      try{
-            format.setLenient(false);
-            format.parse(valor);
-       }catch(ParseException e){
-         JOptionPane.showMessageDialog(this.component,fieldName+" INVÁLIDA!"
-                   ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
-         txtField.setBackground(Color.RED); 
+       //VALIDA O FORMATO DA DATA 
+       if(!DateUtil.isValidBrDate(valor)){
+           JOptionPane.showMessageDialog(this.component,fieldName+" INCORRETO!"
+                   +"\n FORMATO INVALIDO","Erro de validação!", JOptionPane.ERROR_MESSAGE);
+         txtField.setBackground(Color.RED);    
            return false;
        }
        txtField.setBackground(Color.WHITE);

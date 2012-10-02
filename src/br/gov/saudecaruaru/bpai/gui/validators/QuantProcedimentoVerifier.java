@@ -98,8 +98,11 @@ public class QuantProcedimentoVerifier extends InputVerifier{
                     
                     double quant = Double.parseDouble(valor);
                     double quantMaxima = procedimentoSearchead.get(0).getQuantidadeMaximaExecucao();
-                    if(quant>quantMaxima){
-                          return  MessagesErrors.exibeTelaContinuaErro(component,""," ERRO! QUANTIDADE MÁXIMA PERMITIDA "+quantMaxima, txtField);
+                            if(quant>quantMaxima){
+                                JOptionPane.showMessageDialog(this.component," ERRO! QUANTIDADE MÁXIMA PERMITIDA "+quantMaxima
+                                                ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
+                                        txtField.setBackground(Color.RED); 
+                            return  false;
                     }
                 }
              }

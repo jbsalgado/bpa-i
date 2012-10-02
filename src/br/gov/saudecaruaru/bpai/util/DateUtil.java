@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -114,4 +116,14 @@ public class DateUtil {
        }
         return dateParsing;
     }
+     
+     
+     public static boolean isValidBrDate(String date){
+       Pattern p = Pattern.compile("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}$"); 
+       Matcher m = p.matcher(date);
+       if(!m.find()){
+         return false;
+       }
+       return true;
+     }
 }

@@ -105,9 +105,12 @@ public class ProcedimentoVerifier extends InputVerifier{
                         
                         // verifica se o procedimento é compativel com o CBO
                         if(!temProcedimentoECbo(valor.substring(0, 9),proRealizado.getProcedimentoRealizadoPK().getCboMedico())){
-                            return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM CBO!", txtField);
-                            //verifica se o procedimento exige sexo
+                                        JOptionPane.showMessageDialog(this.component,"PROCED. INCOMPATIVEL COM CBO!", 
+                                        "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
+                                        txtField.setBackground(Color.RED);
+                                            return false;
                         }
+                        //verifica se o procedimento exige sexo
                         if(procedimentosSearchead.exigeSexo()){
                             String sexo =proRealizado.getSexoPaciente();
                             //verifica se o sexo digitado é compativel com o exigido
@@ -118,6 +121,7 @@ public class ProcedimentoVerifier extends InputVerifier{
                         } 
                             
                         if((idadePaciente<idadeMinima) || (idadePaciente>idadeMaxima)){
+                                
                                 return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM A IDADE!"+"\n IDADE MÍNIMA: "+idadeMinima+"\n IDADE MÁXIMA: "+idadeMaxima, txtField);
                         } 
                         if(!procedimentosSearchead.isBPA() && !procedimentosSearchead.isBPI()){
