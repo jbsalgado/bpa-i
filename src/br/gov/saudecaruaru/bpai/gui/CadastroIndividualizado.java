@@ -577,6 +577,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void keyPressed(KeyEvent e) {
+                  //o usuário clicou F1
+                if(e.getKeyCode()==KeyEvent.VK_F1){
+                    Search m=CadastroIndividualizado.this.keyPressedJTextFieldEtnia();
+                    //o usuário selecionou um registro
+                    if(m!=null){
+                        //vai setor o valor do código no campo
+                        CadastroIndividualizado.this.jTextFieldUsuarioCodEtnia.setText(m.getId());
+                    }
+                }
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
                     CadastroIndividualizado.this.jTextFieldUsuarioCodEtnia.transferFocus();
                 } 
@@ -782,6 +791,16 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     private Search keyPressedJTextFieldUsuarioCns(){
         
         return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.pacienteController, "cns", "nome","CNS", "Nome",new HashMap<String, Object>());
+    }
+    
+    private Search keyPressedJTextFieldEtnia(){
+        
+      //restrição para qualquer busca
+        HashMap<String, Object> res=new HashMap<String, Object>();
+        res.put("diversasPK.codigoTabela", Diversas.TABELA_ETNIA);
+        return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.diversasController, 
+                                                        "diversasPK.codigoItemTabela", "descricaoItemTabela",
+                                                        "Código", "Etnia",res);
     }
     
     /**
