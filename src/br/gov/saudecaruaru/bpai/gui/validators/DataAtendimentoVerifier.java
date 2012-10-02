@@ -53,10 +53,8 @@ public class DataAtendimentoVerifier extends InputVerifier{
        
        String valor = txtField.getText();
        
-       //VALIDA O FORMATO DA DATA 
-       Pattern p = Pattern.compile("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}$"); 
-       Matcher m = p.matcher(valor);
-       if(!m.find()){
+       //VALIDA O FORMATO DA DATA
+       if(!DateUtil.isValidBrDate(valor)){
            JOptionPane.showMessageDialog(this.component,fieldName+" INCORRETO!"
                    +"\n FORMATO INVALIDO","Erro de validação!", JOptionPane.ERROR_MESSAGE);
          txtField.setBackground(Color.RED);    
@@ -69,6 +67,9 @@ public class DataAtendimentoVerifier extends InputVerifier{
        
        
        String valorDtNas = proRealizado.getDataNascimentoPaciente();
+       if(valorDtNas.isEmpty()){
+           
+       }
        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
       
       try{
