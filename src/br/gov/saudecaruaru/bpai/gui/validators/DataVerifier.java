@@ -35,14 +35,13 @@ public class DataVerifier extends InputVerifier{
     public boolean verify(JComponent input) {
        JTextField txtField = (JTextField) input;
        String valor = txtField.getText();
-       SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-      try{
-            format.setLenient(false);
-            format.parse(valor);
-       }catch(ParseException e){
-         JOptionPane.showMessageDialog(this.component,fieldName+" INVÁLIDA!"
-                   ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
-         txtField.setBackground(Color.RED); 
+     //VALIDA O FORMATO DA DATA 
+       Pattern p = Pattern.compile("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}$"); 
+       Matcher m = p.matcher(valor);
+       if(!m.find()){
+           JOptionPane.showMessageDialog(this.component,fieldName+" INCORRETO!"
+                   +"\n FORMATO INVALIDO","Erro de validação!", JOptionPane.ERROR_MESSAGE);
+         txtField.setBackground(Color.RED);    
            return false;
        }
        txtField.setBackground(Color.WHITE);
