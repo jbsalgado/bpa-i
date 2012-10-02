@@ -14,18 +14,22 @@ import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
 import br.gov.saudecaruaru.bpai.data.DiversasDAO;
 import br.gov.saudecaruaru.bpai.data.HibernateUtil;
 import br.gov.saudecaruaru.bpai.data.ProcedimentoRealizadoDAO;
+import br.gov.saudecaruaru.bpai.util.ModelUtil;
+import org.apache.log4j.Logger;
 /**
  *
  * @author Albuquerque
  */
 public class Teste {
     public static void main(String[] args){
-        SistemaController.loadConfigurations();
-        HibernateUtil.createIndices();
+//        SistemaController.loadConfigurations();
+//        HibernateUtil.createIndices();
 //        testeExportacaoProcedimentosIndividuais();
 //        testeExportacaoProcedimentosCosolidados();
 //        testeEquipes();
-        init();
+        //init();
+        Logger log= Logger.getLogger(Teste.class);
+        log.debug("testando pow...");
     }
     
     public static void testeDiversasServicos(){
@@ -69,4 +73,6 @@ public class Teste {
     public static void init(){
         HibernateUtil.createIndices();
     }
+    
+    
 }
