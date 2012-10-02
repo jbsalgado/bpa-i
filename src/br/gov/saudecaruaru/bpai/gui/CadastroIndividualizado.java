@@ -294,12 +294,14 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldUsuarioSexo.setDocument(new SexoDocument());
         //inicializando competencia
         String competencia = gestorCompetenciaController.getCompetenciaAtual();
+       
         //verifica se existe competencia
         if(!competencia.equals("")){
             jTextFieldMes.setText(competencia.substring(4));
             jTextFieldAno.setText(competencia.substring(0, 4));
-            //seta a competencia vinda do banco
-            procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
+            
+            //seta competencia movimento
+            procedimentoRealizado.setPrdMvm(competencia);
         }
         
         jTextFieldUsuarioSexo.setText("");
@@ -2373,18 +2375,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
        */
       private void getValuesOfFieldsForModel(){
         Procedimento procedimento = new Procedimento();
-       
+        //pega a competencia digitada
         String competencia = jTextFieldAno.getText()+jTextFieldMes.getText();
          
-         int indexCarater = jComboBoxProcCaraterAtend.getSelectedIndex();
-         CaraterAtendimento c = (CaraterAtendimento) this.objectComboBoxModelCaraterAtend.getData().get(indexCarater);
-         int indexRaca = jComboBoxUsuarioRacaCor.getSelectedIndex();
-         Diversas d = (Diversas) this.objectComboBoxModelRacaCor.getData().get(indexRaca);
-        //String dataNasc  =     DateUtil.parseToYearMonthDay(jTextFieldUsarioDatNasc.getText());
-        //String dataAtend  =    DateUtil.parseToYearMonthDay(jTextFieldProcDataAtend.getText());
+        int indexCarater = jComboBoxProcCaraterAtend.getSelectedIndex();
+        CaraterAtendimento c = (CaraterAtendimento) this.objectComboBoxModelCaraterAtend.getData().get(indexCarater);
+        int indexRaca = jComboBoxUsuarioRacaCor.getSelectedIndex();
+        Diversas d = (Diversas) this.objectComboBoxModelRacaCor.getData().get(indexRaca);
         this.procedimentoRealizado.setCnsPaciente(jTextFieldUsuarioCns.getText());
         this.procedimentoRealizado.setSexoPaciente(jTextFieldUsuarioSexo.getText());
-        //this.procedimentoRealizado.setDataNascimentoPaciente(dataNasc);  
         this.procedimentoRealizado.setCodigoIBGECidadePaciente(jTextFieldUsuarioCodMunicip.getText()); 
         this.procedimentoRealizado.setNacionalidadePaciente(jTextFieldUsuarioCodNac.getText());
         this.procedimentoRealizado.setRacaPaciente(d.getDiversasPK().getCodigoItemTabela()); 
@@ -2392,7 +2391,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             this.procedimentoRealizado.setEtniaPaciente(jTextFieldUsuarioCodEtnia.getText());
         }
         
-        //this.procedimentoRealizado.setDataAtendimento(dataAtend);
         this.procedimentoRealizado.setCaracterizacaoAtendimento(c.getCodigo());
        
         this.procedimentoRealizado.getProcedimentoRealizadoPK().setCompetencia(competencia);
