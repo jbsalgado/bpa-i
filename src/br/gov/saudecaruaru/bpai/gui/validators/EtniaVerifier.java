@@ -59,7 +59,11 @@ public class EtniaVerifier extends InputVerifier{
       }
                 
         if (diversasEtniaSearchead==null) {  
-            return  MessagesErrors.exibeTelaContinuaErro(component, fieldName,"INCORRETO!", txtField);
+            JOptionPane.showMessageDialog(this.component,fieldName+" INCORRETO!", 
+                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
+                txtField.setBackground(Color.RED);
+                    return false;
+            
         }
         //guarda a busca no banco de dados
         CadastroIndividualizado.MAP_DIVERSAS.put(diversasEtniaSearchead.getDiversasPK(), diversasEtniaSearchead);
