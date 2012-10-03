@@ -4,7 +4,7 @@ package br.gov.saudecaruaru.bpai.gui;
 
 
 
-import br.gov.saudecaruaru.bpai.gui.documents.CnsDocument;
+import br.gov.saudecaruaru.bpai.gui.documents.OnlyNumbersDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.CaraterAtendimentoFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.DiversasFormatter;
@@ -288,7 +288,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     
     private void initFields(){
         //inicializando campos 
-        jTextFieldUsuarioCns.setDocument(new CnsDocument());
+        jTextFieldUsuarioCns.setDocument(new OnlyNumbersDocument(15));
+        jTextFieldCnsProfiss.setDocument(new OnlyNumbersDocument(15));
+        jTextFieldProcCod.setDocument(new OnlyNumbersDocument(10));
         jTextFieldNomeProfiss.setDocument(new OnlyUpperLettersDocument());
         jTextFieldUsuarioNome.setDocument(new OnlyUpperLettersDocument());
         jTextFieldUsuarioSexo.setDocument(new SexoDocument());
@@ -332,7 +334,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldUsuarioCodMunicip.setInputVerifier(new MunicipioVerifier(this,"Municipio",jTextFieldUsuarioNomeMunicip));
         jTextFieldUsuarioCodEtnia.setInputVerifier(new EtniaVerifier(this,"Etnia", jTextFieldUsuarioDescEtnia));
         jTextFieldProcCod.setInputVerifier(new ProcedimentoVerifier(this, "Procedimento", jTextFieldProcDescricao,this));
-        jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,this));
+        jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,this,jTextFieldProcCod));
         jComboBoxProcCaraterAtend.setInputVerifier(new CaraterAtendVerifier(this,"Caráter de Atendimento"));
         jTextFieldUsarioDatNasc.setInputVerifier(new DataVerifier(this, "Data de Nascimento"));
         jTextFieldProcQuant.setInputVerifier(new QuantProcedimentoVerifier(this, "Quantidade",this));
@@ -917,7 +919,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jTextFieldProcDataAtend = new javax.swing.JFormattedTextField();
-        jTextFieldProcCod = new javax.swing.JFormattedTextField();
         jTextFieldProcCID = new javax.swing.JFormattedTextField();
         jTextFieldProcNumAut = new javax.swing.JFormattedTextField();
         jButtonSair = new javax.swing.JButton();
@@ -927,9 +928,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jComboBoxUsuarioClassificacao = new javax.swing.JComboBox();
         jButtonAtualizar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
+        jTextFieldProcCod = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jTextFieldCnes = new javax.swing.JFormattedTextField();
-        jTextFieldCnsProfiss = new javax.swing.JFormattedTextField();
         jTextFieldMes = new javax.swing.JFormattedTextField();
         jTextFieldAno = new javax.swing.JFormattedTextField();
         jTextFieldFolha = new javax.swing.JFormattedTextField();
@@ -937,6 +938,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel21 = new javax.swing.JLabel();
         jComboBoxEquipe = new javax.swing.JComboBox();
         jLabel25 = new javax.swing.JLabel();
+        jTextFieldCnsProfiss = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Cadastro indivualizado"); // NOI18N
@@ -1213,12 +1215,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         }
 
         try {
-            jTextFieldProcCod.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##########")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
             jTextFieldProcCID.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("****")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
@@ -1315,7 +1311,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                                                     .addGap(347, 347, 347))
                                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                                     .addComponent(jTextFieldProcCod)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                     .addComponent(jTextFieldProcDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1401,12 +1397,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         }
 
         try {
-            jTextFieldCnsProfiss.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###############")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
             jTextFieldMes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
@@ -1470,13 +1460,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldCnes, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(55, 55, 55))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextFieldCnsProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldCnsProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldNomeProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1484,7 +1471,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextFieldCBO, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 547, Short.MAX_VALUE)))
+                        .addGap(0, 545, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1525,8 +1512,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
-
-        jTextFieldCnsProfiss.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1746,12 +1731,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     private javax.swing.JFormattedTextField jTextFieldAno;
     private javax.swing.JFormattedTextField jTextFieldCBO;
     private javax.swing.JFormattedTextField jTextFieldCnes;
-    private javax.swing.JFormattedTextField jTextFieldCnsProfiss;
+    private javax.swing.JTextField jTextFieldCnsProfiss;
     private javax.swing.JFormattedTextField jTextFieldFolha;
     private javax.swing.JFormattedTextField jTextFieldMes;
     private javax.swing.JTextField jTextFieldNomeProfiss;
     private javax.swing.JFormattedTextField jTextFieldProcCID;
-    private javax.swing.JFormattedTextField jTextFieldProcCod;
+    private javax.swing.JTextField jTextFieldProcCod;
     private javax.swing.JFormattedTextField jTextFieldProcDataAtend;
     private javax.swing.JTextField jTextFieldProcDescriDoenca;
     private javax.swing.JTextField jTextFieldProcDescricao;

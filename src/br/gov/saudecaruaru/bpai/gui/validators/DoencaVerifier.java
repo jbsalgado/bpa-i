@@ -34,12 +34,14 @@ public class DoencaVerifier extends InputVerifier{
     private ProcedimentoDoencaController procedimentoDoencaController;
     private  Doenca  doenca;
     private JTextField doencaNome;
+    private JTextField codProcedimento;
     private TelaCadastroI t;
-    public DoencaVerifier(Component component,String fieldName,JTextField doencaNome,TelaCadastroI t) {
+    public DoencaVerifier(Component component,String fieldName,JTextField doencaNome,TelaCadastroI t,JTextField codProcedimento) {
         this.fieldName = fieldName;
         this.component = component;
         this.doencaNome = doencaNome;
         this.t = t;
+        this.codProcedimento=codProcedimento;
         //instancia o controlador de  municipio
          this.doencaController = new  DoencaController();
         //instancia o modelo  MunicipioPk
@@ -96,7 +98,10 @@ public class DoencaVerifier extends InputVerifier{
                     }
 
                     if(!procedimentoDoencaController.existProcedimentoEDoenca(valor, codigoProc,procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia())){
-                        return  MessagesErrors.exibeTelaContinuaErro(component,fieldName," PROCED. INCOMPATIVEL COM CID!", txtField);
+                        return MessagesErrors.exibeTelaQuestaoErro(component," PROCED. INCOMPATIVEL COM CID! "
+                                , txtField);
+                              
+                       
                     }
                     
                     doencaNome.setText(doencaSearchead.getDescricao());
