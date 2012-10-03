@@ -2152,9 +2152,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                             CadastroIndividualizado.this.procedimentoRealizado.setIdadePaciente(age);
                             //se o campo procedimento estiver vazio zera os campos quantidade e CID
                             //porque estes dependem do codigo do procedimento
-                            if(jTextFieldProcCod.getText().isEmpty())
-                                jTextFieldProcQuant.setText("");
-                                jTextFieldProcCID.setText("");
+                           
                         }
                     }
                 }
