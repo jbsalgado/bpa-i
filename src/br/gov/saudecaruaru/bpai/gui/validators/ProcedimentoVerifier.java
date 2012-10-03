@@ -69,17 +69,20 @@ public class ProcedimentoVerifier extends InputVerifier{
       String valor = txtField.getText();
       
       
-      
-      
-      if(valor.trim().isEmpty() || valor.trim().length()<10){
+       if(valor.trim().isEmpty() || valor.trim().length()<10){
           JOptionPane.showMessageDialog(this.component,"PROCEDIMENTO INVÁLIDO!"
                                         ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
                                 txtField.setBackground(Color.RED); 
                                 return  false;
       
       }
-                                
-      //pega os sete primeiros digitos (que representam o codigo do procedimento)
+       
+       
+       
+       
+       
+       
+       //pega os sete primeiros digitos (que representam o codigo do procedimento)
       String codProc = valor.substring(0,9);
        //pega o oitavo digito (que representam o digito verificador)
       Character digitoVerificador = valor.charAt(9);
@@ -127,17 +130,14 @@ public class ProcedimentoVerifier extends InputVerifier{
                             String sexo =proRealizado.getSexoPaciente();
                             //verifica se o sexo digitado é compativel com o exigido
                             if(!procedimentosSearchead.getSexo().toString().equals(sexo)){
-                                    return MessagesErrors.exibeTelaQuestaoErro(component,"PROCED. INCOMPATIVEL COM O SEXO!"
-                               , txtField);
-                                   
+                                    return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM O SEXO!", txtField);
                             }
 
                         } 
                             
                         if((idadePaciente<idadeMinima) || (idadePaciente>idadeMaxima)){
-                                   return MessagesErrors.exibeTelaQuestaoErro(component,"PROCED. INCOMPATIVEL COM A IDADE!"+"\n IDADE MÍNIMA: "+idadeMinima+"\n IDADE MÁXIMA: "+idadeMaxima
-                                , txtField);
-                               
+                                
+                                return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM A IDADE!"+"\n IDADE MÍNIMA: "+idadeMinima+"\n IDADE MÁXIMA: "+idadeMaxima, txtField);
                         } 
                         if(!procedimentosSearchead.isBPA() && !procedimentosSearchead.isBPI()){
                                 JOptionPane.showMessageDialog(this.component,"TIPO INVÁLIDO INVÁLIDO! (PERMITIDO SOMENTE BPA OU BPI)"

@@ -197,6 +197,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         getListFieldsProcedimento().add(jTextFieldUsuarioCodMunicip);
         getListFieldsProcedimento().add(jTextFieldProcDataAtend);
         getListFieldsProcedimento().add(jTextFieldProcCod);
+        getListFieldsProcedimento().add(jTextFieldProcQuant);
+        getListFieldsProcedimento().add(jTextFieldProcCID);
        
      }
     
@@ -334,7 +336,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldUsuarioCodMunicip.setInputVerifier(new MunicipioVerifier(this,"Municipio",jTextFieldUsuarioNomeMunicip));
         jTextFieldUsuarioCodEtnia.setInputVerifier(new EtniaVerifier(this,"Etnia", jTextFieldUsuarioDescEtnia));
         jTextFieldProcCod.setInputVerifier(new ProcedimentoVerifier(this, "Procedimento", jTextFieldProcDescricao,this));
-        jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,this,jTextFieldProcCod));
+        jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,this));
         jComboBoxProcCaraterAtend.setInputVerifier(new CaraterAtendVerifier(this,"Caráter de Atendimento"));
         jTextFieldUsarioDatNasc.setInputVerifier(new DataVerifier(this, "Data de Nascimento"));
         jTextFieldProcQuant.setInputVerifier(new QuantProcedimentoVerifier(this, "Quantidade",this));
@@ -2148,6 +2150,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                             String age = String.valueOf(DateUtil.getAge(CadastroIndividualizado.this.procedimentoRealizado.getDataNascimentoPaciente(),CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()));
                             //seta no modelo
                             CadastroIndividualizado.this.procedimentoRealizado.setIdadePaciente(age);
+                            //se o campo procedimento estiver vazio zera os campos quantidade e CID
+                            //porque estes dependem do codigo do procedimento
+                            if(jTextFieldProcCod.getText().isEmpty())
+                                jTextFieldProcQuant.setText("");
+                                jTextFieldProcCID.setText("");
                         }
                     }
                 }
