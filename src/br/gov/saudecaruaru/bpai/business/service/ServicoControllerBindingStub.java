@@ -5,9 +5,9 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package ServicoControllerwsdl;
+package br.gov.saudecaruaru.bpai.business.service;
 
-public class ServicoControllerBindingStub extends org.apache.axis.client.Stub implements ServicoControllerwsdl.ServicoControllerPortType {
+public class ServicoControllerBindingStub extends org.apache.axis.client.Stub implements br.gov.saudecaruaru.bpai.business.service.ServicoControllerPortType {
     private java.util.Vector cachedSerClasses = new java.util.Vector();
     private java.util.Vector cachedSerQNames = new java.util.Vector();
     private java.util.Vector cachedSerFactories = new java.util.Vector();
@@ -16,7 +16,7 @@ public class ServicoControllerBindingStub extends org.apache.axis.client.Stub im
     static org.apache.axis.description.OperationDesc [] _operations;
 
     static {
-        _operations = new org.apache.axis.description.OperationDesc[1];
+        _operations = new org.apache.axis.description.OperationDesc[5];
         _initOperationDesc1();
     }
 
@@ -24,17 +24,67 @@ public class ServicoControllerBindingStub extends org.apache.axis.client.Stub im
         org.apache.axis.description.OperationDesc oper;
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("sendProcedimentoRealizadoEPaciente");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "procedimentoRealizado"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "ProcedimentoRealizadoArray"), ServicoControllerwsdl.ProcedimentoRealizado[].class, false, false);
+        oper.setName("enviarEmLoteProcedimentoRealizado");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "procedimentoRealizado"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "ProcedimentoRealizadoArray"), br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[].class, false, false);
         oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "paciente"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "UsuarioDesktop"), ServicoControllerwsdl.UsuarioDesktop.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "usuario"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "UsuarioDesktop"), br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "MessageWebServiceArray"));
-        oper.setReturnClass(ServicoControllerwsdl.MessageWebService[].class);
+        oper.setReturnType(new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "ProcedimentoRealizadoArray"));
+        oper.setReturnClass(br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.ENCODED);
         _operations[0] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("enviarProcedimentoRealizado");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "procedimentoRealizado"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "ProcedimentoRealizado"), br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado.class, false, false);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "usuario"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "UsuarioDesktop"), br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"));
+        oper.setReturnClass(boolean.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        oper.setStyle(org.apache.axis.constants.Style.RPC);
+        oper.setUse(org.apache.axis.constants.Use.ENCODED);
+        _operations[1] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("getMessagesLastSend");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "usuarioDesktop"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "UsuarioDesktop"), br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "MessageWebServiceArray"));
+        oper.setReturnClass(br.gov.saudecaruaru.bpai.business.service.SMessageWebService[].class);
+        oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        oper.setStyle(org.apache.axis.constants.Style.RPC);
+        oper.setUse(org.apache.axis.constants.Use.ENCODED);
+        _operations[2] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("atualizarProcedimentoRealizado");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "procedimentoRealizado"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "ProcedimentoRealizado"), br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado.class, false, false);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "usuarioDesktop"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "UsuarioDesktop"), br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"));
+        oper.setReturnClass(boolean.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        oper.setStyle(org.apache.axis.constants.Style.RPC);
+        oper.setUse(org.apache.axis.constants.Use.ENCODED);
+        _operations[3] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("atualizarEmLoteProcedimentoRealizado");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "procedimentoRealizado"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "ProcedimentoRealizadoArray"), br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[].class, false, false);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "usuarioDesktop"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "UsuarioDesktop"), br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "ProcedimentoRealizadoArray"));
+        oper.setReturnClass(br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[].class);
+        oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        oper.setStyle(org.apache.axis.constants.Style.RPC);
+        oper.setUse(org.apache.axis.constants.Use.ENCODED);
+        _operations[4] = oper;
 
     }
 
@@ -69,14 +119,14 @@ public class ServicoControllerBindingStub extends org.apache.axis.client.Stub im
             java.lang.Class simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
             qName = new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "MessageWebService");
             cachedSerQNames.add(qName);
-            cls = ServicoControllerwsdl.MessageWebService.class;
+            cls = br.gov.saudecaruaru.bpai.business.service.SMessageWebService.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
             qName = new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "MessageWebServiceArray");
             cachedSerQNames.add(qName);
-            cls = ServicoControllerwsdl.MessageWebService[].class;
+            cls = br.gov.saudecaruaru.bpai.business.service.SMessageWebService[].class;
             cachedSerClasses.add(cls);
             qName = new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "MessageWebService");
             qName2 = null;
@@ -85,21 +135,21 @@ public class ServicoControllerBindingStub extends org.apache.axis.client.Stub im
 
             qName = new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "Paciente");
             cachedSerQNames.add(qName);
-            cls = ServicoControllerwsdl.Paciente.class;
+            cls = br.gov.saudecaruaru.bpai.business.service.SPaciente.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
             qName = new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "ProcedimentoRealizado");
             cachedSerQNames.add(qName);
-            cls = ServicoControllerwsdl.ProcedimentoRealizado.class;
+            cls = br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
             qName = new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "ProcedimentoRealizadoArray");
             cachedSerQNames.add(qName);
-            cls = ServicoControllerwsdl.ProcedimentoRealizado[].class;
+            cls = br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[].class;
             cachedSerClasses.add(cls);
             qName = new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "ProcedimentoRealizado");
             qName2 = null;
@@ -108,7 +158,7 @@ public class ServicoControllerBindingStub extends org.apache.axis.client.Stub im
 
             qName = new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "UsuarioDesktop");
             cachedSerQNames.add(qName);
-            cls = ServicoControllerwsdl.UsuarioDesktop.class;
+            cls = br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
@@ -180,20 +230,20 @@ public class ServicoControllerBindingStub extends org.apache.axis.client.Stub im
         }
     }
 
-    public ServicoControllerwsdl.MessageWebService[] sendProcedimentoRealizadoEPaciente(ServicoControllerwsdl.ProcedimentoRealizado[] procedimentoRealizado, ServicoControllerwsdl.UsuarioDesktop paciente) throws java.rmi.RemoteException {
+    public br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[] enviarEmLoteProcedimentoRealizado(br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[] procedimentoRealizado, br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop usuario) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[0]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("urn:ServicoControllerwsdl#sendProcedimentoRealizadoEPaciente");
+        _call.setSOAPActionURI("urn:ServicoControllerwsdl#enviarEmLoteProcedimentoRealizado");
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "sendProcedimentoRealizadoEPaciente"));
+        _call.setOperationName(new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "enviarEmLoteProcedimentoRealizado"));
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {procedimentoRealizado, paciente});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {procedimentoRealizado, usuario});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
@@ -201,9 +251,133 @@ public class ServicoControllerBindingStub extends org.apache.axis.client.Stub im
         else {
             extractAttachments(_call);
             try {
-                return (ServicoControllerwsdl.MessageWebService[]) _resp;
+                return (br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (ServicoControllerwsdl.MessageWebService[]) org.apache.axis.utils.JavaUtils.convert(_resp, ServicoControllerwsdl.MessageWebService[].class);
+                return (br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[]) org.apache.axis.utils.JavaUtils.convert(_resp, br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[].class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public boolean enviarProcedimentoRealizado(br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado procedimentoRealizado, br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop usuario) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[1]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("urn:ServicoControllerwsdl#enviarProcedimentoRealizado");
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "enviarProcedimentoRealizado"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {procedimentoRealizado, usuario});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return ((java.lang.Boolean) _resp).booleanValue();
+            } catch (java.lang.Exception _exception) {
+                return ((java.lang.Boolean) org.apache.axis.utils.JavaUtils.convert(_resp, boolean.class)).booleanValue();
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public br.gov.saudecaruaru.bpai.business.service.SMessageWebService[] getMessagesLastSend(br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop usuarioDesktop) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[2]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("urn:ServicoControllerwsdl#getMessagesLastSend");
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "getMessagesLastSend"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {usuarioDesktop});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (br.gov.saudecaruaru.bpai.business.service.SMessageWebService[]) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (br.gov.saudecaruaru.bpai.business.service.SMessageWebService[]) org.apache.axis.utils.JavaUtils.convert(_resp, br.gov.saudecaruaru.bpai.business.service.SMessageWebService[].class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public boolean atualizarProcedimentoRealizado(br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado procedimentoRealizado, br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop usuarioDesktop) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[3]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("urn:ServicoControllerwsdl#atualizarProcedimentoRealizado");
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "atualizarProcedimentoRealizado"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {procedimentoRealizado, usuarioDesktop});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return ((java.lang.Boolean) _resp).booleanValue();
+            } catch (java.lang.Exception _exception) {
+                return ((java.lang.Boolean) org.apache.axis.utils.JavaUtils.convert(_resp, boolean.class)).booleanValue();
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[] atualizarEmLoteProcedimentoRealizado(br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[] procedimentoRealizado, br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop usuarioDesktop) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[4]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("urn:ServicoControllerwsdl#atualizarEmLoteProcedimentoRealizado");
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "atualizarEmLoteProcedimentoRealizado"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {procedimentoRealizado, usuarioDesktop});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[]) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[]) org.apache.axis.utils.JavaUtils.convert(_resp, br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {

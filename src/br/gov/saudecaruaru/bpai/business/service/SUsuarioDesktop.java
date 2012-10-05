@@ -5,9 +5,9 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package ServicoControllerwsdl;
+package br.gov.saudecaruaru.bpai.business.service;
 
-public class UsuarioDesktop  implements java.io.Serializable {
+public class SUsuarioDesktop  implements java.io.Serializable {
     private java.lang.String servidor_cpf;
 
     private java.lang.String token;
@@ -16,10 +16,10 @@ public class UsuarioDesktop  implements java.io.Serializable {
 
     private java.lang.String serial_aplicacao;
 
-    public UsuarioDesktop() {
+    public SUsuarioDesktop() {
     }
 
-    public UsuarioDesktop(
+    public SUsuarioDesktop(
            java.lang.String servidor_cpf,
            java.lang.String token,
            java.lang.String usuario_sistema,
@@ -112,8 +112,8 @@ public class UsuarioDesktop  implements java.io.Serializable {
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof UsuarioDesktop)) return false;
-        UsuarioDesktop other = (UsuarioDesktop) obj;
+        if (!(obj instanceof SUsuarioDesktop)) return false;
+        SUsuarioDesktop other = (SUsuarioDesktop) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -163,7 +163,7 @@ public class UsuarioDesktop  implements java.io.Serializable {
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(UsuarioDesktop.class, true);
+        new org.apache.axis.description.TypeDesc(SUsuarioDesktop.class, true);
 
     static {
         typeDesc.setXmlType(new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "UsuarioDesktop"));

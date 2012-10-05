@@ -1,8 +1,8 @@
-package ServicoControllerwsdl;
+package br.gov.saudecaruaru.bpai.business.service;
 
-public class ServicoControllerPortTypeProxy implements ServicoControllerwsdl.ServicoControllerPortType {
+public class ServicoControllerPortTypeProxy implements br.gov.saudecaruaru.bpai.business.service.ServicoControllerPortType {
   private String _endpoint = null;
-  private ServicoControllerwsdl.ServicoControllerPortType servicoControllerPortType = null;
+  private br.gov.saudecaruaru.bpai.business.service.ServicoControllerPortType servicoControllerPortType = null;
   
   public ServicoControllerPortTypeProxy() {
     _initServicoControllerPortTypeProxy();
@@ -15,7 +15,7 @@ public class ServicoControllerPortTypeProxy implements ServicoControllerwsdl.Ser
   
   private void _initServicoControllerPortTypeProxy() {
     try {
-      servicoControllerPortType = (new ServicoControllerwsdl.ServicoControllerServiceLocator()).getServicoControllerPort();
+      servicoControllerPortType = (new br.gov.saudecaruaru.bpai.business.service.ServicoControllerServiceLocator()).getServicoControllerPort();
       if (servicoControllerPortType != null) {
         if (_endpoint != null)
           ((javax.xml.rpc.Stub)servicoControllerPortType)._setProperty("javax.xml.rpc.service.endpoint.address", _endpoint);
@@ -38,16 +38,40 @@ public class ServicoControllerPortTypeProxy implements ServicoControllerwsdl.Ser
     
   }
   
-  public ServicoControllerwsdl.ServicoControllerPortType getServicoControllerPortType() {
+  public br.gov.saudecaruaru.bpai.business.service.ServicoControllerPortType getServicoControllerPortType() {
     if (servicoControllerPortType == null)
       _initServicoControllerPortTypeProxy();
     return servicoControllerPortType;
   }
   
-  public ServicoControllerwsdl.MessageWebService[] sendProcedimentoRealizadoEPaciente(ServicoControllerwsdl.ProcedimentoRealizado[] procedimentoRealizado, ServicoControllerwsdl.UsuarioDesktop paciente) throws java.rmi.RemoteException{
+  public br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[] enviarEmLoteProcedimentoRealizado(br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[] procedimentoRealizado, br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop usuario) throws java.rmi.RemoteException{
     if (servicoControllerPortType == null)
       _initServicoControllerPortTypeProxy();
-    return servicoControllerPortType.sendProcedimentoRealizadoEPaciente(procedimentoRealizado, paciente);
+    return servicoControllerPortType.enviarEmLoteProcedimentoRealizado(procedimentoRealizado, usuario);
+  }
+  
+  public boolean enviarProcedimentoRealizado(br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado procedimentoRealizado, br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop usuario) throws java.rmi.RemoteException{
+    if (servicoControllerPortType == null)
+      _initServicoControllerPortTypeProxy();
+    return servicoControllerPortType.enviarProcedimentoRealizado(procedimentoRealizado, usuario);
+  }
+  
+  public br.gov.saudecaruaru.bpai.business.service.SMessageWebService[] getMessagesLastSend(br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop usuarioDesktop) throws java.rmi.RemoteException{
+    if (servicoControllerPortType == null)
+      _initServicoControllerPortTypeProxy();
+    return servicoControllerPortType.getMessagesLastSend(usuarioDesktop);
+  }
+  
+  public boolean atualizarProcedimentoRealizado(br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado procedimentoRealizado, br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop usuarioDesktop) throws java.rmi.RemoteException{
+    if (servicoControllerPortType == null)
+      _initServicoControllerPortTypeProxy();
+    return servicoControllerPortType.atualizarProcedimentoRealizado(procedimentoRealizado, usuarioDesktop);
+  }
+  
+  public br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[] atualizarEmLoteProcedimentoRealizado(br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado[] procedimentoRealizado, br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop usuarioDesktop) throws java.rmi.RemoteException{
+    if (servicoControllerPortType == null)
+      _initServicoControllerPortTypeProxy();
+    return servicoControllerPortType.atualizarEmLoteProcedimentoRealizado(procedimentoRealizado, usuarioDesktop);
   }
   
   

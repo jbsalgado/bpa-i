@@ -5,9 +5,9 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package ServicoControllerwsdl;
+package br.gov.saudecaruaru.bpai.business.service;
 
-public class ServicoControllerServiceLocator extends org.apache.axis.client.Service implements ServicoControllerwsdl.ServicoControllerService {
+public class ServicoControllerServiceLocator extends org.apache.axis.client.Service implements br.gov.saudecaruaru.bpai.business.service.ServicoControllerService {
 
     public ServicoControllerServiceLocator() {
     }
@@ -39,7 +39,7 @@ public class ServicoControllerServiceLocator extends org.apache.axis.client.Serv
         ServicoControllerPortWSDDServiceName = name;
     }
 
-    public ServicoControllerwsdl.ServicoControllerPortType getServicoControllerPort() throws javax.xml.rpc.ServiceException {
+    public br.gov.saudecaruaru.bpai.business.service.ServicoControllerPortType getServicoControllerPort() throws javax.xml.rpc.ServiceException {
        java.net.URL endpoint;
         try {
             endpoint = new java.net.URL(ServicoControllerPort_address);
@@ -50,9 +50,9 @@ public class ServicoControllerServiceLocator extends org.apache.axis.client.Serv
         return getServicoControllerPort(endpoint);
     }
 
-    public ServicoControllerwsdl.ServicoControllerPortType getServicoControllerPort(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
+    public br.gov.saudecaruaru.bpai.business.service.ServicoControllerPortType getServicoControllerPort(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
         try {
-            ServicoControllerwsdl.ServicoControllerBindingStub _stub = new ServicoControllerwsdl.ServicoControllerBindingStub(portAddress, this);
+            br.gov.saudecaruaru.bpai.business.service.ServicoControllerBindingStub _stub = new br.gov.saudecaruaru.bpai.business.service.ServicoControllerBindingStub(portAddress, this);
             _stub.setPortName(getServicoControllerPortWSDDServiceName());
             return _stub;
         }
@@ -72,8 +72,8 @@ public class ServicoControllerServiceLocator extends org.apache.axis.client.Serv
      */
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
-            if (ServicoControllerwsdl.ServicoControllerPortType.class.isAssignableFrom(serviceEndpointInterface)) {
-                ServicoControllerwsdl.ServicoControllerBindingStub _stub = new ServicoControllerwsdl.ServicoControllerBindingStub(new java.net.URL(ServicoControllerPort_address), this);
+            if (br.gov.saudecaruaru.bpai.business.service.ServicoControllerPortType.class.isAssignableFrom(serviceEndpointInterface)) {
+                br.gov.saudecaruaru.bpai.business.service.ServicoControllerBindingStub _stub = new br.gov.saudecaruaru.bpai.business.service.ServicoControllerBindingStub(new java.net.URL(ServicoControllerPort_address), this);
                 _stub.setPortName(getServicoControllerPortWSDDServiceName());
                 return _stub;
             }

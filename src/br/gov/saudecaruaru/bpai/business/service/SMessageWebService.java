@@ -5,19 +5,19 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package ServicoControllerwsdl;
+package br.gov.saudecaruaru.bpai.business.service;
 
-public class MessageWebService  implements java.io.Serializable {
+public class SMessageWebService  implements java.io.Serializable {
     private java.lang.String codigo;
 
     private java.lang.String message;
 
     private java.lang.String tipo;
 
-    public MessageWebService() {
+    public SMessageWebService() {
     }
 
-    public MessageWebService(
+    public SMessageWebService(
            java.lang.String codigo,
            java.lang.String message,
            java.lang.String tipo) {
@@ -88,8 +88,8 @@ public class MessageWebService  implements java.io.Serializable {
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof MessageWebService)) return false;
-        MessageWebService other = (MessageWebService) obj;
+        if (!(obj instanceof SMessageWebService)) return false;
+        SMessageWebService other = (SMessageWebService) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -133,7 +133,7 @@ public class MessageWebService  implements java.io.Serializable {
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(MessageWebService.class, true);
+        new org.apache.axis.description.TypeDesc(SMessageWebService.class, true);
 
     static {
         typeDesc.setXmlType(new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "MessageWebService"));
