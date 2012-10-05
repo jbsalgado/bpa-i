@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.gui.validators;
+package br.gov.saudecaruaru.bpai.gui.verifiers;
 
 
 import br.gov.saudecaruaru.bpai.business.controller.MunicipioController;
@@ -79,7 +79,8 @@ public class QuantProcedimentoVerifier extends InputVerifier{
                                 txtField.setBackground(Color.RED); 
                    return  false;
                     
-                }else{
+                }
+               if(t.getProcedimentoRealizado().getCodigoProcedimento()!=null){
                     String proc = t.getProcedimentoRealizado().getCodigoProcedimento();
                      //pega os sete primeiros digitos (que representam o codigo do procedimento)
                     String codProc = proc.substring(0,9);

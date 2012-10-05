@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.gui.validators;
+package br.gov.saudecaruaru.bpai.gui.verifiers;
 
 
 import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoCboController;
@@ -97,10 +97,10 @@ public class ProcedimentoVerifier extends InputVerifier{
                 //verifica se o procedimento existe
                 if (procedimentosSearchead==null) {  
                     
-                   JOptionPane.showMessageDialog(this.component,"PROCEDIMENTO NÃO ENCONTRADO!"
-                                        ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
-                                txtField.setBackground(Color.RED); 
-                                return  false;
+//                   JOptionPane.showMessageDialog(this.component,"PROCEDIMENTO NÃO ENCONTRADO!"
+//                                        ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
+//                                txtField.setBackground(Color.RED); 
+                                return  MessagesErrors.exibeTelaContinuaErro(component, fieldName, "nao encontrado");
                  
                 }else {
                     
