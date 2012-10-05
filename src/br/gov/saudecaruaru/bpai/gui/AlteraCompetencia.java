@@ -5,17 +5,14 @@
 package br.gov.saudecaruaru.bpai.gui;
 
 import br.gov.saudecaruaru.bpai.business.controller.GestorCompetenciaController;
-import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import br.gov.saudecaruaru.bpai.business.model.GestorCompetencia;
 import br.gov.saudecaruaru.bpai.business.model.GestorCompetenciaPK;
 import br.gov.saudecaruaru.bpai.business.model.Mes;
 import br.gov.saudecaruaru.bpai.gui.documents.AnoDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.MesFormatter;
-import br.gov.saudecaruaru.bpai.gui.validators.AnoCompetenciaVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.AnoCompetenciaVerifier;
 import com.towel.swing.combo.ObjectComboBoxModel;
-import java.awt.Component;
 import java.util.List;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
