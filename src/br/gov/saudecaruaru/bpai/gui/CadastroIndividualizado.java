@@ -10,6 +10,7 @@ import br.gov.saudecaruaru.bpai.gui.formatter.CaraterAtendimentoFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.DiversasFormatter;
 import br.gov.saudecaruaru.bpai.business.controller.*;
 import br.gov.saudecaruaru.bpai.business.model.*;
+import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
 import br.gov.saudecaruaru.bpai.gui.documents.SexoDocument;
 
 import br.gov.saudecaruaru.bpai.gui.formatter.EquipeFormatter;
@@ -46,6 +47,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      
      private Diversas diversas;
      private DiversasPK diversasPk;
+     private SUsuarioDesktop sUsuarioDesktop;
      //controladores
      private DiversasController diversasController;
      private MedicoController medicoController;
@@ -58,6 +60,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      private ProcedimentoRealizadoController procedimentoRealizadoController;
      private ProcedimentoServicoController procedimentoServicoController;
      private EquipeController equipeController;
+     private SProcedimentoRealizadoController sProcedimentoRealizadoController;
      
      private ProcedimentoRealizado procedimentoRealizado;
      private GestorCompetenciaController gestorCompetenciaController;
@@ -146,6 +149,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.doencaController=new DoencaController();
         this.bIProcedimentoRealizadoController= new BIProcedimentoRealizadoController();
         this.procedimentoRealizadoController=new ProcedimentoRealizadoController();
+        this.sProcedimentoRealizadoController= new SProcedimentoRealizadoController();
         this.procedimentoServicoController= new ProcedimentoServicoController();
         this.equipeController= new EquipeController();
         
@@ -160,6 +164,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         diversas = new  Diversas();
         diversasPk = new DiversasPK();
         diversas.setDiversasPK(diversasPk);
+        this.sUsuarioDesktop= new SUsuarioDesktop("00089076534", "9383748", "cesar", "90834923743287389");
         
         this.procedimentoRealizado= new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
         
@@ -212,7 +217,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                      //rquisista o foco
                      field.requestFocus();
                      //perde o foco
-                     field.transferFocus();
+                     //field.transferFocus();
                      return false;
                  
                 }
@@ -1530,6 +1535,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(ModelUtil.completar(""+this.sequenciaFolha, 2, '0'));
                     this.procedimentoRealizado.preencherAtributosVazios();
                     if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
+                        this.sProcedimentoRealizadoController.enviarSProcedimentoRealizado(this.procedimentoRealizado.getProcedimentoRealizadoParaEnviar(), this.sUsuarioDesktop);
                         //salva o paciente, o médico e o médico com CBO e CNS
                         Paciente p=this.procedimentoRealizado.getPaciente();
                         if( p.getCns() == null ? true : !p.getCns().trim().isEmpty() ){
