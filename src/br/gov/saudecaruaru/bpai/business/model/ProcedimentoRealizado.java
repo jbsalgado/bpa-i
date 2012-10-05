@@ -4,9 +4,13 @@
  */
 package br.gov.saudecaruaru.bpai.business.model;
 
+import br.gov.saudecaruaru.bpai.business.service.SPaciente;
+import br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -358,6 +362,9 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
             this.prdFlqt="0";
         }
         
+        if( this.prdMvm== null ? true : this.prdMvm.isEmpty()){
+            this.prdMvm="      ";
+        }
 
         String tmp=this.getProcedimentoRealizadoPK().getNumeroFolha();
         this.getProcedimentoRealizadoPK().setNumeroFolha(ModelUtil.completar(tmp, 3, '0'));
@@ -418,13 +425,19 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         return new ProcedimentoRealizado(pr);
     }
     
-    public ServicoControllerwsdl.ProcedimentoRealizado getProcedimentoRealizadoParaEnviar(){
-        ServicoControllerwsdl.ProcedimentoRealizado pro= new ServicoControllerwsdl.ProcedimentoRealizado();
-        ServicoControllerwsdl.Paciente pac=new ServicoControllerwsdl.Paciente();
+    public SProcedimentoRealizado getProcedimentoRealizadoParaEnviar(){
+        SProcedimentoRealizado pro= new br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado();
+        SPaciente pac=new br.gov.saudecaruaru.bpai.business.service.SPaciente();
+        SimpleDateFormat simpla= new SimpleDateFormat("yyyyMMdd");
         
         pac.setCidade(this.codigoIBGECidadePaciente);
         pac.setCns(this.cnsPaciente);
-        pac.setData_nascimento(new Date());
+        try {
+            pac.setData_nascimento(simpla.parse(this.getDataNascimentoPaciente()));
+            pro.setData_atendimento(simpla.parse(this.getDataAtendimento()));
+        } catch (ParseException ex) {
+            Logger.getLogger(ProcedimentoRealizado.class.getName()).log(Level.SEVERE, null, ex);
+        }
         pac.setEtnia(this.etniaPaciente);
         pac.setNacionalidade(this.nacionalidadePaciente);
         pac.setNome(this.nomePaciente);
@@ -437,7 +450,6 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         pro.setClassificacao(this.codigoClassificacaoServico);
         pro.setCompetencia(this.getProcedimentoRealizadoPK().getCompetencia());
         pro.setCompetencia_movimento(this.prdMvm);
-        pro.setData_atendimento(new Date());
         pro.setEquipe(this.equipe);
         pro.setFolha(this.procedimentoRealizadoPK.getNumeroFolha());
         if( this.idadePaciente==null? false : !this.idadePaciente.trim().isEmpty()){

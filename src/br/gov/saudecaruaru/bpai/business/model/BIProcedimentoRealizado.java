@@ -4,12 +4,18 @@
  */
 package br.gov.saudecaruaru.bpai.business.model;
 
+import br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado;
+import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.swing.text.DateFormatter;
+import sun.text.resources.FormatData;
 
 /**
  *
@@ -22,6 +28,11 @@ public class BIProcedimentoRealizado implements Serializable{
     
     
     private static final long serialVersionUID = 1L;
+    
+    public static final Character ATUALIZADO='S';
+    public static final Character NAO_ATUALIZADO='N';
+    public static final Character ENVIADO='S';
+    public static final Character NAO_ENVIADO='N';
     
     @EmbeddedId
     private BIProcedimentoRealizadoPK biProcedimentoRealizadoPK;
@@ -122,6 +133,12 @@ public class BIProcedimentoRealizado implements Serializable{
     @Column(name = "PRD_EQUIPE")
     private String equipe;
     
+    @Column(name = "PRD_ENVIADO")
+    private Character enviado;
+    
+    @Column(name = "PRD_ATUALIZADO")
+    private Character atualizado;
+    
     public BIProcedimentoRealizado() {
     }
 
@@ -202,6 +219,40 @@ public class BIProcedimentoRealizado implements Serializable{
         this.prdAdvqt = prdAdvqt;
     }
 
+    public BIProcedimentoRealizado(SProcedimentoRealizado sProcedimentoRealizado){
+        
+        SimpleDateFormat simple= new SimpleDateFormat("yyyyMMdd");
+        
+        this.biProcedimentoRealizadoPK= new BIProcedimentoRealizadoPK();
+        
+        this.biProcedimentoRealizadoPK.setCboMedico(sProcedimentoRealizado.getProfissional_cbo());
+        this.biProcedimentoRealizadoPK.setCnesUnidade(sProcedimentoRealizado.getUnidade());
+        this.biProcedimentoRealizadoPK.setCnsMedico(sProcedimentoRealizado.getProfissional_cns());
+        this.biProcedimentoRealizadoPK.setCompetencia(sProcedimentoRealizado.getCompetencia());
+        this.biProcedimentoRealizadoPK.setSequenciaFolha(sProcedimentoRealizado.getSequencia());
+        this.biProcedimentoRealizadoPK.setNumeroFolha(sProcedimentoRealizado.getFolha());
+        this.caracterizacaoAtendimento=sProcedimentoRealizado.getCaracter_atendimento();
+        this.cidDoencaprocedimento=sProcedimentoRealizado.getCid();
+        this.cnsPaciente=sProcedimentoRealizado.getPaciente().getCns();
+        this.codigoClassificacaoServico=sProcedimentoRealizado.getClassificacao();
+        this.codigoIBGECidadePaciente=sProcedimentoRealizado.getPaciente().getCidade();
+        this.codigoProcedimento=sProcedimentoRealizado.getProcedimento();
+        this.codigoServico=sProcedimentoRealizado.getServico();
+        this.dataAtendimento=simple.format( sProcedimentoRealizado.getData_atendimento());
+        this.dataNascimentoPaciente=simple.format( sProcedimentoRealizado.getPaciente().getData_nascimento());
+        this.equipe=sProcedimentoRealizado.getEquipe();
+        this.etniaPaciente=sProcedimentoRealizado.getPaciente().getEtnia();
+        this.idadePaciente=ModelUtil.completar(sProcedimentoRealizado.getIdade_paciente().toString(),3,'0');
+        this.nacionalidadePaciente=sProcedimentoRealizado.getPaciente().getNacionalidade();
+        this.nomePaciente=sProcedimentoRealizado.getPaciente().getNome();
+        this.numeroAutorizacao=sProcedimentoRealizado.getNumero_autorizacao();
+        this.origemProcedimento=sProcedimentoRealizado.getOrigem();
+        this.prdMvm=sProcedimentoRealizado.getCompetencia_movimento();
+        this.quantidadeRealizada=sProcedimentoRealizado.getQuantidade().doubleValue();
+        this.racaPaciente=sProcedimentoRealizado.getPaciente().getRaca();
+        this.sexoPaciente=sProcedimentoRealizado.getPaciente().getSexo();
+    }
+    
     public String getCodigoClassificacaoServico() {
         return codigoClassificacaoServico;
     }
@@ -222,6 +273,23 @@ public class BIProcedimentoRealizado implements Serializable{
         return equipe;
     }
 
+    public Character getAtualizado() {
+        return atualizado;
+    }
+
+    public void setAtualizado(Character atualizado) {
+        this.atualizado = atualizado;
+    }
+
+    public Character getEnviado() {
+        return enviado;
+    }
+
+    public void setEnviado(Character enviado) {
+        this.enviado = enviado;
+    }
+
+    
     public void setEquipe(String equipe) {
         this.equipe = equipe;
     }
@@ -499,8 +567,10 @@ public class BIProcedimentoRealizado implements Serializable{
 
     @Override
     public String toString() {
-        return "BIProcedimentoRealizado{" +this.biProcedimentoRealizadoPK+ '}';
+        return "BIProcedimentoRealizado{" + "biProcedimentoRealizadoPK=" + biProcedimentoRealizadoPK + ", codigoProcedimento=" + codigoProcedimento + ", dataAtendimento=" + dataAtendimento + ", cnsPaciente=" + cnsPaciente + ", nomePaciente=" + nomePaciente + ", dataNascimentoPaciente=" + dataNascimentoPaciente + ", sexoPaciente=" + sexoPaciente + ", codigoIBGECidadePaciente=" + codigoIBGECidadePaciente + ", cidDoencaprocedimento=" + cidDoencaprocedimento + ", idadePaciente=" + idadePaciente + ", quantidadeRealizada=" + quantidadeRealizada + ", caracterizacaoAtendimento=" + caracterizacaoAtendimento + ", numeroAutorizacao=" + numeroAutorizacao + ", origemProcedimento=" + origemProcedimento + ", prdMvm=" + prdMvm + ", prdFlpa=" + prdFlpa + ", prdFlcbo=" + prdFlcbo + ", prdFlca=" + prdFlca + ", prdFlida=" + prdFlida + ", prdFlqt=" + prdFlqt + ", prdFler=" + prdFler + ", prdFlmun=" + prdFlmun + ", prdFlcid=" + prdFlcid + ", racaPaciente=" + racaPaciente + ", etniaPaciente=" + etniaPaciente + ", nacionalidadePaciente=" + nacionalidadePaciente + ", prdAdvqt=" + prdAdvqt + ", codigoServico=" + codigoServico + ", codigoClassificacaoServico=" + codigoClassificacaoServico + ", equipe=" + equipe + ", enviado=" + enviado + ", atualizado=" + atualizado + '}';
     }
+
+    
     
     
     
