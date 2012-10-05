@@ -5,7 +5,9 @@
 package br.gov.saudecaruaru.bpai.business.controller;
 
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
+import br.gov.saudecaruaru.bpai.business.validators.ProcedimentoRealizadoValidator;
 import br.gov.saudecaruaru.bpai.data.ProcedimentoRealizadoDAO;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,5 +24,14 @@ public class ProcedimentoRealizadoController extends BasecController<Procediment
         return ((ProcedimentoRealizadoDAO)this.getDao()).findAllOnlyHeader();
     }
     
-    
+    public List<String> validate(ProcedimentoRealizado p){
+        List<String> list = new ArrayList<String>();
+        ProcedimentoRealizadoValidator prv = new ProcedimentoRealizadoValidator(p);
+        //if(!prv.existeProcedimento().isEmpty())
+            list.add(prv.validExisteProcedimento());
+        
+        return list;
+        
+        
+    }
 }

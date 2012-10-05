@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.gui.validators;
+package br.gov.saudecaruaru.bpai.gui.verifiers;
 
 
 import br.gov.saudecaruaru.bpai.business.controller.DoencaController;
@@ -79,12 +79,20 @@ public class DoencaVerifier extends InputVerifier{
              }
                
                 //faz a busca pelo Codigo do municipio digitado, se nao encontra notifica ao usuário
-                if (doencaSearchead==null) {  
-                         return  MessagesErrors.exibeTelaContinuaErro(component,fieldName, " NÃO CADASTRADO!", txtField);
+                if (doencaSearchead==null) { 
+                        JOptionPane.showMessageDialog(this.component,fieldName+ " NÃO CADASTRADO!", 
+                        "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
+                        txtField.setBackground(Color.RED);
+                        return false;
+                       
                 }else{
                     
                     if(doencaSearchead.getSubcategoria()=='N'){
-                        return  MessagesErrors.exibeTelaContinuaErro(component,fieldName," NÃO PERTENCA A UMA SUBCATEGORIA!", txtField);
+                            JOptionPane.showMessageDialog(this.component,fieldName+ "  NÃO PERTENCA A UMA SUBCATEGORIA!!", 
+                            "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
+                            txtField.setBackground(Color.RED);
+                            return false;
+                       
                     }
 
                     if(!procedimentoDoencaController.existProcedimentoEDoenca(valor, codigoProc,procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia())){

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.gui.validators;
+package br.gov.saudecaruaru.bpai.gui.verifiers;
 
 
 import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoCboController;
@@ -67,6 +67,21 @@ public class ProcedimentoVerifier extends InputVerifier{
       Procedimento procedimentosSearchead = null;
       ProcedimentoRealizado proRealizado = t.getProcedimentoRealizado(); 
       String valor = txtField.getText();
+      
+      
+       if(valor.trim().isEmpty() || valor.trim().length()<10){
+          JOptionPane.showMessageDialog(this.component,"PROCEDIMENTO INVÁLIDO!"
+                                        ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
+                                txtField.setBackground(Color.RED); 
+                                return  false;
+      
+      }
+       
+       
+       
+       
+       
+       
        //pega os sete primeiros digitos (que representam o codigo do procedimento)
       String codProc = valor.substring(0,9);
        //pega o oitavo digito (que representam o digito verificador)
@@ -82,10 +97,10 @@ public class ProcedimentoVerifier extends InputVerifier{
                 //verifica se o procedimento existe
                 if (procedimentosSearchead==null) {  
                     
-                   JOptionPane.showMessageDialog(this.component,"PROCEDIMENTO NÃO ENCONTRADO!"
-                                        ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
-                                txtField.setBackground(Color.RED); 
-                                return  false;
+//                   JOptionPane.showMessageDialog(this.component,"PROCEDIMENTO NÃO ENCONTRADO!"
+//                                        ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
+//                                txtField.setBackground(Color.RED); 
+                                return  MessagesErrors.exibeTelaContinuaErro(component, fieldName, "nao encontrado");
                  
                 }else {
                     

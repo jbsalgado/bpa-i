@@ -4,7 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.util;
 
-import br.gov.saudecaruaru.bpai.gui.validators.DataAtendimentoVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.DataAtendimentoVerifier;
 import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
