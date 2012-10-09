@@ -26,9 +26,14 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jSeparator2" alignment="1" pref="1239" max="32767" attributes="1"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jSeparator2" alignment="1" pref="1277" max="32767" attributes="1"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Group type="102" attributes="0">
@@ -78,10 +83,11 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="545" max="32767" attributes="0"/>
+                      <EmptySpace pref="77" max="32767" attributes="0"/>
+                      <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -104,6 +110,7 @@
                   <Component id="jTextFieldNomeProfiss" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldCBO" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldCnsProfiss" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -274,7 +281,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="546" max="32767" attributes="0"/>
+                  <EmptySpace pref="584" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -519,7 +526,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" alignment="0" pref="1217" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" alignment="0" pref="1255" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" attributes="0">
@@ -585,7 +592,7 @@
                                   <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="87" max="32767" attributes="0"/>
+                          <EmptySpace pref="125" max="32767" attributes="0"/>
                           <Component id="jButtonIncluir" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jButtonAtualizar" min="-2" max="-2" attributes="0"/>
@@ -975,6 +982,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldCnsProfiss">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel28">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="14" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="F5 - DADOS CONSOLIDADOS (SOMENTE PARA O CAMPO CNS DO PACIENTE)"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
