@@ -16,6 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "CADCNS")
 public class Paciente implements Serializable {
     private static final long serialVersionUID = 1L;
+    
+    
+    public static final Paciente DADOS_CONSOLIDADOS= new Paciente("000000000000000", "DADOS GLOBALIZADOS", "19710101", 'F', "99", "260410","010");
+             
     @Id
     @Basic(optional = false)
     @Column(name = "CNS")
@@ -82,6 +86,16 @@ public class Paciente implements Serializable {
     public Paciente(String cns, String nome) {
         this.cns = cns;
         this.nome = nome;
+    }
+
+    public Paciente(String cns, String nome, String dataNascimento, Character sexo, String raca, String codigoIbgeCidade, String nacionalidade) {
+        this.cns = cns;
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.sexo = sexo;
+        this.raca = raca;
+        this.codigoIbgeCidade = codigoIbgeCidade;
+        this.nacionalidade = nacionalidade;
     }
 
     public String getCns() {

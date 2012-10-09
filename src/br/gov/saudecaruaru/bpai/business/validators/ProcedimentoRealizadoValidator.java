@@ -4,11 +4,8 @@
  */
 package br.gov.saudecaruaru.bpai.business.validators;
 
-import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
-import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.data.*;
-import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -251,7 +248,7 @@ public class ProcedimentoRealizadoValidator implements Validator{
                 Doenca d = new DoencaDAO().findEqual(new Doenca(codDoenca));
                 if(d!=null){
                     if(d.getSubcategoria()=='N')    
-                        return "PROCED. NÃO PERTENCA A UMA SUBCATEGORIA";
+                        return "PROCED. NÃO PERTENCE A UMA SUBCATEGORIA";
                 }
          }
         return "";
