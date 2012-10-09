@@ -1178,7 +1178,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel18.setText("Caráter Atendimento");
 
-        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonIncluir.setText("Incluir");
         jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1252,7 +1252,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jComboBoxUsuarioClassificacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonAtualizar.setText("Atualizar");
         jButtonAtualizar.setToolTipText("");
         jButtonAtualizar.setEnabled(false);
@@ -2641,7 +2641,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             this.selectItemJComboBoxCaraterAtend(CaraterAtendimento.SEM_INFORMACAO);
           }
           if(p.getCodigoServico()!=null){
-               focusLostTextFieldProcCod();
                this.selectItemJComboBoxServico(p.getCodigoServico());
                
           }else{
@@ -2650,7 +2649,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           
           if(p.getCodigoClassificacaoServico()!=null){
             
-              //this.selectItemJComboBoxClassificacao(p.getCodigoServico()+p.getCodigoClassificacaoServico());
+              this.selectItemJComboBoxClassificacao(p.getCodigoServico()+p.getCodigoClassificacaoServico());
           
           }else{
             initComboBoxClassificacao();
@@ -2676,13 +2675,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
       
        private void selectItemJComboBoxServico(String codigoItem){
            Diversas d= new Diversas(new DiversasPK(Diversas.TABELA_SERVICO,codigoItem ));
-          
+           d=this.diversasController.findEqual(d);
           this.objectComboBoxModelServico.setSelectedObject(d);
       }
        
        private void selectItemJComboBoxClassificacao(String codigoItem){
           Diversas d= new Diversas(new DiversasPK(Diversas.TABELA_CLASSIFICACAO_SERVICO,codigoItem));
-          
+          d=this.diversasController.findEqual(d);
           this.objectComboBoxModelClassificaoServico.setSelectedObject(d);
       } 
           
