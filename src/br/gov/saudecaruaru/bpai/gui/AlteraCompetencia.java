@@ -11,7 +11,7 @@ import br.gov.saudecaruaru.bpai.business.model.GestorCompetenciaPK;
 import br.gov.saudecaruaru.bpai.business.model.Mes;
 import br.gov.saudecaruaru.bpai.gui.documents.AnoDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.MesFormatter;
-import br.gov.saudecaruaru.bpai.gui.validators.AnoCompetenciaVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.AnoCompetenciaVerifier;
 import com.towel.swing.combo.ObjectComboBoxModel;
 import java.awt.Component;
 import java.util.List;

@@ -4,6 +4,26 @@ package br.gov.saudecaruaru.bpai.gui;
 
 
 
+import br.gov.saudecaruaru.bpai.gui.verifiers.CnsVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.EtniaVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.SexoVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.ProcedimentoVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.MunicipioVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.CaraterAtendVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.DataVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.CBOVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.CnsUsuarioVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.OnlyLettersVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.NacionalidadeVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.ComboBoxVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.OnlyNumbers;
+import br.gov.saudecaruaru.bpai.gui.verifiers.CompetenciaVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.CnesVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.MesVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.FolhaVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.QuantProcedimentoVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.DoencaVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.DataAtendimentoVerifier;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyNumbersDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.CaraterAtendimentoFormatter;
@@ -13,7 +33,6 @@ import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.gui.documents.SexoDocument;
 
 import br.gov.saudecaruaru.bpai.gui.formatter.EquipeFormatter;
-import br.gov.saudecaruaru.bpai.gui.validators.*;
 import br.gov.saudecaruaru.bpai.util.DateUtil;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModel;
@@ -198,7 +217,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         getListFieldsProcedimento().add(jTextFieldProcDataAtend);
         getListFieldsProcedimento().add(jTextFieldProcCod);
         getListFieldsProcedimento().add(jTextFieldProcQuant);
-        getListFieldsProcedimento().add(jTextFieldProcCID);
+        //getListFieldsProcedimento().add(jTextFieldProcCID);
        
      }
     
@@ -1521,6 +1540,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     private void jButtonIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirMouseClicked
         try{
             if(this.textFieldVerifier(getListFieldsProcedimento())){
+                List<String> errors = procedimentoRealizadoController.validate(procedimentoRealizado);
+                if(!errors.isEmpty()){
+                for(String msg :errors){
+                    JOptionPane.showMessageDialog(this, msg);
+                }
+                
+                }
                 // metodo que pega os valores de alguns campos e adiciona-os ao modelo
                 int itensFolha=this.tableModelDados.getRowCount();
                 if(itensFolha<ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
@@ -1654,7 +1680,14 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         // TODO add your handling code here:
         try{
         if(this.textFieldVerifier(this.listFieldsProcedimento)){
-            
+           
+              List<String> errors = procedimentoRealizadoController.validate(procedimentoRealizado);
+               // if(!errors.isEmpty()){
+                for(String msg :errors){
+                    JOptionPane.showMessageDialog(this, msg);
+                }
+                
+               // }
             this.procedimentoRealizado.preencherAtributosVazios();
             if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
                 //salva o paciente, o médico e o médico com CBO e CNS
