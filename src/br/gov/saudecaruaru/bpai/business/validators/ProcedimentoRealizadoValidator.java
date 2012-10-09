@@ -241,7 +241,7 @@ public class ProcedimentoRealizadoValidator implements Validator{
      }
      
      public String validProcedimentoDoenca(){
-         return validProcedimentoExigeDoenca(this.procedimentoRealizado.getCodigoProcedimento(), this.procedimentoRealizado.getCidDoencaprocedimento());
+         return validProcedimentoExigeDoenca(this.procedimentoRealizado.getCodigoProcedimento(), this.procedimentoRealizado.getCidDoencaprocedimento().trim());
      }
      
      
@@ -277,7 +277,7 @@ public class ProcedimentoRealizadoValidator implements Validator{
      
      
      private String validExisteEtnia(String etnia){
-        if(!etnia.isEmpty()){
+        if(!etnia.trim().isEmpty()){
             DiversasPK diversasPK = new DiversasPK(Diversas.TABELA_ETNIA,etnia);
             Diversas diversas = new Diversas(diversasPK);
             if(diversasDao.findEqual(diversas)==null){
