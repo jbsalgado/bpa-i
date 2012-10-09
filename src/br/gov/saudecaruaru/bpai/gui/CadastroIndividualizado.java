@@ -328,9 +328,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         if(!competencia.equals("")){
             jTextFieldMes.setText(competencia.substring(4));
             jTextFieldAno.setText(competencia.substring(0, 4));
-            
-            //seta competencia movimento
-            procedimentoRealizado.setPrdMvm(competencia);
         }
         
         jTextFieldUsuarioSexo.setText("");
@@ -2467,6 +2464,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             //seta o tipo do procedimento (BPA ou BPAI)
             this.procedimentoRealizado.setOrigemProcedimento(tipo);
         }
+            String competenciaMvm  =gestorCompetenciaController.getCompetenciaAtual();
+            if(competenciaMvm!=null){
+                //seta competencia movimento
+                procedimentoRealizado.setPrdMvm(competencia);
+            }
       }
       
       /**
