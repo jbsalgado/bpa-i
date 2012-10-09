@@ -11,6 +11,7 @@ import br.gov.saudecaruaru.bpai.gui.formatter.CaraterAtendimentoFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.DiversasFormatter;
 import br.gov.saudecaruaru.bpai.business.controller.*;
 import br.gov.saudecaruaru.bpai.business.model.*;
+import br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
 import br.gov.saudecaruaru.bpai.gui.documents.SexoDocument;
 
@@ -304,9 +305,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         if(!competencia.equals("")){
             jTextFieldMes.setText(competencia.substring(4));
             jTextFieldAno.setText(competencia.substring(0, 4));
-            
-            //seta competencia movimento
-            procedimentoRealizado.setCompetenciaMovimento(competencia);
         }
         
         jTextFieldUsuarioSexo.setText("");
@@ -1254,7 +1252,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jComboBoxUsuarioClassificacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonAtualizar.setText("Atualizar");
         jButtonAtualizar.setToolTipText("");
         jButtonAtualizar.setEnabled(false);
@@ -1696,6 +1694,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     JOptionPane.showMessageDialog(this,errors);
             }else{
                if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
+                   //manda atualizar no serviço
+                this.sProcedimentoRealizadoController.atualizarSProcedimentoRealizado(this.procedimentoRealizado.getProcedimentoRealizadoParaEnviar(), this.sUsuarioDesktop);
                 //salva o paciente, o médico e o médico com CBO e CNS
                 Paciente p=this.procedimentoRealizado.getPaciente();
                 if( p.getCns() == null ? true : !p.getCns().trim().isEmpty() ){
@@ -2460,6 +2460,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             //seta o tipo do procedimento (BPA ou BPAI)
             this.procedimentoRealizado.setOrigemProcedimento(tipo);
         }
+            String competenciaMvm  =gestorCompetenciaController.getCompetenciaAtual();
+            if(competenciaMvm!=null){
+                //seta competencia movimento
+                procedimentoRealizado.setCompetenciaMovimento(competencia);
+            }
       }
       
       /**

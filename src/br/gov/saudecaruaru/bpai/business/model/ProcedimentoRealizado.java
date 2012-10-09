@@ -467,6 +467,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         
         return pro;
     }
+    
     public String getEquipe() {
         return equipe;
     }
