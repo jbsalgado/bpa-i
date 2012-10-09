@@ -15,7 +15,8 @@ import java.util.List;
  * @author Albuquerque
  */
 public class ProcedimentoRealizadoController extends BasecController<ProcedimentoRealizado> {
-
+    private List<String> listErros;
+    
     public ProcedimentoRealizadoController() {
         super(new ProcedimentoRealizadoDAO());
     }
@@ -24,14 +25,49 @@ public class ProcedimentoRealizadoController extends BasecController<Procediment
         return ((ProcedimentoRealizadoDAO)this.getDao()).findAllOnlyHeader();
     }
     
-    public List<String> validate(ProcedimentoRealizado p){
-        List<String> list = new ArrayList<String>();
+    public String validateProcedimento(ProcedimentoRealizado p){
+        listErros = new ArrayList<String>();
         ProcedimentoRealizadoValidator prv = new ProcedimentoRealizadoValidator(p);
         //if(!prv.existeProcedimento().isEmpty())
-            list.add(prv.validExisteProcedimento());
+            String msgs ="";
+            this.addListErros(prv.validProcedimentoSexo());
+            this.addListErros(prv.validProcedimentoIdadeMaxMin());
+            this.addListErros(prv.validProcedimentoDoenca());
+            if(!listErros.isEmpty()){
+                for(String msg :listErros){
+                    msgs+=msg+"\n";
+                }
+            }     
         
-        return list;
+        return msgs;
         
         
+    }
+    
+     public List<String> validateList(ProcedimentoRealizado p){
+        listErros = new ArrayList<String>();
+        ProcedimentoRealizadoValidator prv = new ProcedimentoRealizadoValidator(p);
+        //if(!prv.existeProcedimento().isEmpty())  
+            this.addListErros(prv.validProcedimentoSexo());
+            this.addListErros(prv.validProcedimentoIdadeMaxMin());
+            this.addListErros(prv.validProcedimentoDoenca());
+            
+        
+        return listErros;
+        
+        
+    }
+
+    /**
+     * @param listErros the listErros to set
+     */
+    public void addListErros(String item) {
+        if( this.listErros!=null){
+            if(item!=null){
+                if(!item.equals("")){
+                    this.listErros.add(item);
+                }
+            }
+        }
     }
 }

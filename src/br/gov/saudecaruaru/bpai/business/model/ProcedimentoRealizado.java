@@ -78,7 +78,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     private String origemProcedimento;
     
     @Column(name = "PRD_MVM")
-    private String prdMvm;
+    private String competenciaMovimento;
     
     @Column(name = "PRD_FLPA")
     private String prdFlpa;
@@ -145,7 +145,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.caracterizacaoAtendimento = caracterizacaoAtendimento;
         this.numeroAutorizacao = numeroAutorizacao;
         this.origemProcedimento = origemProcedimento;
-        this.prdMvm = prdMvm;
+        this.competenciaMovimento = prdMvm;
         this.prdFlpa = prdFlpa;
         this.prdFlcbo = prdFlcbo;
         this.prdFlca = prdFlca;
@@ -193,7 +193,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.prdFlmun=procedimentoRealizado.getPrdFlmun();
         this.prdFlpa=procedimentoRealizado.getPrdFlpa();
         this.prdFlqt=procedimentoRealizado.getPrdFlqt();
-        this.prdMvm=procedimentoRealizado.getPrdMvm();
+        this.competenciaMovimento=procedimentoRealizado.getCompetenciaMovimento();
         this.quantidadeRealizada=procedimentoRealizado.getQuantidadeRealizada();
         this.sexoPaciente=procedimentoRealizado.getSexoPaciente();
         this.racaPaciente=procedimentoRealizado.getRacaPaciente();
@@ -245,7 +245,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.prdFlmun=procedimentoRealizado.getPrdFlmun();
         this.prdFlpa=procedimentoRealizado.getPrdFlpa();
         this.prdFlqt=procedimentoRealizado.getPrdFlqt();
-        this.prdMvm=procedimentoRealizado.getPrdMvm();
+        this.competenciaMovimento=procedimentoRealizado.getPrdMvm();
         this.quantidadeRealizada=procedimentoRealizado.getQuantidadeRealizada();
         this.sexoPaciente=procedimentoRealizado.getSexoPaciente();
         this.racaPaciente=procedimentoRealizado.getRacaPaciente();
@@ -362,8 +362,8 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
             this.prdFlqt="0";
         }
         
-        if( this.prdMvm== null ? true : this.prdMvm.isEmpty()){
-            this.prdMvm="      ";
+        if( this.competenciaMovimento== null ? true : this.competenciaMovimento.isEmpty()){
+            this.competenciaMovimento="      ";
         }
 
         String tmp=this.getProcedimentoRealizadoPK().getNumeroFolha();
@@ -449,7 +449,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         pro.setCid(this.cidDoencaprocedimento);
         pro.setClassificacao(this.codigoClassificacaoServico);
         pro.setCompetencia(this.getProcedimentoRealizadoPK().getCompetencia());
-        pro.setCompetencia_movimento(this.prdMvm);
+        pro.setCompetencia_movimento(this.competenciaMovimento);
         pro.setEquipe(this.equipe);
         pro.setFolha(this.procedimentoRealizadoPK.getNumeroFolha());
         if( this.idadePaciente==null? false : !this.idadePaciente.trim().isEmpty()){
@@ -661,12 +661,12 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.prdFlqt = prdFlqt;
     }
 
-    public String getPrdMvm() {
-        return prdMvm;
+    public String getCompetenciaMovimento() {
+        return competenciaMovimento;
     }
 
-    public void setPrdMvm(String prdMvm) {
-        this.prdMvm = prdMvm;
+    public void setCompetenciaMovimento(String competenciaMovimento) {
+        this.competenciaMovimento = competenciaMovimento;
     }
 
     public String getOrigemProcedimento() {
@@ -753,7 +753,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
 
     @Override
     public String toString() {
-        return "ProcedimentoRealizado{" + "procedimentoRealizadoPK=" + procedimentoRealizadoPK + ", cnsPaciente=" + cnsPaciente + ", nomePaciente=" + nomePaciente + ", dataNascimentoPaciente=" + dataNascimentoPaciente + ", sexoPaciente=" + sexoPaciente + ", codigoIBGECidadePaciente=" + codigoIBGECidadePaciente + ", cidDoencaprocedimento=" + cidDoencaprocedimento + ", idadePaciente=" + idadePaciente + ", quantidadeRealizada=" + quantidadeRealizada + ", caracterizacaoAtendimento=" + caracterizacaoAtendimento + ", numeroAutorizacao=" + numeroAutorizacao + ", prdOrg=" + origemProcedimento + ", prdMvm=" + prdMvm + ", prdFlpa=" + prdFlpa + ", prdFlcbo=" + prdFlcbo + ", prdFlca=" + prdFlca + ", prdFlida=" + prdFlida + ", prdFlqt=" + prdFlqt + ", prdFler=" + prdFler + ", prdFlmun=" + prdFlmun + ", prdFlcid=" + prdFlcid + ", racaPaciente=" + racaPaciente + ", etniaPaciente=" + etniaPaciente + ", nacionalidadePaciente=" + nacionalidadePaciente + ", prdAdvqt=" + prdAdvqt + '}';
+        return "ProcedimentoRealizado{" + "procedimentoRealizadoPK=" + procedimentoRealizadoPK + ", cnsPaciente=" + cnsPaciente + ", nomePaciente=" + nomePaciente + ", dataNascimentoPaciente=" + dataNascimentoPaciente + ", sexoPaciente=" + sexoPaciente + ", codigoIBGECidadePaciente=" + codigoIBGECidadePaciente + ", cidDoencaprocedimento=" + cidDoencaprocedimento + ", idadePaciente=" + idadePaciente + ", quantidadeRealizada=" + quantidadeRealizada + ", caracterizacaoAtendimento=" + caracterizacaoAtendimento + ", numeroAutorizacao=" + numeroAutorizacao + ", prdOrg=" + origemProcedimento + ", prdMvm=" + competenciaMovimento + ", prdFlpa=" + prdFlpa + ", prdFlcbo=" + prdFlcbo + ", prdFlca=" + prdFlca + ", prdFlida=" + prdFlida + ", prdFlqt=" + prdFlqt + ", prdFler=" + prdFler + ", prdFlmun=" + prdFlmun + ", prdFlcid=" + prdFlcid + ", racaPaciente=" + racaPaciente + ", etniaPaciente=" + etniaPaciente + ", nacionalidadePaciente=" + nacionalidadePaciente + ", prdAdvqt=" + prdAdvqt + '}';
     }
 
     /**

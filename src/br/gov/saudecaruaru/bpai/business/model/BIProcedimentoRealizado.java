@@ -169,7 +169,7 @@ public class BIProcedimentoRealizado implements Serializable{
         this.prdFlmun=procedimentoRealizado.getPrdFlmun();
         this.prdFlpa=procedimentoRealizado.getPrdFlpa();
         this.prdFlqt=procedimentoRealizado.getPrdFlqt();
-        this.prdMvm=procedimentoRealizado.getPrdMvm();
+        this.prdMvm=procedimentoRealizado.getCompetenciaMovimento();
         this.quantidadeRealizada=procedimentoRealizado.getQuantidadeRealizada();
         this.sexoPaciente=procedimentoRealizado.getSexoPaciente();
         this.racaPaciente=procedimentoRealizado.getRacaPaciente();

@@ -75,7 +75,7 @@ public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> 
                     pro.setIdadePaciente((String)row[2]);
                     pro.setCodigoProcedimento((String)row[3]);
                     pro.getProcedimentoRealizadoPK().setCompetencia((String)row[4]);
-                    pro.setPrdMvm((String)row[5]);
+                    pro.setCompetenciaMovimento((String)row[5]);
                     pro.setQuantidadeRealizada((Double) row[6]);
                     
                     //valores padrões

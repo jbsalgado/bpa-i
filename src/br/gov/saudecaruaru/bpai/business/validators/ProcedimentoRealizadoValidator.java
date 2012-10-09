@@ -79,7 +79,7 @@ public class ProcedimentoRealizadoValidator implements Validator{
      }
     
      
-    public String validProcedimentoIdadeMaxMin(String codProcedimento,int idade){
+    private String validProcedimentoIdadeMaxMin(String codProcedimento,int idade){
         //pega os sete primeiros digitos (que representam o codigo do procedimento)
       String codProc = codProcedimento.substring(0,9);
        //pega o oitavo digito (que representam o digito verificador)
@@ -128,7 +128,38 @@ public class ProcedimentoRealizadoValidator implements Validator{
     public String validaProcedimentoECbo(){
         return validProcedimentoECbo(this.procedimentoRealizado.getCodigoProcedimento().substring(0, 9), this.procedimentoRealizado.getProcedimentoRealizadoPK().getCboMedico());
     }
+    private String validProcedimentoSexo(String codProcedimento,String sexo){
+          //pega os sete primeiros digitos (que representam o codigo do procedimento)
+      String codProc = codProcedimento.substring(0,9);
+       //pega o oitavo digito (que representam o digito verificador)
+      Character digitoVerificador = codProcedimento.charAt(9);  
+      
+      Procedimento  procedimento= new   Procedimento();
+      ProcedimentoPK procedimentoPk = new   ProcedimentoPK();
+      procedimento.setProcedimentoPk(procedimentoPk);
+     
+     
+      procedimento.getProcedimentoPk().setId(codProc);
+      procedimento.setDigitoVerificador(digitoVerificador);
+      //procedimento.getProcedimentoPk().setCompetencia(proRealizado.getProcedimentoRealizadoPK().getCompetencia());
+      
+     
+      List<Procedimento> listProcedimentos = pDao.findAllEqual(procedimento);
+      
+      if(!listProcedimentos.isEmpty()){
+          Procedimento procedimentoAchado = listProcedimentos.get(0);
+           if(!procedimentoAchado.getSexo().toString().equals(sexo)){
+               return "PROCED. INCOMPATIVEL COM O SEXO!";
+           }
+      }
+       return "";
     
+     }
+    
+    
+    public String validProcedimentoSexo(){
+     return validProcedimentoSexo(this.procedimentoRealizado.getCodigoProcedimento(),this.procedimentoRealizado.getSexoPaciente());
+    }
     public String validProcedimentoTipo(String codProcedimento){
         //pega os sete primeiros digitos (que representam o codigo do procedimento)
       String codProc = codProcedimento.substring(0,9);

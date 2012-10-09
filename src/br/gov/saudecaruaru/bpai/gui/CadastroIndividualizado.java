@@ -4,6 +4,7 @@ package br.gov.saudecaruaru.bpai.gui;
 
 
 
+
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyNumbersDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.CaraterAtendimentoFormatter;
@@ -60,6 +61,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      private ProcedimentoServicoController procedimentoServicoController;
      private EquipeController equipeController;
      private SProcedimentoRealizadoController sProcedimentoRealizadoController;
+     private ProcedimentoRealizadoController procedimentoRealizadoController;
      
      private ProcedimentoRealizado procedimentoRealizado;
      private GestorCompetenciaController gestorCompetenciaController;
@@ -145,6 +147,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.procedimentoController= new ProcedimentoController();
         this.doencaController=new DoencaController();
         this.bIProcedimentoRealizadoController= new BIProcedimentoRealizadoController();
+        this.procedimentoRealizadoController= new ProcedimentoRealizadoController();
         this.sProcedimentoRealizadoController= new SProcedimentoRealizadoController();
         this.procedimentoServicoController= new ProcedimentoServicoController();
         this.equipeController= new EquipeController();
@@ -303,7 +306,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             jTextFieldAno.setText(competencia.substring(0, 4));
             
             //seta competencia movimento
-            procedimentoRealizado.setPrdMvm(competencia);
+            procedimentoRealizado.setCompetenciaMovimento(competencia);
         }
         
         jTextFieldUsuarioSexo.setText("");
@@ -1432,7 +1435,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel25.setText("Equipe");
 
-        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel28.setText("F5 - DADOS CONSOLIDADOS (SOMENTE PARA O CAMPO CNS DO PACIENTE)");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1535,10 +1538,25 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     private void jButtonIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirMouseClicked
         try{
             if(this.textFieldVerifier(getListFieldsProcedimento())){
+//                List<String> errors = procedimentoRealizadoController.validate(procedimentoRealizado);
+//                if(!errors.isEmpty()){
+//                for(String msg :errors){
+//                    JOptionPane.showMessageDialog(this, msg);
+//                }
+//                
+//                }
                 // metodo que pega os valores de alguns campos e adiciona-os ao modelo
+                this.getValuesOfFieldsForModel();
+                String errors = procedimentoRealizadoController.validateProcedimento(procedimentoRealizado);
+                if(!errors.equals("")){
+                   
+                    JOptionPane.showMessageDialog(this,errors);
+                }else{
+                
+                
                 int itensFolha=this.tableModelDados.getRowCount();
                 if(itensFolha<ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
-                    this.getValuesOfFieldsForModel();
+                    
                      //se não houver elemento vazio siginifica que a operação é de edição
                      //nesse caso salva o objeto;
                     this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(ModelUtil.completar(""+this.sequenciaFolha, 2, '0'));
@@ -1571,7 +1589,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 else{
                     JOptionPane.showMessageDialog(this, "A folha já está completa!\nUma nova folha será gerada.");
                 }
-
+            }
             }
         }catch(Exception ex){
             ex.printStackTrace();
@@ -1669,9 +1687,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         // TODO add your handling code here:
         try{
         if(this.textFieldVerifier(this.listFieldsProcedimento)){
-            
+                
             this.procedimentoRealizado.preencherAtributosVazios();
-            if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
+            //metodo que valida o modelo (referente ao campo Procedimento)
+            String errors = procedimentoRealizadoController.validateProcedimento(procedimentoRealizado);
+                if(!errors.equals("")){
+                   
+                    JOptionPane.showMessageDialog(this,errors);
+            }else{
+               if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
                 //salva o paciente, o médico e o médico com CBO e CNS
                 Paciente p=this.procedimentoRealizado.getPaciente();
                 if( p.getCns() == null ? true : !p.getCns().trim().isEmpty() ){
@@ -1691,7 +1715,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 
                 this.insertOrUpdateState();
             }
-            
+                }
         }
         }catch(Exception ex){
             ex.printStackTrace();
