@@ -1693,6 +1693,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                    
                     JOptionPane.showMessageDialog(this,errors);
             }else{
+               this.procedimentoRealizado.preencherAtributosVazios();
                if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
                    //manda atualizar no serviço
                 this.sProcedimentoRealizadoController.atualizarSProcedimentoRealizado(this.procedimentoRealizado.getProcedimentoRealizadoParaEnviar(), this.sUsuarioDesktop);
