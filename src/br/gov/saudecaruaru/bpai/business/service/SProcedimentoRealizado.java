@@ -5,16 +5,16 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package ServicoControllerwsdl;
+package br.gov.saudecaruaru.bpai.business.service;
 
-public class ProcedimentoRealizado  implements java.io.Serializable {
+public class SProcedimentoRealizado  implements java.io.Serializable {
     private java.lang.String unidade;
 
     private java.lang.String competencia;
 
     private java.lang.String profissional_cns;
 
-    private ServicoControllerwsdl.Paciente paciente;
+    private br.gov.saudecaruaru.bpai.business.service.SPaciente paciente;
 
     private java.lang.String profissional_cbo;
 
@@ -46,14 +46,14 @@ public class ProcedimentoRealizado  implements java.io.Serializable {
 
     private java.math.BigInteger idade_paciente;
 
-    public ProcedimentoRealizado() {
+    public SProcedimentoRealizado() {
     }
 
-    public ProcedimentoRealizado(
+    public SProcedimentoRealizado(
            java.lang.String unidade,
            java.lang.String competencia,
            java.lang.String profissional_cns,
-           ServicoControllerwsdl.Paciente paciente,
+           br.gov.saudecaruaru.bpai.business.service.SPaciente paciente,
            java.lang.String profissional_cbo,
            java.lang.String folha,
            java.lang.String sequencia,
@@ -156,7 +156,7 @@ public class ProcedimentoRealizado  implements java.io.Serializable {
      * 
      * @return paciente
      */
-    public ServicoControllerwsdl.Paciente getPaciente() {
+    public br.gov.saudecaruaru.bpai.business.service.SPaciente getPaciente() {
         return paciente;
     }
 
@@ -166,7 +166,7 @@ public class ProcedimentoRealizado  implements java.io.Serializable {
      * 
      * @param paciente
      */
-    public void setPaciente(ServicoControllerwsdl.Paciente paciente) {
+    public void setPaciente(br.gov.saudecaruaru.bpai.business.service.SPaciente paciente) {
         this.paciente = paciente;
     }
 
@@ -472,8 +472,8 @@ public class ProcedimentoRealizado  implements java.io.Serializable {
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof ProcedimentoRealizado)) return false;
-        ProcedimentoRealizado other = (ProcedimentoRealizado) obj;
+        if (!(obj instanceof SProcedimentoRealizado)) return false;
+        SProcedimentoRealizado other = (SProcedimentoRealizado) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -613,7 +613,7 @@ public class ProcedimentoRealizado  implements java.io.Serializable {
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(ProcedimentoRealizado.class, true);
+        new org.apache.axis.description.TypeDesc(SProcedimentoRealizado.class, true);
 
     static {
         typeDesc.setXmlType(new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "ProcedimentoRealizado"));
@@ -764,4 +764,10 @@ public class ProcedimentoRealizado  implements java.io.Serializable {
             _javaType, _xmlType, typeDesc);
     }
 
+    @Override
+    public String toString() {
+        return "SProcedimentoRealizado{" + "unidade=" + unidade + ", competencia=" + competencia + ", profissional_cns=" + profissional_cns + ", paciente=" + paciente + ", profissional_cbo=" + profissional_cbo + ", folha=" + folha + ", sequencia=" + sequencia + ", procedimento=" + procedimento + ", data_atendimento=" + data_atendimento + ", cid=" + cid + ", quantidade=" + quantidade + ", caracter_atendimento=" + caracter_atendimento + ", numero_autorizacao=" + numero_autorizacao + ", origem=" + origem + ", competencia_movimento=" + competencia_movimento + ", servico=" + servico + ", equipe=" + equipe + ", classificacao=" + classificacao + ", idade_paciente=" + idade_paciente + '}';
+    }
+
+    
 }

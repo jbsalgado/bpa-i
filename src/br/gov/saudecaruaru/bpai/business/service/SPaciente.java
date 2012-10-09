@@ -5,9 +5,9 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package ServicoControllerwsdl;
+package br.gov.saudecaruaru.bpai.business.service;
 
-public class Paciente  implements java.io.Serializable {
+public class SPaciente  implements java.io.Serializable {
     private java.lang.String cns;
 
     private java.lang.String nome;
@@ -24,10 +24,10 @@ public class Paciente  implements java.io.Serializable {
 
     private java.lang.String etnia;
 
-    public Paciente() {
+    public SPaciente() {
     }
 
-    public Paciente(
+    public SPaciente(
            java.lang.String cns,
            java.lang.String nome,
            java.lang.String sexo,
@@ -208,8 +208,8 @@ public class Paciente  implements java.io.Serializable {
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof Paciente)) return false;
-        Paciente other = (Paciente) obj;
+        if (!(obj instanceof SPaciente)) return false;
+        SPaciente other = (SPaciente) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -283,7 +283,7 @@ public class Paciente  implements java.io.Serializable {
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(Paciente.class, true);
+        new org.apache.axis.description.TypeDesc(SPaciente.class, true);
 
     static {
         typeDesc.setXmlType(new javax.xml.namespace.QName("urn:ServicoControllerwsdl", "Paciente"));
