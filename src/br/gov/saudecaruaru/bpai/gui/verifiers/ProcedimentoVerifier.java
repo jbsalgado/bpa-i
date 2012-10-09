@@ -97,10 +97,11 @@ public class ProcedimentoVerifier extends InputVerifier{
                 //verifica se o procedimento existe
                 if (procedimentosSearchead==null) {  
                     
-//                   JOptionPane.showMessageDialog(this.component,"PROCEDIMENTO NÃO ENCONTRADO!"
-//                                        ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
-//                                txtField.setBackground(Color.RED); 
-                                return  MessagesErrors.exibeTelaContinuaErro(component, fieldName, "nao encontrado");
+                   JOptionPane.showMessageDialog(this.component,"PROCEDIMENTO NÃO ENCONTRADO!"
+                                        ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
+                                txtField.setBackground(Color.RED); 
+                   return false;
+                                //return  MessagesErrors.exibeTelaContinuaErro(component, fieldName, "nao encontrado");
                  
                 }else {
                     
