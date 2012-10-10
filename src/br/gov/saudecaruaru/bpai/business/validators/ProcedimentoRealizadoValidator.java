@@ -213,7 +213,7 @@ public class ProcedimentoRealizadoValidator implements Validator{
      
      
      private String validExisteDoenca(String codDoenca){
-         if(!codDoenca.isEmpty()){
+         if(!codDoenca.trim().isEmpty()){
                 Doenca d = new Doenca(codDoenca);
 
                 if(new DoencaDAO().findEqual(d)==null){
@@ -228,7 +228,7 @@ public class ProcedimentoRealizadoValidator implements Validator{
      }
      
      private String validProcedimentoExigeDoenca(String codProcedimento,String codDoenca){
-       if(codDoenca.isEmpty()){  
+       if(codDoenca.trim().isEmpty()){  
                 ProcedimentoDoenca procedimentoDoenca = new ProcedimentoDoenca(new ProcedimentoDoencaPK(codProcedimento.substring(0, 9),null, null));
                 if(!new ProcedimentoDoencaDAO().findAllEqual(procedimentoDoenca).isEmpty()){
                         return "PROCED. EXIGE CID!";
@@ -244,7 +244,7 @@ public class ProcedimentoRealizadoValidator implements Validator{
      
      
      private String validDoencaPertenceSubCategoria(String codDoenca){
-         if(!codDoenca.isEmpty()){  
+         if(!codDoenca.trim().isEmpty()){  
                 Doenca d = new DoencaDAO().findEqual(new Doenca(codDoenca));
                 if(d!=null){
                     if(d.getSubcategoria()=='N')    
