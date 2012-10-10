@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import javax.swing.AbstractAction;
@@ -77,7 +78,7 @@ public class SearchGeneric extends javax.swing.JDialog {
     public void selectedModel(){
         //pega o modelo selecionado
         int index=this.tableLista.getSelectedRow();
-        this.selectedSearch= index> -1? this.tableModel.getSearch(index): null;
+        this.selectedSearch= index > -1? this.tableModel.getSearch(index): null;
         //modelo existe
         if(this.selectedSearch!=null){
             //encerra a janela
@@ -246,6 +247,9 @@ public class SearchGeneric extends javax.swing.JDialog {
 
             @Override
             public void removeUpdate(DocumentEvent e) {
+                if(SearchGeneric.this.jTextField1.getText().length()>2){
+                    SearchGeneric.this.updateTable(SearchGeneric.this.search());
+                }
             }
 
             @Override
@@ -259,7 +263,7 @@ public class SearchGeneric extends javax.swing.JDialog {
         //pega o elemento root
         JRootPane rootPane = this.getRootPane();
         //pega o map que registra as entradas
-        InputMap iMap =	rootPane.getInputMap(	 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        InputMap iMap =	rootPane.getInputMap(	 JComponent.WHEN_IN_FOCUSED_WINDOW);
         
         iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "escape");
         iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), "f2");
@@ -315,7 +319,7 @@ public class SearchGeneric extends javax.swing.JDialog {
         this.header[1]=labelFieldDescription;
         
         //preenche o camboobs de seleção
-        ComboBoxModel model=new DefaultComboBoxModel(new String[]{labelFieldDescription,labelFieldId});
+        ComboBoxModel model=new DefaultComboBoxModel(new String[]{labelFieldId,labelFieldDescription});
         this.fieldDescription=FieldDescription;
         this.fieldId=fieldId;
         this.jComboBox1.setModel(model);
@@ -326,7 +330,8 @@ public class SearchGeneric extends javax.swing.JDialog {
         this.tableLista.setModel(this.tableModel);
         //inicia algumas oncfigurações da tabela
         this.initTable();
-        this.listAll=ModelUtil.getListSearch(this.basicController.findAllEqual(restrictions),fieldId,FieldDescription);
+        HashSet<Search > set=new HashSet<Search>(ModelUtil.getListSearch( this.basicController.findAllEqual(restrictions),fieldId,FieldDescription));
+        this.listAll=new ArrayList<Search>(set);
         this.tableModel.addSearchAll(this.listAll);
         
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -374,7 +379,7 @@ public class SearchGeneric extends javax.swing.JDialog {
         String search=this.jTextField1.getText().toUpperCase();
         int item=this.jComboBox1.getSelectedIndex();
         for(Search s: this.listAll){
-            if(item==1){
+            if(item==0){
                 if(s.getId().startsWith(search)){
                     l.add(s);
                 }
