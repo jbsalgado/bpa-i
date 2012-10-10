@@ -33,13 +33,13 @@ public class DiversasDAO extends GenericDAO<Diversas> {
             sql.append(" SELECT di.diversasPK.codigoTabela,di.diversasPK.codigoItemTabela,di.descricaoItemTabela, ");
             sql.append(" pro.temAuxiliar FROM Diversas di, br.gov.saudecaruaru.bpai.business.model.ProcedimentoServico pro ");
             sql.append(" WHERE (di.diversasPK.codigoTabela=:tabela AND di.diversasPK.codigoItemTabela=pro.procedimentoServicoPK.servico");
-            sql.append(" AND pro.procedimentoServicoPK.codigoProcedimento=:procedimento AND pro.procedimentoServicoPK.competencia=:competencia)");
+            sql.append(" AND pro.procedimentoServicoPK.codigoProcedimento=:procedimento )");//AND pro.procedimentoServicoPK.competencia=:competencia)");
 //            sql.append(" WHERE (di.diversasPK.codigoTabela='"+Diversas.TABELA_SERVICO+"' AND di.diversasPK.codigoItemTabela=pro.procedimentoServicoPK.servico");
 //            sql.append(" AND pro.procedimentoServicoPK.codigoProcedimento='"+pro.getCodigoProcedimento().substring(0, 9)+"' AND pro.procedimentoServicoPK.competencia='"+pro.getProcedimentoRealizadoPK().getCompetencia()+"')");
             Query query=session.createQuery(sql.toString());
             query.setParameter("tabela", Diversas.TABELA_SERVICO);
             query.setParameter("procedimento", pro.getCodigoProcedimento().substring(0, 9));
-            query.setParameter("competencia", pro.getProcedimentoRealizadoPK().getCompetencia());
+            //query.setParameter("competencia", pro.getProcedimentoRealizadoPK().getCompetencia());
             objects=query.list();
         }catch(Exception ex){
             ex.printStackTrace();
@@ -72,11 +72,11 @@ public class DiversasDAO extends GenericDAO<Diversas> {
             sql.append(" SELECT di.diversasPK.codigoTabela,di.diversasPK.codigoItemTabela,di.descricaoItemTabela");
             sql.append(" FROM Diversas di, br.gov.saudecaruaru.bpai.business.model.ProcedimentoServico pro ");
             sql.append(" WHERE (di.diversasPK.codigoTabela=:tabela AND di.diversasPK.codigoItemTabela=concat(pro.procedimentoServicoPK.servico,concat(pro.procedimentoServicoPK.classificacaoServico,'  '))");
-            sql.append(" AND pro.procedimentoServicoPK.codigoProcedimento=:procedimento AND pro.procedimentoServicoPK.competencia=:competencia)");
+            sql.append(" AND pro.procedimentoServicoPK.codigoProcedimento=:procedimento )");//AND pro.procedimentoServicoPK.competencia=:competencia)");
             Query query=session.createQuery(sql.toString());
             query.setParameter("tabela", Diversas.TABELA_CLASSIFICACAO_SERVICO);
             query.setParameter("procedimento", pro.getCodigoProcedimento().substring(0, 9));
-            query.setParameter("competencia", pro.getProcedimentoRealizadoPK().getCompetencia());
+            //query.setParameter("competencia", pro.getProcedimentoRealizadoPK().getCompetencia());
             objects=query.list();
         }catch(Exception ex){
             ex.printStackTrace();
