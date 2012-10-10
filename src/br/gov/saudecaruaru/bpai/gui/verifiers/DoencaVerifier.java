@@ -47,6 +47,8 @@ public class DoencaVerifier extends InputVerifier{
         this.procedimentoDoencaPK = new ProcedimentoDoencaPK(); 
         this.procedimentoDoenca = new ProcedimentoDoenca(procedimentoDoencaPK);
         this.procedimentoDoencaController = new ProcedimentoDoencaController();
+        
+        this.procedimentoDoencaPK.setCompetencia(null);
     }
     
     
@@ -57,9 +59,6 @@ public class DoencaVerifier extends InputVerifier{
       String valor = txtField.getText().toUpperCase();
       ProcedimentoRealizado procedimentoRealizado = t.getProcedimentoRealizado();
       String codigoProc = procedimentoRealizado.getCodigoProcedimento().substring(0, 9);
-      System.out.println(codigoProc);
-      System.out.println(valor);
-      System.out.println(procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia());
       
       //seta o valor digitado no objeto
       doenca.setCodigo(valor);

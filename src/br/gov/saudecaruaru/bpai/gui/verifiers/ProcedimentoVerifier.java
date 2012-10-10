@@ -89,11 +89,12 @@ public class ProcedimentoVerifier extends InputVerifier{
     
       procedimento.getProcedimentoPk().setId(codProc);
       procedimento.setDigitoVerificador(digitoVerificador);
-      procedimento.getProcedimentoPk().setCompetencia(proRealizado.getProcedimentoRealizadoPK().getCompetencia());
+      //procedimento.getProcedimentoPk().setCompetencia(proRealizado.getProcedimentoRealizadoPK().getCompetencia());
       
      
       //faz a busca pelo Procedimento  digitado, se nao encontra notifica ao usuário
-      procedimentosSearchead = procedimentoController.findEqual(this.procedimento);
+      List<Procedimento> list=procedimentoController.findAllEqual(this.procedimento);
+      procedimentosSearchead = list.isEmpty() ? null : list.get(0);
                 //verifica se o procedimento existe
                 if (procedimentosSearchead==null) {  
                     
