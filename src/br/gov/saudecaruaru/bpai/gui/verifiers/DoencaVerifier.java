@@ -69,6 +69,7 @@ public class DoencaVerifier extends InputVerifier{
              String valor2 = txtField.getText().trim();
              if(valor2.isEmpty()){
                   if(!procedimentoDoencaController.exigeCid(codigoProc)){
+                    txtField.setBackground(Color.WHITE);  
                     return true;
                 }else {
                         JOptionPane.showMessageDialog(this.component," PROCED. EXIGE CID!", 
