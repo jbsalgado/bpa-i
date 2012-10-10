@@ -33,6 +33,7 @@ public class ProcedimentoRealizadoController extends BasecController<Procediment
             this.addListErros(prv.validProcedimentoSexo());
             this.addListErros(prv.validProcedimentoIdadeMaxMin());
             this.addListErros(prv.validProcedimentoDoenca());
+            this.addListErros(prv.validDoencaIncompativelProcedimento());
             if(!listErros.isEmpty()){
                 for(String msg :listErros){
                     msgs+=msg+"\n";
@@ -51,6 +52,7 @@ public class ProcedimentoRealizadoController extends BasecController<Procediment
             this.addListErros(prv.validProcedimentoSexo());
             this.addListErros(prv.validProcedimentoIdadeMaxMin());
             this.addListErros(prv.validProcedimentoDoenca());
+            this.addListErros(prv.validDoencaIncompativelProcedimento());
             
         
         return listErros;

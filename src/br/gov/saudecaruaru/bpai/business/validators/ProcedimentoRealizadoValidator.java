@@ -97,7 +97,7 @@ public class ProcedimentoRealizadoValidator implements Validator{
       //faz a busca pelo Procedimento  digitado
       List<Procedimento> listProcedimentos = pDao.findAllEqual(procedimento);
       
-      if(listProcedimentos!=null){
+      if(!listProcedimentos.isEmpty()){
           Procedimento procedimentoAchado = listProcedimentos.get(0);
           
           
@@ -259,7 +259,7 @@ public class ProcedimentoRealizadoValidator implements Validator{
      }
      
      private String validDoencaIncompativelProcedimento(String codProcedimento,String codDoenca){
-       if(!codDoenca.isEmpty()){  
+       if(!codDoenca.trim().isEmpty()){  
                 ProcedimentoDoenca procedimentoDoenca = new ProcedimentoDoenca(new ProcedimentoDoencaPK(codProcedimento.substring(0, 9),codDoenca, null));
                 if(new ProcedimentoDoencaDAO().findAllEqual(procedimentoDoenca).isEmpty()){
                         return "PROCED. INCOMPATIVEL COM CID!";

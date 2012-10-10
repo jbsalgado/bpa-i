@@ -13,8 +13,7 @@ import br.gov.saudecaruaru.bpai.business.controller.*;
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
-import br.gov.saudecaruaru.bpai.gui.documents.FolhaDocument;
-import br.gov.saudecaruaru.bpai.gui.documents.SexoDocument;
+import br.gov.saudecaruaru.bpai.gui.documents.*;
 
 import br.gov.saudecaruaru.bpai.gui.formatter.EquipeFormatter;
 import br.gov.saudecaruaru.bpai.gui.verifiers.*;
@@ -300,6 +299,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldNomeProfiss.setDocument(new OnlyUpperLettersDocument());
         jTextFieldUsuarioNome.setDocument(new OnlyUpperLettersDocument());
         jTextFieldUsuarioSexo.setDocument(new SexoDocument());
+        jTextFieldProcCID.setDocument(new NumbersUpperLettersDocument(4));
         //inicializando competencia
         String competencia = gestorCompetenciaController.getCompetenciaAtual();
        
@@ -929,7 +929,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jTextFieldProcDataAtend = new javax.swing.JFormattedTextField();
-        jTextFieldProcCID = new javax.swing.JFormattedTextField();
         jTextFieldProcNumAut = new javax.swing.JFormattedTextField();
         jButtonSair = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
@@ -939,6 +938,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jButtonAtualizar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jTextFieldProcCod = new javax.swing.JTextField();
+        jTextFieldProcCID = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jTextFieldCnes = new javax.swing.JFormattedTextField();
         jTextFieldMes = new javax.swing.JFormattedTextField();
@@ -1221,12 +1221,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         try {
             jTextFieldProcDataAtend.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            jTextFieldProcCID.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("****")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -1776,7 +1770,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     private javax.swing.JTextField jTextFieldFolha;
     private javax.swing.JFormattedTextField jTextFieldMes;
     private javax.swing.JTextField jTextFieldNomeProfiss;
-    private javax.swing.JFormattedTextField jTextFieldProcCID;
+    private javax.swing.JTextField jTextFieldProcCID;
     private javax.swing.JTextField jTextFieldProcCod;
     private javax.swing.JFormattedTextField jTextFieldProcDataAtend;
     private javax.swing.JTextField jTextFieldProcDescriDoenca;
@@ -2472,7 +2466,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         //realiza uma busca pelo procedimento
         List<Procedimento> listEncontrados = procedimentoController.findAllEqual(procedimento);
         
-        if(listEncontrados!=null){
+        if(!listEncontrados.isEmpty()){
             String  tipo = listEncontrados.get(0).typeProcedimento();    
             //seta o tipo do procedimento (BPA ou BPAI)
             this.procedimentoRealizado.setOrigemProcedimento(tipo);

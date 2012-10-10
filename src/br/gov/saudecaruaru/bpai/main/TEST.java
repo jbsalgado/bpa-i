@@ -64,7 +64,7 @@ public class TEST {
        p.setIdadePaciente("11");
        p.getProcedimentoRealizadoPK().setCompetencia("201212");
        p.setEtniaPaciente("123456");
-       p.setCidDoencaprocedimento("");
+       p.setCidDoencaprocedimento("A000");
        p.setCodigoIBGECidadePaciente("260410");
        p.setNacionalidadePaciente("010");
        p.setQuantidadeRealizada(23.0);
