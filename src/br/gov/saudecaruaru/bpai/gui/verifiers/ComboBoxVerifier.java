@@ -4,6 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.gui.verifiers;
 
+import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import java.awt.Color;
 import java.awt.Component;
 import java.lang.reflect.Field;
@@ -32,10 +33,7 @@ public class ComboBoxVerifier extends InputVerifier{
                 JComboBox jComboBox = (JComboBox) input;
                 
                 if (jComboBox.getModel().getSize()!=0 && jComboBox.getSelectedItem()==null ) {  
-                      JOptionPane.showMessageDialog(component,fieldName+" Obrigatório",   
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                //seta cor vermelha
-               jComboBox.setBackground(Color.RED);  
+                     MessagesErrors.erro(component,jComboBox,fieldName+" Obrigatório");
                 return false;  
                 } 
                 //seta cor branca

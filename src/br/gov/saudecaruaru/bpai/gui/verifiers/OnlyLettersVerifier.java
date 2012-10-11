@@ -4,6 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.gui.verifiers;
 
+import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.regex.Matcher;
@@ -35,10 +36,8 @@ public class OnlyLettersVerifier extends InputVerifier{
        Pattern p = Pattern.compile("^[a-z,A-Z, ,.,ã,á,à,â,ê,í,ú,õ,é]+$");  
                 Matcher m = p.matcher(valor);  
                 if (!m.find()) {  
-                       JOptionPane.showMessageDialog(this.component,fieldName + " INCORRETO!"+" USE SOMENTE LETRAS", 
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                txtField.setBackground(Color.RED);
-                    return false;
+                    MessagesErrors.erro(component,txtField,fieldName + " INCORRETO!"+" USE SOMENTE LETRAS"); 
+                    return  false;
                 }
                   txtField.setBackground(Color.WHITE);
                 return true;

@@ -132,14 +132,14 @@ public class ProcedimentoVerifier extends InputVerifier{
                             String sexo =proRealizado.getSexoPaciente();
                             //verifica se o sexo digitado é compativel com o exigido
                             if(!procedimentosSearchead.getSexo().toString().equals(sexo)){
-                                    return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM O SEXO!", txtField);
+                                    return  MessagesErrors.continuaErro(component,"","PROCED. INCOMPATIVEL COM O SEXO!", txtField);
                             }
 
                         } 
                             
                         if((idadePaciente<idadeMinima) || (idadePaciente>idadeMaxima)){
                                 
-                                return  MessagesErrors.exibeTelaContinuaErro(component,"","PROCED. INCOMPATIVEL COM A IDADE!"+"\n IDADE MÍNIMA: "+idadeMinima+"\n IDADE MÁXIMA: "+idadeMaxima, txtField);
+                                return  MessagesErrors.continuaErro(component,"","PROCED. INCOMPATIVEL COM A IDADE!"+"\n IDADE MÍNIMA: "+idadeMinima+"\n IDADE MÁXIMA: "+idadeMaxima, txtField);
                         } 
                         if(!procedimentosSearchead.isBPA() && !procedimentosSearchead.isBPI()){
                                 JOptionPane.showMessageDialog(this.component,"TIPO INVÁLIDO INVÁLIDO! (PERMITIDO SOMENTE BPA OU BPI)"

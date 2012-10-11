@@ -4,12 +4,12 @@
  */
 package br.gov.saudecaruaru.bpai.gui.verifiers;
 
+import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -33,10 +33,8 @@ public class SexoVerifier extends CnsVerifier{
                 Pattern p = Pattern.compile("^[M|F]$");  
                 Matcher m = p.matcher(sexo.getText());  
                 if (!m.find()) {  
-                      JOptionPane.showMessageDialog(component," Sexo Inválido!",   
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE);  
-                sexo.setBackground(Color.RED); 
-                return false;  
+                   MessagesErrors.erro(component,sexo," Sexo Inválido!"); 
+                   return false;  
                 } 
                 sexo.setBackground(Color.WHITE); 
                 return true;

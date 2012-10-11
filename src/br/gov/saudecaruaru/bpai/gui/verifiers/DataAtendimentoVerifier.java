@@ -6,6 +6,7 @@ package br.gov.saudecaruaru.bpai.gui.verifiers;
 
 
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
+import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
 import br.gov.saudecaruaru.bpai.util.DateUtil;
 import java.awt.Color;
@@ -55,21 +56,13 @@ public class DataAtendimentoVerifier extends InputVerifier{
        
        //VALIDA O FORMATO DA DATA
        if(!DateUtil.isValidBrDate(valor)){
-           JOptionPane.showMessageDialog(this.component,fieldName+" INCORRETO!"
-                   +"\n FORMATO INVALIDO","Erro de validação!", JOptionPane.ERROR_MESSAGE);
-         txtField.setBackground(Color.RED);    
+           MessagesErrors.erro(component,txtField,fieldName+" INCORRETO!"
+                   +"\n FORMATO INVALIDO"); 
            return false;
        }
        
-       
-       
-       
-       
-       
+     
        String valorDtNas = proRealizado.getDataNascimentoPaciente();
-       if(valorDtNas.isEmpty()){
-           
-       }
        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
       
       try{
@@ -77,9 +70,8 @@ public class DataAtendimentoVerifier extends InputVerifier{
             dataInicio = format.parse(DataAtendimentoVerifier.DATA_INICIO);
             dataAtend = format.parse(valor);
        }catch(ParseException e){
-         JOptionPane.showMessageDialog(this.component,fieldName+" INVÁLIDA!"
-                   ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
-         txtField.setBackground(Color.RED); 
+         MessagesErrors.erro(component,txtField,fieldName+" INVÁLIDA!"); 
+ 
            return false;
        }
       
@@ -88,23 +80,13 @@ public class DataAtendimentoVerifier extends InputVerifier{
        Date dataNasc = DateUtil.parserStringToDate("yyyyMMdd", valorDtNas);
        
        if(dataAtend.before(dataInicio)){
-           JOptionPane.showMessageDialog(this.component,fieldName+" DEVE SER MAIOR QUE "+DataAtendimentoVerifier.DATA_INICIO
-                   +"!"
-                   ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
-         txtField.setBackground(Color.RED); 
+           MessagesErrors.erro(component,txtField,fieldName+" DEVE SER MAIOR QUE "+DataAtendimentoVerifier.DATA_INICIO
+                   +"!" );  
            return false;
        }else if(dataAtend.before(dataNasc)){
-         JOptionPane.showMessageDialog(this.component," DATA DE NASCIMENTO MAIOR QUE A DATA DE ATENDIMENTO!"
-                   ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
-         txtField.setBackground(Color.RED); 
+           MessagesErrors.erro(component,txtField," DATA DE NASCIMENTO MAIOR QUE A DATA DE ATENDIMENTO!");
            return false;
        }
-//       else if(dataAtendMesAno.after(competencia)){
-//         JOptionPane.showMessageDialog(this.component," A DATA DE ATENDIMENTO NÃO DEVE SER MAIOR QUE A COMPETÊNCIA ATUAL!"
-//                   ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
-//         txtField.setBackground(Color.RED); 
-//           return false;
-//       }
        txtField.setBackground(Color.WHITE);
       
        return true;

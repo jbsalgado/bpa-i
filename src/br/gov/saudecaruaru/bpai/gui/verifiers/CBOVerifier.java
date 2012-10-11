@@ -43,7 +43,7 @@ public class CBOVerifier extends InputVerifier{
     
     @Override
     public boolean verify(JComponent input) {
-       JTextComponent txtField = (JTextField) input; 
+      JTextComponent txtField = (JTextField) input; 
       String valor = txtField.getText();
       //seta o valor digitado no objeto
       diversas.getDiversasPK().setCodigoItemTabela(valor);

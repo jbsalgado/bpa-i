@@ -96,7 +96,7 @@ public class DoencaVerifier extends InputVerifier{
                     }
 
                     if(!procedimentoDoencaController.existProcedimentoEDoenca(valor, codigoProc,procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia())){
-                        return  MessagesErrors.exibeTelaContinuaErro(component,fieldName," PROCED. INCOMPATIVEL COM CID!", txtField);
+                        return  MessagesErrors.continuaErro(component,fieldName," PROCED. INCOMPATIVEL COM CID!", txtField);
                     }
                     
                     doencaNome.setText(doencaSearchead.getDescricao());

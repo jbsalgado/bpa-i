@@ -9,6 +9,7 @@ import br.gov.saudecaruaru.bpai.business.controller.MunicipioController;
 import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoCboController;
 import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoController;
 import br.gov.saudecaruaru.bpai.business.model.*;
+import br.gov.saudecaruaru.bpai.business.validators.ProcedimentoRealizadoValidator;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
 import java.awt.Color;
@@ -34,6 +35,7 @@ public class QuantProcedimentoVerifier extends InputVerifier{
     private ProcedimentoCbo procedimentoCbo;
     private ProcedimentoCboPK procedimentoCboPK;
     private ProcedimentoCboController procedimentoCboController;
+    private ProcedimentoRealizadoValidator prv;
     
     
     public QuantProcedimentoVerifier(Component component,String fieldName,TelaCadastroI t) {
@@ -81,31 +83,39 @@ public class QuantProcedimentoVerifier extends InputVerifier{
                     
                 }
                if(t.getProcedimentoRealizado().getCodigoProcedimento()!=null){
-                    String proc = t.getProcedimentoRealizado().getCodigoProcedimento();
-                     //pega os sete primeiros digitos (que representam o codigo do procedimento)
-                    String codProc = proc.substring(0,9);
-                    //pega o oitavo digito (que representam o digito verificador)
-                    Character digitoVerificador = proc.charAt(9);
-
-                    procedimento.getProcedimentoPk().setId(codProc);
-                    procedimento.setDigitoVerificador(digitoVerificador);
-                    
-                    procedimentoSearchead = procedimentoController.findAllEqual(this.procedimento);
-                    
-                    if (!procedimentoSearchead.isEmpty()) {  
-                        
-                    
-                    
-                    
-                    double quant = Double.parseDouble(valor);
-                    double quantMaxima = procedimentoSearchead.get(0).getQuantidadeMaximaExecucao();
-                            if(quant>quantMaxima){
-                                JOptionPane.showMessageDialog(this.component," ERRO! QUANTIDADE MÁXIMA PERMITIDA "+quantMaxima
-                                                ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
-                                        txtField.setBackground(Color.RED); 
-                            return  false;
-                    }
-                }
+                      t.getProcedimentoRealizado().setQuantidadeRealizada(Double.parseDouble(valor));
+                      prv = new ProcedimentoRealizadoValidator(t.getProcedimentoRealizado());
+                      String msg = prv.validQuantidadeMaximaProcedimento();
+                      if(!msg.equals("")){
+                            //exibe mensagem de erro
+                            MessagesErrors.erro(component,txtField,msg); 
+                            return false;
+                      }  
+//                    String proc = t.getProcedimentoRealizado().getCodigoProcedimento();
+//                     //pega os sete primeiros digitos (que representam o codigo do procedimento)
+//                    String codProc = proc.substring(0,9);
+//                    //pega o oitavo digito (que representam o digito verificador)
+//                    Character digitoVerificador = proc.charAt(9);
+//
+//                    procedimento.getProcedimentoPk().setId(codProc);
+//                    procedimento.setDigitoVerificador(digitoVerificador);
+//                    
+//                    procedimentoSearchead = procedimentoController.findAllEqual(this.procedimento);
+//                    
+//                    if (!procedimentoSearchead.isEmpty()) {  
+//                        
+//                    
+//                    
+//                    
+//                    double quant = Double.parseDouble(valor);
+//                    double quantMaxima = procedimentoSearchead.get(0).getQuantidadeMaximaExecucao();
+//                            if(quant>quantMaxima){
+//                                JOptionPane.showMessageDialog(this.component," ERRO! QUANTIDADE MÁXIMA PERMITIDA "+quantMaxima
+//                                                ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
+//                                        txtField.setBackground(Color.RED); 
+//                            return  false;
+//                    }
+//                }
              }
                   txtField.setBackground(Color.WHITE);
                 return true;
