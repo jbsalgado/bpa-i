@@ -148,9 +148,11 @@ public class ProcedimentoRealizadoValidator implements Validator{
       
       if(!listProcedimentos.isEmpty()){
           Procedimento procedimentoAchado = listProcedimentos.get(0);
-           if(!procedimentoAchado.getSexo().toString().equals(sexo)){
-               return "PROCED. INCOMPATIVEL COM O SEXO!";
-           }
+          if(!procedimentoAchado.getSexo().toString().equals("A")){
+                if(!procedimentoAchado.getSexo().toString().equals(sexo)){
+                    return "PROCED. INCOMPATIVEL COM O SEXO!";
+                }
+          }
       }
        return "";
     
