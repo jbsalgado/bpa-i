@@ -30,7 +30,7 @@ public class Search {
     }
 
     public String getId() {
-        return id;
+        return id.trim();
     }
 
     public void setId(String id) {
