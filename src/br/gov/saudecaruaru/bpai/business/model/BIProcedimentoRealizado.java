@@ -4,18 +4,21 @@
  */
 package br.gov.saudecaruaru.bpai.business.model;
 
+import br.gov.saudecaruaru.bpai.business.service.SPaciente;
 import br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import java.io.Serializable;
-import java.text.DateFormat;
+import java.math.BigInteger;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.swing.text.DateFormatter;
-import sun.text.resources.FormatData;
 
 /**
  *
@@ -24,6 +27,7 @@ import sun.text.resources.FormatData;
 
 @Entity
 @Table(name = "S_PRD")
+@XStreamAlias("bi_procedimento_realizado")
 public class BIProcedimentoRealizado implements Serializable{
     
     
@@ -89,7 +93,7 @@ public class BIProcedimentoRealizado implements Serializable{
     private String origemProcedimento;
     
     @Column(name = "PRD_MVM")
-    private String prdMvm;
+    private String competenciaMovimento;
     
     @Column(name = "PRD_FLPA")
     private String prdFlpa;
@@ -169,7 +173,7 @@ public class BIProcedimentoRealizado implements Serializable{
         this.prdFlmun=procedimentoRealizado.getPrdFlmun();
         this.prdFlpa=procedimentoRealizado.getPrdFlpa();
         this.prdFlqt=procedimentoRealizado.getPrdFlqt();
-        this.prdMvm=procedimentoRealizado.getCompetenciaMovimento();
+        this.competenciaMovimento=procedimentoRealizado.getCompetenciaMovimento();
         this.quantidadeRealizada=procedimentoRealizado.getQuantidadeRealizada();
         this.sexoPaciente=procedimentoRealizado.getSexoPaciente();
         this.racaPaciente=procedimentoRealizado.getRacaPaciente();
@@ -204,7 +208,7 @@ public class BIProcedimentoRealizado implements Serializable{
         this.caracterizacaoAtendimento = caracterizacaoAtendimento;
         this.numeroAutorizacao = numeroAutorizacao;
         this.origemProcedimento = prdOrg;
-        this.prdMvm = prdMvm;
+        this.competenciaMovimento = prdMvm;
         this.prdFlpa = prdFlpa;
         this.prdFlcbo = prdFlcbo;
         this.prdFlca = prdFlca;
@@ -247,10 +251,53 @@ public class BIProcedimentoRealizado implements Serializable{
         this.nomePaciente=sProcedimentoRealizado.getPaciente().getNome();
         this.numeroAutorizacao=sProcedimentoRealizado.getNumero_autorizacao();
         this.origemProcedimento=sProcedimentoRealizado.getOrigem();
-        this.prdMvm=sProcedimentoRealizado.getCompetencia_movimento();
+        this.competenciaMovimento=sProcedimentoRealizado.getCompetencia_movimento();
         this.quantidadeRealizada=sProcedimentoRealizado.getQuantidade().doubleValue();
         this.racaPaciente=sProcedimentoRealizado.getPaciente().getRaca();
         this.sexoPaciente=sProcedimentoRealizado.getPaciente().getSexo();
+    }
+    
+    public SProcedimentoRealizado getProcedimentoRealizadoParaEnviar(){
+        SProcedimentoRealizado pro= new br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado();
+        SPaciente pac=new br.gov.saudecaruaru.bpai.business.service.SPaciente();
+        SimpleDateFormat simpla= new SimpleDateFormat("yyyyMMdd");
+        
+        pac.setCidade(this.codigoIBGECidadePaciente);
+        pac.setCns(this.cnsPaciente);
+        try {
+            pac.setData_nascimento(simpla.parse(this.getDataNascimentoPaciente()));
+            pro.setData_atendimento(simpla.parse(this.getDataAtendimento()));
+        } catch (ParseException ex) {
+            Logger.getLogger(ProcedimentoRealizado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        pac.setEtnia(this.etniaPaciente);
+        pac.setNacionalidade(this.nacionalidadePaciente);
+        pac.setNome(this.nomePaciente);
+        pac.setRaca(this.racaPaciente);
+        pac.setSexo(this.sexoPaciente);
+        
+        pro.setPaciente(pac);
+        pro.setCaracter_atendimento(this.caracterizacaoAtendimento);
+        pro.setCid(this.cidDoencaprocedimento);
+        pro.setClassificacao(this.codigoClassificacaoServico);
+        pro.setCompetencia(this.getBiProcedimentoRealizadoPK().getCompetencia());
+        pro.setCompetencia_movimento(this.competenciaMovimento);
+        pro.setEquipe(this.equipe);
+        pro.setFolha(this.biProcedimentoRealizadoPK.getNumeroFolha());
+        if( this.idadePaciente==null? false : !this.idadePaciente.trim().isEmpty()){
+            pro.setIdade_paciente(BigInteger.valueOf(Long.parseLong(this.idadePaciente)));
+        }
+        pro.setNumero_autorizacao(this.numeroAutorizacao);
+        pro.setOrigem(this.origemProcedimento);
+        pro.setProcedimento(this.codigoProcedimento);
+        pro.setProfissional_cbo(this.getBiProcedimentoRealizadoPK().getCboMedico());
+        pro.setProfissional_cns(this.getBiProcedimentoRealizadoPK().getCnsMedico());
+        pro.setQuantidade(BigInteger.valueOf(this.quantidadeRealizada.longValue()));
+        pro.setSequencia(this.biProcedimentoRealizadoPK.getSequenciaFolha());
+        pro.setServico(this.codigoServico);
+        pro.setUnidade(this.biProcedimentoRealizadoPK.getCnesUnidade());
+        
+        return pro;
     }
     
     public String getCodigoClassificacaoServico() {
@@ -471,12 +518,12 @@ public class BIProcedimentoRealizado implements Serializable{
         this.prdFlqt = prdFlqt;
     }
 
-    public String getPrdMvm() {
-        return prdMvm;
+    public String getCompetenciaMovimento() {
+        return competenciaMovimento;
     }
 
-    public void setPrdMvm(String prdMvm) {
-        this.prdMvm = prdMvm;
+    public void setCompetenciaMovimento(String competenciaMovimento) {
+        this.competenciaMovimento = competenciaMovimento;
     }
 
     public String getOrigemProcedimento() {
@@ -567,7 +614,7 @@ public class BIProcedimentoRealizado implements Serializable{
 
     @Override
     public String toString() {
-        return "BIProcedimentoRealizado{" + "biProcedimentoRealizadoPK=" + biProcedimentoRealizadoPK + ", codigoProcedimento=" + codigoProcedimento + ", dataAtendimento=" + dataAtendimento + ", cnsPaciente=" + cnsPaciente + ", nomePaciente=" + nomePaciente + ", dataNascimentoPaciente=" + dataNascimentoPaciente + ", sexoPaciente=" + sexoPaciente + ", codigoIBGECidadePaciente=" + codigoIBGECidadePaciente + ", cidDoencaprocedimento=" + cidDoencaprocedimento + ", idadePaciente=" + idadePaciente + ", quantidadeRealizada=" + quantidadeRealizada + ", caracterizacaoAtendimento=" + caracterizacaoAtendimento + ", numeroAutorizacao=" + numeroAutorizacao + ", origemProcedimento=" + origemProcedimento + ", prdMvm=" + prdMvm + ", prdFlpa=" + prdFlpa + ", prdFlcbo=" + prdFlcbo + ", prdFlca=" + prdFlca + ", prdFlida=" + prdFlida + ", prdFlqt=" + prdFlqt + ", prdFler=" + prdFler + ", prdFlmun=" + prdFlmun + ", prdFlcid=" + prdFlcid + ", racaPaciente=" + racaPaciente + ", etniaPaciente=" + etniaPaciente + ", nacionalidadePaciente=" + nacionalidadePaciente + ", prdAdvqt=" + prdAdvqt + ", codigoServico=" + codigoServico + ", codigoClassificacaoServico=" + codigoClassificacaoServico + ", equipe=" + equipe + ", enviado=" + enviado + ", atualizado=" + atualizado + '}';
+        return "BIProcedimentoRealizado{" + "biProcedimentoRealizadoPK=" + biProcedimentoRealizadoPK + ", codigoProcedimento=" + codigoProcedimento + ", dataAtendimento=" + dataAtendimento + ", cnsPaciente=" + cnsPaciente + ", nomePaciente=" + nomePaciente + ", dataNascimentoPaciente=" + dataNascimentoPaciente + ", sexoPaciente=" + sexoPaciente + ", codigoIBGECidadePaciente=" + codigoIBGECidadePaciente + ", cidDoencaprocedimento=" + cidDoencaprocedimento + ", idadePaciente=" + idadePaciente + ", quantidadeRealizada=" + quantidadeRealizada + ", caracterizacaoAtendimento=" + caracterizacaoAtendimento + ", numeroAutorizacao=" + numeroAutorizacao + ", origemProcedimento=" + origemProcedimento + ", prdMvm=" + competenciaMovimento + ", prdFlpa=" + prdFlpa + ", prdFlcbo=" + prdFlcbo + ", prdFlca=" + prdFlca + ", prdFlida=" + prdFlida + ", prdFlqt=" + prdFlqt + ", prdFler=" + prdFler + ", prdFlmun=" + prdFlmun + ", prdFlcid=" + prdFlcid + ", racaPaciente=" + racaPaciente + ", etniaPaciente=" + etniaPaciente + ", nacionalidadePaciente=" + nacionalidadePaciente + ", prdAdvqt=" + prdAdvqt + ", codigoServico=" + codigoServico + ", codigoClassificacaoServico=" + codigoClassificacaoServico + ", equipe=" + equipe + ", enviado=" + enviado + ", atualizado=" + atualizado + '}';
     }
 
     
