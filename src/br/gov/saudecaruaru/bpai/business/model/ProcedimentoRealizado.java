@@ -245,7 +245,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.prdFlmun=procedimentoRealizado.getPrdFlmun();
         this.prdFlpa=procedimentoRealizado.getPrdFlpa();
         this.prdFlqt=procedimentoRealizado.getPrdFlqt();
-        this.competenciaMovimento=procedimentoRealizado.getPrdMvm();
+        this.competenciaMovimento=procedimentoRealizado.getCompetenciaMovimento();
         this.quantidadeRealizada=procedimentoRealizado.getQuantidadeRealizada();
         this.sexoPaciente=procedimentoRealizado.getSexoPaciente();
         this.racaPaciente=procedimentoRealizado.getRacaPaciente();
