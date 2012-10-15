@@ -13,9 +13,7 @@ import java.awt.Color;
 import java.awt.Component;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.text.JTextComponent;
 
 /**
  *
