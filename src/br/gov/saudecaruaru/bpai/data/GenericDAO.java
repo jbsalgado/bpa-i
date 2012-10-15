@@ -46,11 +46,11 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             tr.begin();
             session.save(entity);
             tr.commit();
-            this.logger.info("=> Método save executado com sucesso. Objeto: "+entity);
         } catch (Throwable t) {
-            t.printStackTrace();
             tr.rollback();
             this.logger.error("=> Erro ao tentar executar o método save. Objeto: "+entity);
+            this.logger.error(t.getMessage());
+            t.printStackTrace();
         } finally {
             session.close();
         }
@@ -73,11 +73,11 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
                 entity.set(i, obj);
             }
             tr.commit();
-            this.logger.info("=> Método save [list] executado com sucesso. Tamanho da lista: "+entity.size());
         } catch (Throwable t) {
-            t.printStackTrace();
             tr.rollback();
             this.logger.error("=> Erro ao tentar executar o método save [list]. Tamanho da lista: "+entity.size());
+            this.logger.error(t.getMessage());
+            t.printStackTrace();
         } finally {
             session.close();
             return entity;
@@ -94,11 +94,11 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             session.flush();
             session.clear();
             tr.commit();
-            this.logger.info("=> Método merge executado com sucesso. Objeto: "+entity);
         } catch (Throwable t) {
-            t.printStackTrace();
             tr.rollback();
-            this.logger.error("=> Erro ao tentar executar o método merge. Objeto: "+entity);
+            this.logger.error("Erro ao tentar executar o método merge. Objeto: "+entity);
+            this.logger.error(t.getMessage());
+            t.printStackTrace();
         } finally {
             session.close();
             return entity;
@@ -123,11 +123,11 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             }
             t.commit();
             
-            this.logger.info("=> Método merge [list] executado com sucesso. Tamanho da lista: "+entity.size());
         } catch (Throwable tr) {
-            tr.printStackTrace();
             t.rollback();
-            this.logger.error("=> Erro ao tentar executar o método merge [list]. Tamanho da lista: "+entity.size());
+            this.logger.error("Erro ao tentar executar o método merge [list]. Tamanho da lista: "+entity.size());
+            this.logger.error(tr.getMessage());
+            tr.printStackTrace();
         } finally {
             session.close();
             return entity;
@@ -145,11 +145,11 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             session.flush();
             session.clear();
             t.commit();
-            this.logger.info("=> Método update executado com sucesso. Objeto: "+entity);
         } catch (Throwable tr) {
-            tr.printStackTrace();
             t.rollback();
-            this.logger.error("=> Erro ao tentar executar o método update. Objeto: "+entity);
+            this.logger.error("Erro ao tentar executar o método update. Objeto: "+entity);
+            this.logger.error(tr.getMessage());
+            tr.printStackTrace();
         } finally {
             session.close();
         }
@@ -164,11 +164,11 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             t.begin();
             session.delete(entity);
             t.commit();
-            this.logger.info("=> Método remove executado com sucesso. Objeto: "+entity);
         } catch (Throwable tr) {
-            tr.printStackTrace();
             t.rollback();
-            this.logger.error("=> Erro ao tentar executar o método remove. Objeto: "+entity);
+            this.logger.error("Erro ao tentar executar o método remove. Objeto: "+entity);
+            this.logger.error(tr.getMessage());
+            tr.printStackTrace();
         } finally {
             session.close();
         }
@@ -181,8 +181,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
         try{
             l= session.createCriteria(persistentClass).list();
         }catch(Exception ex){
+            this.logger.error("Erro ao tentar executar o método findAll.");
+            this.logger.error(ex.getMessage());
             ex.printStackTrace();
-            this.logger.error("=> Erro ao tentar executar o método findAll.");
         }
         finally{
             session.close();
@@ -207,8 +208,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             session.clear();
             l=c.list();
         }catch(Exception ex){
+            this.logger.error("Erro ao tentar executar o método findAllEqual [serializable].");
+            this.logger.error(ex.getMessage());
             ex.printStackTrace();
-            this.logger.error("=> Erro ao tentar executar o método findAllEqual [serializable].");
         }
         finally{
             session.close();
@@ -231,8 +233,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             }
             l=c.list();
         }catch(Exception ex){
+            this.logger.error("Erro ao tentar executar o método findAllEqual [map<string,object>]");
+            this.logger.error(ex.getMessage());
             ex.printStackTrace();
-            this.logger.error("=> Erro ao tentar executar o método findAllEqual [map<string,object>]");
         }
         finally{
            session.close();
@@ -255,8 +258,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             }
             l = c.list();
         }catch(Exception ex){
+            this.logger.error("Erro ao tentar executar o método findAllLike [map<string, object>]");
+            this.logger.error(ex.getMessage());
             ex.printStackTrace();
-            this.logger.error("=> Erro ao tentar executar o método findAllLike [map<string, object>]");
         }
         finally{
             session.close();
@@ -279,8 +283,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             }
             t=(T) c.uniqueResult();
         }catch(Exception ex){
+            this.logger.error("Erro ao tentar executar o método findEqual [map<string,object>].");
+            this.logger.error(ex.getMessage());
             ex.printStackTrace();
-            this.logger.error("=> Erro ao tentar executar o método findEqual [map<string,object>].");
         }
         finally{
             session.close();
@@ -305,12 +310,56 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             }
              t=(T) c.uniqueResult();
         }catch(Exception ex){
+            this.logger.error("Erro ao tentar executar o método findEqual [object].");
+            this.logger.error(ex.getMessage());
             ex.printStackTrace();
-            this.logger.error("=> Erro ao tentar executar o método findEqual [object].");
         }
         finally{
             session.close();
             return t;
+        }
+    }
+
+    @Override
+    public List<T> findAllEqual(Map<String, Object> restrictions, int firstResult, int maxResult) {
+        Session session=this.getSession();
+        List<T> list=null;
+        try{
+            Criteria c =session.createCriteria(this.getClass());
+            for(String key: restrictions.keySet()){
+                c.add(Restrictions.eq(key, restrictions.get(key)));
+            }
+            c.setFirstResult(firstResult);
+            c.setMaxResults(maxResult);
+            list=c.list();
+        }catch(Exception ex){
+            this.logger.error("Erro ao tentar executar o método findAllEqual [Map<String, Object>, int, int].");
+            this.logger.error(ex.getMessage());
+            ex.printStackTrace();
+        }finally{
+         return list;
+        }
+    }
+
+    @Override
+    public List<T> findAllEqual(Serializable objeto, int firstResult, int maxResult) {
+        Session session=this.getSession();
+        List<T> list=null;
+        try{
+            Criteria c =session.createCriteria(this.getClass());
+            Map<String, Object> restrictions=ModelUtil.getRestrictions(objeto);
+            for(String key: restrictions.keySet()){
+                c.add(Restrictions.eq(key, restrictions.get(key)));
+            }
+            c.setFirstResult(firstResult);
+            c.setMaxResults(maxResult);
+            list=c.list();
+        }catch(Exception ex){
+            this.logger.error("Erro ao tentar executar o método findAllEqual [Seriazable, int, int].");
+            this.logger.error(ex.getMessage());
+            ex.printStackTrace();
+        }finally{
+         return list;
         }
     }
 
