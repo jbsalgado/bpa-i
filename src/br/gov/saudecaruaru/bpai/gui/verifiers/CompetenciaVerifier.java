@@ -4,21 +4,14 @@
  */
 package br.gov.saudecaruaru.bpai.gui.verifiers;
 
-import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
 import br.gov.saudecaruaru.bpai.business.controller.GestorCompetenciaController;
-import br.gov.saudecaruaru.bpai.business.model.Diversas;
-import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
-import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.validators.ProcedimentoRealizadoValidator;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
 import java.awt.Color;
 import java.awt.Component;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
@@ -29,7 +22,6 @@ import javax.swing.text.JTextComponent;
 public class CompetenciaVerifier extends InputVerifier{
     private String fieldName; 
     private Component component;
-    private GestorCompetenciaController gestorCompetenciaController;
     private JTextField textFieldMes;
     private TelaCadastroI t;
     private ProcedimentoRealizadoValidator prv;
@@ -38,9 +30,7 @@ public class CompetenciaVerifier extends InputVerifier{
         this.component = component;
         this.textFieldMes = textFieldMes;
         this.t=t;
-        //gestorCompetenciaController = new GestorCompetenciaController(); 
         prv = new ProcedimentoRealizadoValidator(t.getProcedimentoRealizado());
-        
     }
     
     
@@ -59,23 +49,9 @@ public class CompetenciaVerifier extends InputVerifier{
           MessagesErrors.erro(component,txtField,msg); 
           textFieldMes.requestFocus();
           return false;
-      }
-//      String competenciaAtual = gestorCompetenciaController.getCompetenciaAtual();
-//           
-//               
-//                    int dif = Integer.parseInt(competenciaAtual)-Integer.parseInt(competencia);
-//                    //é permitido até 4 meses do mes atual 
-//                     // (implementar posteriormente a diferenca entre objetos DATE)
-//                    if(dif>4 || dif<0){  
-//                        JOptionPane.showMessageDialog(this.component, " COMPETÊNCIA INVÁLIDA!", 
-//                        "Erro de validação!", JOptionPane.ERROR_MESSAGE);
-//                        textFieldMes.requestFocus();
-//                        return false;
-//                    }
-                
-                
-                txtField.setBackground(Color.WHITE);
-                return true;
-       }
+      }                
+      txtField.setBackground(Color.WHITE);
+      return true;
+ }
     
 }

@@ -10,7 +10,6 @@ import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoController;
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
-import br.gov.saudecaruaru.bpai.util.DateUtil;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.List;
@@ -18,7 +17,6 @@ import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.text.JTextComponent;
 
 /**
  *
@@ -70,10 +68,8 @@ public class ProcedimentoVerifier extends InputVerifier{
       
       
        if(valor.trim().isEmpty() || valor.trim().length()<10){
-          JOptionPane.showMessageDialog(this.component,"PROCEDIMENTO INVÁLIDO!"
-                                        ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
-                                txtField.setBackground(Color.RED); 
-                                return  false;
+          MessagesErrors.erro(component,txtField,"PROCEDIMENTO INVÁLIDO!");
+          return  false;
       
       }
        
@@ -97,10 +93,7 @@ public class ProcedimentoVerifier extends InputVerifier{
       procedimentosSearchead = list.isEmpty() ? null : list.get(0);
                 //verifica se o procedimento existe
                 if (procedimentosSearchead==null) {  
-                    
-                   JOptionPane.showMessageDialog(this.component,"PROCEDIMENTO NÃO ENCONTRADO!"
-                                        ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
-                                txtField.setBackground(Color.RED); 
+                   MessagesErrors.erro(component,txtField,"PROCEDIMENTO NÃO ENCONTRADO!");
                    return false;
                                 //return  MessagesErrors.exibeTelaContinuaErro(component, fieldName, "nao encontrado");
                  
@@ -122,10 +115,8 @@ public class ProcedimentoVerifier extends InputVerifier{
                         
                         // verifica se o procedimento é compativel com o CBO
                         if(!temProcedimentoECbo(valor.substring(0, 9),proRealizado.getProcedimentoRealizadoPK().getCboMedico())){
-                                        JOptionPane.showMessageDialog(this.component,"PROCED. INCOMPATIVEL COM CBO!", 
-                                        "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                                        txtField.setBackground(Color.RED);
-                                            return false;
+                                        MessagesErrors.erro(component,txtField,"PROCED. INCOMPATIVEL COM CBO!");
+                                        return false;
                         }
                         //verifica se o procedimento exige sexo
                         if(procedimentosSearchead.exigeSexo()){

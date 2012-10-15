@@ -9,6 +9,7 @@ import br.gov.saudecaruaru.bpai.business.controller.MunicipioController;
 import br.gov.saudecaruaru.bpai.business.model.Municipio;
 import br.gov.saudecaruaru.bpai.business.model.MunicipioPK;
 import br.gov.saudecaruaru.bpai.gui.CadastroIndividualizado;
+import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.InputVerifier;
@@ -61,15 +62,13 @@ public class MunicipioVerifier extends InputVerifier{
         municipioSearchead = municipioController.findEqual(municipio);
       }
         //faz a busca pelo Codigo do municipio digitado, se nao encontra notifica ao usuário
-        if (municipioSearchead==null) {  
-               JOptionPane.showMessageDialog(this.component,fieldName + " INCORRETO!", 
-                                            "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                                            txtField.setBackground(Color.RED);
+        if (municipioSearchead==null) { 
+            MessagesErrors.erro(component,txtField,fieldName + " INCORRETO!"); 
             return false;
         }
         CadastroIndividualizado.MAP_MUNICIPIO.put(municipioSearchead.getMunicipioPK(), municipioSearchead);
-          txtField.setBackground(Color.WHITE);
-          municNome.setText(municipioSearchead.getNome());
+        txtField.setBackground(Color.WHITE);
+        municNome.setText(municipioSearchead.getNome());
         return true;
        }
     

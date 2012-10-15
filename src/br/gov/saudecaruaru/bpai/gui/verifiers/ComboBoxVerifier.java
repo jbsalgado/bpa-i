@@ -7,12 +7,9 @@ package br.gov.saudecaruaru.bpai.gui.verifiers;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import java.awt.Color;
 import java.awt.Component;
-import java.lang.reflect.Field;
 import javax.swing.InputVerifier;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 /**
  *

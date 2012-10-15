@@ -47,6 +47,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      public static HashMap<Object, Diversas> MAP_DIVERSAS= new HashMap<Object, Diversas>();
      public static HashMap<Object, Paciente> MAP_PACIENTE= new HashMap<Object, Paciente>();
      public static HashMap<Object, Municipio> MAP_MUNICIPIO= new HashMap<Object, Municipio>();
+     public static List<String> ARRAY_CBO= new ArrayList<String>();
      
      private Diversas diversas;
      private DiversasPK diversasPk;
@@ -351,10 +352,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldCnes.setInputVerifier(new CnesVerifier(this, "CNES"));
         jTextFieldProcQuant.setInputVerifier(new OnlyNumbers(this,"Quantidade"));
         jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this,"CNS"));
-        jTextFieldCBO.setInputVerifier(new CBOVerifier(this, "CBO"));
+        jTextFieldCBO.setInputVerifier(new CBOVerifier(this, "CBO",this));
         jTextFieldUsuarioCodNac.setInputVerifier(new NacionalidadeVerifier(this, "Nacionalidade",jTextFieldUsuarioNomeNac));
         jTextFieldUsuarioCodMunicip.setInputVerifier(new MunicipioVerifier(this,"Municipio",jTextFieldUsuarioNomeMunicip));
-        jTextFieldUsuarioCodEtnia.setInputVerifier(new EtniaVerifier(this,"Etnia", jTextFieldUsuarioDescEtnia,this));
+        jTextFieldUsuarioCodEtnia.setInputVerifier(new EtniaVerifier(this,"Etnia", jTextFieldUsuarioDescEtnia));
         jTextFieldProcCod.setInputVerifier(new ProcedimentoVerifier(this, "Procedimento", jTextFieldProcDescricao,this));
         jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,this));
         jComboBoxProcCaraterAtend.setInputVerifier(new CaraterAtendVerifier(this,"Caráter de Atendimento"));
