@@ -557,7 +557,10 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     }
 
     public void setIdadePaciente(String idadePaciente) {
-        this.idadePaciente = idadePaciente;
+        if(idadePaciente==null){
+            this.idadePaciente ="0";
+        }else
+            this.idadePaciente = idadePaciente;
     }
 
     public String getNacionalidadePaciente() {

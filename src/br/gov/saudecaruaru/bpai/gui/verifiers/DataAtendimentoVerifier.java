@@ -50,6 +50,12 @@ public class DataAtendimentoVerifier extends InputVerifier{
        
        String valor = txtField.getText();
        
+       
+//       if(proRealizado.getDataNascimentoPaciente()==null){
+//           MessagesErrors.erro(component,txtField,"Preencha a data de nascimento!"); 
+//           txtField.setBackground(Color.WHITE);
+//           return true;
+//       }
        //VALIDA O FORMATO DA DATA
        if(!DateUtil.isValidBrDate(valor)){
            MessagesErrors.erro(component,txtField,fieldName+" INCORRETO!"
@@ -58,7 +64,7 @@ public class DataAtendimentoVerifier extends InputVerifier{
        }
        
      
-       String valorDtNas = proRealizado.getDataNascimentoPaciente();
+       
        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
       
       try{
@@ -73,15 +79,21 @@ public class DataAtendimentoVerifier extends InputVerifier{
       
        Date competencia = DateUtil.parserStringToDate("yyyyMM", proRealizado.getProcedimentoRealizadoPK().getCompetencia());
        Date dataAtendMesAno = DateUtil.parserStringToDate("MM/yyyy", valor.substring(3));
-       Date dataNasc = DateUtil.parserStringToDate("yyyyMMdd", valorDtNas);
+       
        
        if(dataAtend.before(dataInicio)){
            MessagesErrors.erro(component,txtField,fieldName+" DEVE SER MAIOR QUE "+DataAtendimentoVerifier.DATA_INICIO
                    +"!" );  
            return false;
-       }else if(dataAtend.before(dataNasc)){
-           MessagesErrors.erro(component,txtField," DATA DE NASCIMENTO MAIOR QUE A DATA DE ATENDIMENTO!");
-           return false;
+       }
+       
+       if(proRealizado.getDataNascimentoPaciente()!=null){
+            String valorDtNas = proRealizado.getDataNascimentoPaciente();
+            Date dataNasc = DateUtil.parserStringToDate("yyyyMMdd", valorDtNas);
+            if(dataAtend.before(dataNasc)){
+                MessagesErrors.erro(component,txtField," DATA DE NASCIMENTO MAIOR QUE A DATA DE ATENDIMENTO!");
+                return false;
+            }
        }
        txtField.setBackground(Color.WHITE);
       

@@ -1925,8 +1925,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-               //se o próximo componente for um jtextfield 
-               if(e.getOppositeComponent() instanceof JTextField){
+               //se o próximo componente for um Component
+               if(e.getOppositeComponent() instanceof Component){
                    String folha = jTextFieldFolha.getText();
                    if(!folha.equals("")){
                         //completa com zeros caso precise
@@ -2125,7 +2125,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void focusGained(FocusEvent e) {
 //               if(jTextFieldUsarioDatNasc.getText().equals("  /  /    ")){
+//                   jTextFieldProcDataAtend.setVerifyInputWhenFocusTarget(true);
 //                   jTextFieldUsarioDatNasc.requestFocus();
+//                   jTextFieldProcDataAtend.setVerifyInputWhenFocusTarget(true);
 //               }
                    
             }
@@ -2139,10 +2141,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         //converte a data para o formato YYYYMMdd    
                         dataAtend = DateUtil.parseToYearMonthDay(dataAtend);
                         //caso as data sejam diferentes vai executar e o formato do conteudo do campo for válido
-                        if(!dataAtend.equals(CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()) &&
-                            jTextFieldProcDataAtend.getInputVerifier().shouldYieldFocus(jTextFieldProcDataAtend)){
-                   
+                        if(!dataAtend.equals(CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()) 
+                               // && jTextFieldProcDataAtend.getInputVerifier().shouldYieldFocus(jTextFieldProcDataAtend)
+                                ){
                             CadastroIndividualizado.this.procedimentoRealizado.setDataAtendimento(dataAtend);   
+                            
+                           
                 }
                    
                    } 
@@ -2160,16 +2164,20 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     if(CadastroIndividualizado.this.procedimentoRealizado.getDataNascimentoPaciente()!=null && CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()!=null){
                         String dataNasc = CadastroIndividualizado.this.jTextFieldUsarioDatNasc.getText();
                         String dataAtend = CadastroIndividualizado.this.jTextFieldProcDataAtend.getText();
+                       
+                        
                         //se alguma data for diferente da que está persistida no objeto
                         if(!dataNasc.equals(CadastroIndividualizado.this.procedimentoRealizado.getDataNascimentoPaciente()) || !dataAtend.equals(CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento())){
+                             
                             //obtem a idade do paciente
                             String age = String.valueOf(DateUtil.getAge(CadastroIndividualizado.this.procedimentoRealizado.getDataNascimentoPaciente(),CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()));
                             //seta no modelo
                             CadastroIndividualizado.this.procedimentoRealizado.setIdadePaciente(age);
                             //se o campo procedimento estiver vazio zera os campos quantidade e CID
                             //porque estes dependem do codigo do procedimento
-                           
+                            
                         }
+                         
                     }
                 }
                 //textFieldVerifier(listFieldsDates);
@@ -2453,6 +2461,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             //seta competencia movimento
             procedimentoRealizado.setCompetenciaMovimento(competencia);
         }
+        
+         //obtem a idade do paciente
+         String age = String.valueOf(DateUtil.getAge(CadastroIndividualizado.this.procedimentoRealizado.getDataNascimentoPaciente(),CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()));
+         //seta no modelo
+         CadastroIndividualizado.this.procedimentoRealizado.setIdadePaciente(age);
       }
       
       /**

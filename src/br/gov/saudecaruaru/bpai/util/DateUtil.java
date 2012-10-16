@@ -60,7 +60,7 @@ public class DateUtil {
             return getAge(dateNasc,date);
        }catch(ParseException e){
         e.printStackTrace();
-        return 0;
+        return -1;
        }
         
      }
