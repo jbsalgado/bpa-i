@@ -13,9 +13,7 @@ import java.awt.Color;
 import java.awt.Component;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.text.JTextComponent;
 
 /**
  *
@@ -59,10 +57,8 @@ public class EtniaVerifier extends InputVerifier{
       }
                 
         if (diversasEtniaSearchead==null) {  
-            JOptionPane.showMessageDialog(this.component,fieldName+" INCORRETO!", 
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                txtField.setBackground(Color.RED);
-                    return false;
+            MessagesErrors.erro(component,txtField,fieldName+" INCORRETO!");  
+            return false;
             
         }
         //guarda a busca no banco de dados

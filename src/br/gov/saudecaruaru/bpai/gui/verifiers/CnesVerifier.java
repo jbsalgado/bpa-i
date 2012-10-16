@@ -4,11 +4,11 @@
  */
 package br.gov.saudecaruaru.bpai.gui.verifiers;
 
+import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
@@ -32,9 +32,7 @@ public class CnesVerifier extends InputVerifier {
       
        
           if(!validaCnes(valor)){
-            JOptionPane.showMessageDialog(this.component,fieldName + " INCORRETO!",   
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE);
-            txtField.setBackground(Color.RED);
+            MessagesErrors.erro(component,txtField,fieldName + " INCORRETO!");  
             return false;  
          
           }

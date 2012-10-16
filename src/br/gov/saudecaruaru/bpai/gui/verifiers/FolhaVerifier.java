@@ -4,10 +4,10 @@
  */
 package br.gov.saudecaruaru.bpai.gui.verifiers;
 
+import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -26,17 +26,14 @@ public class FolhaVerifier extends CnsVerifier{
 
         @Override
             public boolean verify(JComponent input) {
-                JTextField textField = (JTextField) input;
-                String valor = textField.getText().trim();
+                JTextField txtField = (JTextField) input;
+                String valor = txtField.getText().trim();
                 if (valor.equals("000") || valor.isEmpty()) {  
-                      JOptionPane.showMessageDialog(component," Folha Inválida!",   
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                //seta cor vermelha
-                textField.setBackground(Color.RED);  
+                     MessagesErrors.erro(component,txtField," Folha Inválida!");  
                 return false;  
                 } 
                 //seta cor branca
-                textField.setBackground(Color.WHITE); 
+                txtField.setBackground(Color.WHITE); 
                 return true;
             }
 }

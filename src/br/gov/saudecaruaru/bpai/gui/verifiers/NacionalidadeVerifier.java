@@ -7,13 +7,12 @@ package br.gov.saudecaruaru.bpai.gui.verifiers;
 import br.gov.saudecaruaru.bpai.business.controller.DiversasController;
 import br.gov.saudecaruaru.bpai.business.model.Diversas;
 import br.gov.saudecaruaru.bpai.business.model.DiversasPK;
-import br.gov.saudecaruaru.bpai.business.model.Municipio;
 import br.gov.saudecaruaru.bpai.gui.CadastroIndividualizado;
+import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
@@ -60,15 +59,13 @@ public class NacionalidadeVerifier extends InputVerifier{
       }
                 
       if (diversasNacioSearchead==null) {  
-                       JOptionPane.showMessageDialog(this.component,fieldName + " INCORRETO!", 
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                txtField.setBackground(Color.RED);
-                    return false;
+          MessagesErrors.erro(component,txtField,fieldName + " INCORRETO!");
+          return false;
        }
       CadastroIndividualizado.MAP_DIVERSAS.put(diversasNacioSearchead.getDiversasPK(), diversasNacioSearchead);
       txtField.setBackground(Color.WHITE);
-       nacioNome.setText(diversasNacioSearchead.getDescricaoItemTabela());
-       return true;
-       }
+      nacioNome.setText(diversasNacioSearchead.getDescricaoItemTabela());
+      return true;
+   }
     
 }

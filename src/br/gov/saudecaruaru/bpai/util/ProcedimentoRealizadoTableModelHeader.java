@@ -20,6 +20,7 @@ public class ProcedimentoRealizadoTableModelHeader extends AbstractProcedimentoR
         this.setColumns(columns);
     }
 
+   
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         ProcedimentoRealizado p=this.getList().get(rowIndex);

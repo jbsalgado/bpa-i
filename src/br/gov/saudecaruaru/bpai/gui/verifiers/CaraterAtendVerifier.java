@@ -4,11 +4,12 @@
  */
 package br.gov.saudecaruaru.bpai.gui.verifiers;
 
-import br.gov.saudecaruaru.bpai.business.model.CaraterAtendimento;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import java.awt.Color;
 import java.awt.Component;
-import javax.swing.*;
+import javax.swing.InputVerifier;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 
 /**
  *
@@ -24,15 +25,13 @@ public class CaraterAtendVerifier extends InputVerifier{
     }
    
     
-
-    
     @Override
     public boolean verify(JComponent input) {
         JComboBox comboBoxField = (JComboBox) input;
         int index = comboBoxField.getSelectedIndex();
         if(index==0){
-              comboBoxField.setBackground(Color.RED);
-             return  MessagesErrors.exibeTelaContinuaErro(component, fieldName,"INVÁLIDO!");
+             MessagesErrors.erro(component,comboBoxField,"INVÁLIDO!");
+             return false;
         }
          comboBoxField.setBackground(Color.GRAY);
         return true;

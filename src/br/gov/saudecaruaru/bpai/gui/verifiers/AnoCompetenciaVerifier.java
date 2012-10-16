@@ -5,13 +5,13 @@
 package br.gov.saudecaruaru.bpai.gui.verifiers;
 
 
+import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -27,8 +27,6 @@ public class AnoCompetenciaVerifier extends InputVerifier{
         this.component = component;
     }
     
-    
-
     @Override
     public boolean verify(JComponent input) {
        JTextField txtField = (JTextField) input;
@@ -37,20 +35,17 @@ public class AnoCompetenciaVerifier extends InputVerifier{
        Pattern p = Pattern.compile("[0-9][0-9][0-9][0-9]"); 
        Matcher m = p.matcher(valor);
        if(valor.trim().isEmpty()){
-           JOptionPane.showMessageDialog(this.component,fieldName+" INVALIDO!","Erro de validação!", JOptionPane.ERROR_MESSAGE);
-           txtField.setBackground(Color.RED);    
+           MessagesErrors.erro(component,txtField,fieldName+" INVALIDO!");    
            return false;
        }
        if(!m.find()){
-           JOptionPane.showMessageDialog(this.component,fieldName+" INVALIDO!","Erro de validação!", JOptionPane.ERROR_MESSAGE);
-           txtField.setBackground(Color.RED);    
+           MessagesErrors.erro(component,txtField,fieldName+" INVALIDO!");  
            return false;
        }
        
        if(Integer.parseInt(valor)<2007){
-           JOptionPane.showMessageDialog(this.component,fieldName+" INVALIDO!\n"
-                   + "NÃO PERMITIDO VALORES ANTERIORES A 2007","Erro de validação!", JOptionPane.ERROR_MESSAGE);
-           txtField.setBackground(Color.RED);    
+           MessagesErrors.erro(component,txtField,fieldName+" INVALIDO!\n"
+                   + "NÃO PERMITIDO VALORES ANTERIORES A 2007");
            return false;
        }
        txtField.setBackground(Color.WHITE);

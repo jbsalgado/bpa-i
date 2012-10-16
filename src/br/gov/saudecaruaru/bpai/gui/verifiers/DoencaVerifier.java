@@ -71,32 +71,26 @@ public class DoencaVerifier extends InputVerifier{
                     txtField.setBackground(Color.WHITE);  
                     return true;
                 }else {
-                        JOptionPane.showMessageDialog(this.component," PROCED. EXIGE CID!", 
-                "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                txtField.setBackground(Color.RED);
+                    MessagesErrors.erro(component,txtField," PROCED. EXIGE CID!");
                     return false;
                 }
              }
                
                 //faz a busca pelo Codigo do municipio digitado, se nao encontra notifica ao usuário
                 if (doencaSearchead==null) { 
-                        JOptionPane.showMessageDialog(this.component,fieldName+ " NÃO CADASTRADO!", 
-                        "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                        txtField.setBackground(Color.RED);
+                        MessagesErrors.erro(component,txtField,fieldName+ " NÃO CADASTRADO!");
                         return false;
                        
                 }else{
                     
                     if(doencaSearchead.getSubcategoria()=='N'){
-                            JOptionPane.showMessageDialog(this.component,fieldName+ "  NÃO PERTENCA A UMA SUBCATEGORIA!!", 
-                            "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                            txtField.setBackground(Color.RED);
+                            MessagesErrors.erro(component,txtField,fieldName+ "  NÃO PERTENCA A UMA SUBCATEGORIA!");
                             return false;
                        
                     }
 
                     if(!procedimentoDoencaController.existProcedimentoEDoenca(valor, codigoProc,procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia())){
-                        return  MessagesErrors.exibeTelaContinuaErro(component,fieldName," PROCED. INCOMPATIVEL COM CID!", txtField);
+                        return  MessagesErrors.continuaErro(component,fieldName," PROCED. INCOMPATIVEL COM CID!", txtField);
                     }
                     
                     doencaNome.setText(doencaSearchead.getDescricao());

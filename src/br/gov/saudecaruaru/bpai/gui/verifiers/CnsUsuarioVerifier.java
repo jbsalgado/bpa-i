@@ -5,11 +5,10 @@
 package br.gov.saudecaruaru.bpai.gui.verifiers;
 
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
+import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
-import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -35,9 +34,7 @@ public class CnsUsuarioVerifier extends CnsVerifier{
              if(!valor.isEmpty() && proRealizado.getProcedimentoRealizadoPK().getCnsMedico()!=null ){
                  
                  if(valor.equals(proRealizado.getProcedimentoRealizadoPK().getCnsMedico())){
-                      JOptionPane.showMessageDialog(this.component," CNS do Usuário é igual ao CNS do profissional!", 
-                    "Erro de validação!", JOptionPane.ERROR_MESSAGE); 
-                    txtField.setBackground(Color.RED);
+                    MessagesErrors.erro(component,txtField," CNS do Usuário é igual ao CNS do profissional!");    
                     return false;
                  }
                 return super.verify(input);

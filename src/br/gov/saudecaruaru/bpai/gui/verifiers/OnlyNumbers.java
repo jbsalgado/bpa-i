@@ -5,13 +5,13 @@
 package br.gov.saudecaruaru.bpai.gui.verifiers;
 
 
+import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -37,9 +37,8 @@ public class OnlyNumbers extends InputVerifier{
        Pattern p = Pattern.compile("^[0-9]+$"); 
        Matcher m = p.matcher(valor);
        if(!m.find()){
-           JOptionPane.showMessageDialog(this.component,fieldName+" INCORRETO!"
-                   +"\n USE SOMENTE NÚMEROS","Erro de validação!", JOptionPane.ERROR_MESSAGE);
-         txtField.setBackground(Color.RED);    
+           MessagesErrors.erro(component,txtField,fieldName+" INCORRETO!"
+                   +"\n USE SOMENTE NÚMEROS"); 
            return false;
        }
        txtField.setBackground(Color.WHITE);
