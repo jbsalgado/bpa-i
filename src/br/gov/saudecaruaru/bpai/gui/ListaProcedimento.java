@@ -13,6 +13,7 @@ package br.gov.saudecaruaru.bpai.gui;
 import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.business.controller.GestorCompetenciaController;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
+import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizadoPK;
 import br.gov.saudecaruaru.bpai.business.model.GestorCompetencia;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelBody;
@@ -184,7 +185,9 @@ public class ListaProcedimento extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItemExportarBPA = new javax.swing.JMenuItem();
+        jMenuItemExportarXML = new javax.swing.JMenuItem();
+        jMenuItemExportarEnvio = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -210,7 +213,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableHeader);
 
-        jcomboBoxFiltro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jcomboBoxFiltro.setFont(new java.awt.Font("Tahoma", 0, 14));
         jcomboBoxFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CNS DO PROFISSIONAL", "CNES", "COMPETÊNCIA", "CBO", "PROFISSIONAL" }));
         jcomboBoxFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,16 +221,16 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel1.setText("Filtro de Pesquisa");
 
-        jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextFieldPesquisa.setToolTipText("");
 
-        jbtnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jbtnPesquisar.setText("Pesquisar");
 
-        jLabelTipoPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelTipoPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabelTipoPesquisa.setText("tipo");
 
         jTableBody.setModel(new javax.swing.table.DefaultTableModel(
@@ -243,7 +246,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTableBody);
 
-        jbtnIncluirFolha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtnIncluirFolha.setFont(new java.awt.Font("Tahoma", 0, 14));
         jbtnIncluirFolha.setText("Incluir folha");
         jbtnIncluirFolha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -251,7 +254,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jbtnSair.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtnSair.setFont(new java.awt.Font("Tahoma", 0, 14));
         jbtnSair.setText("Sair");
         jbtnSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -259,7 +262,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonAtualizar.setText("Atualizar");
         jButtonAtualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -277,18 +280,34 @@ public class ListaProcedimento extends javax.swing.JFrame {
 
         jMenu2.setText("Operações");
 
-        jMenuItem1.setText("Exportar para o BPA");
-        jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenuItemExportarBPA.setText("Exportar para o BPA");
+        jMenuItemExportarBPA.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuItem1MouseClicked(evt);
+                jMenuItemExportarBPAMouseClicked(evt);
             }
         });
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemExportarBPA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItemExportarBPAActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1);
+        jMenu2.add(jMenuItemExportarBPA);
+
+        jMenuItemExportarXML.setText("Exportar para XML procedimentos não enviados");
+        jMenuItemExportarXML.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItemExportarXMLMouseClicked(evt);
+            }
+        });
+        jMenuItemExportarXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExportarXMLActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemExportarXML);
+
+        jMenuItemExportarEnvio.setText("Exportar/Enviar procedimentos não enviados");
+        jMenu2.add(jMenuItemExportarEnvio);
 
         jMenuItem2.setText("Alterar Competência");
         jMenuItem2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -407,19 +426,21 @@ public class ListaProcedimento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTableHeaderMouseClicked
 
-    private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
+    private void jMenuItemExportarBPAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemExportarBPAMouseClicked
         // TODO add your handling code here:
-        Exportacao ex=new  Exportacao(this);
+        IExportacaoStrategy expo=new ExportacaoBPAMagnetico(new BIProcedimentoRealizado(new BIProcedimentoRealizadoPK()));
+        Exportacao ex=new  Exportacao(this,expo);
+        ex.setTitle("Exportação dos procedimentos para o banco do BPA Magnético.");
         ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         ex.setLocationRelativeTo(null);
         ex.setModal(true);
         ex.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1MouseClicked
+    }//GEN-LAST:event_jMenuItemExportarBPAMouseClicked
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItemExportarBPAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExportarBPAActionPerformed
         // TODO add your handling code here:
-        this.jMenuItem1MouseClicked(null);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+        this.jMenuItemExportarBPAMouseClicked(null);
+    }//GEN-LAST:event_jMenuItemExportarBPAActionPerformed
 
     private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
         // TODO add your handling code here:
@@ -445,6 +466,22 @@ public class ListaProcedimento extends javax.swing.JFrame {
             this.jMenuItem2MouseClicked(null);      
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItemExportarXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExportarXMLActionPerformed
+        // TODO add your handling code here:
+        this.jMenuItemExportarXMLMouseClicked(null);
+    }//GEN-LAST:event_jMenuItemExportarXMLActionPerformed
+
+    private void jMenuItemExportarXMLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemExportarXMLMouseClicked
+        // TODO add your handling code here:
+        IExportacaoStrategy expo=new ExportacaoXML("testando.xml", new BIProcedimentoRealizado(new BIProcedimentoRealizadoPK()));
+        Exportacao ex=new  Exportacao(this,expo);
+        ex.setTitle("Exportação para arquivo XML dos procedimentos não enviados para o servidor central.");
+        ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        ex.setLocationRelativeTo(null);
+        ex.setModal(true);
+        ex.setVisible(true);
+    }//GEN-LAST:event_jMenuItemExportarXMLMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtualizar;
     private javax.swing.JLabel jLabel1;
@@ -452,8 +489,10 @@ public class ListaProcedimento extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItemExportarBPA;
+    private javax.swing.JMenuItem jMenuItemExportarEnvio;
+    private javax.swing.JMenuItem jMenuItemExportarXML;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableBody;

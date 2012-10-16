@@ -69,6 +69,7 @@ public interface BasicDAO<T extends Serializable> {
      */
     public T findEqual(Map<String,Object> restrictions);
     
+    
     /**
      * Pega o objeto de acordo com sua chave primária
      * @param object - objeto contendo a chave primária settada
@@ -86,6 +87,8 @@ public interface BasicDAO<T extends Serializable> {
      */
     public List<T> findAllEqual(Map<String,Object> restrictions);
     
+    public List<T> findAllEqual(Map<String,Object> restrictions, int firstResult, int maxResult);
+    
     /**
      * Encontra todos os objetos que satisfaçam as condições, ou seja,
      * os atributos preenchidos no objeto passado como parãmetro serão as restrições.
@@ -96,6 +99,8 @@ public interface BasicDAO<T extends Serializable> {
      * @return List de objetos que satisfaçam as restrições
      */
     public List<T> findAllEqual(Serializable objeto);
+    
+    public List<T> findAllEqual(Serializable objeto, int firstResult, int maxResult);
     
     /**
      * Busca todos os objetos no banco de dados que satisfaçam as restrições.

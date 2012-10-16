@@ -77,5 +77,11 @@ public class BasecController < T extends Serializable>{
         this.dao = dao;
     }
     
+    public List<T> findAllEqual(Map<String,Object> restrictions, int firstResult, int maxResult){
+        return this.dao.findAllEqual(restrictions, firstResult, maxResult);
+    }
     
+    public List<T> findAllEqual(T objeto, int firstResult, int maxResult){
+        return this.dao.findAllEqual(objeto, firstResult, maxResult);
+    }
 }
