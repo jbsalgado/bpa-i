@@ -10,8 +10,7 @@
  */
 package br.gov.saudecaruaru.bpai.gui;
 
-import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
-import br.gov.saudecaruaru.bpai.data.ProcedimentoRealizadoDAO;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -20,12 +19,10 @@ import javax.swing.JOptionPane;
  */
 public class Exportacao extends javax.swing.JDialog {
     
-    private BIProcedimentoRealizadoController bIProcedimentoRealizadoController=new BIProcedimentoRealizadoController();
-    private ProcedimentoRealizadoDAO procedimentoRealizadoDAO= new ProcedimentoRealizadoDAO();
-    private String competencia;
+    private IExportacaoStrategy exportacao;
 
     /** Creates new form Exportacao */
-    public Exportacao(java.awt.Frame parent) {
+    public Exportacao(java.awt.Frame parent, IExportacaoStrategy exportacao) {
         super(parent);
         initComponents();
         this.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -35,6 +32,7 @@ public class Exportacao extends javax.swing.JDialog {
                         dispose();
                     }
                 });
+        this.exportacao=exportacao;
     }
 
     /** This method is called from within the constructor to
@@ -90,10 +88,9 @@ public class Exportacao extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.jProgressBar1.setIndeterminate(true);
         this.jButtonIniciar.setEnabled(false);
-        
-        this.bIProcedimentoRealizadoController.findAllProcedimentosIndividuaisAndSave(competencia, procedimentoRealizadoDAO, 100);
-        this.bIProcedimentoRealizadoController.findAllProcedimentosConsolidadosAndSave(competencia, procedimentoRealizadoDAO, 100);
-        JOptionPane.showMessageDialog(this, "Exportação concluída com sucesso!\nAbra o BPA Magnético para ver os resultados.");
+        String res=this.exportacao.execute();
+       
+        JOptionPane.showMessageDialog(this, res);
         this.jProgressBar1.setIndeterminate(false);
         this.jProgressBar1.setString(null);
         this.jProgressBar1.setValue(100);
@@ -102,46 +99,46 @@ public class Exportacao extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Exportacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Exportacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Exportacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Exportacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                Exportacao dialog = new Exportacao(new javax.swing.JFrame());
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Exportacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Exportacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Exportacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Exportacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//
+//            public void run() {
+//                Exportacao dialog = new Exportacao(new javax.swing.JFrame());
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonIniciar;
     private javax.swing.JProgressBar jProgressBar1;
