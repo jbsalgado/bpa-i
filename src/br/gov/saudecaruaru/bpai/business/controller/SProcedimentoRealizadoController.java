@@ -36,7 +36,7 @@ public class SProcedimentoRealizadoController {
     
     
     
-    public void enviarSProcedimentoRealizado(final SProcedimentoRealizado sProcedimentoRealizado, final SUsuarioDesktop sUsuarioDesktop){
+    public Thread enviarSProcedimentoRealizado(final SProcedimentoRealizado sProcedimentoRealizado, final SUsuarioDesktop sUsuarioDesktop){
         if(this.existeConnection()){
             Thread thread= new Thread(new Runnable() {
 
@@ -85,10 +85,12 @@ public class SProcedimentoRealizadoController {
 
             //inicia o envio do procedimento
             thread.start();
+            return thread;
         }
+        return null;
     }
     
-    public void enviarSProcedimentoRealizado(List<SProcedimentoRealizado> sProcedimentoRealizados, final SUsuarioDesktop sUsuarioDesktop){
+    public Thread enviarSProcedimentoRealizado(List<SProcedimentoRealizado> sProcedimentoRealizados, final SUsuarioDesktop sUsuarioDesktop){
         final SProcedimentoRealizado[] sProcedimentoRealizadoVect=sProcedimentoRealizados.toArray(new SProcedimentoRealizado[0]);
         
         if(this.existeConnection()){
@@ -151,10 +153,12 @@ public class SProcedimentoRealizadoController {
 
             //inicia o envio do procedimento
             thread.start();
+            return thread;
         }        
+        return null;
     }
     
-    public void enviarSProcedimentoRealizado(final SProcedimentoRealizado[] sProcedimentoRealizados, final SUsuarioDesktop sUsuarioDesktop){
+    public Thread enviarSProcedimentoRealizado(final SProcedimentoRealizado[] sProcedimentoRealizados, final SUsuarioDesktop sUsuarioDesktop){
         if(this.existeConnection()){
             Thread thread= new Thread(new Runnable() {
 
@@ -215,10 +219,12 @@ public class SProcedimentoRealizadoController {
 
             //inicia o envio do procedimento
             thread.start();
+            return thread;
         }
+        return null;
     }
     
-    public void atualizarSProcedimentoRealizado(final SProcedimentoRealizado sProcedimentoRealizado, final SUsuarioDesktop sUsuarioDesktop){
+    public Thread atualizarSProcedimentoRealizado(final SProcedimentoRealizado sProcedimentoRealizado, final SUsuarioDesktop sUsuarioDesktop){
         if(this.existeConnection()){
             Thread thread= new Thread(new Runnable() {
 
@@ -233,30 +239,28 @@ public class SProcedimentoRealizadoController {
                     
                     //vai tentar enviar
                     BIProcedimentoRealizado proc= new BIProcedimentoRealizado(sProcedimentoRealizado);
-                    System.out.println(proc);
-                    System.out.println(spr);
                     
                     try {
                         //se salvou com sucesso, vai atualizar no banco o estado
                         if(ser.atualizarProcedimentoRealizado(spr, sud)){
                             logger.error("Método atualizarSProcedimentoRealizado executado com sucesso!");
-                            proc.setEnviado(BIProcedimentoRealizado.ENVIADO);
                             proc.setAtualizado(BIProcedimentoRealizado.ATUALIZADO);
+                            proc.setEnviado(BIProcedimentoRealizado.ENVIADO);
                         }
                         //deu erro
                         else{
                             logger.error("Método atualizarSProcedimentoRealizado => Não foi possível enviar o procedimentoRealizado");
-                            proc.setEnviado(BIProcedimentoRealizado.NAO_ENVIADO);
                             proc.setAtualizado(BIProcedimentoRealizado.NAO_ATUALIZADO);
+                            proc.setEnviado(BIProcedimentoRealizado.ENVIADO);
                         }
                     } catch (RemoteException ex) {
                         logger.error("Método atualizarSProcedimentoRealizado => "+ex.getMessage());
-                        proc.setEnviado(BIProcedimentoRealizado.NAO_ENVIADO);
                         proc.setAtualizado(BIProcedimentoRealizado.NAO_ATUALIZADO);
+                        proc.setEnviado(BIProcedimentoRealizado.ENVIADO);
                     }catch(Exception e){
                         logger.error("Método atualizarSProcedimentoRealizado => "+e.getMessage());
-                        proc.setEnviado(BIProcedimentoRealizado.NAO_ENVIADO);
                         proc.setAtualizado(BIProcedimentoRealizado.NAO_ATUALIZADO);
+                        proc.setEnviado(BIProcedimentoRealizado.ENVIADO);
                     }
                     //muda o status do objeto para enviado
                     finally{
@@ -267,10 +271,12 @@ public class SProcedimentoRealizadoController {
 
             //inicia o envio do procedimento
             thread.start();
+            return thread;
         }
+        return null;
     }
     
-    public void atualizarSProcedimentoRealizado(List<SProcedimentoRealizado> sProcedimentoRealizados, final SUsuarioDesktop sUsuarioDesktop){
+    public Thread atualizarSProcedimentoRealizado(List<SProcedimentoRealizado> sProcedimentoRealizados, final SUsuarioDesktop sUsuarioDesktop){
         final SProcedimentoRealizado[] sProcedimentoRealizadoVect=sProcedimentoRealizados.toArray(new SProcedimentoRealizado[0]);
         
         if(this.existeConnection()){
@@ -295,8 +301,8 @@ public class SProcedimentoRealizadoController {
                             for(int i=0; i<vect.length; i++){
                                 logger.error("Método eatualizarSProcedimentoRealizado [list] => Não foi possível enviar o procedimentoRealizado =>"+vect[i]);
                                 BIProcedimentoRealizado proc= new BIProcedimentoRealizado(vect[i]);
-                                proc.setEnviado(BIProcedimentoRealizado.NAO_ENVIADO);
                                 proc.setAtualizado(BIProcedimentoRealizado.NAO_ATUALIZADO);
+                                proc.setEnviado(BIProcedimentoRealizado.ENVIADO);
                                 hashSet.add(proc);
                             }
                         }
@@ -305,8 +311,8 @@ public class SProcedimentoRealizadoController {
                         else{
                             for(int i=0; i<sProcedimentoRealizadoVect.length; i++){
                                 BIProcedimentoRealizado proc= new BIProcedimentoRealizado(sProcedimentoRealizadoVect[i]);
-                                proc.setEnviado(BIProcedimentoRealizado.ENVIADO);
                                 proc.setAtualizado(BIProcedimentoRealizado.ATUALIZADO);
+                                proc.setEnviado(BIProcedimentoRealizado.ENVIADO);
                                 hashSet.add(proc);
                             }
                         }
@@ -321,7 +327,7 @@ public class SProcedimentoRealizadoController {
                     finally{
                         for(int i=0; i<sProcedimentoRealizadoVect.length; i++){
                             BIProcedimentoRealizado proc= new BIProcedimentoRealizado(sProcedimentoRealizadoVect[i]);
-                            proc.setEnviado(BIProcedimentoRealizado.NAO_ENVIADO);
+                            proc.setEnviado(BIProcedimentoRealizado.ENVIADO);
                             proc.setAtualizado(BIProcedimentoRealizado.NAO_ATUALIZADO);
                             if(hashSet.add(proc)){
                                 logger.error("Método eatualizarSProcedimentoRealizado [list] => Não foi possível enviar o procedimentoRealizado =>"+proc);
@@ -334,10 +340,12 @@ public class SProcedimentoRealizadoController {
 
             //inicia o envio do procedimento
             thread.start();
+            return thread;
         }    
+        return null;
     }
     
-    public void atualizarSProcedimentoRealizado(final SProcedimentoRealizado[] sProcedimentoRealizados, final SUsuarioDesktop sUsuarioDesktop){
+    public Thread atualizarSProcedimentoRealizado(final SProcedimentoRealizado[] sProcedimentoRealizados, final SUsuarioDesktop sUsuarioDesktop){
         if(this.existeConnection()){
             Thread thread= new Thread(new Runnable() {
 
@@ -360,7 +368,7 @@ public class SProcedimentoRealizadoController {
                             for(int i=0; i<vect.length; i++){
                                 logger.error("Método atualizarSProcedimentoRealizado [SProcedimentoRealizado[]] => Não foi possível enviar o procedimentoRealizado => "+vect[i]);
                                 BIProcedimentoRealizado proc= new BIProcedimentoRealizado(vect[i]);
-                                proc.setEnviado(BIProcedimentoRealizado.NAO_ENVIADO);
+                                proc.setEnviado(BIProcedimentoRealizado.ENVIADO);
                                 proc.setAtualizado(BIProcedimentoRealizado.NAO_ATUALIZADO);
                                 hashSet.add(proc);
                             }
@@ -385,7 +393,7 @@ public class SProcedimentoRealizadoController {
                     finally{
                         for(int i=0; i<sProcedimentoRealizados.length; i++){
                                 BIProcedimentoRealizado proc= new BIProcedimentoRealizado(sProcedimentoRealizados[i]);
-                                proc.setEnviado(BIProcedimentoRealizado.NAO_ENVIADO);
+                                proc.setEnviado(BIProcedimentoRealizado.ENVIADO);
                                 proc.setAtualizado(BIProcedimentoRealizado.NAO_ATUALIZADO);
                                 if(hashSet.add(proc)){
                                     logger.error("Método atualizarSProcedimentoRealizado [SProcedimentoRealizado[]] => Não foi possível enviar o procedimentoRealizado => "+proc);
@@ -398,7 +406,9 @@ public class SProcedimentoRealizadoController {
 
             //inicia o envio do procedimento
             thread.start();
+            return thread;
         }
+        return null;
     }
     private boolean existeConnection(){
         return true;
