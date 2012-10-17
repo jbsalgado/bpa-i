@@ -4,36 +4,30 @@
  */
 package br.gov.saudecaruaru.bpai.gui;
 
-import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
-import br.gov.saudecaruaru.bpai.business.controller.SProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
-import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizadoPK;
-import br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Albuquerque
  */
-public class ExportacaoCentralEnvio extends ExportacaoCentral implements IExportacaoStrategy{
+public class ExportacaoCentralAtualizacao extends ExportacaoCentral implements IExportacaoStrategy {
     
     private String competencia;
 
-    public ExportacaoCentralEnvio(SUsuarioDesktop sUsuarioDesktop, String competencia) {
+    public ExportacaoCentralAtualizacao(String competencia, SUsuarioDesktop sUsuarioDesktop) {
         super(sUsuarioDesktop);
+        this.competencia = competencia;
     }
 
-    public ExportacaoCentralEnvio(String competencia, SUsuarioDesktop sUsuarioDesktop, int maxResult) {
+    public ExportacaoCentralAtualizacao(String competencia, SUsuarioDesktop sUsuarioDesktop, int maxResult) {
         super(sUsuarioDesktop, maxResult);
         this.competencia = competencia;
     }
-    
-    
+
     
     @Override
     public String execute() {
@@ -43,9 +37,6 @@ public class ExportacaoCentralEnvio extends ExportacaoCentral implements IExport
             restr.put("biProcedimentoRealizadoPK.competencia", this.competencia);
         }
         
-        restr.put("enviado", BIProcedimentoRealizado.NAO_ENVIADO);
-        threads.addAll( this.enviar(restr) );
-        restr.remove("enviado");
         restr.put("atualizado", BIProcedimentoRealizado.NAO_ATUALIZADO);
         threads.addAll(this.atualizar(restr));
 //        while(task >0){
@@ -68,6 +59,5 @@ public class ExportacaoCentralEnvio extends ExportacaoCentral implements IExport
 //        }
         return "Essa operação é executada em segundo plano.\nVocê pode continuar usando o programa.";
     }
-    
     
 }
