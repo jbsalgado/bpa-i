@@ -49,6 +49,16 @@ public class MunicipioVerifier extends InputVerifier{
       JTextComponent txtField = (JTextField) input; 
       Municipio municipioSearchead = null;
       String valor = txtField.getText();
+      
+      
+      if(valor.length()<6){
+            MessagesErrors.erro(component,txtField,fieldName + " INCORRETO!"); 
+            return false;
+      }
+      
+      
+      
+      
       //pega os dois primeiros digitos (que representam o Estado do municipio)
       String codUf=valor.substring(0, 2);
       //pega os quatro ultimos digitos (que representam o codigo do municipio)
