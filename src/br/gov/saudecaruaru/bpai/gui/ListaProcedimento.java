@@ -537,9 +537,9 @@ public class ListaProcedimento extends javax.swing.JFrame {
                 desk.setToken("324324");
                 desk.setUsuario_sistema("cesar");
         //============================================
-        IExportacaoStrategy expo=new ExportacaoCentralEnvio(desk, null);
+        IExportacaoStrategy expo=new ExportacaoCentralAtualizacao(null,desk);
         Exportacao ex=new  Exportacao(this,expo);
-        ex.setTitle("Envio dos procedimentos realizados para a base central.");
+        ex.setTitle("Envio dos procedimentos realizados (ainda não atualizados) para a base central.");
         ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         ex.setLocationRelativeTo(null);
         ex.setModal(true);
