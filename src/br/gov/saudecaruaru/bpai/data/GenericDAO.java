@@ -14,8 +14,10 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.MatchMode;
@@ -52,7 +54,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             this.logger.error(t.getMessage());
             t.printStackTrace();
         } finally {
-            session.close();
+            if(session != null){
+                session.close();
+            }
         }
     }
     
@@ -79,7 +83,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             this.logger.error(t.getMessage());
             t.printStackTrace();
         } finally {
-            session.close();
+            if(session != null){
+                session.close();
+            }
             return entity;
         }
     }
@@ -100,7 +106,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             this.logger.error(t.getMessage());
             t.printStackTrace();
         } finally {
-            session.close();
+            if(session != null){
+                session.close();
+            }
             return entity;
         }
     }
@@ -129,7 +137,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             this.logger.error(tr.getMessage());
             tr.printStackTrace();
         } finally {
-            session.close();
+            if(session != null){
+                session.close();
+            }
             return entity;
         }
     }
@@ -151,7 +161,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             this.logger.error(tr.getMessage());
             tr.printStackTrace();
         } finally {
-            session.close();
+            if(session != null){
+                session.close();
+            }
         }
 
     }
@@ -170,7 +182,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             this.logger.error(tr.getMessage());
             tr.printStackTrace();
         } finally {
-            session.close();
+            if(session != null){
+                session.close();
+            }
         }
     }
 
@@ -186,7 +200,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             ex.printStackTrace();
         }
         finally{
-            session.close();
+            if(session != null){
+                session.close();
+            }
             return l;
         }
     }
@@ -213,7 +229,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             ex.printStackTrace();
         }
         finally{
-            session.close();
+            if(session != null){
+                session.close();
+            }
             return l;
         }
     }
@@ -238,7 +256,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             ex.printStackTrace();
         }
         finally{
-           session.close();
+           if(session != null){
+                session.close();
+            }
            return l;
         }
     }
@@ -263,7 +283,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             ex.printStackTrace();
         }
         finally{
-            session.close();
+            if(session != null){
+                session.close();
+            }
             return l;
         }
     }
@@ -288,7 +310,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             ex.printStackTrace();
         }
         finally{
-            session.close();
+            if(session != null){
+                session.close();
+            }
             return t;
         }
     }
@@ -315,7 +339,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             ex.printStackTrace();
         }
         finally{
-            session.close();
+            if(session != null){
+                session.close();
+            }
             return t;
         }
     }
@@ -325,19 +351,44 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
         Session session=this.getSession();
         List<T> list=null;
         try{
-            Criteria c =session.createCriteria(this.getClass());
-            for(String key: restrictions.keySet()){
-                c.add(Restrictions.eq(key, restrictions.get(key)));
+            StringBuilder sql=new StringBuilder();
+            sql.append("FROM "+this.persistentClass.getName()+" tb");
+            Set<String> l=restrictions.keySet();
+            int size=l.size();
+            if(size>0){
+                int i=1;
+                sql.append(" WHERE ");
+                for(String key: l){
+                    //campos que devem ser filtrados
+                    sql.append("tb.");
+                    sql.append(key);
+                    sql.append(" = ");
+                    sql.append(":");
+                    sql.append(key);
+                    
+                    //não é o último
+                    if(i!=size){
+                        sql.append(" AND ");
+                    }
+                    i++;
+                }
             }
-            c.setFirstResult(firstResult);
-            c.setMaxResults(maxResult);
-            list=c.list();
+            Query q=session.createQuery(sql.toString());
+            if(size > 0){
+                q.setProperties(restrictions);
+            }
+            q.setFirstResult(firstResult);
+            q.setMaxResults(maxResult);
+            list=q.list();
         }catch(Exception ex){
             this.logger.error("Erro ao tentar executar o método findAllEqual [Map<String, Object>, int, int].");
             this.logger.error(ex.getMessage());
             ex.printStackTrace();
         }finally{
-         return list;
+            if(session != null){
+                session.close();
+            }
+            return list;
         }
     }
 
@@ -346,20 +397,45 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
         Session session=this.getSession();
         List<T> list=null;
         try{
-            Criteria c =session.createCriteria(this.getClass());
+            StringBuilder sql=new StringBuilder();
+            sql.append("FROM "+this.persistentClass.getName()+" tb");
             Map<String, Object> restrictions=ModelUtil.getRestrictions(objeto);
-            for(String key: restrictions.keySet()){
-                c.add(Restrictions.eq(key, restrictions.get(key)));
+            Set<String> l=restrictions.keySet();
+            int size=l.size();
+            if(size>0){
+                int i=1;
+                sql.append(" WHERE ");
+                for(String key: l){
+                    //campos que devem ser filtrados
+                    sql.append("tb.");
+                    sql.append(key);
+                    sql.append(" = ");
+                    sql.append(":");
+                    sql.append(key);
+                    
+                    //não é o último
+                    if(i!=size){
+                        sql.append(" AND ");
+                    }
+                    i++;
+                }
             }
-            c.setFirstResult(firstResult);
-            c.setMaxResults(maxResult);
-            list=c.list();
+            Query q=session.createQuery(sql.toString());
+            if(size > 0){
+                q.setProperties(restrictions);
+            }
+            q.setFirstResult(firstResult);
+            q.setMaxResults(maxResult);
+            list=q.list();
         }catch(Exception ex){
             this.logger.error("Erro ao tentar executar o método findAllEqual [Seriazable, int, int].");
             this.logger.error(ex.getMessage());
             ex.printStackTrace();
         }finally{
-         return list;
+            if(session != null){
+                session.close();
+            }
+            return list;
         }
     }
 
