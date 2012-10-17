@@ -16,15 +16,20 @@ import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizadoPK;
 import br.gov.saudecaruaru.bpai.business.model.GestorCompetencia;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
+import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelBody;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelHeader;
+import java.awt.FileDialog;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableColumnModel;
 
 /**
@@ -188,6 +193,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         jMenuItemExportarBPA = new javax.swing.JMenuItem();
         jMenuItemExportarXML = new javax.swing.JMenuItem();
         jMenuItemExportarEnvio = new javax.swing.JMenuItem();
+        jMenuItemExportarAtualizacao = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -293,7 +299,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItemExportarBPA);
 
-        jMenuItemExportarXML.setText("Exportar para XML procedimentos não enviados");
+        jMenuItemExportarXML.setText("Exportar para XML procedimentos NÃO ENVIADOS");
         jMenuItemExportarXML.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuItemExportarXMLMouseClicked(evt);
@@ -306,8 +312,21 @@ public class ListaProcedimento extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItemExportarXML);
 
-        jMenuItemExportarEnvio.setText("Exportar/Enviar procedimentos não enviados");
+        jMenuItemExportarEnvio.setText("Exportar/Enviar procedimentos NÃO ENVIADOS");
+        jMenuItemExportarEnvio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExportarEnvioActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItemExportarEnvio);
+
+        jMenuItemExportarAtualizacao.setText("Exportar/Enviar procedimento NÃO ATUALIZADOS");
+        jMenuItemExportarAtualizacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExportarAtualizacaoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemExportarAtualizacao);
 
         jMenuItem2.setText("Alterar Competência");
         jMenuItem2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -473,14 +492,59 @@ public class ListaProcedimento extends javax.swing.JFrame {
 
     private void jMenuItemExportarXMLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemExportarXMLMouseClicked
         // TODO add your handling code here:
-        IExportacaoStrategy expo=new ExportacaoXML("testando.xml", new BIProcedimentoRealizado(new BIProcedimentoRealizadoPK()));
+        //cria o arquivo para exportar os dados
+        JFileChooser fil= new JFileChooser();
+        fil.setDialogType(JFileChooser.SAVE_DIALOG);
+        fil.setFileFilter(new FileNameExtensionFilter("xml", ".xml"));
+        fil.showSaveDialog(this);
+        //arquivo foi criado com sucesso, então deve-se pegar o caminho dele.
+        String path=fil.getSelectedFile() != null ? fil.getSelectedFile().getAbsolutePath() : null;
+        if( path!=null){
+            IExportacaoStrategy expo=new ExportacaoXML(path, new BIProcedimentoRealizado(new BIProcedimentoRealizadoPK()));
+            Exportacao ex=new  Exportacao(this,expo);
+            ex.setTitle("Exportação para arquivo XML dos procedimentos não enviados para o servidor central.");
+            ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            ex.setLocationRelativeTo(null);
+            ex.setModal(true);
+            ex.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItemExportarXMLMouseClicked
+
+    private void jMenuItemExportarEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExportarEnvioActionPerformed
+        // TODO add your handling code here:
+        //ATENÇÃO: CORRRIGIRA CRIAÇÃO DO USUÁRIO DESKTOP
+                SUsuarioDesktop desk=new SUsuarioDesktop();
+                desk.setSerial_aplicacao("324324324");
+                desk.setServidor_cpf("00000000098");
+                desk.setToken("324324");
+                desk.setUsuario_sistema("cesar");
+        //============================================
+        IExportacaoStrategy expo=new ExportacaoCentralEnvio(desk, null);
         Exportacao ex=new  Exportacao(this,expo);
-        ex.setTitle("Exportação para arquivo XML dos procedimentos não enviados para o servidor central.");
+        ex.setTitle("Envio dos procedimentos realizados para a base central.");
         ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         ex.setLocationRelativeTo(null);
         ex.setModal(true);
         ex.setVisible(true);
-    }//GEN-LAST:event_jMenuItemExportarXMLMouseClicked
+    }//GEN-LAST:event_jMenuItemExportarEnvioActionPerformed
+
+    private void jMenuItemExportarAtualizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExportarAtualizacaoActionPerformed
+        // TODO add your handling code here:
+                //ATENÇÃO: CORRRIGIRA CRIAÇÃO DO USUÁRIO DESKTOP
+                SUsuarioDesktop desk=new SUsuarioDesktop();
+                desk.setSerial_aplicacao("324324324");
+                desk.setServidor_cpf("00000000098");
+                desk.setToken("324324");
+                desk.setUsuario_sistema("cesar");
+        //============================================
+        IExportacaoStrategy expo=new ExportacaoCentralEnvio(desk, null);
+        Exportacao ex=new  Exportacao(this,expo);
+        ex.setTitle("Envio dos procedimentos realizados para a base central.");
+        ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        ex.setLocationRelativeTo(null);
+        ex.setModal(true);
+        ex.setVisible(true);
+    }//GEN-LAST:event_jMenuItemExportarAtualizacaoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtualizar;
@@ -490,6 +554,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItemExportarAtualizacao;
     private javax.swing.JMenuItem jMenuItemExportarBPA;
     private javax.swing.JMenuItem jMenuItemExportarEnvio;
     private javax.swing.JMenuItem jMenuItemExportarXML;
