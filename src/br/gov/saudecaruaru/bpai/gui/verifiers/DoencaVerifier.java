@@ -56,9 +56,15 @@ public class DoencaVerifier extends InputVerifier{
     public boolean verify(JComponent input) {
       JTextField txtField = (JTextField) input; 
       Doenca doencaSearchead = null;
-      String valor = txtField.getText().toUpperCase();
+      String valor = txtField.getText();
+      
+      
+      
+      
+      
+      
       ProcedimentoRealizado procedimentoRealizado = t.getProcedimentoRealizado();
-      String codigoProc = procedimentoRealizado.getCodigoProcedimento().substring(0, 9);
+      
       
       //seta o valor digitado no objeto
       doenca.setCodigo(valor);
@@ -67,13 +73,18 @@ public class DoencaVerifier extends InputVerifier{
       doencaSearchead = doencaController.findEqual(doenca);
              String valor2 = txtField.getText().trim();
              if(valor2.isEmpty()){
-                  if(!procedimentoDoencaController.exigeCid(codigoProc)){
-                    txtField.setBackground(Color.WHITE);  
-                    return true;
-                }else {
-                    MessagesErrors.erro(component,txtField," PROCED. EXIGE CID!");
-                    return false;
-                }
+                 if(procedimentoRealizado.getCodigoProcedimento()!=null){
+                  String codigoProc = procedimentoRealizado.getCodigoProcedimento().substring(0, 9);
+                        if(!procedimentoDoencaController.exigeCid(codigoProc)){
+                            txtField.setBackground(Color.WHITE);  
+                            return true;
+                        }else {
+                            MessagesErrors.erro(component,txtField," PROCED. EXIGE CID!");
+                            return false;
+                        }
+                 }else{
+                     return true;
+                 }
              }
                
                 //faz a busca pelo Codigo do municipio digitado, se nao encontra notifica ao usuário
@@ -88,11 +99,11 @@ public class DoencaVerifier extends InputVerifier{
                             return false;
                        
                     }
-
-                    if(!procedimentoDoencaController.existProcedimentoEDoenca(valor, codigoProc,procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia())){
-                        return  MessagesErrors.continuaErro(component,fieldName," PROCED. INCOMPATIVEL COM CID!", txtField);
-                    }
-                    
+                     if(procedimentoRealizado.getCodigoProcedimento()!=null){
+                            if(!procedimentoDoencaController.existProcedimentoEDoenca(valor,procedimentoRealizado.getCodigoProcedimento().substring(0, 9),procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia())){
+                                return  MessagesErrors.continuaErro(component,fieldName," PROCED. INCOMPATIVEL COM CID!", txtField);
+                            }
+                     } 
                     doencaNome.setText(doencaSearchead.getDescricao());
                 }
                   txtField.setBackground(Color.WHITE);
