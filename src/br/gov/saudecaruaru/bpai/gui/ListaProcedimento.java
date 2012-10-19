@@ -60,6 +60,9 @@ public class ListaProcedimento extends javax.swing.JFrame {
         //super(parent);
         this.initComponents();
         this.myInitComponents();
+        
+        //vai pedir o login
+        this.login();
     }
     private void myInitComponents(){
         
@@ -88,6 +91,12 @@ public class ListaProcedimento extends javax.swing.JFrame {
                 });
     }
 
+    private void login(){
+        Login login= new Login(this, true);
+        login.setLocationRelativeTo(null);
+        login.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        login.setVisible(true);
+    }
     /**
      * Configura a tabela que armazena o cabeÃ§alho
      */
