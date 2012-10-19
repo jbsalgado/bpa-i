@@ -22,32 +22,26 @@ import java.util.logging.Logger;
  */
 public class ExportacaoCentralEnvio extends ExportacaoCentral implements IExportacaoStrategy{
     
-    private String competencia;
-
+    
     public ExportacaoCentralEnvio(SUsuarioDesktop sUsuarioDesktop, String competencia) {
         super(sUsuarioDesktop);
     }
 
-    public ExportacaoCentralEnvio(String competencia, SUsuarioDesktop sUsuarioDesktop, int maxResult) {
+    public ExportacaoCentralEnvio(SUsuarioDesktop sUsuarioDesktop, int maxResult) {
         super(sUsuarioDesktop, maxResult);
-        this.competencia = competencia;
     }
     
     
     
     @Override
-    public String execute() {
+    public String execute(String competenciaMovimento,String cnesUnidade) {
         List<Thread> threads= new ArrayList<Thread>();
         HashMap<String, Object> restr= new HashMap<String,Object>();
-        if( this.competencia != null ? !this.competencia.isEmpty() : false){
-            restr.put("biProcedimentoRealizadoPK.competencia", this.competencia);
-        }
         
         restr.put("enviado", BIProcedimentoRealizado.NAO_ENVIADO);
+        restr.put("biProcedimentoRealizadoPK.cnesUnidade", cnesUnidade);
+        restr.put("competenciaMovimento", competenciaMovimento);
         threads.addAll( this.enviar(restr) );
-        restr.remove("enviado");
-        restr.put("atualizado", BIProcedimentoRealizado.NAO_ATUALIZADO);
-        threads.addAll(this.atualizar(restr));
 //        while(task >0){
 //            task=0;
 //            for(Thread t: threads){

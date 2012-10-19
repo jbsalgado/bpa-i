@@ -4,11 +4,12 @@
  */
 package br.gov.saudecaruaru.bpai.gui;
 
+
 /**
  *
  * @author Albuquerque
  */
 public interface IExportacaoStrategy {
     
-    public String execute();
+    public String execute(String competenciaMovimento, String cnesUnidade);
 }

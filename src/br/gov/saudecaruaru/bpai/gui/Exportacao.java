@@ -11,6 +11,14 @@
 package br.gov.saudecaruaru.bpai.gui;
 
 
+import br.gov.saudecaruaru.bpai.business.controller.GestorCompetenciaController;
+import br.gov.saudecaruaru.bpai.gui.documents.OnlyNumbersDocument;
+import br.gov.saudecaruaru.bpai.gui.formatter.CompetenciaFormmatter;
+import br.gov.saudecaruaru.bpai.gui.verifiers.CnesVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.ComboBoxVerifier;
+import com.towel.swing.combo.ObjectComboBoxModel;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +28,8 @@ import javax.swing.JOptionPane;
 public class Exportacao extends javax.swing.JDialog {
     
     private IExportacaoStrategy exportacao;
+    private ObjectComboBoxModel<String> comboboModel= new ObjectComboBoxModel<String>();
+    private GestorCompetenciaController gestorCompetenciaController=new GestorCompetenciaController();
 
     /** Creates new form Exportacao */
     public Exportacao(java.awt.Frame parent, IExportacaoStrategy exportacao) {
@@ -33,6 +43,19 @@ public class Exportacao extends javax.swing.JDialog {
                     }
                 });
         this.exportacao=exportacao;
+        this.comboboModel.setFormatter(new CompetenciaFormmatter());
+        List<String> lis=new ArrayList<String>();
+        lis.add(this.gestorCompetenciaController.getCompetenciaAtual());
+        this.comboboModel.setData(lis);
+        
+        this.jComboBox1.setModel(comboboModel);
+        if(!lis.isEmpty()){
+            this.jComboBox1.setSelectedIndex(0);
+        }
+        this.jTextFieldCnes.setInputVerifier(new CnesVerifier(this, "CNES"));
+        this.jTextFieldCnes.setDocument(new OnlyNumbersDocument(7));
+        
+        this.jComboBox1.setInputVerifier(new ComboBoxVerifier(this, "Competência Movimento"));
     }
 
     /** This method is called from within the constructor to
@@ -47,6 +70,10 @@ public class Exportacao extends javax.swing.JDialog {
         jProgressBar1 = new javax.swing.JProgressBar();
         jButtonIniciar = new javax.swing.JButton();
         jButtonSair = new javax.swing.JButton();
+        jTextFieldCnes = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -58,7 +85,7 @@ public class Exportacao extends javax.swing.JDialog {
             }
         });
 
-        jButtonSair.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonSair.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonSair.setText("Sair");
         jButtonSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,30 +93,59 @@ public class Exportacao extends javax.swing.JDialog {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel1.setText("CNES");
+
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Competência");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jButtonIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldCnes, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26)
+                .addComponent(jLabel2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
+                        .addGap(58, 58, 58)
                         .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31))))
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox1, 0, 150, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonIniciar)
-                    .addComponent(jButtonSair))
-                .addGap(51, 51, 51)
+                    .addComponent(jTextFieldCnes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonSair)
+                    .addComponent(jButtonIniciar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -100,7 +156,8 @@ public class Exportacao extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.jProgressBar1.setIndeterminate(true);
         this.jButtonIniciar.setEnabled(false);
-        String res=this.exportacao.execute();
+        
+        String res=this.exportacao.execute(this.comboboModel.getSelectedObject(),this.jTextFieldCnes.getText());
        
         JOptionPane.showMessageDialog(this, res);
         this.jProgressBar1.setIndeterminate(false);
@@ -159,6 +216,10 @@ public class Exportacao extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonIniciar;
     private javax.swing.JButton jButtonSair;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JTextField jTextFieldCnes;
     // End of variables declaration//GEN-END:variables
 }

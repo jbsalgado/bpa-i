@@ -16,28 +16,25 @@ import java.util.List;
  */
 public class ExportacaoCentralAtualizacao extends ExportacaoCentral implements IExportacaoStrategy {
     
-    private String competencia;
 
-    public ExportacaoCentralAtualizacao(String competencia, SUsuarioDesktop sUsuarioDesktop) {
+    public ExportacaoCentralAtualizacao( SUsuarioDesktop sUsuarioDesktop) {
         super(sUsuarioDesktop);
-        this.competencia = competencia;
     }
 
-    public ExportacaoCentralAtualizacao(String competencia, SUsuarioDesktop sUsuarioDesktop, int maxResult) {
+    public ExportacaoCentralAtualizacao(SUsuarioDesktop sUsuarioDesktop, int maxResult) {
         super(sUsuarioDesktop, maxResult);
-        this.competencia = competencia;
     }
 
     
     @Override
-    public String execute() {
+    public String execute(String competenciaMovimento, String cnesUnidade) {
         List<Thread> threads= new ArrayList<Thread>();
         HashMap<String, Object> restr= new HashMap<String,Object>();
-        if( this.competencia != null ? !this.competencia.isEmpty() : false){
-            restr.put("biProcedimentoRealizadoPK.competencia", this.competencia);
-        }
+        
         
         restr.put("atualizado", BIProcedimentoRealizado.NAO_ATUALIZADO);
+        restr.put("biProcedimentoRealizadoPK.cnesUnidade", cnesUnidade);
+        restr.put("competenciaMovimento", competenciaMovimento);
         threads.addAll(this.atualizar(restr));
 //        while(task >0){
 //            task=0;

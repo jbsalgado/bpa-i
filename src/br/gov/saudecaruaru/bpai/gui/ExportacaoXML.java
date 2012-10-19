@@ -28,8 +28,10 @@ public class ExportacaoXML implements IExportacaoStrategy{
     }
 
     @Override
-    public String execute() {
+    public String execute(String competenciaMovimento,String cnesUnidade) {
         String msg=null;
+        this.bIProcedimentoRealizado.setCompetenciaMovimento(competenciaMovimento);
+        this.bIProcedimentoRealizado.getBiProcedimentoRealizadoPK().setCnesUnidade(cnesUnidade);
         try{
             List<BIProcedimentoRealizado> list=this.bIProcedimentoRealizadoDAO.findAllEqual(this.bIProcedimentoRealizado);
             this.bIProcedimentoRealizadoXML.salvar(list, this.filePath);

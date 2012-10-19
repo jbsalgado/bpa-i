@@ -14,21 +14,17 @@ import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoContr
 import br.gov.saudecaruaru.bpai.business.controller.GestorCompetenciaController;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizadoPK;
-import br.gov.saudecaruaru.bpai.business.model.GestorCompetencia;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelBody;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelHeader;
-import java.awt.FileDialog;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
-import javax.swing.WindowConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableColumnModel;
 
@@ -537,7 +533,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
                 desk.setToken("324324");
                 desk.setUsuario_sistema("cesar");
         //============================================
-        IExportacaoStrategy expo=new ExportacaoCentralAtualizacao(null,desk);
+        IExportacaoStrategy expo=new ExportacaoCentralAtualizacao(desk);
         Exportacao ex=new  Exportacao(this,expo);
         ex.setTitle("Envio dos procedimentos realizados (ainda não atualizados) para a base central.");
         ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
