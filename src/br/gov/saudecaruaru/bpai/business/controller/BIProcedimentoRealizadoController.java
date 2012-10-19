@@ -27,6 +27,10 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
         return ((BIProcedimentoRealizadoDAO)this.getDao()).findAllOnlyHeader();
     }
     
+    public List<ProcedimentoRealizado> findAllOnlyHeaderEqual(BIProcedimentoRealizado p){
+        return ((BIProcedimentoRealizadoDAO)this.getDao()).findAllOnlyHeaderEqual(p);
+    }
+    
     public String getNextFolha(BIProcedimentoRealizado BIProcedimentoRealizado){
         return ((BIProcedimentoRealizadoDAO)this.getDao()).getNextFolha(BIProcedimentoRealizado);
     }
