@@ -55,12 +55,12 @@ public class Teste {
     
     public static void testeExportacaoProcedimentosIndividuais(){
         BIProcedimentoRealizadoController con= new BIProcedimentoRealizadoController();
-        con.findAllProcedimentosIndividuaisAndSave(null, new ProcedimentoRealizadoDAO(), 50);
+        //con.findAllProcedimentosIndividuaisAndSave(null, new ProcedimentoRealizadoDAO(), 50);
     }
     
     public static void testeExportacaoProcedimentosCosolidados(){
         BIProcedimentoRealizadoController con= new BIProcedimentoRealizadoController();
-        con.findAllProcedimentosConsolidadosAndSave(null, new ProcedimentoRealizadoDAO(), 50);
+        //con.findAllProcedimentosConsolidadosAndSave(null, new ProcedimentoRealizadoDAO(), 50);
     }
     
     public static void testeEquipes(){
