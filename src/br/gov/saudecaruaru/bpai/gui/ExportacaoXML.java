@@ -4,6 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.gui;
 
+import br.gov.saudecaruaru.bpai.gui.interfaces.IExportacaoStrategy;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.data.BIProcedimentoRealizadoDAO;
 import br.gov.saudecaruaru.bpai.data.BIProcedimentoRealizadoXML;
