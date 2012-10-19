@@ -11,14 +11,13 @@
 package br.gov.saudecaruaru.bpai.gui;
 
 
+import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.gui.interfaces.IExportacaoStrategy;
-import br.gov.saudecaruaru.bpai.business.controller.GestorCompetenciaController;
-import br.gov.saudecaruaru.bpai.gui.documents.OnlyNumbersDocument;
-import br.gov.saudecaruaru.bpai.gui.formatter.CompetenciaFormmatter;
-import br.gov.saudecaruaru.bpai.gui.verifiers.CnesVerifier;
+import br.gov.saudecaruaru.bpai.gui.formatter.CompetenciaFormatter;
+import br.gov.saudecaruaru.bpai.gui.formatter.UnidadeFormatter;
 import br.gov.saudecaruaru.bpai.gui.verifiers.ComboBoxVerifier;
+import com.towel.bean.Formatter;
 import com.towel.swing.combo.ObjectComboBoxModel;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -29,8 +28,9 @@ import javax.swing.JOptionPane;
 public class Exportacao extends javax.swing.JDialog {
     
     private IExportacaoStrategy exportacao;
-    private ObjectComboBoxModel<String> comboboModel= new ObjectComboBoxModel<String>();
-    private GestorCompetenciaController gestorCompetenciaController=new GestorCompetenciaController();
+    private ObjectComboBoxModel<String> comboboxCompetenciaModel= new ObjectComboBoxModel<String>();
+    private ObjectComboBoxModel<String> comboboxCnesModel= new ObjectComboBoxModel<String>();
+    private BIProcedimentoRealizadoController bIProcedimentoRealizadoController= new BIProcedimentoRealizadoController();
 
     /** Creates new form Exportacao */
     public Exportacao(java.awt.Frame parent, IExportacaoStrategy exportacao) {
@@ -44,19 +44,27 @@ public class Exportacao extends javax.swing.JDialog {
                     }
                 });
         this.exportacao=exportacao;
-        this.comboboModel.setFormatter(new CompetenciaFormmatter());
-        List<String> lis=new ArrayList<String>();
-        lis.add(this.gestorCompetenciaController.getCompetenciaAtual());
-        this.comboboModel.setData(lis);
+        this.comboboxCompetenciaModel.setFormatter(new CompetenciaFormatter());
+        this.comboboxCnesModel.setFormatter(new UnidadeFormatter());
         
-        this.jComboBox1.setModel(comboboModel);
+        List<String> lis=this.bIProcedimentoRealizadoController.getTodasCompetenciaMovimento();
+        List<String> list=this.bIProcedimentoRealizadoController.getAllUnidade();
+       // lis.add(this.gestorCompetenciaController.getCompetenciaAtual());
+        this.comboboxCompetenciaModel.setData(lis);
+        this.comboboxCnesModel.setData(list);
+        
+        this.jComboBoxCompetencia.setModel(comboboxCompetenciaModel);
+        this.jComboBoxCnes.setModel(this.comboboxCnesModel);
+        
         if(!lis.isEmpty()){
-            this.jComboBox1.setSelectedIndex(0);
+            this.jComboBoxCompetencia.setSelectedIndex(0);
         }
-        this.jTextFieldCnes.setInputVerifier(new CnesVerifier(this, "CNES"));
-        this.jTextFieldCnes.setDocument(new OnlyNumbersDocument(7));
+        if(!list.isEmpty()){
+            this.jComboBoxCnes.setSelectedIndex(0);
+        }
         
-        this.jComboBox1.setInputVerifier(new ComboBoxVerifier(this, "Competência Movimento"));
+        this.jComboBoxCompetencia.setInputVerifier(new ComboBoxVerifier(this, "Competência"));
+        this.jComboBoxCnes.setInputVerifier(new ComboBoxVerifier(this, "CNES/Unidade"));
     }
 
     /** This method is called from within the constructor to
@@ -71,10 +79,10 @@ public class Exportacao extends javax.swing.JDialog {
         jProgressBar1 = new javax.swing.JProgressBar();
         jButtonIniciar = new javax.swing.JButton();
         jButtonSair = new javax.swing.JButton();
-        jTextFieldCnes = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        jComboBoxCompetencia = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
+        jComboBoxCnes = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -97,11 +105,14 @@ public class Exportacao extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel1.setText("CNES");
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCompetencia.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jComboBoxCompetencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Competência");
+
+        jComboBoxCnes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBoxCnes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,7 +120,7 @@ public class Exportacao extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -120,7 +131,7 @@ public class Exportacao extends javax.swing.JDialog {
                         .addContainerGap()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldCnes, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBoxCnes, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(26, 26, 26)
                 .addComponent(jLabel2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +141,7 @@ public class Exportacao extends javax.swing.JDialog {
                         .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, 0, 150, Short.MAX_VALUE)
+                        .addComponent(jComboBoxCompetencia, 0, 150, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -138,10 +149,10 @@ public class Exportacao extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldCnes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                    .addComponent(jComboBoxCompetencia, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(jComboBoxCnes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSair)
@@ -158,7 +169,7 @@ public class Exportacao extends javax.swing.JDialog {
         this.jProgressBar1.setIndeterminate(true);
         this.jButtonIniciar.setEnabled(false);
         
-        String res=this.exportacao.execute(this.comboboModel.getSelectedObject(),this.jTextFieldCnes.getText());
+        String res=this.exportacao.execute(this.comboboxCompetenciaModel.getSelectedObject(),this.comboboxCnesModel.getSelectedObject());
        
         JOptionPane.showMessageDialog(this, res);
         this.jProgressBar1.setIndeterminate(false);
@@ -217,10 +228,10 @@ public class Exportacao extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonIniciar;
     private javax.swing.JButton jButtonSair;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBoxCnes;
+    private javax.swing.JComboBox jComboBoxCompetencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JTextField jTextFieldCnes;
     // End of variables declaration//GEN-END:variables
 }

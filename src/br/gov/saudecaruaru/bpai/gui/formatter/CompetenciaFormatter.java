@@ -10,7 +10,7 @@ import com.towel.bean.Formatter;
  *
  * @author Albuquerque
  */
-public class CompetenciaFormmatter implements Formatter{
+public class CompetenciaFormatter implements Formatter{
 
     @Override
     public Object format(Object o) {

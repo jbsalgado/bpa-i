@@ -7,7 +7,6 @@ package br.gov.saudecaruaru.bpai.data;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
@@ -269,4 +268,33 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             return list;
     }
     
+    public List<String> getAllCompetenciaMovimento(){
+        List list=new ArrayList<String>();;
+        Session session=this.getSession();
+        try{
+            Query q=session.createQuery("SELECT competenciaMovimento FROM BIProcedimentoRealizado GROUP BY competenciaMovimento");
+            list=q.list();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        finally{
+            return list;
+        }
+        
+    }
+    
+    public List<String> getAllUnidade(){
+        List list=new ArrayList<String>();;
+        Session session=this.getSession();
+        try{
+            Query q=session.createQuery("SELECT biProcedimentoRealizadoPK.cnesUnidade FROM BIProcedimentoRealizado GROUP BY biProcedimentoRealizadoPK.cnesUnidade");
+            list=q.list();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        finally{
+            return list;
+        }
+        
+    }
 }

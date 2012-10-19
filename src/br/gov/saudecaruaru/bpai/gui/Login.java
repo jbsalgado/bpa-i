@@ -10,9 +10,7 @@
  */
 package br.gov.saudecaruaru.bpai.gui;
 
-import br.gov.saudecaruaru.bpai.business.controller.AcessoController;
 import br.gov.saudecaruaru.bpai.business.controller.UsuarioController;
-import br.gov.saudecaruaru.bpai.business.model.Acesso;
 import br.gov.saudecaruaru.bpai.business.model.Usuario;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
 import java.awt.event.KeyEvent;
@@ -44,6 +42,7 @@ public class Login extends javax.swing.JDialog {
         });
         
         this.jPasswordFieldSenha.setDocument(new OnlyUpperLettersDocument());
+        this.jTextFieldUsuario.setDocument(new OnlyUpperLettersDocument());
     }
     
     private String login(){

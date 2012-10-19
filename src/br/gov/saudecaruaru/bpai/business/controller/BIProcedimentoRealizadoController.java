@@ -129,4 +129,11 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
         return l;
     }
     
+    public List<String> getTodasCompetenciaMovimento(){
+        return ((BIProcedimentoRealizadoDAO)this.getDao()).getAllCompetenciaMovimento();
+    }
+    
+    public List<String> getAllUnidade(){
+        return ((BIProcedimentoRealizadoDAO)this.getDao()).getAllUnidade();
+    }
 }

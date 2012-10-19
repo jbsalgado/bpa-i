@@ -9,6 +9,7 @@ import br.gov.saudecaruaru.bpai.data.*;
 import br.gov.saudecaruaru.bpai.gui.EscolhaBanco;
 import br.gov.saudecaruaru.bpai.gui.ListaProcedimento;
 import br.gov.saudecaruaru.bpai.gui.SearchGeneric;
+import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 

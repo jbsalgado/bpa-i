@@ -4,6 +4,8 @@
  */
 package br.gov.saudecaruaru.bpai.util;
 
+import br.gov.saudecaruaru.bpai.data.BIProcedimentoRealizadoDAO;
+import br.gov.saudecaruaru.bpai.data.ProcedimentoDAO;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import java.util.logging.Logger;
 public class ModelUtil {
     
     public static final String PACOTE_MODEL="br.gov.saudecaruaru.bpai.business.model";
+    public static final String COMPETENCIA_MAIS_RECENTE=new ProcedimentoDAO().getMaxCompetencia();
     
     public static Map<String, Object> getRestrictions(Object object){
         Class classes=object.getClass();
