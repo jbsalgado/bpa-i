@@ -67,7 +67,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
      * @param maxResult -  a quantidade máxima de resultados resultados
      * @return  Lista de com os procedimentos realizados
      */
-    public List<ProcedimentoRealizado> findAllConsolidados(String competencia,int firstResult,int maxResult){
+    public List<ProcedimentoRealizado> findAllConsolidados(String competenciaMovimento, String cnesUnidade,int firstResult,int maxResult){
         List<Object[]> l=null;
         Session session= this.getSession();
         try{
@@ -80,18 +80,22 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             StringBuilder sql=new StringBuilder();
             //campos a serem selecionados
             sql.append("SELECT  pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
-            sql.append("pro.idadePaciente, pro.codigoProcedimento, pro.biProcedimentoRealizadoPK.competencia,");
+            sql.append("pro.idadePaciente, pro.codigoProcedimento, pro.biProcedimentoRealizadoPK.competencia, pro.competenciaMovimento, ");
             //faz o somatório da quantidade de execuções
-            sql.append("pro.prdMvm, SUM(pro.quantidadeRealizada) AS quantidadeRealizada");
+            sql.append("SUM(pro.quantidadeRealizada) AS quantidadeRealizada");
             sql.append(" FROM BIProcedimentoRealizado pro");
             //traz somente os procedimentos que devem ser consolidados
-            sql.append(" WHERE (pro.origemProcedimento=:origem)");
+            sql.append(" WHERE (pro.origemProcedimento=:origem ");
+            sql.append(" AND pro.competenciaMovimento=:competenciaMovimento ");
+            sql.append(" AND pro.biProcedimentoRealizadoPK.cnesUnidade=:cnesUnidade )");
             //agrupa
             sql.append(" GROUP BY pro.biProcedimentoRealizadoPK.competencia,pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
-            sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.prdMvm");
+            sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.competenciaMovimento");
             //it's create query
             Query q=session.createQuery(sql.toString());
             q.setParameter("origem", ProcedimentoRealizado.ORIGEM_CONSOLIDADO);
+            q.setParameter("competenciaMovimento", competenciaMovimento);
+            q.setParameter("cnesUnidade", cnesUnidade);
             //paginacao dos resultados
             q.setFirstResult(firstResult);
             q.setMaxResults(maxResult);
@@ -122,16 +126,6 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
                     
                     pro.setOrigemProcedimento(ProcedimentoRealizado.ORIGEM_CONSOLIDADO);
                     pro.preencherAtributosVazios();
-//                    pro.setNomePaciente("TESTE");
-//                    String flag="0";
-//                    pro.setPrdFlca(flag);
-//                    pro.setPrdFlcbo(flag);
-//                    pro.setPrdFlcid(flag);
-//                    pro.setPrdFler(flag);
-//                    pro.setPrdFlida(flag);
-//                    pro.setPrdFlmun(flag);
-//                    pro.setPrdFlpa(flag);
-//                    pro.setPrdFlqt(flag);
                     
                     list.add(pro);
                 }
@@ -148,7 +142,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
      * @param maxResult -  a quantidade máxima de resultados resultados
      * @return  Lista de com os procedimentos realizados
      */
-    public List<ProcedimentoRealizado> findAllProcedimentosIndividuais(String competencia,int firstResult,int maxResult){
+    public List<ProcedimentoRealizado> findAllProcedimentosIndividuais(String competenciaMovimento, String cnesUnidade,int firstResult,int maxResult){
         List<ProcedimentoRealizado> list=new ArrayList<ProcedimentoRealizado>();
         List<BIProcedimentoRealizado> l=null;
         Session session= this.getSession();
@@ -160,10 +154,14 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             //faz o somatório da quantidade de execuções
             sql.append(" FROM BIProcedimentoRealizado pro");
             //traz somente os procedimentos que devem ser consolidados
-            sql.append(" WHERE (pro.origemProcedimento=:origem)");
+            sql.append(" WHERE (pro.origemProcedimento=:origem ");
+            sql.append(" AND pro.competenciaMovimento=:competenciaMovimento ");
+            sql.append(" AND pro.biProcedimentoRealizadoPK.cnesUnidade=:cnesUnidade )");
             //it's create query
             Query q=session.createQuery(sql.toString());
             q.setParameter("origem", ProcedimentoRealizado.ORIGEM_INDIVIDUALIZADO);
+            q.setParameter("competenciaMovimento", competenciaMovimento);
+            q.setParameter("cnesUnidade", cnesUnidade);
             //paginacao dos resultados
             q.setFirstResult(firstResult);
             q.setMaxResults(maxResult);
