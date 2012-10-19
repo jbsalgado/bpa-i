@@ -21,8 +21,11 @@ public class BasecController < T extends Serializable>{
         this.dao=dao;
     }
     
-    public void salvar(T modelo){
-        this.dao.save(modelo);
+     public boolean removeAll(T entity){
+         return this.dao.removeAll(entity);
+     }
+    public boolean salvar(T modelo){
+        return this.dao.save(modelo);
     }
     
     public List<T> salvar(List<T> list){
@@ -37,12 +40,12 @@ public class BasecController < T extends Serializable>{
         return this.dao.merge(entityList);
     }
     
-    public void atualizar(T modelo){
-        this.dao.update(modelo);
+    public boolean atualizar(T modelo){
+        return this.dao.update(modelo);
     }
     
-    public void excluir(T modelo){
-        this.dao.remove(modelo);
+    public boolean excluir(T modelo){
+        return this.dao.remove(modelo);
     }
     
     public List<T> findAll(){
