@@ -14,6 +14,10 @@ import br.gov.saudecaruaru.bpai.business.controller.AcessoController;
 import br.gov.saudecaruaru.bpai.business.controller.UsuarioController;
 import br.gov.saudecaruaru.bpai.business.model.Acesso;
 import br.gov.saudecaruaru.bpai.business.model.Usuario;
+import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,10 +31,26 @@ public class Login extends javax.swing.JDialog {
     public Login(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.myInitComponents();
+    }
+    
+    private void myInitComponents(){
+        this.addWindowListener(new WindowAdapter() {
+            
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    cancelar();
+                }
+        });
+        
+        this.jPasswordFieldSenha.setDocument(new OnlyUpperLettersDocument());
     }
     
     private String login(){
         Usuario u=new Usuario(this.jTextFieldUsuario.getText());
+        
+        u=this.usuarioController.findEqual(u);
+        
         if(u== null){
             return "Usuário não encontrado!";
         }
@@ -42,6 +62,10 @@ public class Login extends javax.swing.JDialog {
         return null;
     }
 
+    private void cancelar(){
+        this.dispose();
+        System.exit(1);
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -67,6 +91,16 @@ public class Login extends javax.swing.JDialog {
                 jButtonLoginMouseClicked(evt);
             }
         });
+        jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLoginActionPerformed(evt);
+            }
+        });
+        jButtonLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButtonLoginKeyPressed(evt);
+            }
+        });
 
         jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jButtonCancelar.setText("Cancelar");
@@ -80,6 +114,11 @@ public class Login extends javax.swing.JDialog {
                 jButtonCancelarActionPerformed(evt);
             }
         });
+        jButtonCancelar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButtonCancelarKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel1.setText("Usuário");
@@ -88,11 +127,21 @@ public class Login extends javax.swing.JDialog {
         jLabel2.setText("Senha");
 
         jTextFieldUsuario.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jTextFieldUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldUsuarioKeyPressed(evt);
+            }
+        });
 
         jPasswordFieldSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jPasswordFieldSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordFieldSenhaActionPerformed(evt);
+            }
+        });
+        jPasswordFieldSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordFieldSenhaKeyPressed(evt);
             }
         });
 
@@ -145,6 +194,7 @@ public class Login extends javax.swing.JDialog {
 
     private void jButtonCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCancelarMouseClicked
         // TODO add your handling code here:
+        this.cancelar();
     }//GEN-LAST:event_jButtonCancelarMouseClicked
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -155,10 +205,10 @@ public class Login extends javax.swing.JDialog {
         // TODO add your handling code here:
         String msg=null;
         if (this.jTextFieldUsuario.getText().isEmpty()){
-            msg="Campo user";
+            msg="Campo Usuário está vazio.";
         }
         else if( (new String(this.jPasswordFieldSenha.getPassword())).isEmpty() ){
-        
+            msg="Campo Senha está vazio!";
         }
         else{
             //vai chmar o metodo para fazer o login
@@ -168,7 +218,41 @@ public class Login extends javax.swing.JDialog {
                 return;
             }
         }
+        JOptionPane.showMessageDialog(this, msg);
     }//GEN-LAST:event_jButtonLoginMouseClicked
+
+    private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButtonLoginActionPerformed
+
+    private void jButtonLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButtonLoginKeyPressed
+        // TODO add your handling code here:
+        if( evt.getKeyCode() == KeyEvent.VK_ENTER ){
+            this.jButtonLoginMouseClicked(null);
+        }
+    }//GEN-LAST:event_jButtonLoginKeyPressed
+
+    private void jButtonCancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButtonCancelarKeyPressed
+        // TODO add your handling code here:
+        if( evt.getKeyCode() == KeyEvent.VK_ENTER ){
+            this.cancelar();
+        }
+    }//GEN-LAST:event_jButtonCancelarKeyPressed
+
+    private void jTextFieldUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioKeyPressed
+        // TODO add your handling code here:
+        if( evt.getKeyCode() == KeyEvent.VK_ENTER ){
+            this.jTextFieldUsuario.transferFocus();
+        }
+    }//GEN-LAST:event_jTextFieldUsuarioKeyPressed
+
+    private void jPasswordFieldSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordFieldSenhaKeyPressed
+        // TODO add your handling code here:
+        if( evt.getKeyCode() == KeyEvent.VK_ENTER ){
+            this.jPasswordFieldSenha.transferFocus();
+        }
+    }//GEN-LAST:event_jPasswordFieldSenhaKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
