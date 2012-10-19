@@ -7,6 +7,7 @@ package br.gov.saudecaruaru.bpai.data;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
@@ -242,6 +243,30 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             session.close();
             return list;
         }
+    }
+   
+   
+    public List<ProcedimentoRealizado> findAllOnlyHeaderEqual(BIProcedimentoRealizado BIprocedimentoRealizado){
+            
+            List<BIProcedimentoRealizado> l = this.findAllEqual(BIprocedimentoRealizado);
+            List<ProcedimentoRealizado> list= new ArrayList<ProcedimentoRealizado>();
+            if(l!=null){
+                //cada objeto de l contém um vetor que representa os campos selecionados
+                for(BIProcedimentoRealizado row:l){
+                    ProcedimentoRealizado pro=new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
+                    
+                    //o tamanho do vetor é igual a quantidade de campos do select
+                    //o índíce do campo no select é igual ao do vetor, começando por zero.
+                    pro.getProcedimentoRealizadoPK().setCnesUnidade(row.getBiProcedimentoRealizadoPK().getCnesUnidade());
+                    pro.getProcedimentoRealizadoPK().setCboMedico(row.getBiProcedimentoRealizadoPK().getCboMedico());
+                    pro.getProcedimentoRealizadoPK().setNumeroFolha(row.getBiProcedimentoRealizadoPK().getNumeroFolha());
+                    pro.getProcedimentoRealizadoPK().setCompetencia(row.getBiProcedimentoRealizadoPK().getCompetencia());
+                    pro.getProcedimentoRealizadoPK().setCnsMedico(row.getBiProcedimentoRealizadoPK().getCnsMedico());
+                    
+                    list.add(pro);
+                }
+            }
+            return list;
     }
     
 }

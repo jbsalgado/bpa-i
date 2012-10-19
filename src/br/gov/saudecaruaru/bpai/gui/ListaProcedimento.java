@@ -20,6 +20,7 @@ import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelBody;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelHeader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -35,10 +36,20 @@ import javax.swing.table.TableColumnModel;
  */
 public class ListaProcedimento extends javax.swing.JFrame {
     
+    private static final String COMPETENCIA="COMPETÊNCIA";
+    private static final String CNS="CNS DO PROFISSIONAL";
+    private static final String CNES= "CNES";
+    private static final String CBO="CBO";
+    
+    
     private ProcedimentoRealizadoTableModelHeader tableModelHeader;
     private ProcedimentoRealizadoTableModelBody tableModelBody;
     private BIProcedimentoRealizadoController biProcedimentoRealizadoController;
     private GestorCompetenciaController gestorCompetenciaController;
+    private static final HashMap<String,String> mapFiltro = new HashMap<String, String>();
+    static{
+        mapFiltro.put("COMPETÃŠNCIA","competencia");
+    }
     /** Creates new form ListaProcedimento */
     public ListaProcedimento(java.awt.Frame parent, boolean modal) {
         //super(parent);
@@ -58,6 +69,10 @@ public class ListaProcedimento extends javax.swing.JFrame {
         this.initJTableBody();
         this.initJTableHeader();
         
+        jcomboBoxFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[]{ListaProcedimento.CNS,
+                                                                                    ListaProcedimento.CNES,
+                                                                                    ListaProcedimento.COMPETENCIA,
+                                                                                    ListaProcedimento.CBO}));
         
         if(!this.gestorCompetenciaController.haveCompetencia()){
              AlteraCompetencia alt = new AlteraCompetencia(this, true);
@@ -74,7 +89,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
     }
 
     /**
-     * Configura a tabela que armazena o cabeçalho
+     * Configura a tabela que armazena o cabeÃ§alho
      */
     public void initJTableHeader(){
         this.tableModelHeader= new ProcedimentoRealizadoTableModelHeader(this.biProcedimentoRealizadoController.findAllOnlyHeader());
@@ -86,7 +101,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
             
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                //as mudanças da seleção ainda estão ocorrendo
+                //as mudanÃ§as da seleÃ§Ã£o ainda estÃ£o ocorrendo
                 if(!e.getValueIsAdjusting()){
                     int row=ListaProcedimento.this.jTableHeader.getSelectedRow();
                     //tem linha selecionada
@@ -94,7 +109,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
 
                         //Pega o procedimento realizado de acordo com a linha selecionada na tabela
                         ProcedimentoRealizado pro=ListaProcedimento.this.tableModelHeader.getProcedimentoRealizado(row);
-                        //zera a quantidade padrão
+                        //zera a quantidade padrÃ£o
                         pro.setQuantidadeRealizada(null);
                         //substitui a lista
                         List<BIProcedimentoRealizado> l=ListaProcedimento.this.biProcedimentoRealizadoController.findAllEqual(new BIProcedimentoRealizado(pro));
@@ -110,13 +125,22 @@ public class ListaProcedimento extends javax.swing.JFrame {
                
             }
         });
+        tableHeaderRedimendionaColunas();
+       
+       //seleciona a primeira linha
+       if(!this.tableModelHeader.isEmpty()){
+            this.jTableHeader.setRowSelectionInterval(0, 0);
+       }
+    }
+
+    private void tableHeaderRedimendionaColunas() {
         TableColumnModel columns=this.jTableHeader.getColumnModel();
        
        //coluna CNES
        columns.getColumn(0).setPreferredWidth(60);
-       //coluna competência
+       //coluna competÃªncia
        columns.getColumn(1).setPreferredWidth(110);
-       //coluna CNS do profissional de saúde
+       //coluna CNS do profissional de saÃºde
        columns.getColumn(2).setPreferredWidth(130);
        //coluna nome do profissional
        columns.getColumn(3).setPreferredWidth(300);
@@ -124,11 +148,6 @@ public class ListaProcedimento extends javax.swing.JFrame {
        columns.getColumn(4).setPreferredWidth(60);
        //coluna folha
        columns.getColumn(5).setPreferredWidth(50);
-       
-       //seleciona a primeira linha
-       if(!this.tableModelHeader.isEmpty()){
-            this.jTableHeader.setRowSelectionInterval(0, 0);
-       }
     }
     
     /**
@@ -140,14 +159,14 @@ public class ListaProcedimento extends javax.swing.JFrame {
         this.jTableBody.setModel(this.tableModelBody);
         this.jTableBody.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         
-        this.ajustarTamanhoTabelas();
+        this.TableBodyAjustarTamanhoTabelas();
 
     }
     
-    private void ajustarTamanhoTabelas(){
+    private void TableBodyAjustarTamanhoTabelas(){
         
        TableColumnModel columns=this.jTableBody.getColumnModel();
-        //coluna sequência
+        //coluna sequÃªncia
        columns.getColumn(0).setPreferredWidth(40);
        //coluna cns do paciente
        columns.getColumn(1).setPreferredWidth(120);
@@ -157,7 +176,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
        columns.getColumn(3).setPreferredWidth(120);
        //coluna sexo do paciente
        columns.getColumn(4).setPreferredWidth(50);
-       //coluna município de residência do paciente
+       //coluna municÃ­pio de residÃªncia do paciente
        columns.getColumn(5).setPreferredWidth(120);
        //coluna data de atendimento
        columns.getColumn(6).setPreferredWidth(120);
@@ -216,24 +235,29 @@ public class ListaProcedimento extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableHeader);
 
-        jcomboBoxFiltro.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jcomboBoxFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CNS DO PROFISSIONAL", "CNES", "COMPETÊNCIA", "CBO", "PROFISSIONAL" }));
+        jcomboBoxFiltro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jcomboBoxFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CNS DO PROFISSIONAL", "CNES", "COMPETÃŠNCIA", "CBO", "PROFISSIONAL" }));
         jcomboBoxFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcomboBoxFiltroActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Filtro de Pesquisa");
 
-        jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextFieldPesquisa.setToolTipText("");
 
-        jbtnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jbtnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbtnPesquisar.setText("Pesquisar");
+        jbtnPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtnPesquisarMouseClicked(evt);
+            }
+        });
 
-        jLabelTipoPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabelTipoPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelTipoPesquisa.setText("tipo");
 
         jTableBody.setModel(new javax.swing.table.DefaultTableModel(
@@ -249,7 +273,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTableBody);
 
-        jbtnIncluirFolha.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jbtnIncluirFolha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbtnIncluirFolha.setText("Incluir folha");
         jbtnIncluirFolha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -257,7 +281,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jbtnSair.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jbtnSair.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbtnSair.setText("Sair");
         jbtnSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -265,7 +289,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonAtualizar.setText("Atualizar");
         jButtonAtualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -281,7 +305,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         jMenu1.setText("Arquivo");
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Operações");
+        jMenu2.setText("OperaÃ§Ãµes");
 
         jMenuItemExportarBPA.setText("Exportar para o BPA");
         jMenuItemExportarBPA.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -296,7 +320,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItemExportarBPA);
 
-        jMenuItemExportarXML.setText("Exportar para XML procedimentos NÃO ENVIADOS");
+        jMenuItemExportarXML.setText("Exportar para XML procedimentos NÃƒO ENVIADOS");
         jMenuItemExportarXML.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuItemExportarXMLMouseClicked(evt);
@@ -309,7 +333,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItemExportarXML);
 
-        jMenuItemExportarEnvio.setText("Exportar/Enviar procedimentos NÃO ENVIADOS");
+        jMenuItemExportarEnvio.setText("Exportar/Enviar procedimentos NÃƒO ENVIADOS");
         jMenuItemExportarEnvio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemExportarEnvioActionPerformed(evt);
@@ -317,7 +341,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItemExportarEnvio);
 
-        jMenuItemExportarAtualizacao.setText("Exportar/Enviar procedimento NÃO ATUALIZADOS");
+        jMenuItemExportarAtualizacao.setText("Exportar/Enviar procedimento NÃƒO ATUALIZADOS");
         jMenuItemExportarAtualizacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemExportarAtualizacaoActionPerformed(evt);
@@ -325,7 +349,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItemExportarAtualizacao);
 
-        jMenuItem2.setText("Alterar Competência");
+        jMenuItem2.setText("Alterar CompetÃªncia");
         jMenuItem2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuItem2MouseClicked(evt);
@@ -428,10 +452,10 @@ public class ListaProcedimento extends javax.swing.JFrame {
             if(row>=0){
                 CadastroIndividualizado cad=new CadastroIndividualizado(this);
                 ProcedimentoRealizado pro=this.tableModelHeader.getProcedimentoRealizado(row);
-                //zera a quantidade padrão
+                //zera a quantidade padrÃ£o
                 pro.setQuantidadeRealizada(null);
                 cad.findAllProcedimentosFolha(pro);
-                //desabilita os campos do cabeçalho
+                //desabilita os campos do cabeÃ§alho
                 cad.disableFieldsHeader();
                 cad.setLocationRelativeTo(null);
                 cad.setModal(true);
@@ -446,7 +470,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         // TODO add your handling code here:
         IExportacaoStrategy expo=new ExportacaoBPAMagnetico(new BIProcedimentoRealizado(new BIProcedimentoRealizadoPK()));
         Exportacao ex=new  Exportacao(this,expo);
-        ex.setTitle("Exportação dos procedimentos para o banco do BPA Magnético.");
+        ex.setTitle("ExportaÃ§Ã£o dos procedimentos para o banco do BPA MagnÃ©tico.");
         ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         ex.setLocationRelativeTo(null);
         ex.setModal(true);
@@ -468,7 +492,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         if(!this.tableModelHeader.isEmpty()){
             this.jTableHeader.setRowSelectionInterval(0, 0);
         }
-       this.ajustarTamanhoTabelas(); 
+       this.TableBodyAjustarTamanhoTabelas(); 
     }//GEN-LAST:event_jButtonAtualizarMouseClicked
 
     private void jMenuItem2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MouseClicked
@@ -494,12 +518,12 @@ public class ListaProcedimento extends javax.swing.JFrame {
         fil.setDialogType(JFileChooser.SAVE_DIALOG);
         fil.setFileFilter(new FileNameExtensionFilter("xml", ".xml"));
         fil.showSaveDialog(this);
-        //arquivo foi criado com sucesso, então deve-se pegar o caminho dele.
+        //arquivo foi criado com sucesso, entÃ£o deve-se pegar o caminho dele.
         String path=fil.getSelectedFile() != null ? fil.getSelectedFile().getAbsolutePath() : null;
         if( path!=null){
             IExportacaoStrategy expo=new ExportacaoXML(path, new BIProcedimentoRealizado(new BIProcedimentoRealizadoPK()));
             Exportacao ex=new  Exportacao(this,expo);
-            ex.setTitle("Exportação para arquivo XML dos procedimentos não enviados para o servidor central.");
+            ex.setTitle("ExportaÃ§Ã£o para arquivo XML dos procedimentos nÃ£o enviados para o servidor central.");
             ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             ex.setLocationRelativeTo(null);
             ex.setModal(true);
@@ -509,7 +533,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
 
     private void jMenuItemExportarEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExportarEnvioActionPerformed
         // TODO add your handling code here:
-        //ATENÇÃO: CORRRIGIRA CRIAÇÃO DO USUÁRIO DESKTOP
+        //ATENÃ‡ÃƒO: CORRRIGIRA CRIAÃ‡ÃƒO DO USUÃ�RIO DESKTOP
                 SUsuarioDesktop desk=new SUsuarioDesktop();
                 desk.setSerial_aplicacao("324324324");
                 desk.setServidor_cpf("00000000098");
@@ -527,7 +551,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
 
     private void jMenuItemExportarAtualizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExportarAtualizacaoActionPerformed
         // TODO add your handling code here:
-                //ATENÇÃO: CORRRIGIRA CRIAÇÃO DO USUÁRIO DESKTOP
+                //ATENÃ‡ÃƒO: CORRRIGIRA CRIAÃ‡ÃƒO DO USUÃ�RIO DESKTOP
                 SUsuarioDesktop desk=new SUsuarioDesktop();
                 desk.setSerial_aplicacao("324324324");
                 desk.setServidor_cpf("00000000098");
@@ -536,12 +560,44 @@ public class ListaProcedimento extends javax.swing.JFrame {
         //============================================
         IExportacaoStrategy expo=new ExportacaoCentralAtualizacao(desk);
         Exportacao ex=new  Exportacao(this,expo);
-        ex.setTitle("Envio dos procedimentos realizados (ainda não atualizados) para a base central.");
+        ex.setTitle("Envio dos procedimentos realizados (ainda nÃ£o atualizados) para a base central.");
         ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         ex.setLocationRelativeTo(null);
         ex.setModal(true);
         ex.setVisible(true);
     }//GEN-LAST:event_jMenuItemExportarAtualizacaoActionPerformed
+
+    private void jbtnPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnPesquisarMouseClicked
+        String itemBusca = this.jcomboBoxFiltro.getSelectedItem().toString();
+         BIProcedimentoRealizadoPK biPK =new BIProcedimentoRealizadoPK();
+        
+         BIProcedimentoRealizado bipr = new BIProcedimentoRealizado(biPK);
+        
+        if(itemBusca.equals(ListaProcedimento.COMPETENCIA)){
+           biPK.setCompetencia(jTextFieldPesquisa.getText());
+        }
+        if(itemBusca.equals(ListaProcedimento.CNS)){
+           biPK.setCnsMedico(jTextFieldPesquisa.getText());
+        }
+        if(itemBusca.equals(ListaProcedimento.CNES)){
+           biPK.setCnesUnidade(jTextFieldPesquisa.getText());
+        }
+        if(itemBusca.equals(ListaProcedimento.CBO)){
+           biPK.setCboMedico(jTextFieldPesquisa.getText());
+        }
+        
+         
+            this.tableModelHeader= new ProcedimentoRealizadoTableModelHeader(biProcedimentoRealizadoController.findAllOnlyHeaderEqual(bipr));
+            this.jTableHeader.setModel(tableModelHeader);
+            //redimensiona as colunas das Tabelas
+            this.tableHeaderRedimendionaColunas();
+            this.TableBodyAjustarTamanhoTabelas();
+            //seleciona a primeira linha
+            if(!this.tableModelHeader.isEmpty()){
+                this.jTableHeader.setRowSelectionInterval(0, 0);
+             }
+        
+    }//GEN-LAST:event_jbtnPesquisarMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtualizar;
