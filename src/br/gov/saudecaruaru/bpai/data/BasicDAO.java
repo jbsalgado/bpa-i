@@ -17,8 +17,9 @@ public interface BasicDAO<T extends Serializable> {
     /**
      * Salva o objeto (mapeado) no banco de dados
      * @param object - entidade que deve ser persistida
+     * @return true se salvou com sucesso
      */
-    public void save(T object);
+    public boolean save(T object);
     
     /**
      * Salva a lista de objetos (mapeados) no banco de dados 
@@ -44,14 +45,16 @@ public interface BasicDAO<T extends Serializable> {
     /**
      * Atualiza o objeto (mapeado) no banco de dados
      * @param object - o objeto que deve ser atualizado
+     * @return true se atualizou com sucesso
      */
-    public void update(T object);
+    public boolean update(T object);
     
     /**
      * Deleta o objeto (mapeado) no banco de dados
      * @param object - objeto que deve ser removido do banco de dados
+     * @return true se removeu o objeto com sucesso
      */
-    public void remove(T object);
+    public boolean remove(T object);
     
     /**
      * Devolve todos os registros do banco de dados
@@ -86,6 +89,8 @@ public interface BasicDAO<T extends Serializable> {
      * @return List com todos os objetos que satisfaçam a condição
      */
     public List<T> findAllEqual(Map<String,Object> restrictions);
+    
+     public boolean removeAll(T entity);
     
     public List<T> findAllEqual(Map<String,Object> restrictions, int firstResult, int maxResult);
     

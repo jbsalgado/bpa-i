@@ -41,13 +41,15 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
     }
 
     @Override
-    public void save(T entity) {
+    public boolean save(T entity) {
+        boolean sucess=false;
         Session session= this.getSession();
         Transaction tr=session.getTransaction();
         try {
             tr.begin();
             session.save(entity);
             tr.commit();
+            sucess=true;
         } catch (Throwable t) {
             tr.rollback();
             this.logger.error("=> Erro ao tentar executar o método save. Objeto: "+entity);
@@ -57,6 +59,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             if(session != null){
                 session.close();
             }
+            return sucess;
         }
     }
     
@@ -145,8 +148,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
     }
 
     @Override
-    public void update(T entity) {
+    public boolean update(T entity) {
         //EntityTransaction tx = getEntityManager().getTransaction();
+        boolean sucess=false;
         Session session= this.getSession();
         Transaction t=session.getTransaction();
         try {
@@ -155,6 +159,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             session.flush();
             session.clear();
             t.commit();
+            sucess=true;
         } catch (Throwable tr) {
             t.rollback();
             this.logger.error("Erro ao tentar executar o método update. Objeto: "+entity);
@@ -164,18 +169,21 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             if(session != null){
                 session.close();
             }
+            return sucess;
         }
 
     }
 
     @Override
-    public void remove(T entity) {
+    public boolean remove(T entity) {
+        boolean sucess=false;
         Session session= this.getSession();
         Transaction t=session.getTransaction();
         try {
             t.begin();
             session.delete(entity);
             t.commit();
+            sucess=true;
         } catch (Throwable tr) {
             t.rollback();
             this.logger.error("Erro ao tentar executar o método remove. Objeto: "+entity);
@@ -185,6 +193,62 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             if(session != null){
                 session.close();
             }
+            return sucess;
+        }
+    }
+    
+    @Override
+    public boolean removeAll(T entity){
+        boolean sucess=false;
+         Session session= this.getSession();
+        Transaction t=session.getTransaction();
+        try {
+            t.begin();
+            StringBuilder sql= new StringBuilder();
+            
+            sql.append("DELETE FROM ");
+            sql.append(this.persistentClass.getCanonicalName());
+            
+            Map<String, Object> restrictions=ModelUtil.getRestrictions(entity);
+            Set<String> l=restrictions.keySet();
+            int size=l.size();
+            if(size>0){
+                int i=1;
+                sql.append(" tb WHERE ");
+                for(String key: l){
+                    //campos que devem ser filtrados
+                    sql.append(key);
+                    sql.append(" = ");
+                    sql.append(":");
+                    sql.append(key.replace('.', '_'));
+                    
+                    //não é o último
+                    if(i!=size){
+                        sql.append(" AND ");
+                    }
+                    i++;
+                }
+            }
+            //sql.append(" ")
+            Query q=session.createQuery(sql.toString());
+            if(size > 0){
+                for(String key: l){
+                    q.setParameter(key.replace('.', '_'), restrictions.get(key));
+                }
+            }
+            q.executeUpdate();
+            t.commit();
+            sucess=true;
+        } catch (Throwable tr) {
+            t.rollback();
+            this.logger.error("Erro ao tentar executar o método removeAll. Objeto: "+entity);
+            this.logger.error(tr.getMessage());
+            tr.printStackTrace();
+        } finally {
+            if(session != null){
+                session.close();
+            }
+            return sucess;
         }
     }
 
@@ -364,7 +428,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
                     sql.append(key);
                     sql.append(" = ");
                     sql.append(":");
-                    sql.append(key);
+                    sql.append(key.replace('.', '_'));
                     
                     //não é o último
                     if(i!=size){
@@ -375,7 +439,10 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             }
             Query q=session.createQuery(sql.toString());
             if(size > 0){
-                q.setProperties(restrictions);
+                for(String key: l){
+                    q.setParameter(key.replace('.', '_'), restrictions.get(key));
+                }
+                //q.setProperties(restrictions);
             }
             q.setFirstResult(firstResult);
             q.setMaxResults(maxResult);
@@ -411,7 +478,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
                     sql.append(key);
                     sql.append(" = ");
                     sql.append(":");
-                    sql.append(key);
+                    sql.append(key.replace('.', '_'));
                     
                     //não é o último
                     if(i!=size){
@@ -422,7 +489,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             }
             Query q=session.createQuery(sql.toString());
             if(size > 0){
-                q.setProperties(restrictions);
+                for(String key: l){
+                    q.setParameter(key.replace('.', '_'), restrictions.get(key));
+                }
             }
             q.setFirstResult(firstResult);
             q.setMaxResults(maxResult);
