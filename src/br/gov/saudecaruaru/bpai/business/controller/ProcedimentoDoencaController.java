@@ -9,6 +9,7 @@ import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoenca;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoencaPK;
 import br.gov.saudecaruaru.bpai.data.GenericDAO;
 import br.gov.saudecaruaru.bpai.data.ProcedimentoDoencaDAO;
+import br.gov.saudecaruaru.bpai.util.ModelUtil;
 
 /**
  *
@@ -28,7 +29,7 @@ public class ProcedimentoDoencaController extends BasecController<ProcedimentoDo
        
        
         procedimentoDoenca.getProcedimentoDoencaPK().setProcedimentoCodigo(codProc);
-        
+        procedimentoDoenca.getProcedimentoDoencaPK().setCompetencia(ModelUtil.COMPETENCIA_MAIS_RECENTE);
         if(!findAllEqual(procedimentoDoenca).isEmpty()){
             return true;
         }

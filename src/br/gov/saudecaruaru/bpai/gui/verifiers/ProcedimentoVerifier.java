@@ -10,6 +10,7 @@ import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoController;
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
+import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.List;
@@ -85,6 +86,7 @@ public class ProcedimentoVerifier extends InputVerifier{
     
       procedimento.getProcedimentoPk().setId(codProc);
       procedimento.setDigitoVerificador(digitoVerificador);
+      procedimento.getProcedimentoPk().setCompetencia(ModelUtil.COMPETENCIA_MAIS_RECENTE);
       //procedimento.getProcedimentoPk().setCompetencia(proRealizado.getProcedimentoRealizadoPK().getCompetencia());
       
      
@@ -150,7 +152,7 @@ public class ProcedimentoVerifier extends InputVerifier{
      private boolean temProcedimentoECbo(String codProc,String cbo){
         procedimentoCbo.getProcedimentoCboPK().setProcedimentoCodigo(codProc);
         procedimentoCbo.getProcedimentoCboPK().setCodigoCbo(cbo);
-        
+        procedimentoCbo.getProcedimentoCboPK().setCompetencia(ModelUtil.COMPETENCIA_MAIS_RECENTE);
         if(procedimentoCboController.findAllEqual(procedimentoCbo).isEmpty()){
             return false;
         }
