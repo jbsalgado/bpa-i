@@ -82,8 +82,9 @@ public class Login extends javax.swing.JDialog {
         jPasswordFieldSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
 
-        jButtonLogin.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jButtonLogin.setFont(new java.awt.Font("Tahoma", 0, 15));
         jButtonLogin.setText("Login");
         jButtonLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -101,7 +102,7 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
-        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 15));
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -119,20 +120,20 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 15));
         jLabel1.setText("Usuário");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 15));
         jLabel2.setText("Senha");
 
-        jTextFieldUsuario.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jTextFieldUsuario.setFont(new java.awt.Font("Tahoma", 0, 15));
         jTextFieldUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldUsuarioKeyPressed(evt);
             }
         });
 
-        jPasswordFieldSenha.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jPasswordFieldSenha.setFont(new java.awt.Font("Tahoma", 0, 15));
         jPasswordFieldSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordFieldSenhaActionPerformed(evt);

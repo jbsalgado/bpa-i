@@ -118,6 +118,15 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     
     @Column(name = "PRD_EQUIPE")
     private String equipe;
+    
+    @Column(name = "PRD_CNPJ")
+    private String cnpj;
+    
+    @Column(name = "PRD_EQP_AREA")
+    private String equipeArea;
+    
+    @Column(name = "PRD_EQP_SEQ")
+    private String equipeSequencia;
 
     @Transient
     private String nomeProfissional;
@@ -255,6 +264,10 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.codigoServico=procedimentoRealizado.getCodigoServico();
         this.codigoClassificacaoServico=procedimentoRealizado.getCodigoClassificacaoServico();
         this.equipe=procedimentoRealizado.getEquipe();
+        
+        this.equipeArea=procedimentoRealizado.getEquipeArea();
+        this.equipeSequencia=procedimentoRealizado.getEquipeSequencia();
+        this.cnpj=procedimentoRealizado.getCnpj();
     }
     
     public void setPaciente(Paciente paciente){
@@ -365,6 +378,17 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         if( this.competenciaMovimento== null ? true : this.competenciaMovimento.isEmpty()){
             this.competenciaMovimento="      ";
         }
+        
+        if( this.cnpj== null ? true : this.cnpj.isEmpty()){
+            this.cnpj="            ";
+        }
+        if( this.equipeArea== null ? true : this.equipeArea.isEmpty()){
+            this.equipeArea="    ";
+        }
+        if( this.equipeSequencia== null ? true : this.equipeSequencia.isEmpty()){
+            this.equipeSequencia="        ";
+        }
+        
 
         String tmp=this.getProcedimentoRealizadoPK().getNumeroFolha();
         this.getProcedimentoRealizadoPK().setNumeroFolha(ModelUtil.completar(tmp, 3, '0'));
@@ -382,6 +406,30 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
 
     public String getCodigoServico() {
         return codigoServico;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public String getEquipeArea() {
+        return equipeArea;
+    }
+
+    public void setEquipeArea(String equipeArea) {
+        this.equipeArea = equipeArea;
+    }
+
+    public String getEquipeSequencia() {
+        return equipeSequencia;
+    }
+
+    public void setEquipeSequencia(String equipeSequencia) {
+        this.equipeSequencia = equipeSequencia;
     }
 
     public void setCodigoServico(String codigoServico) {
@@ -464,6 +512,10 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         pro.setSequencia(this.procedimentoRealizadoPK.getSequenciaFolha());
         pro.setServico(this.codigoServico);
         pro.setUnidade(this.procedimentoRealizadoPK.getCnesUnidade());
+        
+        pro.setEquipe_area(this.equipeArea);
+        pro.setEquipe_sequencia(this.equipeSequencia);
+        pro.setCnpj(this.cnpj);
         
         return pro;
     }
