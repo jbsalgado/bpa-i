@@ -6,6 +6,7 @@ package br.gov.saudecaruaru.bpai.business.validators;
 
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.data.*;
+import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -61,6 +62,7 @@ public class ProcedimentoRealizadoValidator implements Validator{
      
       procedimento.getProcedimentoPk().setId(codProc);
       procedimento.setDigitoVerificador(digitoVerificador);
+      procedimento.getProcedimentoPk().setCompetencia(ModelUtil.COMPETENCIA_MAIS_RECENTE);
       //procedimento.getProcedimentoPk().setCompetencia(proRealizado.getProcedimentoRealizadoPK().getCompetencia());
       
      
@@ -92,6 +94,7 @@ public class ProcedimentoRealizadoValidator implements Validator{
      
       procedimento.getProcedimentoPk().setId(codProc);
       procedimento.setDigitoVerificador(digitoVerificador);
+      procedimento.getProcedimentoPk().setCompetencia(ModelUtil.COMPETENCIA_MAIS_RECENTE);
       //procedimento.getProcedimentoPk().setCompetencia(proRealizado.getProcedimentoRealizadoPK().getCompetencia());
       
       //faz a busca pelo Procedimento  digitado
@@ -137,10 +140,11 @@ public class ProcedimentoRealizadoValidator implements Validator{
       Procedimento  procedimento= new   Procedimento();
       ProcedimentoPK procedimentoPk = new   ProcedimentoPK();
       procedimento.setProcedimentoPk(procedimentoPk);
-     
+      
      
       procedimento.getProcedimentoPk().setId(codProc);
       procedimento.setDigitoVerificador(digitoVerificador);
+      procedimento.getProcedimentoPk().setCompetencia(ModelUtil.COMPETENCIA_MAIS_RECENTE);
       //procedimento.getProcedimentoPk().setCompetencia(proRealizado.getProcedimentoRealizadoPK().getCompetencia());
       
      
@@ -175,6 +179,7 @@ public class ProcedimentoRealizadoValidator implements Validator{
      
       procedimento.getProcedimentoPk().setId(codProc);
       procedimento.setDigitoVerificador(digitoVerificador);
+      procedimento.getProcedimentoPk().setCompetencia(ModelUtil.COMPETENCIA_MAIS_RECENTE);
       //procedimento.getProcedimentoPk().setCompetencia(proRealizado.getProcedimentoRealizadoPK().getCompetencia());
       
      
@@ -231,7 +236,7 @@ public class ProcedimentoRealizadoValidator implements Validator{
      
      private String validProcedimentoExigeDoenca(String codProcedimento,String codDoenca){
        if(codDoenca.trim().isEmpty()){  
-                ProcedimentoDoenca procedimentoDoenca = new ProcedimentoDoenca(new ProcedimentoDoencaPK(codProcedimento.substring(0, 9),null, null));
+                ProcedimentoDoenca procedimentoDoenca = new ProcedimentoDoenca(new ProcedimentoDoencaPK(codProcedimento.substring(0, 9),null, ModelUtil.COMPETENCIA_MAIS_RECENTE));
                 if(!new ProcedimentoDoencaDAO().findAllEqual(procedimentoDoenca).isEmpty()){
                         return "PROCED. EXIGE CID!";
                     }
@@ -262,7 +267,7 @@ public class ProcedimentoRealizadoValidator implements Validator{
      
      private String validDoencaIncompativelProcedimento(String codProcedimento,String codDoenca){
        if(!codDoenca.trim().isEmpty()){  
-                ProcedimentoDoenca procedimentoDoenca = new ProcedimentoDoenca(new ProcedimentoDoencaPK(codProcedimento.substring(0, 9),codDoenca, null));
+                ProcedimentoDoenca procedimentoDoenca = new ProcedimentoDoenca(new ProcedimentoDoencaPK(codProcedimento.substring(0, 9),codDoenca,ModelUtil.COMPETENCIA_MAIS_RECENTE));
                 if(new ProcedimentoDoencaDAO().findAllEqual(procedimentoDoenca).isEmpty()){
                         return "PROCED. INCOMPATIVEL COM CID!";
                     }
@@ -369,7 +374,7 @@ public class ProcedimentoRealizadoValidator implements Validator{
     
     
       private boolean temProcedimentoECbo(String codProc,String cbo){
-        ProcedimentoCbo procedimentoCbo = new ProcedimentoCbo(new ProcedimentoCboPK(codProc, cbo, null));
+        ProcedimentoCbo procedimentoCbo = new ProcedimentoCbo(new ProcedimentoCboPK(codProc, cbo,ModelUtil.COMPETENCIA_MAIS_RECENTE));
         ProcedimentoCboDAO pcd = new ProcedimentoCboDAO();
         
         if(pcd.findAllEqual(procedimentoCbo).isEmpty()){
