@@ -143,6 +143,15 @@ public class BIProcedimentoRealizado implements Serializable{
     @Column(name = "PRD_ATUALIZADO")
     private Character atualizado;
     
+    @Column(name = "PRD_CNPJ")
+    private String cnpj;
+    
+    @Column(name = "PRD_EQP_AREA")
+    private String equipeArea;
+    
+    @Column(name = "PRD_EQP_SEQ")
+    private String equipeSequencia;
+    
     public BIProcedimentoRealizado() {
     }
 
@@ -182,6 +191,10 @@ public class BIProcedimentoRealizado implements Serializable{
         this.codigoServico=procedimentoRealizado.getCodigoServico();
         this.codigoClassificacaoServico=procedimentoRealizado.getCodigoClassificacaoServico();
         this.equipe=procedimentoRealizado.getEquipe();
+        
+        this.equipeArea=procedimentoRealizado.getEquipeArea();
+        this.equipeSequencia=procedimentoRealizado.getEquipeSequencia();
+        this.cnpj=procedimentoRealizado.getCnpj();
     }
     
     public ProcedimentoRealizado getProcedimentoRealizado(){
@@ -255,6 +268,12 @@ public class BIProcedimentoRealizado implements Serializable{
         this.quantidadeRealizada=sProcedimentoRealizado.getQuantidade().doubleValue();
         this.racaPaciente=sProcedimentoRealizado.getPaciente().getRaca();
         this.sexoPaciente=sProcedimentoRealizado.getPaciente().getSexo();
+        
+        this.equipeArea=sProcedimentoRealizado.getEquipe_area();
+        this.equipeSequencia=sProcedimentoRealizado.getEquipe_sequencia();
+        this.cnpj=sProcedimentoRealizado.getCnpj();
+        
+       // this.equipeArea=sProcedimentoRealizado.get
     }
     
     public SProcedimentoRealizado getProcedimentoRealizadoParaEnviar(){
@@ -296,6 +315,10 @@ public class BIProcedimentoRealizado implements Serializable{
         pro.setSequencia(this.biProcedimentoRealizadoPK.getSequenciaFolha());
         pro.setServico(this.codigoServico);
         pro.setUnidade(this.biProcedimentoRealizadoPK.getCnesUnidade());
+        
+        pro.setEquipe_area(this.equipeArea);
+        pro.setEquipe_sequencia(this.equipeSequencia);
+        pro.setCnpj(this.cnpj);
         
         return pro;
     }
@@ -352,6 +375,30 @@ public class BIProcedimentoRealizado implements Serializable{
 
     public String getDataAtendimento() {
         return dataAtendimento;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public String getEquipeArea() {
+        return equipeArea;
+    }
+
+    public void setEquipeArea(String equipeArea) {
+        this.equipeArea = equipeArea;
+    }
+
+    public String getEquipeSequencia() {
+        return equipeSequencia;
+    }
+
+    public void setEquipeSequencia(String equipeSequencia) {
+        this.equipeSequencia = equipeSequencia;
     }
 
     public void setDataAtendimento(String dataAtendimento) {

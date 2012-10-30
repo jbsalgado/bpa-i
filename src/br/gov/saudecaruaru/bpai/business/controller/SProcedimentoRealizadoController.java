@@ -51,8 +51,6 @@ public class SProcedimentoRealizadoController {
                     
                     //vai tentar enviar
                     BIProcedimentoRealizado proc= new BIProcedimentoRealizado(sProcedimentoRealizado);
-                    System.out.println(proc);
-                    System.out.println(spr);
                     
                     try {
                         //se salvou com sucesso, vai atualizar no banco o estado

@@ -42,6 +42,12 @@ public class SProcedimentoRealizado  implements java.io.Serializable {
 
     private java.lang.String equipe;
 
+    private java.lang.String cnpj;
+
+    private java.lang.String equipe_area;
+
+    private java.lang.String equipe_sequencia;
+
     private java.lang.String classificacao;
 
     private java.math.BigInteger idade_paciente;
@@ -67,6 +73,9 @@ public class SProcedimentoRealizado  implements java.io.Serializable {
            java.lang.String competencia_movimento,
            java.lang.String servico,
            java.lang.String equipe,
+           java.lang.String cnpj,
+           java.lang.String equipe_area,
+           java.lang.String equipe_sequencia,
            java.lang.String classificacao,
            java.math.BigInteger idade_paciente) {
            this.unidade = unidade;
@@ -86,6 +95,9 @@ public class SProcedimentoRealizado  implements java.io.Serializable {
            this.competencia_movimento = competencia_movimento;
            this.servico = servico;
            this.equipe = equipe;
+           this.cnpj = cnpj;
+           this.equipe_area = equipe_area;
+           this.equipe_sequencia = equipe_sequencia;
            this.classificacao = classificacao;
            this.idade_paciente = idade_paciente;
     }
@@ -432,6 +444,66 @@ public class SProcedimentoRealizado  implements java.io.Serializable {
 
 
     /**
+     * Gets the cnpj value for this ProcedimentoRealizado.
+     * 
+     * @return cnpj
+     */
+    public java.lang.String getCnpj() {
+        return cnpj;
+    }
+
+
+    /**
+     * Sets the cnpj value for this ProcedimentoRealizado.
+     * 
+     * @param cnpj
+     */
+    public void setCnpj(java.lang.String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+
+    /**
+     * Gets the equipe_area value for this ProcedimentoRealizado.
+     * 
+     * @return equipe_area
+     */
+    public java.lang.String getEquipe_area() {
+        return equipe_area;
+    }
+
+
+    /**
+     * Sets the equipe_area value for this ProcedimentoRealizado.
+     * 
+     * @param equipe_area
+     */
+    public void setEquipe_area(java.lang.String equipe_area) {
+        this.equipe_area = equipe_area;
+    }
+
+
+    /**
+     * Gets the equipe_sequencia value for this ProcedimentoRealizado.
+     * 
+     * @return equipe_sequencia
+     */
+    public java.lang.String getEquipe_sequencia() {
+        return equipe_sequencia;
+    }
+
+
+    /**
+     * Sets the equipe_sequencia value for this ProcedimentoRealizado.
+     * 
+     * @param equipe_sequencia
+     */
+    public void setEquipe_sequencia(java.lang.String equipe_sequencia) {
+        this.equipe_sequencia = equipe_sequencia;
+    }
+
+
+    /**
      * Gets the classificacao value for this ProcedimentoRealizado.
      * 
      * @return classificacao
@@ -533,6 +605,15 @@ public class SProcedimentoRealizado  implements java.io.Serializable {
             ((this.equipe==null && other.getEquipe()==null) || 
              (this.equipe!=null &&
               this.equipe.equals(other.getEquipe()))) &&
+            ((this.cnpj==null && other.getCnpj()==null) || 
+             (this.cnpj!=null &&
+              this.cnpj.equals(other.getCnpj()))) &&
+            ((this.equipe_area==null && other.getEquipe_area()==null) || 
+             (this.equipe_area!=null &&
+              this.equipe_area.equals(other.getEquipe_area()))) &&
+            ((this.equipe_sequencia==null && other.getEquipe_sequencia()==null) || 
+             (this.equipe_sequencia!=null &&
+              this.equipe_sequencia.equals(other.getEquipe_sequencia()))) &&
             ((this.classificacao==null && other.getClassificacao()==null) || 
              (this.classificacao!=null &&
               this.classificacao.equals(other.getClassificacao()))) &&
@@ -600,6 +681,15 @@ public class SProcedimentoRealizado  implements java.io.Serializable {
         }
         if (getEquipe() != null) {
             _hashCode += getEquipe().hashCode();
+        }
+        if (getCnpj() != null) {
+            _hashCode += getCnpj().hashCode();
+        }
+        if (getEquipe_area() != null) {
+            _hashCode += getEquipe_area().hashCode();
+        }
+        if (getEquipe_sequencia() != null) {
+            _hashCode += getEquipe_sequencia().hashCode();
         }
         if (getClassificacao() != null) {
             _hashCode += getClassificacao().hashCode();
@@ -720,6 +810,24 @@ public class SProcedimentoRealizado  implements java.io.Serializable {
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("cnpj");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "cnpj"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("equipe_area");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "equipe_area"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("equipe_sequencia");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "equipe_sequencia"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("classificacao");
         elemField.setXmlName(new javax.xml.namespace.QName("", "classificacao"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
@@ -764,10 +872,4 @@ public class SProcedimentoRealizado  implements java.io.Serializable {
             _javaType, _xmlType, typeDesc);
     }
 
-    @Override
-    public String toString() {
-        return "SProcedimentoRealizado{" + "unidade=" + unidade + ", competencia=" + competencia + ", profissional_cns=" + profissional_cns + ", paciente=" + paciente + ", profissional_cbo=" + profissional_cbo + ", folha=" + folha + ", sequencia=" + sequencia + ", procedimento=" + procedimento + ", data_atendimento=" + data_atendimento + ", cid=" + cid + ", quantidade=" + quantidade + ", caracter_atendimento=" + caracter_atendimento + ", numero_autorizacao=" + numero_autorizacao + ", origem=" + origem + ", competencia_movimento=" + competencia_movimento + ", servico=" + servico + ", equipe=" + equipe + ", classificacao=" + classificacao + ", idade_paciente=" + idade_paciente + '}';
-    }
-
-    
 }
