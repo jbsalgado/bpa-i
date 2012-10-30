@@ -30,13 +30,13 @@ public class CnesVerifier extends InputVerifier {
       JTextComponent txtField = (JTextField) input; 
       String valor = txtField.getText();
       
-       
+      
           if(!validaCnes(valor)){
             MessagesErrors.erro(component,txtField,fieldName + " INCORRETO!");  
             return false;  
          
           }
-     
+       
          
       txtField.setBackground(Color.WHITE);
       return true;  
