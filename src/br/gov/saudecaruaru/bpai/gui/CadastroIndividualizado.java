@@ -1546,6 +1546,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirMouseClicked
+        if(jButtonIncluir.isEnabled()){
         try{
             if(this.textFieldVerifier(getListFieldsProcedimento())){
 
@@ -1597,6 +1598,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             ex.printStackTrace();
              JOptionPane.showMessageDialog(this, "Ops! Um erro inesperado aconteceu! Relate o problema  aos desenvolvedores!");
         }
+      }
     }//GEN-LAST:event_jButtonIncluirMouseClicked
 
     private void initNewFolha(){
@@ -1686,7 +1688,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     }//GEN-LAST:event_jButtonCancelarMouseClicked
 
     private void jButtonAtualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAtualizarMouseClicked
-        try{
+      if(jButtonAtualizar.isEnabled()){   
+      try{
         if(this.textFieldVerifier(this.listFieldsProcedimento)){
             this.getValuesToModel();    
             this.procedimentoRealizado.preencherAtributosVazios();
@@ -1725,6 +1728,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Ops! Um erro inesperado aconteceu! Relate o problema  aos desenvolvedores!");
         }
+      }
     }//GEN-LAST:event_jButtonAtualizarMouseClicked
 
     private void jButtonAtualizarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButtonAtualizarKeyPressed
