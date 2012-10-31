@@ -2262,7 +2262,20 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                CadastroIndividualizado.this.procedimentoRealizado.setCidDoencaprocedimento(((JTextField)e.getComponent()).getText());
             }
         });
-         
+           jTextFieldProcedimentoCnpj.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                
+                
+               CadastroIndividualizado.this.procedimentoRealizado.setCnpj(((JTextField)e.getComponent()).getText());
+            }
+        });
           jComboBoxProcCaraterAtend.addFocusListener(new FocusListener() {
 
             @Override
@@ -2310,6 +2323,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                if(index>=0){
                     Equipe equipe = (Equipe) objectComboBoxModelEquipe.getData().get(index);
                     CadastroIndividualizado.this.procedimentoRealizado.setEquipe(equipe.getEquipePK().getSequencia()+equipe.getArea());
+                    CadastroIndividualizado.this.procedimentoRealizado.setEquipeSequencia(equipe.getEquipePK().getSequencia());
+                    CadastroIndividualizado.this.procedimentoRealizado.setEquipeArea(equipe.getArea());
                }
                }
         });
