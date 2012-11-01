@@ -213,6 +213,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         this.codigoClassificacaoServico=procedimentoRealizado.getCodigoClassificacaoServico();
         this.equipe=procedimentoRealizado.getEquipe();
         this.nomeProfissional=procedimentoRealizado.getNomeProfissional();
+        this.cnpj = procedimentoRealizado.getCnpj();
     }
     
     public ProcedimentoRealizado(String cnes,String cnsProfissional,String cbo,String competencia,String folha) {
