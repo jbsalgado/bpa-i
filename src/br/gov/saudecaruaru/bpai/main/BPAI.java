@@ -10,21 +10,35 @@ import br.gov.saudecaruaru.bpai.gui.EscolhaBanco;
 import br.gov.saudecaruaru.bpai.gui.ListaProcedimento;
 import br.gov.saudecaruaru.bpai.gui.SearchGeneric;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.log4j.PropertyConfigurator;
-import org.apache.log4j.helpers.Loader;
 
 /**
  *
  * @author Junior Pires
  */
 public class BPAI {
-
-    //carrega as configurações do log
-    static{  
-            PropertyConfigurator.configure(Loader.getResource("log4j.properties"));    
-    } 
+    
+    //CARREGA AS CONFIGURAÇÕES PARA O LOG
+    static {
+            String path=null;
+            try {
+                path=BPAI.class.getClassLoader().getResource("log4j-app.properties").toURI().getPath().substring(1);
+                PropertyConfigurator.configure(path);
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(BPAI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public static void initDatabaseConfiguration(){
         SistemaController.createConfiguration();
         EscolhaBanco banco= new EscolhaBanco();
@@ -39,6 +53,7 @@ public class BPAI {
             }
             else{
                 JOptionPane.showMessageDialog(banco, "Conexão realizada com sucesso!");
+               
             }
            
         }
@@ -55,6 +70,13 @@ public class BPAI {
             }
            
         }
+        String path=null;
+        try {
+             path=BPAI.class.getClassLoader().getResource("log4j-teste.properties").toURI().getPath().substring(1);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(BPAI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        PropertyConfigurator.configure(path);
         banco.dispose();
         SistemaController.updateConfigurations();
     }
