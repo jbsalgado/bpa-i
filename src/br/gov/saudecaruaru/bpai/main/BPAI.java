@@ -12,6 +12,8 @@ import br.gov.saudecaruaru.bpai.gui.SearchGeneric;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.apache.log4j.PropertyConfigurator;
+import org.apache.log4j.helpers.Loader;
 
 /**
  *
@@ -19,6 +21,10 @@ import javax.swing.JOptionPane;
  */
 public class BPAI {
 
+    //carrega as configurações do log
+    static{  
+            PropertyConfigurator.configure(Loader.getResource("log4j.properties"));    
+    } 
     public static void initDatabaseConfiguration(){
         SistemaController.createConfiguration();
         EscolhaBanco banco= new EscolhaBanco();

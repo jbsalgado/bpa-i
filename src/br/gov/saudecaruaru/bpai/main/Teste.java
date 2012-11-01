@@ -43,7 +43,8 @@ public class Teste {
 //        testeEquipes();
         //init();
         //testServico();
-        testInEnvioBackground();
+        //testInEnvioBackground();
+        testLogger();
         //testXML();
     }
     
@@ -134,5 +135,10 @@ public class Teste {
         for(BIProcedimentoRealizado p: xml.carregar("test.xml")){
             System.out.println(p);
         }
+    }
+    
+    public static void testLogger(){
+        Logger lo=Logger.getLogger(Teste.class);
+        lo.info("mensagem de teste pow!");
     }
 }
