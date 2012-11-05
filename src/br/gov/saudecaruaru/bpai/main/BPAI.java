@@ -72,7 +72,7 @@ public class BPAI {
         }
         String path=null;
         try {
-             path=BPAI.class.getClassLoader().getResource("log4j-teste.properties").toURI().getPath().substring(1);
+             path=BPAI.class.getClassLoader().getResource("log4j-app.properties").toURI().getPath().substring(1);
         } catch (URISyntaxException ex) {
             Logger.getLogger(BPAI.class.getName()).log(Level.SEVERE, null, ex);
         }
