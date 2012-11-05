@@ -40,6 +40,7 @@ public class BPAI {
     }
     
     public static void initDatabaseConfiguration(){
+        try{
         SistemaController.createConfiguration();
         EscolhaBanco banco= new EscolhaBanco();
         //vai pegar o caminho
@@ -70,15 +71,11 @@ public class BPAI {
             }
            
         }
-        String path=null;
-        try {
-             path=BPAI.class.getClassLoader().getResource("log4j-teste.properties").toURI().getPath().substring(1);
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(BPAI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        PropertyConfigurator.configure(path);
         banco.dispose();
         SistemaController.updateConfigurations();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
     /**
      * @param args the command line arguments
