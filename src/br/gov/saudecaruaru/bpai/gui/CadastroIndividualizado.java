@@ -2738,16 +2738,17 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
            List<ProcedimentoServico> list=this.procedimentoServicoController.findAllEqual(res);
            ProcedimentoServico pro= list.isEmpty()? null : list.get(0); 
            if(pro != null){
-
+               String competencia=ModelUtil.COMPETENCIA_MAIS_RECENTE;
+               String codigoProcedimento=this.procedimentoRealizado.getCodigoProcedimento().substring(0,9);
                //busca as classificaçoes dos serviços que o procedimento tem
-               List<Diversas> d=this.diversasController.findAllClassificacaoServico(CadastroIndividualizado.this.procedimentoRealizado);
+               List<Diversas> d=this.diversasController.findAllClassificacaoServico(codigoProcedimento, competencia);
                this.objectComboBoxModelClassificaoServico.setData(d);
                //seleciona a primeira classificação
                if(!d.isEmpty()){
                     this.jComboBoxUsuarioClassificacao.setSelectedIndex(0);
                }
                //busca todos os serviços que o procedimento tem
-               d=this.diversasController.findAllServicos(CadastroIndividualizado.this.procedimentoRealizado);
+               d=this.diversasController.findAllServicos(codigoProcedimento, competencia);
                this.objectComboBoxModelServico.setData(d);
                //seleciona o primeiro serviço
                if(!d.isEmpty()){

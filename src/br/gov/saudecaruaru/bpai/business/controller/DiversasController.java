@@ -26,8 +26,8 @@ public class DiversasController extends BasecController<Diversas> {
      * @param pro ProcedimentoRealizado: usa o código do procedimento e a competência
      * @return lista com todos os serviços
      */
-    public List<Diversas> findAllServicos(ProcedimentoRealizado pro){
-        return ((DiversasDAO)this.getDao()).findAllServicos(pro);
+    public List<Diversas> findAllServicos(String codigoProcedimento, String competencia){
+        return ((DiversasDAO)this.getDao()).findAllServicos(codigoProcedimento, competencia);
     }
     
     /**
@@ -35,7 +35,7 @@ public class DiversasController extends BasecController<Diversas> {
      * @param pro ProcedimentoRealizado - vai usar o codigo do procedimento e a competência
      * @return Devolve a lista de classificações do serviço
      */
-    public List<Diversas> findAllClassificacaoServico(ProcedimentoRealizado pro){
-        return ((DiversasDAO)this.getDao()).findAllClassificacaoServico(pro);    
+    public List<Diversas> findAllClassificacaoServico(String codigoProcedimento, String competencia){
+        return ((DiversasDAO)this.getDao()).findAllClassificacaoServico(codigoProcedimento, competencia);    
     }
 }

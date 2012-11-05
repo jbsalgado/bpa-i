@@ -89,8 +89,13 @@ public class ListaProcedimento extends javax.swing.JFrame {
                         System.exit(0);
                     }
                 });
+        
+      //vai adicionar os labels aos menus e botões
+        this.jMenuOperacao.setText("Operações");
+        this.jMenuItemAlteraCompetencia.setText("Alterar Competência");
     }
 
+  
     private void login(){
         Login login= new Login(this, true);
         login.setLocationRelativeTo(null);
@@ -214,12 +219,12 @@ public class ListaProcedimento extends javax.swing.JFrame {
         jButtonAtualizar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuOperacao = new javax.swing.JMenu();
         jMenuItemExportarBPA = new javax.swing.JMenuItem();
         jMenuItemExportarXML = new javax.swing.JMenuItem();
         jMenuItemExportarEnvio = new javax.swing.JMenuItem();
         jMenuItemExportarAtualizacao = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItemAlteraCompetencia = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -244,21 +249,21 @@ public class ListaProcedimento extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableHeader);
 
-        jcomboBoxFiltro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jcomboBoxFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CNS DO PROFISSIONAL", "CNES", "COMPETÃŠNCIA", "CBO", "PROFISSIONAL" }));
+        jcomboBoxFiltro.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jcomboBoxFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CNS DO PROFISSIONAL", "CNES", "COMPETÊNCIA", "CBO", "PROFISSIONAL" }));
         jcomboBoxFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcomboBoxFiltroActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel1.setText("Filtro de Pesquisa");
 
-        jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextFieldPesquisa.setToolTipText("");
 
-        jbtnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jbtnPesquisar.setText("Pesquisar");
         jbtnPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -266,7 +271,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jLabelTipoPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelTipoPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabelTipoPesquisa.setText("tipo");
 
         jTableBody.setModel(new javax.swing.table.DefaultTableModel(
@@ -282,7 +287,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTableBody);
 
-        jbtnIncluirFolha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtnIncluirFolha.setFont(new java.awt.Font("Tahoma", 0, 14));
         jbtnIncluirFolha.setText("Incluir folha");
         jbtnIncluirFolha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -290,7 +295,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jbtnSair.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtnSair.setFont(new java.awt.Font("Tahoma", 0, 14));
         jbtnSair.setText("Sair");
         jbtnSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -298,7 +303,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonAtualizar.setText("Atualizar");
         jButtonAtualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -314,7 +319,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         jMenu1.setText("Arquivo");
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("OperaÃ§Ãµes");
+        jMenuOperacao.setText("Operações");
 
         jMenuItemExportarBPA.setText("Exportar para o BPA");
         jMenuItemExportarBPA.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -327,9 +332,9 @@ public class ListaProcedimento extends javax.swing.JFrame {
                 jMenuItemExportarBPAActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItemExportarBPA);
+        jMenuOperacao.add(jMenuItemExportarBPA);
 
-        jMenuItemExportarXML.setText("Exportar para XML procedimentos NÃƒO ENVIADOS");
+        jMenuItemExportarXML.setText("Exportar para XML");
         jMenuItemExportarXML.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuItemExportarXMLMouseClicked(evt);
@@ -340,38 +345,38 @@ public class ListaProcedimento extends javax.swing.JFrame {
                 jMenuItemExportarXMLActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItemExportarXML);
+        jMenuOperacao.add(jMenuItemExportarXML);
 
-        jMenuItemExportarEnvio.setText("Exportar/Enviar procedimentos NÃƒO ENVIADOS");
+        jMenuItemExportarEnvio.setText("Enviar procedimentos (Base Central)");
         jMenuItemExportarEnvio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemExportarEnvioActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItemExportarEnvio);
+        jMenuOperacao.add(jMenuItemExportarEnvio);
 
-        jMenuItemExportarAtualizacao.setText("Exportar/Enviar procedimento NÃƒO ATUALIZADOS");
+        jMenuItemExportarAtualizacao.setText("Enviar SOMENTE procedimentos desatualizados (Base Central)");
         jMenuItemExportarAtualizacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemExportarAtualizacaoActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItemExportarAtualizacao);
+        jMenuOperacao.add(jMenuItemExportarAtualizacao);
 
-        jMenuItem2.setText("Alterar CompetÃªncia");
-        jMenuItem2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenuItemAlteraCompetencia.setText("Alterar Competência");
+        jMenuItemAlteraCompetencia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuItem2MouseClicked(evt);
+                jMenuItemAlteraCompetenciaMouseClicked(evt);
             }
         });
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemAlteraCompetencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuItemAlteraCompetenciaActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenuOperacao.add(jMenuItemAlteraCompetencia);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenuOperacao);
 
         setJMenuBar(jMenuBar1);
 
@@ -504,16 +509,16 @@ public class ListaProcedimento extends javax.swing.JFrame {
        this.TableBodyAjustarTamanhoTabelas(); 
     }//GEN-LAST:event_jButtonAtualizarMouseClicked
 
-    private void jMenuItem2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MouseClicked
+    private void jMenuItemAlteraCompetenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemAlteraCompetenciaMouseClicked
         AlteraCompetencia alt = new AlteraCompetencia(this, true);
         alt.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         alt.setLocationRelativeTo(this);
         alt.setVisible(true);        
-    }//GEN-LAST:event_jMenuItem2MouseClicked
+    }//GEN-LAST:event_jMenuItemAlteraCompetenciaMouseClicked
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-            this.jMenuItem2MouseClicked(null);      
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void jMenuItemAlteraCompetenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAlteraCompetenciaActionPerformed
+            this.jMenuItemAlteraCompetenciaMouseClicked(null);      
+    }//GEN-LAST:event_jMenuItemAlteraCompetenciaActionPerformed
 
     private void jMenuItemExportarXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExportarXMLActionPerformed
         // TODO add your handling code here:
@@ -613,13 +618,13 @@ public class ListaProcedimento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelTipoPesquisa;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItemAlteraCompetencia;
     private javax.swing.JMenuItem jMenuItemExportarAtualizacao;
     private javax.swing.JMenuItem jMenuItemExportarBPA;
     private javax.swing.JMenuItem jMenuItemExportarEnvio;
     private javax.swing.JMenuItem jMenuItemExportarXML;
+    private javax.swing.JMenu jMenuOperacao;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableBody;
