@@ -19,7 +19,10 @@ import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelBody;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelHeader;
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
@@ -527,9 +530,12 @@ public class ListaProcedimento extends javax.swing.JFrame {
 
     private void jMenuItemExportarXMLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemExportarXMLMouseClicked
         // TODO add your handling code here:
+        
+        SimpleDateFormat format= new SimpleDateFormat("dd_MM_yyyy_HH_mm");
         //cria o arquivo para exportar os dados
         JFileChooser fil= new JFileChooser();
         fil.setDialogType(JFileChooser.SAVE_DIALOG);
+        fil.setSelectedFile(new File("exportacao_"+ format.format( new Date())+".xml"));
         fil.setFileFilter(new FileNameExtensionFilter("xml", ".xml"));
         fil.showSaveDialog(this);
         //arquivo foi criado com sucesso, entÃ£o deve-se pegar o caminho dele.
