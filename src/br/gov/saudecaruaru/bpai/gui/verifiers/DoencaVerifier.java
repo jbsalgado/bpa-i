@@ -13,6 +13,7 @@ import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoencaPK;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
+import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.InputVerifier;
@@ -100,7 +101,7 @@ public class DoencaVerifier extends InputVerifier{
                        
                     }
                      if(procedimentoRealizado.getCodigoProcedimento()!=null){
-                            if(!procedimentoDoencaController.existProcedimentoEDoenca(valor,procedimentoRealizado.getCodigoProcedimento().substring(0, 9),procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia())){
+                            if(!procedimentoDoencaController.existProcedimentoEDoenca(valor,procedimentoRealizado.getCodigoProcedimento().substring(0, 9),ModelUtil.COMPETENCIA_MAIS_RECENTE)){
                                 return  MessagesErrors.continuaErro(component,fieldName," PROCED. INCOMPATIVEL COM CID!", txtField);
                             }
                      } 
