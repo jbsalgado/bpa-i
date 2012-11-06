@@ -5,7 +5,7 @@
 package br.gov.saudecaruaru.bpai.business.controller;
 
 
-import br.gov.saudecaruaru.bpai.business.model.GestorCompetencia;
+import br.gov.saudecaruaru.bpai.business.model.BIGestorCompetencia;
 import br.gov.saudecaruaru.bpai.data.GestorCompetenciaDAO;
 import java.util.List;
 
@@ -13,21 +13,21 @@ import java.util.List;
  *
  * @author Albuquerque
  */
-public class GestorCompetenciaController extends BasecController<GestorCompetencia> 
+public class BIGestorCompetenciaController extends BasecController<BIGestorCompetencia> 
 
 {
 
-    public GestorCompetenciaController() {
+    public BIGestorCompetenciaController() {
         super(new GestorCompetenciaDAO());
     }
     
     
     public String getCompetenciaAtual(){
         
-        List<GestorCompetencia> list = findAll();
+        List<BIGestorCompetencia> list = findAll();
         if(!list.isEmpty()){
-            GestorCompetencia g=list.get(0);
-            if(g instanceof GestorCompetencia && g!=null){
+            BIGestorCompetencia g=list.get(0);
+            if(g instanceof BIGestorCompetencia && g!=null){
             String competencia = list.get(0).getCompetenciaMovimento();
                 return competencia;
             }
@@ -36,7 +36,7 @@ public class GestorCompetenciaController extends BasecController<GestorCompetenc
     }
     
     public boolean haveCompetencia(){
-        List<GestorCompetencia> list = findAll();
+        List<BIGestorCompetencia> list = findAll();
         if(list.isEmpty()){
             return false;
         }

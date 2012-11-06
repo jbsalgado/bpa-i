@@ -14,25 +14,25 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "S_CTR")
-public class GestorCompetencia implements Serializable {
+public class BIGestorCompetencia implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
-    private GestorCompetenciaPK gestorCompetenciaPK;
+    private BIGestorCompetenciaPK gestorCompetenciaPK;
     
     @Column(name = "CTR_MVM")
     private String competenciaMovimento;
     
     
-    public GestorCompetencia() {
+    public BIGestorCompetencia() {
     }
 
-    public GestorCompetencia(GestorCompetenciaPK gestorCompetenciaPK) {
+    public BIGestorCompetencia(BIGestorCompetenciaPK gestorCompetenciaPK) {
         this.gestorCompetenciaPK = gestorCompetenciaPK;
     }
 
-    public GestorCompetencia(GestorCompetenciaPK gestorCompetenciaPK, String competenciaMovimento) {
+    public BIGestorCompetencia(BIGestorCompetenciaPK gestorCompetenciaPK, String competenciaMovimento) {
         this.gestorCompetenciaPK = gestorCompetenciaPK;
         this.competenciaMovimento = competenciaMovimento;
     }
@@ -54,7 +54,7 @@ public class GestorCompetencia implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final GestorCompetencia other = (GestorCompetencia) obj;
+        final BIGestorCompetencia other = (BIGestorCompetencia) obj;
         if (this.getGestorCompetenciaPK() != other.getGestorCompetenciaPK() && (this.getGestorCompetenciaPK() == null || !this.gestorCompetenciaPK.equals(other.gestorCompetenciaPK))) {
             return false;
         }
@@ -76,14 +76,14 @@ public class GestorCompetencia implements Serializable {
     /**
      * @return the gestorCompetenciaPK
      */
-    public GestorCompetenciaPK getGestorCompetenciaPK() {
+    public BIGestorCompetenciaPK getGestorCompetenciaPK() {
         return gestorCompetenciaPK;
     }
 
     /**
      * @param gestorCompetenciaPK the gestorCompetenciaPK to set
      */
-    public void setGestorCompetenciaPK(GestorCompetenciaPK gestorCompetenciaPK) {
+    public void setGestorCompetenciaPK(BIGestorCompetenciaPK gestorCompetenciaPK) {
         this.gestorCompetenciaPK = gestorCompetenciaPK;
     }
 
