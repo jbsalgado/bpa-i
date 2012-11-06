@@ -13,9 +13,11 @@ import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -30,16 +32,23 @@ public class BPAI {
     
     //CARREGA AS CONFIGURAÇÕES PARA O LOG
     static {
-            String path=null;
-            try {
-                path=BPAI.class.getClassLoader().getResource("log4j-app.properties").toURI().getPath().substring(1);
-                PropertyConfigurator.configure(path);
-            } catch (URISyntaxException ex) {
-                Logger.getLogger(BPAI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        try {
+                //carega arquivo
+                InputStream file=BPAI.class.getClassLoader().getResourceAsStream("log4j-app.properties");
+                Properties pro= new Properties();
+                pro.load(file);
+                PropertyConfigurator.configure(pro);
+                file.close();
+            }
+            catch(Exception ex){
+                ex.printStackTrace();
+            }
     }
     
     public static void initDatabaseConfiguration(){
+        
+            
+            
         try{
         SistemaController.createConfiguration();
         EscolhaBanco banco= new EscolhaBanco();
