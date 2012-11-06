@@ -23,8 +23,8 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
         super(new BIProcedimentoRealizadoDAO());
     }
     
-    public List<ProcedimentoRealizado> findAllOnlyHeader(){
-        return ((BIProcedimentoRealizadoDAO)this.getDao()).findAllOnlyHeader();
+    public List<ProcedimentoRealizado> findAllOnlyHeader(String competencia){
+        return ((BIProcedimentoRealizadoDAO)this.getDao()).findAllOnlyHeader(competencia);
     }
     
     public List<ProcedimentoRealizado> findAllOnlyHeaderEqual(BIProcedimentoRealizado p){

@@ -197,7 +197,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
     * Em outras palavaras: agrupa os resgistros pelos campos descritos acima.
     * @return List<ProcedimentoRealizado> - A lista de todos os procedimentos encontrados
     */
-   public List<ProcedimentoRealizado> findAllOnlyHeader(){
+   public List<ProcedimentoRealizado> findAllOnlyHeader(String competencia){
         List<Object[]> l=null;
         Session session= this.getSession();
         try{
@@ -210,12 +210,13 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             sql.append("pro.biProcedimentoRealizadoPK.cnsMedico, COUNT(pro.biProcedimentoRealizadoPK.sequenciaFolha) AS VOID");
             sql.append(" FROM BIProcedimentoRealizado pro");
             //traz somente os procedimentos que devem ser consolidados
-            //sql.append(" WHERE (pro.origemProcedimento=:origem)");
+            sql.append(" WHERE (pro.biProcedimentoRealizadoPK.competencia=:competencia)");
             //agrupa
             sql.append(" GROUP BY pro.biProcedimentoRealizadoPK.competencia, pro.biProcedimentoRealizadoPK.cnesUnidade,");
             sql.append(" pro.biProcedimentoRealizadoPK.cnsMedico,pro.biProcedimentoRealizadoPK.cboMedico,pro.biProcedimentoRealizadoPK.numeroFolha");
             //it's create query
             Query q=session.createQuery(sql.toString());
+            q.setParameter("competencia", competencia);
             //paginacao dos resultados
             l=q.list();
         }catch(Exception ex){

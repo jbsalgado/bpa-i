@@ -109,7 +109,8 @@ public class ListaProcedimento extends javax.swing.JFrame {
      * Configura a tabela que armazena o cabeÃ§alho
      */
     public void initJTableHeader(){
-        this.tableModelHeader= new ProcedimentoRealizadoTableModelHeader(this.biProcedimentoRealizadoController.findAllOnlyHeader());
+        String competencia=this.gestorCompetenciaController.getCompetenciaAtual();
+        this.tableModelHeader= new ProcedimentoRealizadoTableModelHeader(this.biProcedimentoRealizadoController.findAllOnlyHeader(competencia));
         this.jTableHeader.setModel(tableModelHeader);
         this.jTableHeader.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         //quando a linha selecionada for mudada
@@ -505,7 +506,8 @@ public class ListaProcedimento extends javax.swing.JFrame {
 
     private void jButtonAtualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAtualizarMouseClicked
         // TODO add your handling code here:
-        this.tableModelHeader.replaceAllProcedimentoRealizado(this.biProcedimentoRealizadoController.findAllOnlyHeader());
+        String competencia=this.gestorCompetenciaController.getCompetenciaAtual();
+        this.tableModelHeader.replaceAllProcedimentoRealizado(this.biProcedimentoRealizadoController.findAllOnlyHeader(competencia));
         if(!this.tableModelHeader.isEmpty()){
             this.jTableHeader.setRowSelectionInterval(0, 0);
         }
