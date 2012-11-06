@@ -12,7 +12,7 @@ package br.gov.saudecaruaru.bpai.gui;
 
 import br.gov.saudecaruaru.bpai.gui.interfaces.IExportacaoStrategy;
 import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
-import br.gov.saudecaruaru.bpai.business.controller.GestorCompetenciaController;
+import br.gov.saudecaruaru.bpai.business.controller.BIGestorCompetenciaController;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizadoPK;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
@@ -48,7 +48,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
     private ProcedimentoRealizadoTableModelHeader tableModelHeader;
     private ProcedimentoRealizadoTableModelBody tableModelBody;
     private BIProcedimentoRealizadoController biProcedimentoRealizadoController;
-    private GestorCompetenciaController gestorCompetenciaController;
+    private BIGestorCompetenciaController gestorCompetenciaController;
     private static final HashMap<String,String> mapFiltro = new HashMap<String, String>();
     static{
         mapFiltro.put("COMPETÊNCIA","competencia");
@@ -70,7 +70,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
     private void myInitComponents(){
         
         this.biProcedimentoRealizadoController= new BIProcedimentoRealizadoController();
-        this.gestorCompetenciaController = new GestorCompetenciaController();
+        this.gestorCompetenciaController = new BIGestorCompetenciaController();
         this.jcomboBoxFiltroActionPerformed(null);
         this.initJTableBody();
         this.initJTableHeader();

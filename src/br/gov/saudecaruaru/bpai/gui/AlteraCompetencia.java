@@ -4,9 +4,9 @@
  */
 package br.gov.saudecaruaru.bpai.gui;
 
-import br.gov.saudecaruaru.bpai.business.controller.GestorCompetenciaController;
-import br.gov.saudecaruaru.bpai.business.model.GestorCompetencia;
-import br.gov.saudecaruaru.bpai.business.model.GestorCompetenciaPK;
+import br.gov.saudecaruaru.bpai.business.controller.BIGestorCompetenciaController;
+import br.gov.saudecaruaru.bpai.business.model.BIGestorCompetencia;
+import br.gov.saudecaruaru.bpai.business.model.BIGestorCompetenciaPK;
 import br.gov.saudecaruaru.bpai.business.model.Mes;
 import br.gov.saudecaruaru.bpai.gui.documents.AnoDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.MesFormatter;
@@ -23,8 +23,8 @@ import javax.swing.JOptionPane;
 public class AlteraCompetencia extends javax.swing.JDialog {
 
     private ObjectComboBoxModel<Mes> objectComboBoxModelMes;
-    private GestorCompetenciaController competenciaController;
-    private GestorCompetencia competencia;
+    private BIGestorCompetenciaController competenciaController;
+    private BIGestorCompetencia competencia;
     /**
      * Creates new form AlteraCompetencia
      */
@@ -41,7 +41,7 @@ public class AlteraCompetencia extends javax.swing.JDialog {
         MesFormatter formatter=new MesFormatter();
         this.objectComboBoxModelMes.setFormatter(formatter);
         
-        competenciaController = new GestorCompetenciaController();
+        competenciaController = new BIGestorCompetenciaController();
         
       
     }
@@ -67,7 +67,7 @@ public class AlteraCompetencia extends javax.swing.JDialog {
  
  public void initValueFields(){
         
-        List<GestorCompetencia>  listGc = competenciaController.findAll();
+        List<BIGestorCompetencia>  listGc = competenciaController.findAll();
         if(!listGc.isEmpty()){
             String mes = listGc.get(0).getCompetenciaMes();
             String ano = listGc.get(0).getCompetenciaAno();
@@ -191,7 +191,7 @@ public class AlteraCompetencia extends javax.swing.JDialog {
         String mes = m.getCodigo();
         String competencia = ano+mes;
         
-        GestorCompetencia gestorCompetencia = new GestorCompetencia(new GestorCompetenciaPK("1"),competencia);
+        BIGestorCompetencia gestorCompetencia = new BIGestorCompetencia(new BIGestorCompetenciaPK("1"),competencia);
         
         try {
              competenciaController.merge(gestorCompetencia);

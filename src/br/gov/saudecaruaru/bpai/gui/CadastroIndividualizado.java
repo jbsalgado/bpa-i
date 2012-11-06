@@ -54,7 +54,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      private ProcedimentoRealizadoController procedimentoRealizadoController;
      
      private ProcedimentoRealizado procedimentoRealizado;
-     private GestorCompetenciaController gestorCompetenciaController;
+     private BIGestorCompetenciaController gestorCompetenciaController;
      
      private ProcedimentoRealizadoTableModel tableModelDados;
      private ObjectComboBoxModel<Diversas> objectComboBoxModelRacaCor;
@@ -128,7 +128,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.objectComboBoxModelCaraterAtend.setFormatter(new CaraterAtendimentoFormatter());
         this.objectComboBoxModelEquipe.setFormatter(new EquipeFormatter());
         
-        this.gestorCompetenciaController = new GestorCompetenciaController(); 
+        this.gestorCompetenciaController = new BIGestorCompetenciaController(); 
         this.diversasController = new DiversasController();
         this.medicoController= new MedicoController();
         this.medicoCboCnesController=new MedicoCboCnesController();

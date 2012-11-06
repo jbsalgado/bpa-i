@@ -4,7 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.gui.verifiers;
 
-import br.gov.saudecaruaru.bpai.business.controller.GestorCompetenciaController;
+import br.gov.saudecaruaru.bpai.business.controller.BIGestorCompetenciaController;
 import br.gov.saudecaruaru.bpai.business.validators.ProcedimentoRealizadoValidator;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
