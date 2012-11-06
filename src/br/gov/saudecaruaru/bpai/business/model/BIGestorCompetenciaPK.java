@@ -14,7 +14,7 @@ import javax.persistence.Embeddable;
  * @author Albuquerque
  */
 @Embeddable
-public class GestorCompetenciaPK implements Serializable {
+public class BIGestorCompetenciaPK implements Serializable {
     
     @Basic(optional = false)
     @Column(name = "CTR_ID")
@@ -22,10 +22,10 @@ public class GestorCompetenciaPK implements Serializable {
     
    
 
-    public GestorCompetenciaPK() {
+    public BIGestorCompetenciaPK() {
     }
 
-    public GestorCompetenciaPK(String competenciaId) {
+    public BIGestorCompetenciaPK(String competenciaId) {
         this.competenciaId = competenciaId;
     }
 
@@ -39,7 +39,7 @@ public class GestorCompetenciaPK implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final GestorCompetenciaPK other = (GestorCompetenciaPK) obj;
+        final BIGestorCompetenciaPK other = (BIGestorCompetenciaPK) obj;
         if ((this.competenciaId == null) ? (other.competenciaId != null) : !this.competenciaId.equals(other.competenciaId)) {
             return false;
         }
