@@ -51,7 +51,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
     private GestorCompetenciaController gestorCompetenciaController;
     private static final HashMap<String,String> mapFiltro = new HashMap<String, String>();
     static{
-        mapFiltro.put("COMPETÃŠNCIA","competencia");
+        mapFiltro.put("COMPETÊNCIA","competencia");
     }
     /** Creates new form ListaProcedimento */
     public ListaProcedimento(java.awt.Frame parent, boolean modal) {
@@ -487,7 +487,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         // TODO add your handling code here:
         IExportacaoStrategy expo=new ExportacaoBPAMagnetico(new BIProcedimentoRealizado(new BIProcedimentoRealizadoPK()));
         Exportacao ex=new  Exportacao(this,expo);
-        ex.setTitle("ExportaÃ§Ã£o dos procedimentos para o banco do BPA MagnÃ©tico.");
+        ex.setTitle("Exportações dos procedimentos para o banco do BPA Magnético.");
         ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         ex.setLocationRelativeTo(null);
         ex.setModal(true);
@@ -543,7 +543,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         if( path!=null){
             IExportacaoStrategy expo=new ExportacaoXML(path, new BIProcedimentoRealizado(new BIProcedimentoRealizadoPK()));
             Exportacao ex=new  Exportacao(this,expo);
-            ex.setTitle("ExportaÃ§Ã£o para arquivo XML dos procedimentos nÃ£o enviados para o servidor central.");
+            ex.setTitle("Exportação para arquivo XML dos procedimentos não enviados para o servidor central.");
             ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             ex.setLocationRelativeTo(null);
             ex.setModal(true);
@@ -580,7 +580,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         //============================================
         IExportacaoStrategy expo=new ExportacaoCentralAtualizacao(desk);
         Exportacao ex=new  Exportacao(this,expo);
-        ex.setTitle("Envio dos procedimentos realizados (ainda nÃ£o atualizados) para a base central.");
+        ex.setTitle("Envio dos procedimentos realizados (ainda não atualizados) para a base central.");
         ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         ex.setLocationRelativeTo(null);
         ex.setModal(true);

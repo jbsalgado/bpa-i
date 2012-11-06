@@ -53,18 +53,18 @@ public class Teste {
         ProcedimentoRealizado pro= new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
         pro.getProcedimentoRealizadoPK().setCompetencia("201208");
         pro.setCodigoProcedimento("0102010420");
-        for(Diversas d: di.findAllServicos(pro)){
-            System.out.println(d.getDiversasPK().getCodigoItemTabela()+d.getDescricaoItemTabela());
-        }
+//        for(Diversas d: di.findAllServicos(pro)){
+//            System.out.println(d.getDiversasPK().getCodigoItemTabela()+d.getDescricaoItemTabela());
+//        }
     }
     public static void testeDiversasTabelaClassificacaoServico(){
         DiversasDAO di= new DiversasDAO();
         ProcedimentoRealizado pro= new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
         pro.getProcedimentoRealizadoPK().setCompetencia("201208");
         pro.setCodigoProcedimento("0102010420");
-        for(Diversas d: di.findAllClassificacaoServico(pro)){
-            System.out.println(d.getDiversasPK().getCodigoItemTabela()+d.getDescricaoItemTabela());
-        }
+//        for(Diversas d: di.findAllClassificacaoServico(pro)){
+//            System.out.println(d.getDiversasPK().getCodigoItemTabela()+d.getDescricaoItemTabela());
+//        }
 
         
     }

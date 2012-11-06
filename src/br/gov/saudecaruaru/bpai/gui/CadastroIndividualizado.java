@@ -1893,7 +1893,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                    if(!cnes.isEmpty()){
                        //caso os cnes's sejam diferentes vai executar
                        if(!cnes.equals(CadastroIndividualizado.this.procedimentoRealizado.getProcedimentoRealizadoPK().getCnesUnidade())){
-                           CadastroIndividualizado.this.focusLostFieldCnes();
+                           CadastroIndividualizado.this.buscarEquipesDaUnidade(CadastroIndividualizado.this.jTextFieldCnes.getText());
                        }
                    }
                }
@@ -2035,7 +2035,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                    if(!cns.isEmpty()){
                        //caso os códigos sejam diferentes vai executar
                        if(!cns.equals(CadastroIndividualizado.this.procedimentoRealizado.getCnsPaciente())){
-                           CadastroIndividualizado.this.focusLostFieldUsuarioCns();
+                           CadastroIndividualizado.this.buscarPacienteECompletarCampos(CadastroIndividualizado.this.jTextFieldUsuarioCns.getText().trim());
                        }
                    }else{
                        //jTextFieldUsuarioCns.setv
@@ -2241,7 +2241,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                        
                        //caso os código sejam diferentes vai executar
                        if(!codigo.equals(CadastroIndividualizado.this.procedimentoRealizado.getCodigoProcedimento())){
-                           CadastroIndividualizado.this.focusLostTextFieldProcCod();
+                           CadastroIndividualizado.this.buscarServicoEClassificaoServicoEPrencherCampos(CadastroIndividualizado.this.jTextFieldProcCod.getText());
                        }
                        
                    }
@@ -2680,6 +2680,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           
       }
     
+      /**
+       * Carrega as descrições do combobox de acordo com o procedimento escolhido
+       * e os respectivos código para cada item
+       * @param p 
+       */
       private void carregarComboBox(ProcedimentoRealizado p){
           
           if(p.getRacaPaciente()!=null){
@@ -2736,29 +2741,33 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           this.objectComboBoxModelClassificaoServico.setSelectedObject(d);
       } 
           
-      //métodos focusLost
+      /**
+        * Prenche os combox serviço e classificação de serviço de 
+        * acordo com o procedimento escolhido
+        * @param codigoProcedimento 
+        */
       
-      private void focusLostTextFieldProcCod(){
-           String codigo=this.jTextFieldProcCod.getText();
-           this.procedimentoRealizado.setCodigoProcedimento(codigo);
+      private void buscarServicoEClassificaoServicoEPrencherCampos(String codigoProcedimento){
+          
+           this.procedimentoRealizado.setCodigoProcedimento(codigoProcedimento);
            HashMap<String, Object> res=new HashMap<String, Object> ();
            res.put("procedimentoServicoPK.codigoProcedimento", this.procedimentoRealizado.getCodigoProcedimento().substring(0, 9));
            res.put("procedimentoServicoPK.competencia", ModelUtil.COMPETENCIA_MAIS_RECENTE);
            //preenche os combobox
-           List<ProcedimentoServico> list=this.procedimentoServicoController.findAllEqual(res);
-           ProcedimentoServico pro= list.isEmpty()? null : list.get(0); 
+           ProcedimentoServico pro=this.procedimentoServicoController.findEqual(res);
+           
            if(pro != null){
                String competencia=ModelUtil.COMPETENCIA_MAIS_RECENTE;
-               String codigoProcedimento=this.procedimentoRealizado.getCodigoProcedimento().substring(0,9);
+               String codigo=this.procedimentoRealizado.getCodigoProcedimento().substring(0,9);
                //busca as classificaçoes dos serviços que o procedimento tem
-               List<Diversas> d=this.diversasController.findAllClassificacaoServico(codigoProcedimento, competencia);
+               List<Diversas> d=this.diversasController.findAllClassificacaoServico(codigo, competencia);
                this.objectComboBoxModelClassificaoServico.setData(d);
                //seleciona a primeira classificação
                if(!d.isEmpty()){
                     this.jComboBoxUsuarioClassificacao.setSelectedIndex(0);
                }
                //busca todos os serviços que o procedimento tem
-               d=this.diversasController.findAllServicos(codigoProcedimento, competencia);
+               d=this.diversasController.findAllServicos(codigo, competencia);
                this.objectComboBoxModelServico.setData(d);
                //seleciona o primeiro serviço
                if(!d.isEmpty()){
@@ -2767,9 +2776,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
                }
       }
-      
-      private void focusLostFieldUsuarioCns(){
-            this.procedimentoRealizado.setCnsPaciente(this.jTextFieldUsuarioCns.getText());
+      /**
+       * Pega um paciente com base no CNS e preenche todos os campos da tela
+       * referente a ele
+       * @param cnsPaciente 
+       */
+      private void buscarPacienteECompletarCampos(String cnsPaciente){
+            this.procedimentoRealizado.setCnsPaciente(cnsPaciente);
             //pega um paciente
             Paciente p= new Paciente(this.procedimentoRealizado.getCnsPaciente());
             if(!p.getCns().isEmpty()){
@@ -2804,15 +2817,18 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
       }
 
-  private void focusLostFieldCnes(){
-        String cnes=this.jTextFieldCnes.getText();
-        this.procedimentoRealizado.getProcedimentoRealizadoPK().setCnesUnidade(cnes);
+      /**
+       * Pega todas as equipes de acordo com uma unidade
+       * @param CNESUnidade
+       */
+  private void buscarEquipesDaUnidade(String CNESUnidade){
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setCnesUnidade(CNESUnidade);
         //vai buscar a equipe caso exista
         //criação de restrições
         String competencia=ModelUtil.COMPETENCIA_MAIS_RECENTE;
         
         HashMap<String,Object> res= new HashMap<String, Object>();
-        res.put("equipePK.cnes", cnes);
+        res.put("equipePK.cnes", CNESUnidade);
         res.put("equipePK.competencia", competencia);
         List<Equipe> equipes=this.equipeController.findAllEqual(res);
         //devolveu algo
