@@ -47,13 +47,18 @@ public class BPAI {
         boolean con=SistemaController.testConnectionBPA();
         while(!con){
             banco.setVisible(false);
-            HibernateUtil.PATH_DATABASE_BPA=banco.chooseFile("Indique onde está o arquivo BPAMAG.GDB");
+            HibernateUtil.PATH_DATABASE_BPA=banco.chooseFile("Indique onde está o arquivo BPAMAG");
             con=SistemaController.testConnectionBPA();
             if(!con){
-                JOptionPane.showMessageDialog(banco, "Conexão falhou!");
+                int resposta=JOptionPane.showConfirmDialog(banco, "Conexão falhou! Tentar Novamente?", "Conexão com o Banco BPAMAG", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if(resposta == JOptionPane.NO_OPTION){
+                    //cancelou a execução do programa, então vai encerrá-lo
+                    System.exit(1);
+                }
             }
             else{
                 JOptionPane.showMessageDialog(banco, "Conexão realizada com sucesso!");
+                //JOptionPane.showo
                
             }
            
@@ -64,7 +69,11 @@ public class BPAI {
             HibernateUtil.PATH_DATABASE_BPA_I=banco.chooseFile("Indique onde está o arquivo TESTANDO.GDB");
             con=SistemaController.testConnectionBPAI();
             if(!con){
-                JOptionPane.showMessageDialog(banco, "Conexão falhou!");
+                int resposta=JOptionPane.showConfirmDialog(banco, "Conexão falhou! Tentar Novamente?", "Conexão com o Banco TESTANDO", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if(resposta == JOptionPane.NO_OPTION){
+                    //cancelou a execução do programa, então vai encerrá-lo
+                    System.exit(1);
+                }
             }
             else{
                 JOptionPane.showMessageDialog(banco, "Conexão realizada com sucesso!");
