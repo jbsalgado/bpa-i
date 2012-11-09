@@ -315,11 +315,11 @@ public class SearchGeneric extends javax.swing.JDialog {
         this.selectedSearch=null;
         this.jTextField1.setText(null);
         //monta o cabeçalho da tabela
-        this.header[0]=labelFieldId;
-        this.header[1]=labelFieldDescription;
+        this.header[1]=labelFieldId;
+        this.header[0]=labelFieldDescription;
         
         //preenche o camboobs de seleção
-        ComboBoxModel model=new DefaultComboBoxModel(new String[]{labelFieldId,labelFieldDescription});
+        ComboBoxModel model=new DefaultComboBoxModel(new String[]{labelFieldDescription,labelFieldId});
         this.fieldDescription=FieldDescription;
         this.fieldId=fieldId;
         this.jComboBox1.setModel(model);
@@ -338,6 +338,7 @@ public class SearchGeneric extends javax.swing.JDialog {
         this.setModal(true);
         this.setVisible(true);
         //quando terminar vai retornar o valor da seleção
+        this.jComboBox1.setSelectedIndex(1);
         return this.selectedSearch;
     }
 //    
@@ -379,7 +380,7 @@ public class SearchGeneric extends javax.swing.JDialog {
         String search=this.jTextField1.getText().toUpperCase();
         int item=this.jComboBox1.getSelectedIndex();
         for(Search s: this.listAll){
-            if(item==0){
+            if(item==1){
                 if(s.getId().startsWith(search)){
                     l.add(s);
                 }
