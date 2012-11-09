@@ -4,7 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.data;
 
-import br.gov.saudecaruaru.bpai.business.model.GestorCompetencia;
+import br.gov.saudecaruaru.bpai.business.model.BIGestorCompetencia;
 import java.io.Serializable;
 import org.hibernate.Session;
 
@@ -12,7 +12,7 @@ import org.hibernate.Session;
  *
  * @author Albuquerque
  */
-public class GestorCompetenciaDAO extends GenericDAO<GestorCompetencia> {
+public class GestorCompetenciaDAO extends GenericDAO<BIGestorCompetencia> {
      @Override
     public Session getSession() {
         return HibernateUtil.getSessionBpaI();

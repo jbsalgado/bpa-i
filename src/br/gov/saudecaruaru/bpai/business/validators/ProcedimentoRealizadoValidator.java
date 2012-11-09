@@ -200,7 +200,7 @@ public class ProcedimentoRealizadoValidator implements Validator{
     
     
     private String validCompetencia(String competencia){
-        List<GestorCompetencia> competenciaAtual = new GestorCompetenciaDAO().findAll();
+        List<BIGestorCompetencia> competenciaAtual = new GestorCompetenciaDAO().findAll();
         if(!competenciaAtual.isEmpty()){
               int dif = Integer.parseInt(competenciaAtual.get(0).getCompetenciaMovimento())-Integer.parseInt(competencia);
                     //é permitido até 4 meses do mes atual 
