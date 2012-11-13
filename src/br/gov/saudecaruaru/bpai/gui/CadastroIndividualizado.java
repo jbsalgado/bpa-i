@@ -16,6 +16,7 @@ import com.towel.swing.combo.ObjectComboBoxModel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Frame;
+import java.awt.Rectangle;
 import java.awt.event.*;
 import java.text.ParseException;
 import java.util.*;
@@ -1282,6 +1283,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -1620,6 +1623,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(ModelUtil.completar(""+this.sequenciaFolha, 2, '0'));
                     this.procedimentoRealizado.preencherAtributosVazios();
                     if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
+                        //envia o procedimento para a base central
                         this.sProcedimentoRealizadoController.enviarSProcedimentoRealizado(this.procedimentoRealizado.getProcedimentoRealizadoParaEnviar(), this.sUsuarioDesktop);
                         //salva o paciente, o médico e o médico com CBO e CNS
                         Paciente p=this.procedimentoRealizado.getPaciente();
@@ -1641,6 +1645,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         if(itensFolha>=ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
                             this.initNewFolha();
                         }
+                        //move a barra vertical
+                        this.moverScrollUltimaLinhaTabela();
+                        //this.jTable1
                     }
                     else{
                     System.out.println("Deu merda!");
@@ -1658,6 +1665,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
       }
     }//GEN-LAST:event_jButtonIncluirMouseClicked
 
+    
+    private void moverScrollUltimaLinhaTabela(){
+        this.jTable1.scrollRectToVisible(new Rectangle(0, this.jTable1.getRowHeight() * (this.jTable1.getRowCount() -1), 0, this.jTable1.getRowHeight()));
+    }
     private void initNewFolha(){
         //pega o primeiro objeto da jTable e atribui ao modelo atual
         int opcao=JOptionPane.showOptionDialog(this,"DESEJA INICIAR A INCLUSÃO COM O MESMO CABEÇALHO?","Questão",
@@ -2682,7 +2693,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           this.gerarSequencia();
           
           this.insertOrUpdateState();
-      
+          
+          this.moverScrollUltimaLinhaTabela();
       }
       /**
        *Preenche os campos da tela baseado em um objeto procedimento realizado passado 
