@@ -113,12 +113,13 @@ public class ProcedimentoVerifier extends InputVerifier{
                             idadePaciente = Integer.parseInt(proRealizado.getIdadePaciente());  //DateUtil.getAge(proRealizado.getDataNascimentoPaciente(),proRealizado.getDataAtendimento());
                        // }
                       
-                    
-                        
-                        // verifica se o procedimento é compativel com o CBO
-                        if(!temProcedimentoECbo(valor.substring(0, 9),proRealizado.getProcedimentoRealizadoPK().getCboMedico())){
-                                        MessagesErrors.erro(component,txtField,"PROCED. INCOMPATIVEL COM CBO!");
-                                        return false;
+                        //verifica se o procedimento exige CBO
+                        if(procedimentosSearchead.exigeCbo()){
+                            // verifica se o procedimento é compativel com o CBO
+                            if(!temProcedimentoECbo(valor.substring(0, 9),proRealizado.getProcedimentoRealizadoPK().getCboMedico())){
+                                            MessagesErrors.erro(component,txtField,"PROCED. INCOMPATIVEL COM CBO!");
+                                            return false;
+                            }
                         }
                         //verifica se o procedimento exige sexo
                         if(procedimentosSearchead.exigeSexo()){

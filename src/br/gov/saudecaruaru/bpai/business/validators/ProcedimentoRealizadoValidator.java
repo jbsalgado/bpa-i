@@ -121,9 +121,32 @@ public class ProcedimentoRealizadoValidator implements Validator{
     
     
     private String validProcedimentoECbo(String codProc,String cbo){
-        if(!temProcedimentoECbo(codProc,cbo)){
-            return "PROCED. INCOMPATIVEL COM CBO!";
-        }
+       String codProcedimento = codProc.substring(0,9);
+       //pega o oitavo digito (que representam o digito verificador)
+      Character digitoVerificador = codProcedimento.charAt(9);  
+      
+      Procedimento  procedimento= new   Procedimento();
+      ProcedimentoPK procedimentoPk = new   ProcedimentoPK();
+      procedimento.setProcedimentoPk(procedimentoPk);
+      
+     
+      procedimento.getProcedimentoPk().setId(codProc);
+      procedimento.setDigitoVerificador(digitoVerificador);
+      procedimento.getProcedimentoPk().setCompetencia(ModelUtil.COMPETENCIA_MAIS_RECENTE);
+      //procedimento.getProcedimentoPk().setCompetencia(proRealizado.getProcedimentoRealizadoPK().getCompetencia());
+      
+     
+      List<Procedimento> listProcedimentos = pDao.findAllEqual(procedimento);
+      
+      if(!listProcedimentos.isEmpty()){
+          Procedimento procedimentoAchado = listProcedimentos.get(0);
+          if(!procedimentoAchado.exigeCbo()){
+                if(!temProcedimentoECbo(codProc,cbo)){
+                     return "PROCED. INCOMPATIVEL COM CBO!";
+                }
+          }
+      }
+       
         
         return "";
     }

@@ -25,6 +25,8 @@ public class Procedimento implements Serializable {
     private static Character AD_BPAI ='7';  
     private static Character AD_APAC ='8';  
     private static Character AD_BPAI_APAC ='9';  
+    private static Character EXIGE_CBO ='S';  
+     
     
     @EmbeddedId
     private ProcedimentoPK procedimentoPk;
@@ -329,7 +331,12 @@ public class Procedimento implements Serializable {
         }
         return false;
     }
-
+    public boolean exigeCbo(){
+        if(this.exigeCBO==Procedimento.EXIGE_CBO){
+            return true;
+        }
+        return false;
+    }
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
