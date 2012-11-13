@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
@@ -281,7 +281,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="456" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -510,10 +510,10 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" min="-2" pref="971" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="1"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
@@ -538,17 +538,14 @@
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel23" min="-2" pref="154" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="347" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jLabel23" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jTextFieldProcCod" min="-2" pref="121" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="jTextFieldProcDescricao" min="-2" pref="364" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel22" max="32767" attributes="0"/>
                                       <Component id="jTextFieldProcQuant" min="-2" pref="63" max="-2" attributes="0"/>
@@ -589,7 +586,7 @@
                           <Component id="jButtonCancelar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButtonLimpar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                           <Component id="jButtonSair" min="-2" pref="81" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -599,7 +596,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelProcSeq" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -657,24 +654,22 @@
                       <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jComboBoxProcCaraterAtend" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldProcNumAut" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jButtonSair" alignment="0" pref="25" max="32767" attributes="0"/>
+                      <Component id="jButtonAtualizar" alignment="0" max="32767" attributes="1"/>
+                      <Component id="jButtonCancelar" alignment="0" max="32767" attributes="1"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="jButtonLimpar" alignment="3" max="32767" attributes="0"/>
                           <Component id="jButtonIncluir" alignment="3" max="32767" attributes="0"/>
-                          <Component id="jButtonAtualizar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButtonCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="jComboBoxProcCaraterAtend" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldProcNumAut" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="155" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
-                  <Component id="jButtonSair" min="-2" pref="31" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
