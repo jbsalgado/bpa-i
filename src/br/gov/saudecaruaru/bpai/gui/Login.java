@@ -250,7 +250,7 @@ public class Login extends javax.swing.JDialog {
     private void jPasswordFieldSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordFieldSenhaKeyPressed
         // TODO add your handling code here:
         if( evt.getKeyCode() == KeyEvent.VK_ENTER ){
-            this.jPasswordFieldSenha.transferFocus();
+            this.jButtonLoginMouseClicked(null);
         }
     }//GEN-LAST:event_jPasswordFieldSenhaKeyPressed
 
