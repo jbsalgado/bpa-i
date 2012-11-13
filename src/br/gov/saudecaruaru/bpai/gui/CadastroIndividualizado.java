@@ -226,9 +226,21 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                  
                 }
             }  
- }
+        }
       return true;
-}
+      }
+    
+    private JTextField getProximoCampoASerPreenchido(List<Component> list){
+        for(Component c:list){
+            if(c instanceof JTextField){
+                JTextField t=(JTextField) c;
+                if (t.isEnabled() && t.getText().replace('/', ' ').trim().isEmpty()){
+                    return t;
+                }
+            }
+        }
+        return null;
+    }
     private void updateJTable(ProcedimentoRealizado pro) {
         try{
          //insere o modelo Procedimento realizado na jTable
@@ -363,7 +375,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldMes.setInputVerifier(new MesVerifier(this, "Mês"));
         jComboBoxEquipe.setInputVerifier(new ComboBoxVerifier(this, "Equipe"));
         jComboBoxUsuarioServico.setInputVerifier(new ComboBoxVerifier(this, "Serviço"));
-        jComboBoxEquipe.setInputVerifier(new ComboBoxVerifier(this, "Classificação"));
+        jComboBoxUsuarioClassificacao.setInputVerifier(new ComboBoxVerifier(this, "Classificação"));
         jTextFieldProcedimentoCnpj.setInputVerifier(new CnpjVerifier(this,"CNPJ"));
     }
     
@@ -2043,6 +2055,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                        //caso os códigos sejam diferentes vai executar
                        if(!cns.equals(CadastroIndividualizado.this.procedimentoRealizado.getCnsPaciente())){
                            CadastroIndividualizado.this.buscarPacienteECompletarCampos(CadastroIndividualizado.this.jTextFieldUsuarioCns.getText().trim());
+                           JTextField t=CadastroIndividualizado.this.getProximoCampoASerPreenchido(listFieldsProcedimento);
+                           if (t != null){
+                               t.requestFocusInWindow();
+                           }
                        }
                    }else{
                        //jTextFieldUsuarioCns.setv
@@ -2808,7 +2824,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     this.jTextFieldUsuarioSexo.setText(pa.getSexo().toString());
                     this.jTextFieldUsarioDatNasc.setText(DateUtil.parseToDayMonthYear(pa.getDataNascimento(), false));
                     //muda o foco
-                    this.jTextFieldProcDataAtend.requestFocusInWindow();
+                    //this.jTextFieldProcDataAtend.requestFocusInWindow();
                     
                     //agora seta no objeto procedimentoRealizado os valores
                     
