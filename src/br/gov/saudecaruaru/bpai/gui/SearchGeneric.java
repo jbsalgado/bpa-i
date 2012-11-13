@@ -15,13 +15,14 @@ import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import br.gov.saudecaruaru.bpai.util.Search;
 import br.gov.saudecaruaru.bpai.util.SearchTableModel;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -29,6 +30,7 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
+import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
@@ -267,6 +269,8 @@ public class SearchGeneric extends javax.swing.JDialog {
         
         iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "escape");
         iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), "f2");
+        iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "up");
+        iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "down");
 
         ActionMap aMap = rootPane.getActionMap();
         //quando clicar em esc vai sair
@@ -275,13 +279,62 @@ public class SearchGeneric extends javax.swing.JDialog {
                                 {
                                     dispose();
                                 }});
- 	//});
+        //server para navegar na tabela
+ 	aMap.put("up", new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JTable table=SearchGeneric.this.tableLista;
+                //verifica se a tabela tem dados
+                if (table.getRowCount() > 0){
+                    int index=table.getSelectedRow();
+                    //não é a primeira linha selecionada
+                    if ( index > -1 && index != 0 ){
+                        //decrementa o indice da seleção
+                        table.setRowSelectionInterval(index  -1, index-1);
+                        //jScrollPane1.getVerticalScrollBar().getModel().
+                    }
+                }
+            }
+        });
+         //server para navegar na tabela
+ 	aMap.put("down", new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JTable table=SearchGeneric.this.tableLista;
+                //verifica se a tabela tem dados
+                if (table.getRowCount() > 0){
+                    //verifica se a linha selecionada não é a última
+                    int tamanho=table.getRowCount()-1 ;
+                    int index=table.getSelectedRow();
+                    if ( tamanho != index ){
+                        //decrementa o indice da seleção
+                        table.setRowSelectionInterval(index + 1, index + 1);
+                    }
+                }
+            }
+        });
+        
         //quando clicar em F2 vai chamar o método de seleção de registro
-        aMap.put("f2", new AbstractAction(){
+        Action selecionarRegistro=new AbstractAction(){
                             public void actionPerformed(ActionEvent e)
                                 {
                                     SearchGeneric.this.selectedModel();
-                                }});
+                                }};
+        aMap.put("f2",selecionarRegistro );
+        
+        //seleciona a linha na tabela
+        this.tableLista.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if ( e.getKeyCode() == KeyEvent.VK_F2){
+                    SearchGeneric.this.selectedModel();
+                }
+            }
+                
+            });
     }
  
     private void initTable(){
@@ -333,34 +386,24 @@ public class SearchGeneric extends javax.swing.JDialog {
         HashSet<Search > set=new HashSet<Search>(ModelUtil.getListSearch( this.basicController.findAllEqual(restrictions),fieldId,FieldDescription));
         this.listAll=new ArrayList<Search>(set);
         this.tableModel.addSearchAll(this.listAll);
+     
+        
+        //coloca a pesquisa pelo campo descrição
+        this.jComboBox1.setSelectedIndex(0);
+        //coloca o foco no campo de pesquisa
+        this.jTextField1.requestFocusInWindow();
+        //seleciona o primeiro elemento da tabela
+        if (this.tableLista.getModel().getRowCount() > 0){
+            this.tableLista.setRowSelectionInterval(0, 0);
+        }
         
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setModal(true);
         this.setVisible(true);
         //quando terminar vai retornar o valor da seleção
-        this.jComboBox1.setSelectedIndex(1);
         return this.selectedSearch;
     }
-//    
-//    /**
-//     * Método que inicializa a tela de pesquisa.
-//     * Qualquer objeto que seja persistido no banco pode ser pesquisado, desde que tenha um controlador.
-//     * @param controller controlador utilizado para buscar os dados
-//     * @param fieldId atributo do objeto que representa uma chave ou um valor a ser retornado
-//     * @param FieldDescription atributo do objeto que representa ums descrição dele
-//     * @param labelFieldId um label do para o atributo fieldId
-//     * @param labelFieldDescription um label para o atributo fieldDescription
-//     * @param restrictions um Map que deve conter restrições padrões para qualquer pesquisa. Key=atributo, value=valor para o atributo
-//     * @return devolve um objeto Search, caso o usuário tenha pesquisado e selecionado algum, senão, devolve null
-//     */
-//    public Search initModeSearch(BasecController controller,String fieldId,
-//                                    String FieldDescription, String labelFieldId,
-//                                        String labelFieldDescription, Map<String, Object> restrictions){
-//        //vai iniciar restrições gerais na pesquisa seja ela qual for
-//        this.restrictions=restrictions;
-//        return this.initModeSearch(controller, fieldId, FieldDescription, labelFieldId, labelFieldDescription);
-//    }
-    
+
     private void updateTable(List<Search> rows){
         this.tableModel.clean();
 	this.tableModel.addSearchAll(rows);
