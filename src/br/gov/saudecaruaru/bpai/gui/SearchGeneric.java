@@ -30,12 +30,15 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
+import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -120,8 +123,8 @@ public class SearchGeneric extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel1.setText("Selecionar por:");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Pesquisar por:");
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField1.setToolTipText("");
@@ -132,14 +135,19 @@ public class SearchGeneric extends javax.swing.JDialog {
             }
         });
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Pesquisar");
         jLabel2.setName("lbl_pesquisa"); // NOI18N
 
-        tableLista.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        tableLista.setFont(new java.awt.Font("Tahoma", 0, 16));
         tableLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -174,10 +182,10 @@ public class SearchGeneric extends javax.swing.JDialog {
         tableLista.getAccessibleContext().setAccessibleName("");
 
         jtoolHint.setToolTipText("Testando");
-        jtoolHint.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jtoolHint.setFont(new java.awt.Font("Segoe UI", 0, 14));
 
         jLblHint.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLblHint.setText("F2 - Selecionar Código / Duplo click no registro selecionado / ESC - Sair");
+        jLblHint.setText("Enter - Selecionar Código / Duplo click no registro selecionado / ESC - Sair");
         jLblHint.setToolTipText("");
         jtoolHint.add(jLblHint);
 
@@ -188,31 +196,37 @@ public class SearchGeneric extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
-                            .addComponent(jtoolHint, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(jtoolHint, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(76, 76, 76))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtoolHint, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -236,6 +250,10 @@ public class SearchGeneric extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_tableListaMouseClicked
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
     //realiza  a busca caso o usuário digite algum caractere válido
     private void initTextFieldSearch(){
         this.jTextField1.getDocument().addDocumentListener(new DocumentListener() {
@@ -268,7 +286,7 @@ public class SearchGeneric extends javax.swing.JDialog {
         InputMap iMap =	rootPane.getInputMap(	 JComponent.WHEN_IN_FOCUSED_WINDOW);
         
         iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "escape");
-        iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), "f2");
+        iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
         iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "up");
         iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "down");
 
@@ -322,19 +340,29 @@ public class SearchGeneric extends javax.swing.JDialog {
                                 {
                                     SearchGeneric.this.selectedModel();
                                 }};
-        aMap.put("f2",selecionarRegistro );
+        aMap.put("enter",selecionarRegistro );
         
         //seleciona a linha na tabela
         this.tableLista.addKeyListener(new KeyAdapter() {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if ( e.getKeyCode() == KeyEvent.VK_F2){
+                if ( e.getKeyCode() == KeyEvent.VK_ENTER){
                     SearchGeneric.this.selectedModel();
                 }
             }
                 
             });
+        //move a barra vertical de acordo com a seleção
+        this.tableLista.getSelectionModel().addListSelectionListener(  
+                new ListSelectionListener(){  
+                    public void valueChanged(ListSelectionEvent e){  
+                        JScrollBar vertBart= jScrollPane1.getVerticalScrollBar();  
+                        vertBart.setValue(tableLista.getRowHeight()*tableLista.getSelectedRow());  
+                    }  
+                }  
+            ); 
+
     }
  
     private void initTable(){
@@ -386,12 +414,13 @@ public class SearchGeneric extends javax.swing.JDialog {
         HashSet<Search > set=new HashSet<Search>(ModelUtil.getListSearch( this.basicController.findAllEqual(restrictions),fieldId,FieldDescription));
         this.listAll=new ArrayList<Search>(set);
         this.tableModel.addSearchAll(this.listAll);
-     
         
         //coloca a pesquisa pelo campo descrição
         this.jComboBox1.setSelectedIndex(0);
         //coloca o foco no campo de pesquisa
-        this.jTextField1.requestFocusInWindow();
+        //this.jComboBox1.transferFocus();
+        //this.jTextField1.requestFocus();
+        this.jTextField1.requestFocus();
         //seleciona o primeiro elemento da tabela
         if (this.tableLista.getModel().getRowCount() > 0){
             this.tableLista.setRowSelectionInterval(0, 0);
