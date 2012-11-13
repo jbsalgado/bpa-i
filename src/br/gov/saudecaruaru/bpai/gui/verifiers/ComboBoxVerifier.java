@@ -29,8 +29,9 @@ public class ComboBoxVerifier extends InputVerifier{
             public boolean verify(JComponent input) {
                 JComboBox jComboBox = (JComboBox) input;
                 
-                if (jComboBox.getModel().getSize()!=0 && jComboBox.getSelectedItem()==null ) {  
+                if (jComboBox.getItemCount() > 0 && jComboBox.getSelectedIndex() < 0 ) {  
                      MessagesErrors.erro(component,jComboBox,fieldName+" Obrigatório");
+                     jComboBox.setBackground(Color.red);
                 return false;  
                 } 
                 //seta cor branca
