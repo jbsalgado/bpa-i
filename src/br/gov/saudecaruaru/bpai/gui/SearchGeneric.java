@@ -79,6 +79,7 @@ public class SearchGeneric extends javax.swing.JDialog {
         this.initLookAndFeel();
         this.initTextFieldSearch();
         this.initEventsForm();
+        this.initEventsTable();
     }
     public void selectedModel(){
         //pega o modelo selecionado
@@ -297,6 +298,48 @@ public class SearchGeneric extends javax.swing.JDialog {
                                 {
                                     dispose();
                                 }});
+        
+        //quando clicar em F2 vai chamar o método de seleção de registro
+        Action selecionarRegistro=new AbstractAction(){
+                            public void actionPerformed(ActionEvent e)
+                                {
+                                    SearchGeneric.this.selectedModel();
+                                }};
+        aMap.put("enter",selecionarRegistro );
+        
+
+    }
+    private void initEventsTable(){
+     
+        //seleciona a linha na tabela
+        this.tableLista.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if ( e.getKeyCode() == KeyEvent.VK_ENTER){
+                    SearchGeneric.this.selectedModel();
+                }
+            }
+                
+         });
+        //move a barra vertical de acordo com a seleção
+        this.tableLista.getSelectionModel().addListSelectionListener(  
+                new ListSelectionListener(){  
+                    public void valueChanged(ListSelectionEvent e){  
+                        JScrollBar vertBart= jScrollPane1.getVerticalScrollBar();  
+                        vertBart.setValue(tableLista.getRowHeight()*tableLista.getSelectedRow());  
+                    }  
+                }  
+         ); 
+        //pega o elemento root
+        JRootPane rootPane = this.getRootPane();
+        //pega o map que registra as entradas
+        InputMap iMap =	rootPane.getInputMap(	 JComponent.WHEN_IN_FOCUSED_WINDOW);
+        
+        iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "up");
+        iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "down");
+
+        ActionMap aMap = rootPane.getActionMap();
         //server para navegar na tabela
  	aMap.put("up", new AbstractAction() {
 
@@ -333,38 +376,8 @@ public class SearchGeneric extends javax.swing.JDialog {
                 }
             }
         });
-        
-        //quando clicar em F2 vai chamar o método de seleção de registro
-        Action selecionarRegistro=new AbstractAction(){
-                            public void actionPerformed(ActionEvent e)
-                                {
-                                    SearchGeneric.this.selectedModel();
-                                }};
-        aMap.put("enter",selecionarRegistro );
-        
-        //seleciona a linha na tabela
-        this.tableLista.addKeyListener(new KeyAdapter() {
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if ( e.getKeyCode() == KeyEvent.VK_ENTER){
-                    SearchGeneric.this.selectedModel();
-                }
-            }
-                
-            });
-        //move a barra vertical de acordo com a seleção
-        this.tableLista.getSelectionModel().addListSelectionListener(  
-                new ListSelectionListener(){  
-                    public void valueChanged(ListSelectionEvent e){  
-                        JScrollBar vertBart= jScrollPane1.getVerticalScrollBar();  
-                        vertBart.setValue(tableLista.getRowHeight()*tableLista.getSelectedRow());  
-                    }  
-                }  
-            ); 
-
+     
     }
- 
     private void initTable(){
         this.tableLista.getColumnModel().getColumn(0).setPreferredWidth(110);
         this.tableLista.getColumnModel().getColumn(1).setPreferredWidth(640);

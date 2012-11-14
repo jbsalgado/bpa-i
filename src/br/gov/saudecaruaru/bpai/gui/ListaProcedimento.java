@@ -19,6 +19,7 @@ import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelBody;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelHeader;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -251,6 +252,11 @@ public class ListaProcedimento extends javax.swing.JFrame {
                 jTableHeaderMouseClicked(evt);
             }
         });
+        jTableHeader.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTableHeaderKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableHeader);
 
         jcomboBoxFiltro.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -465,25 +471,30 @@ public class ListaProcedimento extends javax.swing.JFrame {
         // TODO add your handling code here:
         //evento de duplo clique
         if(evt.getClickCount()==2){
-            int row=ListaProcedimento.this.jTableHeader.getSelectedRow();
-            //tem linha selecionada
-            if(row>=0){
-                CadastroIndividualizado cad=new CadastroIndividualizado(this);
-                ProcedimentoRealizado pro=this.tableModelHeader.getProcedimentoRealizado(row);
-                //zera a quantidade padrÃ£o
-                pro.setQuantidadeRealizada(null);
-                cad.findAllProcedimentosFolha(pro);
-                //desabilita os campos do cabeÃ§alho
-                cad.disableFieldsHeader();
-                cad.setLocationRelativeTo(null);
-                cad.setModal(true);
-                cad.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                cad.setVisible(true);
-            }
+            this.abrirTelaCadastroIndividualizado();
             
         }
     }//GEN-LAST:event_jTableHeaderMouseClicked
 
+    
+    private void abrirTelaCadastroIndividualizado(){
+        int row=ListaProcedimento.this.jTableHeader.getSelectedRow();
+        //tem linha selecionada
+        if(row>=0){
+            CadastroIndividualizado cad=new CadastroIndividualizado(this);
+            ProcedimentoRealizado pro=this.tableModelHeader.getProcedimentoRealizado(row);
+            //zera a quantidade padrÃ£o
+            pro.setQuantidadeRealizada(null);
+            cad.findAllProcedimentosFolha(pro);
+            //desabilita os campos do cabeÃ§alho
+            cad.disableFieldsHeader();
+            cad.setLocationRelativeTo(null);
+            cad.setModal(true);
+            cad.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            cad.setVisible(true);
+        }
+    }
+    
     private void jMenuItemExportarBPAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemExportarBPAMouseClicked
         // TODO add your handling code here:
         IExportacaoStrategy expo=new ExportacaoBPAMagnetico(new BIProcedimentoRealizado(new BIProcedimentoRealizadoPK()));
@@ -620,6 +631,13 @@ public class ListaProcedimento extends javax.swing.JFrame {
              }
         
     }//GEN-LAST:event_jbtnPesquisarMouseClicked
+
+    private void jTableHeaderKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableHeaderKeyPressed
+        // TODO add your handling code here:
+        if ( evt.getKeyCode() == KeyEvent.VK_ENTER ){
+            this.abrirTelaCadastroIndividualizado();
+        }
+    }//GEN-LAST:event_jTableHeaderKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtualizar;
