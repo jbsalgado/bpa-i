@@ -9,6 +9,8 @@ package br.gov.saudecaruaru.bpai.business.service;
 
 public class ServicoControllerServiceLocator extends org.apache.axis.client.Service implements br.gov.saudecaruaru.bpai.business.service.ServicoControllerService {
 
+    private String servidor="www.saudecaruaru.pe.gov.br";
+    
     public ServicoControllerServiceLocator() {
     }
 
@@ -22,7 +24,7 @@ public class ServicoControllerServiceLocator extends org.apache.axis.client.Serv
     }
 
     // Use to get a proxy class for ServicoControllerPort
-    private java.lang.String ServicoControllerPort_address = "http://localhost/sispad/index.php/bpa/servico/main/ws/1";
+    private java.lang.String ServicoControllerPort_address = "http://"+this.servidor+"/sispad/index.php/bpa/servico/main/ws/1";
 
     public java.lang.String getServicoControllerPortAddress() {
         return ServicoControllerPort_address;
