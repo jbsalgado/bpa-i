@@ -55,7 +55,7 @@ public class SProcedimentoRealizadoController {
                     try {
                         //se salvou com sucesso, vai atualizar no banco o estado
                         if(ser.enviarProcedimentoRealizado(spr, sud)){
-                            logger.error("Método enviarSProcedimentoRealizado executado com sucesso!");
+                            logger.info("Método enviarSProcedimentoRealizado executado com sucesso!");
                             proc.setEnviado(BIProcedimentoRealizado.ENVIADO);
                             proc.setAtualizado(BIProcedimentoRealizado.ATUALIZADO);
                         }
@@ -241,7 +241,7 @@ public class SProcedimentoRealizadoController {
                     try {
                         //se salvou com sucesso, vai atualizar no banco o estado
                         if(ser.atualizarProcedimentoRealizado(spr, sud)){
-                            logger.error("Método atualizarSProcedimentoRealizado executado com sucesso!");
+                            logger.info("Método atualizarSProcedimentoRealizado executado com sucesso!");
                             proc.setAtualizado(BIProcedimentoRealizado.ATUALIZADO);
                             proc.setEnviado(BIProcedimentoRealizado.ENVIADO);
                         }
@@ -328,7 +328,7 @@ public class SProcedimentoRealizadoController {
                             proc.setEnviado(BIProcedimentoRealizado.ENVIADO);
                             proc.setAtualizado(BIProcedimentoRealizado.NAO_ATUALIZADO);
                             if(hashSet.add(proc)){
-                                logger.error("Método eatualizarSProcedimentoRealizado [list] => Não foi possível enviar o procedimentoRealizado =>"+proc);
+                                logger.error("Método atualizarSProcedimentoRealizado [list] => Não foi possível enviar o procedimentoRealizado =>"+proc);
                             }
                         }
                         control.merge(new ArrayList<BIProcedimentoRealizado>(hashSet));
