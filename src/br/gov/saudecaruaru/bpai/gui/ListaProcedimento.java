@@ -13,6 +13,7 @@ package br.gov.saudecaruaru.bpai.gui;
 import br.gov.saudecaruaru.bpai.gui.interfaces.IExportacaoStrategy;
 import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.business.controller.BIGestorCompetenciaController;
+import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizadoPK;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
@@ -32,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -660,6 +662,31 @@ public class ListaProcedimento extends javax.swing.JFrame {
         // TODO add your handling code here:
         if ( evt.getKeyCode() == KeyEvent.VK_ENTER ){
             this.abrirTelaCadastroIndividualizado();
+        }
+        
+         if ( evt.getKeyCode() == KeyEvent.VK_DELETE ){
+             int row=ListaProcedimento.this.jTableHeader.getSelectedRow();
+                if(row>=0){
+                    ProcedimentoRealizado pro=this.tableModelHeader.getProcedimentoRealizado(row);
+                   
+                    StringBuilder msg = new StringBuilder();
+                    msg.append("\n FOLHA: ").append(pro.getProcedimentoRealizadoPK().getNumeroFolha());
+                    msg.append("\n CNES: ").append(pro.getProcedimentoRealizadoPK().getCnesUnidade());
+                    msg.append("\n CNS PROFISSIONAL: ").append(pro.getProcedimentoRealizadoPK().getCnsMedico());
+                    msg.append("\n CBO: ").append(pro.getProcedimentoRealizadoPK().getCboMedico());
+                    msg.append("\n COMPETÊNCIA: ").append(pro.getProcedimentoRealizadoPK().getCompetencia());
+                    
+                    if(JOptionPane.showOptionDialog(this,"DESEJA REALMENTE DELETAR ESTA FOLHA?"+msg.toString(),"ATENÇÃO!",
+                               JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, null, null)==JOptionPane.YES_OPTION){
+                        //remove a folha
+                        this.biProcedimentoRealizadoController.removeAll(new BIProcedimentoRealizado(pro));
+                        //atualiza a tabela
+                        this.jButtonAtualizarMouseClicked(null);
+                    
+                
+                }
+             
+          }
         }
     }//GEN-LAST:event_jTableHeaderKeyPressed
 
