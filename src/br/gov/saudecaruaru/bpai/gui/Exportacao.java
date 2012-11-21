@@ -18,6 +18,10 @@ import br.gov.saudecaruaru.bpai.gui.formatter.UnidadeFormatter;
 import br.gov.saudecaruaru.bpai.gui.verifiers.ComboBoxVerifier;
 import com.towel.bean.Formatter;
 import com.towel.swing.combo.ObjectComboBoxModel;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -28,6 +32,7 @@ import javax.swing.JOptionPane;
 public class Exportacao extends javax.swing.JDialog {
     
     private IExportacaoStrategy exportacao;
+    private FocusListener listenerFieldsChangeBackground;
     private ObjectComboBoxModel<String> comboboxCompetenciaModel= new ObjectComboBoxModel<String>();
     private ObjectComboBoxModel<String> comboboxCnesModel= new ObjectComboBoxModel<String>();
     private BIProcedimentoRealizadoController bIProcedimentoRealizadoController= new BIProcedimentoRealizadoController();
@@ -65,6 +70,24 @@ public class Exportacao extends javax.swing.JDialog {
         
         this.jComboBoxCompetencia.setInputVerifier(new ComboBoxVerifier(this, "Competência"));
         this.jComboBoxCnes.setInputVerifier(new ComboBoxVerifier(this, "CNES/Unidade"));
+        
+        listenerFieldsChangeBackground = new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                Component c = ((Component)e.getComponent());
+                if(!c.getBackground().equals(Color.RED) || !c.getBackground().equals(Color.red))
+                    ((Component)e.getComponent()).setBackground(Color.GREEN);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+               ((Component)e.getComponent()).setBackground(Color.WHITE);
+            }
+        };
+        
+        this.jComboBoxCnes.addFocusListener(this.listenerFieldsChangeBackground);
+        this.jComboBoxCompetencia.addFocusListener(this.listenerFieldsChangeBackground);
     }
 
     /** This method is called from within the constructor to

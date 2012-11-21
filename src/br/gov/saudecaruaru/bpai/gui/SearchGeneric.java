@@ -14,7 +14,11 @@ import br.gov.saudecaruaru.bpai.business.controller.BasecController;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import br.gov.saudecaruaru.bpai.util.Search;
 import br.gov.saudecaruaru.bpai.util.SearchTableModel;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -66,7 +70,7 @@ public class SearchGeneric extends javax.swing.JDialog {
     //controlador utilizado para realizar a pesquisa
     private BasecController basicController=null;
     
-    //listener para escutar quando ESC for pressionada
+    private FocusListener listenerFieldsChangeBackground ;
  
     
     
@@ -75,11 +79,34 @@ public class SearchGeneric extends javax.swing.JDialog {
     /** Creates new form SearchGeneric */
     private SearchGeneric() {
         initComponents();
+        this.initMyComponents();
         this.initTable();
         this.initLookAndFeel();
         this.initTextFieldSearch();
         this.initEventsForm();
         this.initEventsTable();
+        
+        
+    }
+    
+    private void initMyComponents(){
+        this.listenerFieldsChangeBackground = new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                Component c = ((Component)e.getComponent());
+                if(!c.getBackground().equals(Color.RED) || !c.getBackground().equals(Color.red))
+                    ((Component)e.getComponent()).setBackground(Color.GREEN);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+               ((Component)e.getComponent()).setBackground(Color.WHITE);
+            }
+        };
+        
+        this.jTextField1.addFocusListener(this.listenerFieldsChangeBackground);
+        this.jComboBox1.addFocusListener(this.listenerFieldsChangeBackground);
     }
     public void selectedModel(){
         //pega o modelo selecionado
