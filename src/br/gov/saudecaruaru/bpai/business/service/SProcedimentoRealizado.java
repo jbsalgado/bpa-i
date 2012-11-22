@@ -872,4 +872,10 @@ public class SProcedimentoRealizado  implements java.io.Serializable {
             _javaType, _xmlType, typeDesc);
     }
 
+    @Override
+    public String toString() {
+        return "SProcedimentoRealizado{" + "unidade=" + unidade + ", competencia=" + competencia + ", profissional_cns=" + profissional_cns + ", paciente=" + paciente + ", profissional_cbo=" + profissional_cbo + ", folha=" + folha + ", sequencia=" + sequencia + ", procedimento=" + procedimento + ", data_atendimento=" + data_atendimento + ", cid=" + cid + ", quantidade=" + quantidade + ", caracter_atendimento=" + caracter_atendimento + ", numero_autorizacao=" + numero_autorizacao + ", origem=" + origem + ", competencia_movimento=" + competencia_movimento + ", servico=" + servico + ", equipe=" + equipe + ", cnpj=" + cnpj + ", equipe_area=" + equipe_area + ", equipe_sequencia=" + equipe_sequencia + ", classificacao=" + classificacao + ", idade_paciente=" + idade_paciente + '}';
+    }
+
+    
 }
