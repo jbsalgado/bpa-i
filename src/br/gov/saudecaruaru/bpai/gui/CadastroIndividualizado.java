@@ -3,6 +3,7 @@ package br.gov.saudecaruaru.bpai.gui;
 import br.gov.saudecaruaru.bpai.business.controller.*;
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
+import br.gov.saudecaruaru.bpai.gui.FocusListener.ChangeBackgroundFieldFocusListener;
 import br.gov.saudecaruaru.bpai.gui.documents.*;
 import br.gov.saudecaruaru.bpai.gui.formatter.CaraterAtendimentoFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.DiversasFormatter;
@@ -74,7 +75,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      private  List<Component> listFieldsProcedimento = new ArrayList<Component>();
      private  List<Component> listFieldsDates = new ArrayList<Component>();
      
-     private FocusListener listenerFieldsChangeBackground; 
+     private  FocusListener listenerFieldsChangeBackground; 
     /**
      * Creates new form CadastroIndividualizado
      */
@@ -149,6 +150,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.setMedico= new HashSet<Medico>();
         this.setMedicoCboCnes= new HashSet<MedicoCboCnes>();
         
+        this.listenerFieldsChangeBackground = new ChangeBackgroundFieldFocusListener();
         
         //instancia o modelo DiversasPk
         diversas = new  Diversas();
@@ -162,21 +164,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.initListFieldsHeader();
         this.initListFieldsProcedimento();
         this.initListFieldsDates();
-        
-        listenerFieldsChangeBackground = new FocusListener() {
-
-            @Override
-            public void focusGained(FocusEvent e) {
-                Component c = ((Component)e.getComponent());
-                if(!c.getBackground().equals(Color.RED) || !c.getBackground().equals(Color.red))
-                    ((Component)e.getComponent()).setBackground(Color.GREEN);
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-               ((Component)e.getComponent()).setBackground(Color.WHITE);
-            }
-        };
+      
     }
     private void initListFieldsHeader(){
        listFieldsHeader= new ArrayList<Component>();

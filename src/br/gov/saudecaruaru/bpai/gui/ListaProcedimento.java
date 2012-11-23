@@ -18,6 +18,7 @@ import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizadoPK;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
+import br.gov.saudecaruaru.bpai.gui.FocusListener.ChangeBackgroundFieldFocusListener;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelBody;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelHeader;
 import java.awt.Color;
@@ -79,6 +80,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         
         this.biProcedimentoRealizadoController= new BIProcedimentoRealizadoController();
         this.gestorCompetenciaController = new BIGestorCompetenciaController();
+        this.listenerFieldsChangeBackground = new ChangeBackgroundFieldFocusListener();
         this.jcomboBoxFiltroActionPerformed(null);
         this.initJTableBody();
         this.initJTableHeader();
@@ -104,24 +106,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
       //vai adicionar os labels aos menus e botões
         this.jMenuOperacao.setText("Operações");
         this.jMenuItemAlteraCompetencia.setText("Alterar Competência");
-        
-        //muda a cor do background dos componentes
-        this.listenerFieldsChangeBackground = new FocusListener() {
-
-            @Override
-            public void focusGained(FocusEvent e) {
-                Component c = ((Component)e.getComponent());
-                if(!c.getBackground().equals(Color.RED) || !c.getBackground().equals(Color.red))
-                    ((Component)e.getComponent()).setBackground(Color.GREEN);
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-               ((Component)e.getComponent()).setBackground(Color.WHITE);
-            }
-        };
-        
-        this.jcomboBoxFiltro.addFocusListener(this.listenerFieldsChangeBackground);
+        this.jcomboBoxFiltro.addFocusListener(this.listenerFieldsChangeBackground );
         this.jTextFieldPesquisa.addFocusListener(this.listenerFieldsChangeBackground);
     }
 

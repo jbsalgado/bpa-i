@@ -12,6 +12,7 @@ package br.gov.saudecaruaru.bpai.gui;
 
 import br.gov.saudecaruaru.bpai.business.controller.UsuarioController;
 import br.gov.saudecaruaru.bpai.business.model.Usuario;
+import br.gov.saudecaruaru.bpai.gui.FocusListener.ChangeBackgroundFieldFocusListener;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
 import java.awt.Color;
 import java.awt.Component;
@@ -48,21 +49,7 @@ public class Login extends javax.swing.JDialog {
         
         this.jPasswordFieldSenha.setDocument(new OnlyUpperLettersDocument());
         this.jTextFieldUsuario.setDocument(new OnlyUpperLettersDocument());
-        
-        this.listenerFieldsChangeBackground = new FocusListener() {
-
-            @Override
-            public void focusGained(FocusEvent e) {
-                Component c = ((Component)e.getComponent());
-                if(!c.getBackground().equals(Color.RED) || !c.getBackground().equals(Color.red))
-                    ((Component)e.getComponent()).setBackground(Color.GREEN);
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-               ((Component)e.getComponent()).setBackground(Color.WHITE);
-            }
-        };
+        this.listenerFieldsChangeBackground = new ChangeBackgroundFieldFocusListener();
         
         this.jTextFieldUsuario.addFocusListener(listenerFieldsChangeBackground);
         this.jPasswordFieldSenha.addFocusListener(listenerFieldsChangeBackground);
