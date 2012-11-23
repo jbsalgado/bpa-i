@@ -17,10 +17,19 @@ public class ServicoControllerPortTypeProxy implements br.gov.saudecaruaru.bpai.
     try {
       servicoControllerPortType = (new br.gov.saudecaruaru.bpai.business.service.ServicoControllerServiceLocator()).getServicoControllerPort();
       if (servicoControllerPortType != null) {
-        if (_endpoint != null)
-          ((javax.xml.rpc.Stub)servicoControllerPortType)._setProperty("javax.xml.rpc.service.endpoint.address", _endpoint);
-        else
+        if (_endpoint != null){
+            javax.xml.rpc.Stub stub=(javax.xml.rpc.Stub)servicoControllerPortType;
+            stub._setProperty("javax.xml.rpc.service.endpoint.address", _endpoint);
+        }
+        
+        else{
           _endpoint = (String)((javax.xml.rpc.Stub)servicoControllerPortType)._getProperty("javax.xml.rpc.service.endpoint.address");
+        }
+        
+        //seta a autenticação
+        javax.xml.rpc.Stub stub=(javax.xml.rpc.Stub)servicoControllerPortType;
+        stub._setProperty(javax.xml.rpc.Stub.PASSWORD_PROPERTY, "1234");
+        stub._setProperty(javax.xml.rpc.Stub.USERNAME_PROPERTY, "CESAR");
       }
       
     }

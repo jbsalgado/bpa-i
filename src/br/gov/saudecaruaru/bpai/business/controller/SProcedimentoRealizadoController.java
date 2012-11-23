@@ -66,10 +66,12 @@ public class SProcedimentoRealizadoController {
                             proc.setAtualizado(BIProcedimentoRealizado.NAO_ATUALIZADO);
                         }
                     } catch (RemoteException ex) {
+                        ex.printStackTrace();
                         logger.error("Método enviarSProcedimentoRealizado => "+ex.getMessage());
                         proc.setEnviado(BIProcedimentoRealizado.NAO_ENVIADO);
                         proc.setAtualizado(BIProcedimentoRealizado.NAO_ATUALIZADO);
                     }catch(Exception e){
+                        e.printStackTrace();
                         logger.error("Método enviarSProcedimentoRealizado => "+e.getMessage());
                         proc.setEnviado(BIProcedimentoRealizado.NAO_ENVIADO);
                         proc.setAtualizado(BIProcedimentoRealizado.NAO_ATUALIZADO);

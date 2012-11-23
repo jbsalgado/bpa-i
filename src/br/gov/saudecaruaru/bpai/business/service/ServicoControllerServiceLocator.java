@@ -9,7 +9,7 @@ package br.gov.saudecaruaru.bpai.business.service;
 
 public class ServicoControllerServiceLocator extends org.apache.axis.client.Service implements br.gov.saudecaruaru.bpai.business.service.ServicoControllerService {
 
-    private String servidor="www.saudecaruaru.pe.gov.br";
+    private String servidor="localhost";
     
     public ServicoControllerServiceLocator() {
     }
