@@ -223,6 +223,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldFolha.setDocument(new FolhaDocument());
         jTextFieldCnsProfiss.setDocument(new OnlyNumbersDocument(15));
         jTextFieldProcCod.setDocument(new OnlyNumbersDocument(10));
+        jTextFieldProcQuant.setDocument(new OnlyNumbersDocument(0));
         jTextFieldNomeProfiss.setDocument(new OnlyUpperLettersDocument());
         jTextFieldUsuarioNome.setDocument(new OnlyUpperLettersDocument());
         jTextFieldUsuarioSexo.setDocument(new SexoDocument());
