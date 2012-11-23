@@ -56,6 +56,10 @@ public class BasecController < T extends Serializable>{
         return this.dao.findAllEqual(modelo);
     }
     
+    public List<T> findAllEqualOrderBy(T modelo,String desc){
+        return this.dao.findAllEqualOrderBy(modelo,desc);
+    }
+    
     public List<T> findAllEqual(Map<String, Object> map){
         return this.dao.findAllEqual(map);
     }

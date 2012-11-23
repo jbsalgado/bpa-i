@@ -157,7 +157,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
                         //zera a quantidade padrÃ£o
                         pro.setQuantidadeRealizada(null);
                         //substitui a lista
-                        List<BIProcedimentoRealizado> l=ListaProcedimento.this.biProcedimentoRealizadoController.findAllEqual(new BIProcedimentoRealizado(pro));
+                        List<BIProcedimentoRealizado> l=ListaProcedimento.this.biProcedimentoRealizadoController.findAllEqualOrderBy(new BIProcedimentoRealizado(pro),"biProcedimentoRealizadoPK.sequenciaFolha");
 
                         ListaProcedimento.this.tableModelBody.replaceAllProcedimentoRealizado(ListaProcedimento.this.biProcedimentoRealizadoController.parserBIProcedimentoRealizadoToProcedimentoRealizado(l));
                         l.clear();
