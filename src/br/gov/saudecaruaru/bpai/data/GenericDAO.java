@@ -21,6 +21,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
@@ -286,6 +287,7 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
                 }
             }
             session.clear();
+           
             l=c.list();
         }catch(Exception ex){
             this.logger.error("Erro ao tentar executar o método findAllEqual [serializable].");
@@ -299,7 +301,34 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             return l;
         }
     }
-    
+    @Override
+    public List<T> findAllEqualOrderBy(Serializable objeto,String desc){
+        Session session= this.getSession();
+        List<T> l=null;
+        try{
+            Criteria c=session.createCriteria(persistentClass);   
+            Map<String, Object> restrictions=ModelUtil.getRestrictions(objeto);
+            for(String key: restrictions.keySet()){
+                if(key!=null){
+                    c.add(Restrictions.eq(key, restrictions.get(key)));
+
+                }
+            }
+            session.clear();
+            c.addOrder(Order.asc(desc));
+            l=c.list();
+        }catch(Exception ex){
+            this.logger.error("Erro ao tentar executar o método findAllEqual [serializable].");
+            this.logger.error(ex.getMessage());
+            ex.printStackTrace();
+        }
+        finally{
+            if(session != null){
+                session.close();
+            }
+            return l;
+        }
+    }
     
     @Override
     public List<T> findAllEqual(Map<String,Object> restrictions){

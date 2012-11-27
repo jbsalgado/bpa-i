@@ -11,6 +11,7 @@
 package br.gov.saudecaruaru.bpai.gui;
 
 import br.gov.saudecaruaru.bpai.business.controller.BasecController;
+import br.gov.saudecaruaru.bpai.gui.FocusListener.ChangeBackgroundFieldFocusListener;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import br.gov.saudecaruaru.bpai.util.Search;
 import br.gov.saudecaruaru.bpai.util.SearchTableModel;
@@ -90,20 +91,7 @@ public class SearchGeneric extends javax.swing.JDialog {
     }
     
     private void initMyComponents(){
-        this.listenerFieldsChangeBackground = new FocusListener() {
-
-            @Override
-            public void focusGained(FocusEvent e) {
-                Component c = ((Component)e.getComponent());
-                if(!c.getBackground().equals(Color.RED) || !c.getBackground().equals(Color.red))
-                    ((Component)e.getComponent()).setBackground(Color.GREEN);
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-               ((Component)e.getComponent()).setBackground(Color.WHITE);
-            }
-        };
+        this.listenerFieldsChangeBackground = new ChangeBackgroundFieldFocusListener();
         
         this.jTextField1.addFocusListener(this.listenerFieldsChangeBackground);
         this.jComboBox1.addFocusListener(this.listenerFieldsChangeBackground);

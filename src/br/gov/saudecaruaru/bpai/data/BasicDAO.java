@@ -79,6 +79,7 @@ public interface BasicDAO<T extends Serializable> {
      * @return devolve o objeto com os atributos preenchidos de acordo com o que está no banco de dados
      */
     public T findEqual(T object);
+     public List<T> findAllEqualOrderBy(Serializable objeto,String desc);
     
      /**
      * Busca todos os objetos no banco de dados que respeitem as restrições.

@@ -3,6 +3,7 @@ package br.gov.saudecaruaru.bpai.gui;
 import br.gov.saudecaruaru.bpai.business.controller.*;
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
+import br.gov.saudecaruaru.bpai.gui.FocusListener.ChangeBackgroundFieldFocusListener;
 import br.gov.saudecaruaru.bpai.gui.documents.*;
 import br.gov.saudecaruaru.bpai.gui.formatter.CaraterAtendimentoFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.DiversasFormatter;
@@ -74,7 +75,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      private  List<Component> listFieldsProcedimento = new ArrayList<Component>();
      private  List<Component> listFieldsDates = new ArrayList<Component>();
      
-     private FocusListener listenerFieldsChangeBackground; 
+     private  FocusListener listenerFieldsChangeBackground; 
     /**
      * Creates new form CadastroIndividualizado
      */
@@ -149,6 +150,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.setMedico= new HashSet<Medico>();
         this.setMedicoCboCnes= new HashSet<MedicoCboCnes>();
         
+        this.listenerFieldsChangeBackground = new ChangeBackgroundFieldFocusListener();
         
         //instancia o modelo DiversasPk
         diversas = new  Diversas();
@@ -162,21 +164,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.initListFieldsHeader();
         this.initListFieldsProcedimento();
         this.initListFieldsDates();
-        
-        listenerFieldsChangeBackground = new FocusListener() {
-
-            @Override
-            public void focusGained(FocusEvent e) {
-                Component c = ((Component)e.getComponent());
-                if(!c.getBackground().equals(Color.RED) || !c.getBackground().equals(Color.red))
-                    ((Component)e.getComponent()).setBackground(Color.GREEN);
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-               ((Component)e.getComponent()).setBackground(Color.WHITE);
-            }
-        };
+      
     }
     private void initListFieldsHeader(){
        listFieldsHeader= new ArrayList<Component>();
@@ -223,6 +211,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldFolha.setDocument(new FolhaDocument());
         jTextFieldCnsProfiss.setDocument(new OnlyNumbersDocument(15));
         jTextFieldProcCod.setDocument(new OnlyNumbersDocument(10));
+        jTextFieldProcQuant.setDocument(new OnlyNumbersDocument(0));
         jTextFieldNomeProfiss.setDocument(new OnlyUpperLettersDocument());
         jTextFieldUsuarioNome.setDocument(new OnlyUpperLettersDocument());
         jTextFieldUsuarioSexo.setDocument(new SexoDocument());
@@ -295,7 +284,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     private void updateJTable(ProcedimentoRealizado pro) {
         try{
          //insere o modelo Procedimento realizado na jTable
-            List<BIProcedimentoRealizado> list=this.bIProcedimentoRealizadoController.findAllEqual(new BIProcedimentoRealizado(pro));
+            List<BIProcedimentoRealizado> list=this.bIProcedimentoRealizadoController.findAllEqualOrderBy(new BIProcedimentoRealizado(pro),"biProcedimentoRealizadoPK.sequenciaFolha");
             List<ProcedimentoRealizado> lista=this.bIProcedimentoRealizadoController.parserBIProcedimentoRealizadoToProcedimentoRealizado(list);
             this.tableModelDados.replaceAllProcedimentoRealizado(lista);
             this.calcularTamanhoColunasTabela();
@@ -857,7 +846,26 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
        //pega o tamanho da lista na tabela
        int size=this.tableModelDados.getRowCount();
        if(size<ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
-        this.sequenciaFolha=size+1;
+          List<ProcedimentoRealizado> listP = this.tableModelDados.getList();
+           int i=1;
+           //varre a lista de registros
+           for(ProcedimentoRealizado p: listP){
+               int currentSequencia = Integer.parseInt(p.getProcedimentoRealizadoPK().getSequenciaFolha());
+              
+                    //se a sequencia atual for diferente da ordem crescente, atribua a sequencia atual correta (i)
+                    //por exemplo: 1,2,3,5 -> quando ele chegar no 5 vai perceber que falta a sequencia 4 
+                    //entao vai atribuir a sequenciaFolha o valor 4
+                    if(currentSequencia!=i){
+                        this.sequenciaFolha=i;
+                        break;
+                        
+                    }else{//senao incremente a sequencia atual
+                        this.sequenciaFolha=currentSequencia+1;
+                    }
+
+               i++;
+               
+           }
        }
        else{
            this.sequenciaFolha=0;
@@ -1056,65 +1064,65 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Cadastro indivualizado"); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("CNES");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("CNS Profissional");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Nome Profissional");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Mês   /  Ano");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Folha");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText(" /");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("CNS");
 
         jLabel8.setText("Usuário Sequência :");
 
         jLabelUsuarioSeq.setText("01");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setText("Nome ");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Sexo");
 
         jLabel11.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText(" F/M");
         jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setText("Dt. Nascimento");
 
         jTextFieldUsuarioNomeNac.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel14.setText("Nacionalidade");
 
         jTextFieldUsuarioNomeMunicip.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel13.setText("Município de Residência");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel15.setText("Raça/Cor");
 
         jTextFieldUsuarioDescEtnia.setBackground(new java.awt.Color(153, 153, 153));
 
         jComboBoxUsuarioRacaCor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel17.setText("Etnia");
 
         try {
@@ -1238,31 +1246,31 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jLabelProcSeq.setText("01");
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel20.setText("Dt. Atendimento");
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel22.setText("Quantidade");
 
         jTextFieldProcDescriDoenca.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel23.setText("Código");
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel24.setText("CID");
 
         jTextFieldProcDescricao.setBackground(new java.awt.Color(153, 153, 153));
 
         jComboBoxProcCaraterAtend.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel19.setText("Nº Autorização");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel18.setText("Caráter Atendimento");
 
-        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonIncluir.setText("Incluir");
         jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1275,7 +1283,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonLimpar.setText("Limpar");
         jButtonLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1301,6 +1309,14 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 jTable1MouseClicked(evt);
             }
         });
+        jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable1KeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTable1KeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         try {
@@ -1316,17 +1332,17 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel26.setText("Serviço");
 
         jComboBoxUsuarioServico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel27.setText("Classificação");
 
         jComboBoxUsuarioClassificacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonAtualizar.setText("Atualizar");
         jButtonAtualizar.setToolTipText("");
         jButtonAtualizar.setEnabled(false);
@@ -1341,7 +1357,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setEnabled(false);
         jButtonCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1350,7 +1366,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel30.setText("CNPJ");
 
         try {
@@ -1473,7 +1489,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     .addComponent(jLabel18)
                     .addComponent(jLabel19))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonSair, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(jButtonSair, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonAtualizar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonCancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1487,18 +1503,18 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 .addGap(30, 30, 30))
         );
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel21.setText("CBO");
 
         jComboBoxEquipe.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel25.setText("Equipe");
 
-        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel28.setText("F5 - DADOS CONSOLIDADOS (SOMENTE PARA O CAMPO CNS DO PACIENTE)");
 
-        jTextFieldCBO.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jTextFieldCBO.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTextFieldCBO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCBOActionPerformed(evt);
@@ -1825,6 +1841,34 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     private void jTextFieldCBOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCBOActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCBOActionPerformed
+
+    private void jTable1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1KeyTyped
+
+    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
+      if ( evt.getKeyCode() == KeyEvent.VK_DELETE ){
+        if(this.jTable1.getSelectedRow()>=0){
+            if(JOptionPane.showOptionDialog(this,"DESEJA REALMENTE DELETAR ESTE REGISTRO?","ATENÇÃO!",
+                               JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, null, null)==JOptionPane.YES_OPTION){       
+            //preenche os campos
+            ProcedimentoRealizado p=this.tableModelDados.getProcedimentoRealizado(this.jTable1.getSelectedRow());
+            bIProcedimentoRealizadoController.removeAll(new BIProcedimentoRealizado(p));
+            //pega uma nova referencia para procedimentoRealizado já com cabeçalho
+            this.procedimentoRealizado=this.procedimentoRealizado.getOnlyHeader();
+            this.updateJTable(p.getOnlyHeader());
+            this.fillFields(this.procedimentoRealizado, true);
+            clearModelsServicoClassificacao();
+            initComboBoxs();
+             //incremeta a sequencia
+            this.gerarSequencia();
+          
+            this.insertOrUpdateState();
+         }
+      }
+ }
+        
+    }//GEN-LAST:event_jTable1KeyPressed
                                              
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
