@@ -89,6 +89,11 @@ public class Exportacao extends javax.swing.JDialog {
         this.jComboBoxCnes.addFocusListener(this.listenerFieldsChangeBackground);
         this.jComboBoxCompetencia.addFocusListener(this.listenerFieldsChangeBackground);
     }
+    
+    public void enabledComboBoxs(boolean abilitar){
+        this.jComboBoxCnes.setEnabled(abilitar);
+        this.jComboBoxCompetencia.setEnabled(abilitar);
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.

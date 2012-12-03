@@ -697,6 +697,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         if( path!=null){
             IExportacaoStrategy expo=new ImportacaoBackup(path, new BIProcedimentoRealizado(new BIProcedimentoRealizadoPK()));
             Exportacao ex=new  Exportacao(this,expo);
+            ex.enabledComboBoxs(false);
             ex.setTitle("Importação para o arquivo de Backup.");
             ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             ex.setLocationRelativeTo(null);
