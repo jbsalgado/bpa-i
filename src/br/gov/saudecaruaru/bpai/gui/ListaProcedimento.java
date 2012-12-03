@@ -238,6 +238,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         jMenuOperacao = new javax.swing.JMenu();
         jMenuItemExportarBPA = new javax.swing.JMenuItem();
         jMenuItemExportarXML = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItemExportarEnvio = new javax.swing.JMenuItem();
         jMenuItemExportarAtualizacao = new javax.swing.JMenuItem();
         jMenuItemAlteraCompetencia = new javax.swing.JMenuItem();
@@ -355,7 +356,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         });
         jMenuOperacao.add(jMenuItemExportarBPA);
 
-        jMenuItemExportarXML.setText("Exportar para XML");
+        jMenuItemExportarXML.setText("Exportar para Backup");
         jMenuItemExportarXML.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuItemExportarXMLMouseClicked(evt);
@@ -368,7 +369,16 @@ public class ListaProcedimento extends javax.swing.JFrame {
         });
         jMenuOperacao.add(jMenuItemExportarXML);
 
+        jMenuItem1.setText("Importar Backup");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenuOperacao.add(jMenuItem1);
+
         jMenuItemExportarEnvio.setText("Enviar procedimentos (Base Central)");
+        jMenuItemExportarEnvio.setEnabled(false);
         jMenuItemExportarEnvio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemExportarEnvioActionPerformed(evt);
@@ -377,6 +387,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         jMenuOperacao.add(jMenuItemExportarEnvio);
 
         jMenuItemExportarAtualizacao.setText("Enviar SOMENTE procedimentos desatualizados (Base Central)");
+        jMenuItemExportarAtualizacao.setEnabled(false);
         jMenuItemExportarAtualizacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemExportarAtualizacaoActionPerformed(evt);
@@ -510,7 +521,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         // TODO add your handling code here:
         IExportacaoStrategy expo=new ExportacaoBPAMagnetico(new BIProcedimentoRealizado(new BIProcedimentoRealizadoPK()));
         Exportacao ex=new  Exportacao(this,expo);
-        ex.setTitle("Exportações dos procedimentos para o banco do BPA Magnético.");
+        ex.setTitle("Exportações da produção para o banco do BPA Magnético.");
         ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         ex.setLocationRelativeTo(null);
         ex.setModal(true);
@@ -559,7 +570,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         //cria o arquivo para exportar os dados
         JFileChooser fil= new JFileChooser();
         fil.setDialogType(JFileChooser.SAVE_DIALOG);
-        fil.setSelectedFile(new File("exportacao_"+ format.format( new Date())+".xml"));
+        fil.setSelectedFile(new File("backup_"+ format.format( new Date())+".xml"));
         fil.setFileFilter(new FileNameExtensionFilter("xml", ".xml"));
         fil.showSaveDialog(this);
         //arquivo foi criado com sucesso, entÃ£o deve-se pegar o caminho dele.
@@ -567,7 +578,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         if( path!=null){
             IExportacaoStrategy expo=new ExportacaoXML(path, new BIProcedimentoRealizado(new BIProcedimentoRealizadoPK()));
             Exportacao ex=new  Exportacao(this,expo);
-            ex.setTitle("Exportação para arquivo XML dos procedimentos não enviados para o servidor central.");
+            ex.setTitle("Exportação para arquivo Backup.");
             ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             ex.setLocationRelativeTo(null);
             ex.setModal(true);
@@ -675,12 +686,32 @@ public class ListaProcedimento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTableHeaderKeyPressed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fil= new JFileChooser();
+        //fil.setDialogType(JFileChooser.OPEN_DIALOG);
+        //fil.setFileFilter(new FileNameExtensionFilter("xml", ".xml"));
+        fil.showSaveDialog(this);
+        //arquivo foi encontrado
+        String path=fil.getSelectedFile() != null ? fil.getSelectedFile().getAbsolutePath() : null;
+        if( path!=null){
+            IExportacaoStrategy expo=new ImportacaoBackup(path, new BIProcedimentoRealizado(new BIProcedimentoRealizadoPK()));
+            Exportacao ex=new  Exportacao(this,expo);
+            ex.setTitle("Importação para o arquivo de Backup.");
+            ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            ex.setLocationRelativeTo(null);
+            ex.setModal(true);
+            ex.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtualizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelTipoPesquisa;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItemAlteraCompetencia;
     private javax.swing.JMenuItem jMenuItemExportarAtualizacao;
     private javax.swing.JMenuItem jMenuItemExportarBPA;

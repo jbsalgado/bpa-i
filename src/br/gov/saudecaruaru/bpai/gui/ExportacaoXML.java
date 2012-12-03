@@ -36,9 +36,9 @@ public class ExportacaoXML implements IExportacaoStrategy{
         try{
             List<BIProcedimentoRealizado> list=this.bIProcedimentoRealizadoDAO.findAllEqual(this.bIProcedimentoRealizado);
             this.bIProcedimentoRealizadoXML.salvar(list, this.filePath);
-            msg="Exportação para o arquivo XML executada com sucesso!.";
+            msg="Exportação para o arquivo Backup executada com sucesso!.";
         }catch(Exception ex){
-            msg="Falha na exportação para o arquivo XML! Comunique aos desenvolvedores do sistema!";
+            msg="Falha na exportação para o arquivo Backup! Comunique aos desenvolvedores do sistema!";
             logger.error("Método execute. "+ex.getMessage());
         }
         finally{
