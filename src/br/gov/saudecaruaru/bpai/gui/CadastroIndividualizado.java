@@ -847,28 +847,35 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
        int size=this.tableModelDados.getRowCount();
        if(size<ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
           List<ProcedimentoRealizado> listP = this.tableModelDados.getList();
-           int i=1;
-           //varre a lista de registros
-           for(ProcedimentoRealizado p: listP){
-               int currentSequencia = Integer.parseInt(p.getProcedimentoRealizadoPK().getSequenciaFolha());
-              
-                    //se a sequencia atual for diferente da ordem crescente, atribua a sequencia atual correta (i)
-                    //por exemplo: 1,2,3,5 -> quando ele chegar no 5 vai perceber que falta a sequencia 4 
-                    //entao vai atribuir a sequenciaFolha o valor 4
-                    if(currentSequencia!=i){
-                        this.sequenciaFolha=i;
-                        break;
-                        
-                    }else{//senao incremente a sequencia atual
-                        this.sequenciaFolha=currentSequencia+1;
-                    }
+          //verifica se a lista tá vazia
+           if(!listP.isEmpty() ){
+               int i=1;
+               //varre a lista de registros
+               for(ProcedimentoRealizado p: listP){
+                   int currentSequencia = Integer.parseInt(p.getProcedimentoRealizadoPK().getSequenciaFolha());
 
-               i++;
-               
+                        //se a sequencia atual for diferente da ordem crescente, atribua a sequencia atual correta (i)
+                        //por exemplo: 1,2,3,5 -> quando ele chegar no 5 vai perceber que falta a sequencia 4 
+                        //entao vai atribuir a sequenciaFolha o valor 4
+                        if(currentSequencia!=i){
+                            this.sequenciaFolha=i;
+                            break;
+
+                        }else{//senao incremente a sequencia atual
+                            this.sequenciaFolha=currentSequencia+1;
+                        }
+
+                   i++;
+
+               }
+           }
+           //é uma folha nova
+           else{
+                this.sequenciaFolha=1;
            }
        }
        else{
-           this.sequenciaFolha=0;
+           this.sequenciaFolha=1;
        }
        
        String seq=ModelUtil.completar(this.sequenciaFolha+"", 2,'0');
@@ -1659,8 +1666,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         //atualiza os dados da tabela
                         this.updateJTable( this.procedimentoRealizado);
                         this.fillFields(this.procedimentoRealizado, true);
-                        clearModelsServicoClassificacao();
-                        initComboBoxs();
+                        //initComboBoxs();
                         //gera a sequência da folha
                         this.gerarSequencia();
                         //verifica se a folha atingiu a quantidade máxima de sequência
@@ -1860,7 +1866,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             this.procedimentoRealizado=this.procedimentoRealizado.getOnlyHeader();
             this.updateJTable(p.getOnlyHeader());
             this.fillFields(this.procedimentoRealizado, true);
-            clearModelsServicoClassificacao();
             initComboBoxs();
              //incremeta a sequencia
             this.gerarSequencia();
@@ -1968,7 +1973,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         
         initComboBoxServico();
         initComboBoxClassificacao();
-        this.jComboBoxEquipe.setModel(this.objectComboBoxModelEquipe);
+        this.initComboBoxEquipe();
         
         //inicializar comboBox Cor
         //seta no modelo Diversas o codigo referente a tabela Cor no banco
@@ -1985,22 +1990,25 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         //seta o modelo no combobox CaraterAtendimento
         jComboBoxProcCaraterAtend.setModel(objectComboBoxModelCaraterAtend);
     }
-    private void clearModelsServicoClassificacao(){
-        this.objectComboBoxModelServico = new ObjectComboBoxModel<Diversas>();
-        this.objectComboBoxModelClassificaoServico = new ObjectComboBoxModel<Diversas>();
-        this.objectComboBoxModelClassificaoServico.setFormatter(new DiversasFormatter());
-        this.objectComboBoxModelServico.setFormatter(new DiversasFormatter());
-        
-        
-    }
+    
     private void initComboBoxServico(){
+        this.objectComboBoxModelServico=new ObjectComboBoxModel<Diversas>();
+        this.objectComboBoxModelServico.setFormatter(new DiversasFormatter());
         this.jComboBoxUsuarioServico.setModel(this.objectComboBoxModelServico);
    
     }
+    
     private void initComboBoxClassificacao(){
+        this.objectComboBoxModelClassificaoServico=new ObjectComboBoxModel<Diversas>();
+        this.objectComboBoxModelClassificaoServico.setFormatter(new DiversasFormatter());
         this.jComboBoxUsuarioClassificacao.setModel(this.objectComboBoxModelClassificaoServico);
     }
-   
+    
+    private void initComboBoxEquipe(){
+        this.objectComboBoxModelEquipe= new ObjectComboBoxModel<Equipe>();
+        this.objectComboBoxModelEquipe.setFormatter(new EquipeFormatter());
+        this.jComboBoxEquipe.setModel(this.objectComboBoxModelEquipe);
+    }
     
      
       
@@ -2593,17 +2601,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           
       }
       
-      /**
-       *Preenche um modelo ProcedimentoRealizado com os campos do cabeçalho da tela  
-       */
-      private void fillHeaderModelProcedimentoRealizado(ProcedimentoRealizado p){
-          p.getProcedimentoRealizadoPK().setCnesUnidade(jTextFieldCnes.getText());
-          p.getProcedimentoRealizadoPK().setCnsMedico(jTextFieldCnsProfiss.getText());
-          p.getProcedimentoRealizadoPK().setCboMedico(jTextFieldCBO.getText());
-          p.getProcedimentoRealizadoPK().setCompetencia(jTextFieldAno.getText()+jTextFieldMes.getText());
-          p.getProcedimentoRealizadoPK().setNumeroFolha(jTextFieldFolha.getText());
-          
-      }
+
       
       /**
        * Pega os valores dos campos que ainda não foram colocados no modelo procedimentoRealizado
@@ -2829,22 +2827,28 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
        */
       private void carregarComboBox(ProcedimentoRealizado p){
           
+          //comobox raça/cor
           if(p.getRacaPaciente()!=null){
             this.selectItemJComboBoxRacaCor(p.getRacaPaciente());
           }
           else{
             this.selectItemJComboBoxRacaCor(Diversas.COD_RACA_COR_SEM_INFORMACAO);  
           }
+          
+          //campo etnia
           if((jComboBoxUsuarioRacaCor.getSelectedItem()!=null) && (jComboBoxUsuarioRacaCor.getSelectedItem().toString().substring(0, 2).equals(Diversas.COD_RACA_COR_INDIGENA))){
               jTextFieldUsuarioCodEtnia.setText(p.getEtniaPaciente());
           }
           
+          //comobox caráter de atendimento
           if(p.getCaracterizacaoAtendimento()!=null){
             this.selectItemJComboBoxCaraterAtend(p.getCaracterizacaoAtendimento());
           }
           else{
             this.selectItemJComboBoxCaraterAtend(CaraterAtendimento.SEM_INFORMACAO);
           }
+          
+          //combobox Serviço
           if(p.getCodigoServico()!=null){
                this.selectItemJComboBoxServico(p.getCodigoServico());
                
@@ -2852,13 +2856,21 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
              initComboBoxServico();
           }
           
+          //combobox classificacao do serviço
           if(p.getCodigoClassificacaoServico()!=null){
             
               this.selectItemJComboBoxClassificacao(p.getCodigoServico()+p.getCodigoClassificacaoServico());
           
           }else{
-            initComboBoxClassificacao();
+                initComboBoxClassificacao();
            }
+          //combobox equipe
+          if(p.getProcedimentoRealizadoPK().getCnesUnidade()!= null){
+              this.selectItemJComboboxEquipe(p.getProcedimentoRealizadoPK().getCnesUnidade());
+          }
+          else{
+              this.initComboBoxEquipe();
+          }
       }
       private void selectItemJComboBoxRacaCor(String codigoItem){
           Diversas d= new Diversas(new DiversasPK(Diversas.TABELA_COR_INDIVIDUO,codigoItem ));   
@@ -2882,6 +2894,17 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           d=this.diversasController.findEqual(d);
           this.objectComboBoxModelClassificaoServico.setSelectedObject(d);
       } 
+       
+       private void selectItemJComboboxEquipe(String cnes){
+           Equipe e=new Equipe(new EquipePK());
+           e.getEquipePK().setCnes(cnes);
+           e.getEquipePK().setCompetencia(ModelUtil.COMPETENCIA_MAIS_RECENTE);
+           e=this.equipeController.findEqual(e);
+           
+           if (e != null){
+               this.objectComboBoxModelEquipe.setSelectedObject(e);
+           }
+       }
           
       /**
         * Prenche os combox serviço e classificação de serviço de 
