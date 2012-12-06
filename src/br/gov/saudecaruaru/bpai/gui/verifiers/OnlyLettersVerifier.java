@@ -32,7 +32,7 @@ public class OnlyLettersVerifier extends InputVerifier{
     public boolean verify(JComponent input) {
        JTextComponent txtField = (JTextField) input; 
       String valor = txtField.getText();
-       Pattern p = Pattern.compile("^[a-z,A-Z, ,.,ã,á,à,â,ê,í,ú,õ,é]+$");  
+       Pattern p = Pattern.compile("^[a-z,A-Z, ,.,ã,á,à,â,ä,Ã,À,Â,Ä,ê,Ê,í,Í,ú,ü,Ú,Ü,ó,õ,Ó,Õ,é,É,ç,Ç,]+$");  
                 Matcher m = p.matcher(valor);  
                 if (!m.find()) {  
                     MessagesErrors.erro(component,txtField,fieldName + " INCORRETO!"+" USE SOMENTE LETRAS"); 
