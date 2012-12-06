@@ -30,7 +30,7 @@ public class CaraterAtendVerifier extends InputVerifier{
         JComboBox comboBoxField = (JComboBox) input;
         int index = comboBoxField.getSelectedIndex();
         if(index==0){
-             MessagesErrors.erro(component,comboBoxField,"INVÁLIDO!");
+             MessagesErrors.erro(component,comboBoxField,this.fieldName+" INVÁLIDO!");
              return false;
         }
          comboBoxField.setBackground(Color.GRAY);

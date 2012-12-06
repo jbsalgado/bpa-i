@@ -18,7 +18,7 @@ public class OnlyUpperLettersDocument extends PlainDocument{
     
     @Override 
     public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
-       Pattern p = Pattern.compile("^[a-z,A-Z, ,.,ã,á,à,â,ê,í,ú,õ,é]+$");  
+       Pattern p = Pattern.compile("^[a-z,A-Z, ,.,ã,á,à,â,ä,Ã,À,Â,Ä,ê,Ê,í,Í,ú,ü,Ú,Ü,ó,õ,Ó,Õ,é,É,ç,Ç,]+$");  
        Matcher m = p.matcher(str);
         if(!m.find())
             return;
