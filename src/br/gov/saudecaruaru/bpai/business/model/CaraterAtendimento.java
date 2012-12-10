@@ -13,9 +13,10 @@ import java.util.List;
  */
 public class CaraterAtendimento {
     
-    public static List<CaraterAtendimento> LIST = new ArrayList<CaraterAtendimento>(){
-    };
+    public static List<CaraterAtendimento> LIST = new ArrayList<CaraterAtendimento>();
+    
     public static final String SEM_INFORMACAO = "00";
+    
     static{
         getList().add(new CaraterAtendimento("00","SEM INFORMAÇÃO"));
         getList().add(new CaraterAtendimento("01","ELETIVO"));

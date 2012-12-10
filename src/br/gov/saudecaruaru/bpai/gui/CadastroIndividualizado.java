@@ -1662,11 +1662,17 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         this.medicoController.merge(this.procedimentoRealizado.getMedico());
                         //pega uma nova referencia para procedimentoRealizado já com cabeçalho
                         this.procedimentoRealizado=this.procedimentoRealizado.getOnlyHeader();
-                        
-                        //atualiza os dados da tabela
-                        this.updateJTable( this.procedimentoRealizado);
-                        this.fillFields(this.procedimentoRealizado, true);
-                        //initComboBoxs();
+                        //atualiza a tela
+                        SwingUtilities.invokeLater(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+
+                                        //atualiza os dados da tabela
+                                        CadastroIndividualizado.this.updateJTable( CadastroIndividualizado.this.procedimentoRealizado);
+                                        CadastroIndividualizado.this.fillFields(CadastroIndividualizado.this.procedimentoRealizado, true);
+                                    }
+                                });
                         //gera a sequência da folha
                         this.gerarSequencia();
                         //verifica se a folha atingiu a quantidade máxima de sequência
@@ -1790,7 +1796,14 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.jButtonCancelar.setEnabled(false);
         this.jButtonAtualizar.setEnabled(false);
         this.procedimentoRealizado=new ProcedimentoRealizado(this.procedimentoRealizado.getOnlyHeader());
-        this.fillFields(this.procedimentoRealizado, true);
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                
+                CadastroIndividualizado.this.fillFields(CadastroIndividualizado.this.procedimentoRealizado, true);
+            }
+        });
         this.gerarSequencia();
         this.insertOrUpdateState();
     }//GEN-LAST:event_jButtonCancelarMouseClicked
@@ -1826,7 +1839,17 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 //desabilita os botões
                 this.jButtonCancelar.setEnabled(false);
                 this.jButtonAtualizar.setEnabled(false);
-                this.fillFields(this.procedimentoRealizado, true);
+                SwingUtilities.invokeLater(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            CadastroIndividualizado.this.fillFields(CadastroIndividualizado.this.procedimentoRealizado, true);
+
+                            CadastroIndividualizado.this.jTable1.getSelectionModel().clearSelection();
+                            CadastroIndividualizado.this.updateJTable(CadastroIndividualizado.this.procedimentoRealizado);
+                        }
+                    });
                 this.gerarSequencia();
                 
                 this.insertOrUpdateState();
@@ -1860,13 +1883,21 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             if(JOptionPane.showOptionDialog(this,"DESEJA REALMENTE DELETAR ESTE REGISTRO?","ATENÇÃO!",
                                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, null, null)==JOptionPane.YES_OPTION){       
             //preenche os campos
-            ProcedimentoRealizado p=this.tableModelDados.getProcedimentoRealizado(this.jTable1.getSelectedRow());
+            final ProcedimentoRealizado p=this.tableModelDados.getProcedimentoRealizado(this.jTable1.getSelectedRow());
             bIProcedimentoRealizadoController.removeAll(new BIProcedimentoRealizado(p));
             //pega uma nova referencia para procedimentoRealizado já com cabeçalho
             this.procedimentoRealizado=this.procedimentoRealizado.getOnlyHeader();
-            this.updateJTable(p.getOnlyHeader());
-            this.fillFields(this.procedimentoRealizado, true);
-            initComboBoxs();
+            SwingUtilities.invokeLater(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            CadastroIndividualizado.this.fillFields(CadastroIndividualizado.this.procedimentoRealizado, true);
+                            CadastroIndividualizado.this.updateJTable(p);
+                            
+                            initComboBoxs();
+                        }
+                    });
              //incremeta a sequencia
             this.gerarSequencia();
           
@@ -1971,8 +2002,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     private void initComboBoxs(){
         
         
-        initComboBoxServico();
-        initComboBoxClassificacao();
+        this.initComboBoxServico();
+        this.initComboBoxClassificacao();
         this.initComboBoxEquipe();
         
         //inicializar comboBox Cor
@@ -2453,13 +2484,14 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             @Override
             public void focusGained(FocusEvent e) {
                //abre o combobox ao ganhar o foco 
-               jComboBoxProcCaraterAtend.setPopupVisible(true);
+               if (! jComboBoxProcCaraterAtend.isPopupVisible()){
+                    jComboBoxProcCaraterAtend.setPopupVisible(true);
+               }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-               int index = ((JComboBox)e.getComponent()).getSelectedIndex(); 
-               CaraterAtendimento c = (CaraterAtendimento) objectComboBoxModelCaraterAtend.getData().get(index);
+               CaraterAtendimento c = objectComboBoxModelCaraterAtend.getSelectedObject();
                CadastroIndividualizado.this.procedimentoRealizado.setCaracterizacaoAtendimento(c.getCodigo().toString());
                
               
@@ -2840,12 +2872,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
               jTextFieldUsuarioCodEtnia.setText(p.getEtniaPaciente());
           }
           
-          //comobox caráter de atendimento
+          //combobox caráter de atendimento
           if(p.getCaracterizacaoAtendimento()!=null){
-            this.selectItemJComboBoxCaraterAtend(p.getCaracterizacaoAtendimento());
+                this.selectItemJComboBoxCaraterAtend(p.getCaracterizacaoAtendimento());
           }
           else{
-            this.selectItemJComboBoxCaraterAtend(CaraterAtendimento.SEM_INFORMACAO);
+                this.jComboBoxProcCaraterAtend.setSelectedIndex(0);
           }
           
           //combobox Serviço
