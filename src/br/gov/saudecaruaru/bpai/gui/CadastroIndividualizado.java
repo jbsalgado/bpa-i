@@ -1439,16 +1439,16 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldProcNumAut, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonAtualizar)
+                        .addComponent(jButtonAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonLimpar)
-                        .addGap(6, 6, 6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1495,14 +1495,14 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(jLabel19))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonSair, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jButtonAtualizar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonSair, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jComboBoxProcCaraterAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextFieldProcNumAut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1573,9 +1573,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                                     .addComponent(jTextFieldFolha, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1671,18 +1670,19 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                                         //atualiza os dados da tabela
                                         CadastroIndividualizado.this.updateJTable( CadastroIndividualizado.this.procedimentoRealizado);
                                         CadastroIndividualizado.this.fillFields(CadastroIndividualizado.this.procedimentoRealizado, true);
+                                        //gera a sequência da folha
+                                        CadastroIndividualizado.this.gerarSequencia();
+
+                                        //verifica se a folha atingiu a quantidade máxima de sequência
+                                        int itensFolha=CadastroIndividualizado.this.tableModelDados.getRowCount();
+                                        if(itensFolha>=ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
+                                            CadastroIndividualizado.this.initNewFolha();
+                                        }
+                                        //move a barra vertical
+                                        CadastroIndividualizado.this.moverScrollUltimaLinhaTabela();
+                                        //this.jTable1
                                     }
                                 });
-                        //gera a sequência da folha
-                        this.gerarSequencia();
-                        //verifica se a folha atingiu a quantidade máxima de sequência
-                        itensFolha=this.tableModelDados.getRowCount();
-                        if(itensFolha>=ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
-                            this.initNewFolha();
-                        }
-                        //move a barra vertical
-                        this.moverScrollUltimaLinhaTabela();
-                        //this.jTable1
                     }
                     else{
                         JOptionPane.showMessageDialog(this, "Ocorreu um erro ao salvar o procedimento!");
@@ -1832,27 +1832,26 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 }
                 this.medicoCboCnesController.merge(this.procedimentoRealizado.getMedicoCboCnes());
                 this.medicoController.merge(this.procedimentoRealizado.getMedico());
-                //salvou com sucesso
                 this.procedimentoRealizado=this.procedimentoRealizado.getOnlyHeader();
-                this.jTable1.getSelectionModel().clearSelection();
-                this.updateJTable(this.procedimentoRealizado);
-                //desabilita os botões
-                this.jButtonCancelar.setEnabled(false);
-                this.jButtonAtualizar.setEnabled(false);
+                
                 SwingUtilities.invokeLater(new Runnable() {
 
                         @Override
                         public void run() {
-
-                            CadastroIndividualizado.this.fillFields(CadastroIndividualizado.this.procedimentoRealizado, true);
-
-                            CadastroIndividualizado.this.jTable1.getSelectionModel().clearSelection();
                             CadastroIndividualizado.this.updateJTable(CadastroIndividualizado.this.procedimentoRealizado);
+                            CadastroIndividualizado.this.jTable1.getSelectionModel().clearSelection();
+                            
+                            CadastroIndividualizado.this.fillFields(CadastroIndividualizado.this.procedimentoRealizado, true);
+                            
+                            CadastroIndividualizado.this.gerarSequencia();
+
+                            //desabilita os botões
+                            CadastroIndividualizado.this.jButtonCancelar.setEnabled(false);
+                            CadastroIndividualizado.this.jButtonAtualizar.setEnabled(false);
+                            CadastroIndividualizado.this.insertOrUpdateState();
+                
                         }
                     });
-                this.gerarSequencia();
-                
-                this.insertOrUpdateState();
             }
                 }
         }
