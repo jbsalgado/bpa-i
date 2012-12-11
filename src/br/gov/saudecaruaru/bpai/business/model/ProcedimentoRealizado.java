@@ -28,7 +28,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
     public static final String ORIGEM_CONSOLIDADO="BPA";
     public static final String ORIGEM_INDIVIDUALIZADO="BPI";
     public static final int MAXIMA_QUANTIDADE_FOLHA=999;
-    public static final int MAXIMA_QUANTIDADE_SEQUENCIA=2;
+    public static final int MAXIMA_QUANTIDADE_SEQUENCIA=20;
     
     @EmbeddedId
     private ProcedimentoRealizadoPK procedimentoRealizadoPK; 
