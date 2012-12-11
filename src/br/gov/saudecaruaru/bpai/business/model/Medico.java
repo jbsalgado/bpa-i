@@ -30,6 +30,11 @@ public class Medico implements Serializable {
         this.cns=procedimentoRealizado.getProcedimentoRealizadoPK().getCnsMedico();
         this.nome=procedimentoRealizado.getNomeProfissional();
     }
+    
+    public Medico(BIProcedimentoRealizado procedimentoRealizado){
+        this.cns=procedimentoRealizado.getBiProcedimentoRealizadoPK().getCnsMedico();
+        //this.nome=procedimentoRealizado.getNomeProfissional();
+    }
     public String getCns() {
         return cns;
     }
