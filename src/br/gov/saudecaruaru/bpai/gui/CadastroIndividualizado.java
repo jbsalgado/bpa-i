@@ -8,6 +8,7 @@ import br.gov.saudecaruaru.bpai.gui.documents.*;
 import br.gov.saudecaruaru.bpai.gui.formatter.CaraterAtendimentoFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.DiversasFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.EquipeFormatter;
+import br.gov.saudecaruaru.bpai.gui.keylistener.CatchLastValueFieldKeyListener;
 import br.gov.saudecaruaru.bpai.gui.verifiers.*;
 import br.gov.saudecaruaru.bpai.util.DateUtil;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
@@ -336,8 +337,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
          this.jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
        
          this.initComboBoxs();
-         //incializa os campos com busca por F2
+         //incializa os campos com busca por F1
          this.initKeyPresseds();
+         
+         this.initKeyPressedsOldValues();
          //adicionando listeners aos campos 
          this.addListenersFields();
          this.addlistenerFieldsChangeBackground();
@@ -420,7 +423,31 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldProcedimentoCnpj.setInputVerifier(new CnpjVerifier(this,"CNPJ"));
     }
     
-    
+    private void initKeyPressedsOldValues(){
+        int key=KeyEvent.VK_F3;
+        this.jTextFieldAno.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldAno));
+        this.jTextFieldCBO.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldCBO));
+        this.jTextFieldCnes.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldCnes));
+        this.jTextFieldCnsProfiss.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldCnsProfiss));
+        this.jTextFieldFolha.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldFolha));
+        this.jTextFieldMes.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldMes));
+        this.jTextFieldNomeProfiss.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldNomeProfiss));
+        
+        this.jTextFieldProcCID.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldProcCID));
+        this.jTextFieldProcCod.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldProcCod));
+        this.jTextFieldProcDataAtend.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldProcDataAtend));
+        this.jTextFieldProcNumAut.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldProcNumAut));
+        this.jTextFieldProcQuant.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldProcQuant));
+        this.jTextFieldProcedimentoCnpj.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldProcedimentoCnpj));
+        
+        this.jTextFieldUsarioDatNasc.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldUsarioDatNasc));
+        this.jTextFieldUsuarioCns.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldUsuarioCns));
+        this.jTextFieldUsuarioCodEtnia.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldUsuarioCodEtnia));
+        this.jTextFieldUsuarioCodMunicip.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldUsuarioCodMunicip));
+        this.jTextFieldUsuarioCodNac.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldUsuarioCodNac));
+        this.jTextFieldUsuarioNome.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldUsuarioNome));
+        this.jTextFieldUsuarioSexo.addKeyListener(new CatchLastValueFieldKeyListener(key, this.jTextFieldUsuarioSexo));
+    }
     
     private void initKeyPresseds(){
         //campo do CNES
@@ -1061,7 +1088,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jComboBoxEquipe = new javax.swing.JComboBox();
         jLabel25 = new javax.swing.JLabel();
         jTextFieldCnsProfiss = new javax.swing.JTextField();
-        jLabel28 = new javax.swing.JLabel();
         jTextFieldFolha = new javax.swing.JTextField();
         jTextFieldCnes = new javax.swing.JTextField();
         jTextFieldMes = new javax.swing.JTextField();
@@ -1070,6 +1096,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Cadastro indivualizado"); // NOI18N
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel1.setText("CNES");
@@ -1195,7 +1222,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                                 .addComponent(jTextFieldUsuarioCodNac, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextFieldUsuarioNomeNac, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(456, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1518,9 +1545,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel25.setText("Equipe");
 
-        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel28.setText("F5 - DADOS CONSOLIDADOS (SOMENTE PARA O CAMPO CNS DO PACIENTE)");
-
         jTextFieldCBO.setFont(new java.awt.Font("Tahoma", 0, 12));
         jTextFieldCBO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1566,16 +1590,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldCBO, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jTextFieldFolha, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                            .addComponent(jTextFieldCBO, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(jTextFieldFolha, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(184, 184, 184))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1588,32 +1608,27 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         .addComponent(jLabel3)
                         .addComponent(jLabel21)))
                 .addGap(5, 5, 5)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldNomeProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldCnsProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldCnes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldCBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBoxEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldNomeProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldCnsProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldCnes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldCBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jComboBoxEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldFolha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jTextFieldFolha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1939,7 +1954,6 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
