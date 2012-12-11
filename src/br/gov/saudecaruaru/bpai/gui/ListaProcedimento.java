@@ -36,6 +36,7 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -142,9 +143,18 @@ public class ListaProcedimento extends javax.swing.JFrame {
                         //zera a quantidade padrÃ£o
                         pro.setQuantidadeRealizada(null);
                         //substitui a lista
-                        List<BIProcedimentoRealizado> l=ListaProcedimento.this.biProcedimentoRealizadoController.findAllEqualOrderBy(new BIProcedimentoRealizado(pro),"biProcedimentoRealizadoPK.sequenciaFolha");
+                        BIProcedimentoRealizado bp= new BIProcedimentoRealizado(pro);
+                        List<BIProcedimentoRealizado> l=ListaProcedimento.this.biProcedimentoRealizadoController.findAllEqualOrderBy(bp,"biProcedimentoRealizadoPK.sequenciaFolha");
+                        
+                        final List<ProcedimentoRealizado> lista=ListaProcedimento.this.biProcedimentoRealizadoController.parserBIProcedimentoRealizadoToProcedimentoRealizado(l);
+                        SwingUtilities.invokeLater(new Runnable() {
 
-                        ListaProcedimento.this.tableModelBody.replaceAllProcedimentoRealizado(ListaProcedimento.this.biProcedimentoRealizadoController.parserBIProcedimentoRealizadoToProcedimentoRealizado(l));
+                            @Override
+                            public void run() {
+                                ListaProcedimento.this.tableModelBody.clean();
+                                ListaProcedimento.this.tableModelBody.replaceAllProcedimentoRealizado(lista);
+                            }
+                        });
                         l.clear();
                     }
                     //coloca uma lista vazia
