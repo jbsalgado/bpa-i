@@ -25,7 +25,7 @@ public class OnlyNumbersDocument extends PlainDocument{
     
     @Override
     public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
-       Pattern p = Pattern.compile("^[0-9]+$"); 
+       Pattern p = Pattern.compile("^[0-9,.,\\,]+$"); 
        Matcher m = p.matcher(str);
        
         if(m.find()){
