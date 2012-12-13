@@ -1907,15 +1907,16 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         public void run() {
 
                             CadastroIndividualizado.this.fillFields(CadastroIndividualizado.this.procedimentoRealizado, true);
-                            CadastroIndividualizado.this.updateJTable(p);
+                            CadastroIndividualizado.this.updateJTable(CadastroIndividualizado.this.procedimentoRealizado);
                             
                             initComboBoxs();
+
+                             //incremeta a sequencia
+                            CadastroIndividualizado.this.gerarSequencia();
+
+                            CadastroIndividualizado.this.insertOrUpdateState();
                         }
                     });
-             //incremeta a sequencia
-            this.gerarSequencia();
-          
-            this.insertOrUpdateState();
          }
       }
  }
