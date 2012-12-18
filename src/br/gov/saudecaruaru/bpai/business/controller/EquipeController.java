@@ -17,4 +17,9 @@ public class EquipeController extends BasecController<Equipe>{
         super(new EquipeDAO());
     }
     
+        
+    public String getMaximaCompetencia(){
+        EquipeDAO dao= (EquipeDAO)this.getDao();
+        return dao.getMaxCompetencia();
+    }
 }
