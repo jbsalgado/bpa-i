@@ -397,30 +397,30 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     
     private void setVerifiers(){
         //atribui validadores
-        jTextFieldNomeProfiss.setInputVerifier(new OnlyLettersVerifier(this, "Nome profissional"));
-        jTextFieldUsuarioNome.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
-        jTextFieldUsuarioSexo.setInputVerifier(new SexoVerifier(this, "Sexo"));
-        jTextFieldUsuarioCns.setInputVerifier(new CnsUsuarioVerifier(this, "CNS Usuário",this));
-        jTextFieldCnes.setInputVerifier(new CnesVerifier(this, "CNES"));
-        jTextFieldProcQuant.setInputVerifier(new OnlyNumbers(this,"Quantidade"));
-        jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this,"CNS"));
-        jTextFieldCBO.setInputVerifier(new CBOVerifier(this, "CBO",this));
-        jTextFieldUsuarioCodNac.setInputVerifier(new NacionalidadeVerifier(this, "Nacionalidade",jTextFieldUsuarioNomeNac));
-        jTextFieldUsuarioCodMunicip.setInputVerifier(new MunicipioVerifier(this,"Municipio",jTextFieldUsuarioNomeMunicip));
-        jTextFieldUsuarioCodEtnia.setInputVerifier(new EtniaVerifier(this,"Etnia", jTextFieldUsuarioDescEtnia));
-        jTextFieldProcCod.setInputVerifier(new ProcedimentoVerifier(this, "Procedimento", jTextFieldProcDescricao,this));
-        jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,this));
-        jComboBoxProcCaraterAtend.setInputVerifier(new CaraterAtendVerifier(this,"Caráter de Atendimento"));
-        jTextFieldUsarioDatNasc.setInputVerifier(new DataVerifier(this, "Data de Nascimento"));
-        jTextFieldProcQuant.setInputVerifier(new QuantProcedimentoVerifier(this, "Quantidade",this));
-        jTextFieldProcDataAtend.setInputVerifier(new DataAtendimentoVerifier(this, "Data Atendimento",this,jTextFieldUsarioDatNasc));
-        jTextFieldAno.setInputVerifier(new CompetenciaVerifier(this,"Ano", jTextFieldMes,this));
-        jTextFieldFolha.setInputVerifier(new FolhaVerifier(this, "Folha"));
-        jTextFieldMes.setInputVerifier(new MesVerifier(this, "Mês"));
+        this.jTextFieldNomeProfiss.setInputVerifier(new OnlyLettersVerifier(this, "Nome profissional"));
+        this.jTextFieldUsuarioNome.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
+        this.jTextFieldUsuarioSexo.setInputVerifier(new SexoVerifier(this, "Sexo"));
+        this.jTextFieldUsuarioCns.setInputVerifier(new CnsUsuarioVerifier(this, "CNS Usuário",this));
+        this.jTextFieldCnes.setInputVerifier(new CnesVerifier(this, "CNES"));
+        this.jTextFieldProcQuant.setInputVerifier(new OnlyNumbers(this,"Quantidade"));
+        this.jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this,"CNS"));
+        this.jTextFieldCBO.setInputVerifier(new CBOVerifier(this, "CBO",this));
+        this.jTextFieldUsuarioCodNac.setInputVerifier(new NacionalidadeVerifier(this, "Nacionalidade",jTextFieldUsuarioNomeNac));
+        this.jTextFieldUsuarioCodMunicip.setInputVerifier(new MunicipioVerifier(this,"Municipio",jTextFieldUsuarioNomeMunicip));
+        this.jTextFieldUsuarioCodEtnia.setInputVerifier(new EtniaVerifier(this,"Etnia", jTextFieldUsuarioDescEtnia));
+        this.jTextFieldProcCod.setInputVerifier(new ProcedimentoVerifier(this, "Procedimento", jTextFieldProcDescricao,this));
+        this.jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,this));
+        this.jComboBoxProcCaraterAtend.setInputVerifier(new CaraterAtendVerifier(this,"Caráter de Atendimento"));
+        this.jTextFieldUsarioDatNasc.setInputVerifier(new DataVerifier(this, "Data de Nascimento"));
+        this.jTextFieldProcQuant.setInputVerifier(new QuantProcedimentoVerifier(this, "Quantidade",this));
+        this.jTextFieldProcDataAtend.setInputVerifier(new DataAtendimentoVerifier(this, "Data Atendimento",this,jTextFieldUsarioDatNasc));
+        this.jTextFieldAno.setInputVerifier(new CompetenciaVerifier(this,"Ano", jTextFieldMes,this));
+        this.jTextFieldFolha.setInputVerifier(new FolhaVerifier(this, "Folha"));
+        this.jTextFieldMes.setInputVerifier(new MesVerifier(this, "Mês"));
         //jComboBoxEquipe.setInputVerifier(new ComboBoxVerifier(this, "Equipe"));
-        //jComboBoxUsuarioServico.setInputVerifier(new ComboBoxVerifier(this, "Serviço"));
-        //jComboBoxUsuarioClassificacao.setInputVerifier(new ComboBoxVerifier(this, "Classificação"));
-        jTextFieldProcedimentoCnpj.setInputVerifier(new CnpjVerifier(this,"CNPJ"));
+        jComboBoxUsuarioServico.setInputVerifier(new ComboBoxVerifier(this, "Serviço"));
+        this.jComboBoxUsuarioClassificacao.setInputVerifier(new ClassificacaoVerifier(this,this.jComboBoxUsuarioServico, "Classificação"));
+        this.jTextFieldProcedimentoCnpj.setInputVerifier(new CnpjVerifier(this,"CNPJ"));
     }
     
     private void initKeyPressedsOldValues(){
