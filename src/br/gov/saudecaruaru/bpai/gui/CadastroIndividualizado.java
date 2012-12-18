@@ -399,30 +399,30 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     
     private void setVerifiers(){
         //atribui validadores
-        jTextFieldNomeProfiss.setInputVerifier(new OnlyLettersVerifier(this, "Nome profissional"));
-        jTextFieldUsuarioNome.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
-        jTextFieldUsuarioSexo.setInputVerifier(new SexoVerifier(this, "Sexo"));
-        jTextFieldUsuarioCns.setInputVerifier(new CnsUsuarioVerifier(this, "CNS Usuário",this));
-        jTextFieldCnes.setInputVerifier(new CnesVerifier(this, "CNES"));
-        jTextFieldProcQuant.setInputVerifier(new OnlyNumbers(this,"Quantidade"));
-        jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this,"CNS"));
-        jTextFieldCBO.setInputVerifier(new CBOVerifier(this, "CBO",this));
-        jTextFieldUsuarioCodNac.setInputVerifier(new NacionalidadeVerifier(this, "Nacionalidade",jTextFieldUsuarioNomeNac));
-        jTextFieldUsuarioCodMunicip.setInputVerifier(new MunicipioVerifier(this,"Municipio",jTextFieldUsuarioNomeMunicip));
-        jTextFieldUsuarioCodEtnia.setInputVerifier(new EtniaVerifier(this,"Etnia", jTextFieldUsuarioDescEtnia));
-        jTextFieldProcCod.setInputVerifier(new ProcedimentoVerifier(this, "Procedimento", jTextFieldProcDescricao,this));
-        jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,this));
-        jComboBoxProcCaraterAtend.setInputVerifier(new CaraterAtendVerifier(this,"Caráter de Atendimento"));
-        jTextFieldUsarioDatNasc.setInputVerifier(new DataVerifier(this, "Data de Nascimento"));
-        jTextFieldProcQuant.setInputVerifier(new QuantProcedimentoVerifier(this, "Quantidade",this));
-        jTextFieldProcDataAtend.setInputVerifier(new DataAtendimentoVerifier(this, "Data Atendimento",this,jTextFieldUsarioDatNasc));
-        jTextFieldAno.setInputVerifier(new CompetenciaVerifier(this,"Ano", jTextFieldMes,this));
-        jTextFieldFolha.setInputVerifier(new FolhaVerifier(this, "Folha"));
-        jTextFieldMes.setInputVerifier(new MesVerifier(this, "Mês"));
-        jComboBoxEquipe.setInputVerifier(new ComboBoxVerifier(this, "Equipe"));
+        this.jTextFieldNomeProfiss.setInputVerifier(new OnlyLettersVerifier(this, "Nome profissional"));
+        this.jTextFieldUsuarioNome.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
+        this.jTextFieldUsuarioSexo.setInputVerifier(new SexoVerifier(this, "Sexo"));
+        this.jTextFieldUsuarioCns.setInputVerifier(new CnsUsuarioVerifier(this, "CNS Usuário",this));
+        this.jTextFieldCnes.setInputVerifier(new CnesVerifier(this, "CNES"));
+        this.jTextFieldProcQuant.setInputVerifier(new OnlyNumbers(this,"Quantidade"));
+        this.jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this,"CNS"));
+        this.jTextFieldCBO.setInputVerifier(new CBOVerifier(this, "CBO",this));
+        this.jTextFieldUsuarioCodNac.setInputVerifier(new NacionalidadeVerifier(this, "Nacionalidade",jTextFieldUsuarioNomeNac));
+        this.jTextFieldUsuarioCodMunicip.setInputVerifier(new MunicipioVerifier(this,"Municipio",jTextFieldUsuarioNomeMunicip));
+        this.jTextFieldUsuarioCodEtnia.setInputVerifier(new EtniaVerifier(this,"Etnia", jTextFieldUsuarioDescEtnia));
+        this.jTextFieldProcCod.setInputVerifier(new ProcedimentoVerifier(this, "Procedimento", jTextFieldProcDescricao,this));
+        this.jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,this));
+        this.jComboBoxProcCaraterAtend.setInputVerifier(new CaraterAtendVerifier(this,"Caráter de Atendimento"));
+        this.jTextFieldUsarioDatNasc.setInputVerifier(new DataVerifier(this, "Data de Nascimento"));
+        this.jTextFieldProcQuant.setInputVerifier(new QuantProcedimentoVerifier(this, "Quantidade",this));
+        this.jTextFieldProcDataAtend.setInputVerifier(new DataAtendimentoVerifier(this, "Data Atendimento",this,jTextFieldUsarioDatNasc));
+        this.jTextFieldAno.setInputVerifier(new CompetenciaVerifier(this,"Ano", jTextFieldMes,this));
+        this.jTextFieldFolha.setInputVerifier(new FolhaVerifier(this, "Folha"));
+        this.jTextFieldMes.setInputVerifier(new MesVerifier(this, "Mês"));
+        //jComboBoxEquipe.setInputVerifier(new ComboBoxVerifier(this, "Equipe"));
         jComboBoxUsuarioServico.setInputVerifier(new ComboBoxVerifier(this, "Serviço"));
-        jComboBoxUsuarioClassificacao.setInputVerifier(new ComboBoxVerifier(this, "Classificação"));
-        jTextFieldProcedimentoCnpj.setInputVerifier(new CnpjVerifier(this,"CNPJ"));
+        this.jComboBoxUsuarioClassificacao.setInputVerifier(new ClassificacaoVerifier(this,this.jComboBoxUsuarioServico, "Classificação"));
+        this.jTextFieldProcedimentoCnpj.setInputVerifier(new CnpjVerifier(this,"CNPJ"));
     }
     
     private void initKeyPressedsOldValues(){
@@ -1100,65 +1100,65 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         setName("Cadastro indivualizado"); // NOI18N
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("CNES");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("CNS Profissional");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Nome Profissional");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Mês   /  Ano");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Folha");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText(" /");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("CNS");
 
         jLabel8.setText("Usuário Sequência :");
 
         jLabelUsuarioSeq.setText("01");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setText("Nome ");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Sexo");
 
         jLabel11.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText(" F/M");
         jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setText("Dt. Nascimento");
 
         jTextFieldUsuarioNomeNac.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel14.setText("Nacionalidade");
 
         jTextFieldUsuarioNomeMunicip.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel13.setText("Município de Residência");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel15.setText("Raça/Cor");
 
         jTextFieldUsuarioDescEtnia.setBackground(new java.awt.Color(153, 153, 153));
 
         jComboBoxUsuarioRacaCor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel17.setText("Etnia");
 
         try {
@@ -1282,31 +1282,31 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jLabelProcSeq.setText("01");
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel20.setText("Dt. Atendimento");
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel22.setText("Quantidade");
 
         jTextFieldProcDescriDoenca.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel23.setText("Código");
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel24.setText("CID");
 
         jTextFieldProcDescricao.setBackground(new java.awt.Color(153, 153, 153));
 
         jComboBoxProcCaraterAtend.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel19.setText("Nº Autorização");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel18.setText("Caráter Atendimento");
 
-        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonIncluir.setText("Incluir");
         jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1319,7 +1319,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonLimpar.setText("Limpar");
         jButtonLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1368,17 +1368,17 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel26.setText("Serviço");
 
         jComboBoxUsuarioServico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel27.setText("Classificação");
 
         jComboBoxUsuarioClassificacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonAtualizar.setText("Atualizar");
         jButtonAtualizar.setToolTipText("");
         jButtonAtualizar.setEnabled(false);
@@ -1393,7 +1393,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setEnabled(false);
         jButtonCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1402,7 +1402,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel30.setText("CNPJ");
 
         try {
@@ -1539,15 +1539,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 .addGap(30, 30, 30))
         );
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel21.setText("CBO");
 
         jComboBoxEquipe.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel25.setText("Equipe");
 
-        jTextFieldCBO.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jTextFieldCBO.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTextFieldCBO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCBOActionPerformed(evt);
