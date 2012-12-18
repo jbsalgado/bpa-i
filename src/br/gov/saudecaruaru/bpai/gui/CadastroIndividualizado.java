@@ -56,6 +56,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      private EquipeController equipeController;
      private SProcedimentoRealizadoController sProcedimentoRealizadoController;
      private ProcedimentoRealizadoController procedimentoRealizadoController;
+     private ProcedimentoRegraController procedimentoRegraController;
      
      private ProcedimentoRealizado procedimentoRealizado;
      private BIGestorCompetenciaController gestorCompetenciaController;
@@ -146,6 +147,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.sProcedimentoRealizadoController= new SProcedimentoRealizadoController();
         this.procedimentoServicoController= new ProcedimentoServicoController();
         this.equipeController= new EquipeController();
+        this.procedimentoRegraController= new ProcedimentoRegraController();
         
         this.setPaciente=new HashSet<Paciente>();
         this.setMedico= new HashSet<Medico>();
@@ -2955,37 +2957,60 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
       /**
         * Prenche os combox serviço e classificação de serviço de 
         * acordo com o procedimento escolhido
+        * desde que esse serviço tenha a regra 0001 ou 0002
         * @param codigoProcedimento 
         */
       
       private void buscarServicoEClassificaoServicoEPrencherCampos(String codigoProcedimento){
           
-           this.procedimentoRealizado.setCodigoProcedimento(codigoProcedimento);
-           HashMap<String, Object> res=new HashMap<String, Object> ();
-           res.put("procedimentoServicoPK.codigoProcedimento", this.procedimentoRealizado.getCodigoProcedimento().substring(0, 9));
-           res.put("procedimentoServicoPK.competencia", ModelUtil.COMPETENCIA_MAIS_RECENTE);
-           //preenche os combobox
-           ProcedimentoServico pro=this.procedimentoServicoController.findEqual(res);
-           
-           if(pro != null){
-               String competencia=ModelUtil.COMPETENCIA_MAIS_RECENTE;
-               String codigo=this.procedimentoRealizado.getCodigoProcedimento().substring(0,9);
-               //busca as classificaçoes dos serviços que o procedimento tem
-               List<Diversas> d=this.diversasController.findAllClassificacaoServico(codigo, competencia);
-               this.objectComboBoxModelClassificaoServico.setData(d);
-               //seleciona a primeira classificação
-               if(!d.isEmpty()){
-                    this.jComboBoxUsuarioClassificacao.setSelectedIndex(0);
-               }
-               //busca todos os serviços que o procedimento tem
-               d=this.diversasController.findAllServicos(codigo, competencia);
-               this.objectComboBoxModelServico.setData(d);
-               //seleciona o primeiro serviço
-               if(!d.isEmpty()){
-                    this.jComboBoxUsuarioServico.setSelectedIndex(0);
-               }
+          //vai verificar se o procedimento tem regra 0001 ou 0002
+          ProcedimentoRegra pr=new ProcedimentoRegra(new ProcedimentoRegraPK());
+          pr.getProcedimentoRegraPK().setCompetencia(ModelUtil.COMPETENCIA_MAIS_RECENTE);
+          pr.getProcedimentoRegraPK().setCodigoProcedimento(codigoProcedimento);
+          
+          pr=this.procedimentoRegraController.findEqual(pr);
+          //verifica se é diferente de null e as regras
+          if ( pr != null){
+              String regra=pr.getProcedimentoRegraPK().getRegra();
+              if( regra.equals("0001") || regra.equals("0002")){
+                  //settou o procedimento
+                   this.procedimentoRealizado.setCodigoProcedimento(codigoProcedimento);
+                   HashMap<String, Object> res=new HashMap<String, Object> ();
+                   res.put("procedimentoServicoPK.codigoProcedimento", this.procedimentoRealizado.getCodigoProcedimento().substring(0, 9));
+                   res.put("procedimentoServicoPK.competencia", ModelUtil.COMPETENCIA_MAIS_RECENTE);
+                   //preenche os combobox
+                   ProcedimentoServico pro=this.procedimentoServicoController.findEqual(res);
 
-               }
+                   if(pro != null){
+                       String competencia=ModelUtil.COMPETENCIA_MAIS_RECENTE;
+                       String codigo=this.procedimentoRealizado.getCodigoProcedimento().substring(0,9);
+                       //busca as classificaçoes dos serviços que o procedimento tem
+                       List<Diversas> d=this.diversasController.findAllClassificacaoServico(codigo, competencia);
+                       this.objectComboBoxModelClassificaoServico.setData(d);
+                       //seleciona a primeira classificação
+                       if(!d.isEmpty()){
+                           SwingUtilities.invokeLater(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                
+                                CadastroIndividualizado.this.jComboBoxUsuarioClassificacao.setSelectedIndex(0);
+                            }
+                        });
+                       }
+                       
+                       //busca todos os serviços que o procedimento tem
+                       d=this.diversasController.findAllServicos(codigo, competencia);
+                       this.objectComboBoxModelServico.setData(d);
+                       //seleciona o primeiro serviço
+                       
+//                       if(!d.isEmpty()){
+//                            this.jComboBoxUsuarioServico.setSelectedIndex(0);
+//                       }
+
+                       }
+                }
+          }
       }
       /**
        * Pega um paciente com base no CNS e preenche todos os campos da tela
@@ -3030,22 +3055,25 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
       /**
        * Pega todas as equipes de acordo com uma unidade
+       * DESABILITADO
        * @param CNESUnidade
        */
   private void buscarEquipesDaUnidade(String CNESUnidade){
-        this.procedimentoRealizado.getProcedimentoRealizadoPK().setCnesUnidade(CNESUnidade);
-        //vai buscar a equipe caso exista
-        //criação de restrições
-        String competencia=ModelUtil.COMPETENCIA_MAIS_RECENTE;
-        
-        HashMap<String,Object> res= new HashMap<String, Object>();
-        res.put("equipePK.cnes", CNESUnidade);
-        res.put("equipePK.competencia", competencia);
-        List<Equipe> equipes=this.equipeController.findAllEqual(res);
-        //devolveu algo
-        if(!equipes.isEmpty()){
-            this.objectComboBoxModelEquipe.setSelectedItem(equipes.get(0));
-            this.objectComboBoxModelEquipe.setData(equipes);
-        }
+//        this.procedimentoRealizado.getProcedimentoRealizadoPK().setCnesUnidade(CNESUnidade);
+//        //vai buscar a equipe caso exista
+//        //cria restrições
+//        String competencia=this.equipeController.getMaximaCompetencia();
+//        if (competencia != null){
+//            HashMap<String,Object> res= new HashMap<String, Object>();
+//            res.put("equipePK.cnes", CNESUnidade);
+//            res.put("equipePK.competencia", competencia);
+//            List<Equipe> equipes=this.equipeController.findAllEqual(res);
+//            //devolveu algo
+//            //a partir de novembro/2012 a equipe é estática e não obrigatória
+//            if(!equipes.isEmpty()){
+//                this.objectComboBoxModelEquipe.setSelectedItem(equipes.get(0));
+//                this.objectComboBoxModelEquipe.setData(equipes);
+//            }
+//        }
   }
 }
