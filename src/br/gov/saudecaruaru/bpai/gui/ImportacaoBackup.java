@@ -54,7 +54,13 @@ public class ImportacaoBackup implements IExportacaoStrategy{
             List<BIProcedimentoRealizado> list=this.bIProcedimentoRealizadoXML.carregar(this.filePath);
             //vai importar os dados do paciente e médico
             for(BIProcedimentoRealizado p:list){
-                pacienteSet.add(p.getPaciente());
+                Paciente pac=p.getPaciente();
+                //se paciente tiver cns
+                if(pac.getCns()!= null ){
+                    if ( pac.getCns().trim().isEmpty() ){
+                        pacienteSet.add(pac);
+                    }
+                }
                 medicoSet.add(new Medico(p));
                 medicoCboCnesSet.add(new MedicoCboCnes(p));
             }
