@@ -18,6 +18,9 @@ public class Procedimento implements Serializable {
     private static Character BPAC ='0';  
     private static Character BPAI ='1';  
     private static Character BPAI_APAC ='2';  
+    private static Character BPAI_OU_BPAC ='B';
+    private static Character BPAI_OU_BPAC_AD ='C';
+    private static Character ATENCAO_PSICOSSOCIAL ='A';
     private static Character APAC ='3';  
     private static Character BPAC_APAC ='4';  
     private static Character ATENCAO_DOMICILIAR ='5';  
@@ -131,7 +134,7 @@ public class Procedimento implements Serializable {
 
     public boolean isBPA(){
         if(this.tipoDocumento.equals(Procedimento.BPAC) || this.tipoDocumento.equals(Procedimento.BPAC_APAC)|| 
-                this.tipoDocumento.equals(Procedimento.AD_BPAC)){
+                this.tipoDocumento.equals(Procedimento.AD_BPAC) ){
             return true;
         
         }
@@ -140,7 +143,8 @@ public class Procedimento implements Serializable {
     
     public boolean isBPI(){
         if(this.tipoDocumento.equals(Procedimento.BPAI) || this.tipoDocumento.equals(Procedimento.AD_BPAI)|| 
-                this.tipoDocumento.equals(Procedimento.AD_BPAI_APAC) || this.tipoDocumento.equals(Procedimento.BPAI_APAC)){
+                this.tipoDocumento.equals(Procedimento.AD_BPAI_APAC) || this.tipoDocumento.equals(Procedimento.BPAI_APAC)
+                || this.tipoDocumento.equals(Procedimento.BPAI_OU_BPAC) || this.tipoDocumento.equals(Procedimento.BPAI_OU_BPAC_AD) ){
             return true;
         
         }
