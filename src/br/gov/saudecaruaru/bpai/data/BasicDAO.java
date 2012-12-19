@@ -5,6 +5,7 @@
 package br.gov.saudecaruaru.bpai.data;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -91,7 +92,15 @@ public interface BasicDAO<T extends Serializable> {
      */
     public List<T> findAllEqual(Map<String,Object> restrictions);
     
-     public boolean removeAll(T entity);
+    public boolean removeAll(T entity);
+    
+    public T findEqualWithDisjunction(Map<String, Object> restrictions);
+    
+    public List<T> findAllLikeWithDisjunction(Map<String,Object> restrictions);
+    
+    public List<T> findAllEqualWithDisjunction(Map<String,Object> restrictions);
+    
+    public List<T> findAllEqualIn(Map<String,Collection> restrictions);
     
     public List<T> findAllEqual(Map<String,Object> restrictions, int firstResult, int maxResult);
     

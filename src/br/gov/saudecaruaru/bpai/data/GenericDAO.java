@@ -12,6 +12,8 @@ package br.gov.saudecaruaru.bpai.data;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,6 +22,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -356,6 +359,59 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
         }
     }
     
+    @Override
+    public List<T> findAllEqualIn(Map<String,Collection> restrictions){
+        Session session= this.getSession();
+        List<T> l=null;
+        try{
+            Criteria c=session.createCriteria(persistentClass);
+            for(String key: restrictions.keySet()){
+                if(key!=null){
+                    c.add(Restrictions.in(key, restrictions.get(key)));
+
+                }
+            }
+            l=c.list();
+        }catch(Exception ex){
+            this.logger.error("Erro ao tentar executar o método findAllEqual [map<string,object>]");
+            this.logger.error(ex.getMessage());
+            ex.printStackTrace();
+        }
+        finally{
+           if(session != null){
+                session.close();
+            }
+           return l;
+        }
+    }
+    
+    @Override
+    public List<T> findAllEqualWithDisjunction(Map<String,Object> restrictions){
+        Session session= this.getSession();
+        List<T> l=null;
+        try{
+            Criteria c=session.createCriteria(persistentClass);
+            Disjunction dis=Restrictions.disjunction();
+            for(String key: restrictions.keySet()){
+                if(key!=null){
+                    dis.add(Restrictions.eq(key, restrictions.get(key)));
+
+                }
+            }
+            c.add(dis);
+            l=c.list();
+        }catch(Exception ex){
+            this.logger.error("Erro ao tentar executar o método findAllEqualWithDisjunction [map<string,object>]");
+            this.logger.error(ex.getMessage());
+            ex.printStackTrace();
+        }
+        finally{
+           if(session != null){
+                session.close();
+            }
+           return l;
+        }
+    }
     
     @Override
     public List<T> findAllLike(Map<String,Object> restrictions){
@@ -372,6 +428,34 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             l = c.list();
         }catch(Exception ex){
             this.logger.error("Erro ao tentar executar o método findAllLike [map<string, object>]");
+            this.logger.error(ex.getMessage());
+            ex.printStackTrace();
+        }
+        finally{
+            if(session != null){
+                session.close();
+            }
+            return l;
+        }
+    }
+    
+    @Override
+    public List<T> findAllLikeWithDisjunction(Map<String,Object> restrictions){
+        Session session= this.getSession();
+        List<T> l=null;
+        try{
+            Criteria c=session.createCriteria(persistentClass);
+            Disjunction dis=Restrictions.disjunction();
+            for(String key: restrictions.keySet()){
+                if(key!=null){
+                    dis.add(Restrictions.like(key, restrictions.get(key).toString(), MatchMode.START));
+                    
+                }
+            }
+            c.add(dis);
+            l = c.list();
+        }catch(Exception ex){
+            this.logger.error("Erro ao tentar executar o método findAllLikeWithDisjunction [map<string, object>]");
             this.logger.error(ex.getMessage());
             ex.printStackTrace();
         }
@@ -399,6 +483,34 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             t=(T) c.uniqueResult();
         }catch(Exception ex){
             this.logger.error("Erro ao tentar executar o método findEqual [map<string,object>].");
+            this.logger.error(ex.getMessage());
+            ex.printStackTrace();
+        }
+        finally{
+            if(session != null){
+                session.close();
+            }
+            return t;
+        }
+    }
+    
+    @Override
+    public T findEqualWithDisjunction(Map<String, Object> restrictions) {
+        Session session= this.getSession();
+        T t=null;
+        try{
+            Criteria c=session.createCriteria(persistentClass);
+            Disjunction dis=Restrictions.disjunction();
+            for(String key: restrictions.keySet()){
+                if(key!=null){
+                    dis.add(Restrictions.eq(key, restrictions.get(key)));
+
+                }
+            }
+            c.add(dis);
+            t=(T) c.uniqueResult();
+        }catch(Exception ex){
+            this.logger.error("Erro ao tentar executar o método findEqualWithDisjunction [map<string,object>].");
             this.logger.error(ex.getMessage());
             ex.printStackTrace();
         }

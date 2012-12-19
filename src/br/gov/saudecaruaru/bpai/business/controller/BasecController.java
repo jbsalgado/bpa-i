@@ -6,6 +6,7 @@ package br.gov.saudecaruaru.bpai.business.controller;
 
 import br.gov.saudecaruaru.bpai.data.GenericDAO;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -68,6 +69,21 @@ public class BasecController < T extends Serializable>{
         return this.dao.findAllLike(map);
     }
     
+    public T findEqualWithDisjunction(Map<String, Object> restrictions){
+        return (T)this.dao.findEqualWithDisjunction(restrictions);
+    }
+    
+    public List<T> findAllLikeWithDisjunction(Map<String,Object> restrictions){
+        return this.dao.findAllLikeWithDisjunction(restrictions);
+    }
+    
+    public List<T> findAllEqualWithDisjunction(Map<String,Object> restrictions){
+        return (List<T>) this.dao.findEqualWithDisjunction(restrictions);
+    }
+    
+    public List<T> findAllEqualIn(Map<String,Collection> restrictions){
+        return this.dao.findAllEqualIn(restrictions);
+    }
     public T findEqual(T modelo){
         return (T) this.dao.findEqual(modelo);
     }
