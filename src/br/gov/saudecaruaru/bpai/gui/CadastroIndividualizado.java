@@ -1095,70 +1095,71 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldMes = new javax.swing.JTextField();
         jTextFieldAno = new javax.swing.JTextField();
         jTextFieldCBO = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Cadastro indivualizado"); // NOI18N
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel1.setText("CNES");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel2.setText("CNS Profissional");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel3.setText("Nome Profissional");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel5.setText("Mês   /  Ano");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel6.setText("Folha");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel7.setText(" /");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel9.setText("CNS");
 
         jLabel8.setText("Usuário Sequência :");
 
         jLabelUsuarioSeq.setText("01");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel10.setText("Nome ");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel4.setText("Sexo");
 
         jLabel11.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel11.setText(" F/M");
         jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel12.setText("Dt. Nascimento");
 
         jTextFieldUsuarioNomeNac.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel14.setText("Nacionalidade");
 
         jTextFieldUsuarioNomeMunicip.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel13.setText("Município de Residência");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel15.setText("Raça/Cor");
 
         jTextFieldUsuarioDescEtnia.setBackground(new java.awt.Color(153, 153, 153));
 
         jComboBoxUsuarioRacaCor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel17.setText("Etnia");
 
         try {
@@ -1282,31 +1283,31 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jLabelProcSeq.setText("01");
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel20.setText("Dt. Atendimento");
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel22.setText("Quantidade");
 
         jTextFieldProcDescriDoenca.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel23.setText("Código");
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel24.setText("CID");
 
         jTextFieldProcDescricao.setBackground(new java.awt.Color(153, 153, 153));
 
         jComboBoxProcCaraterAtend.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel19.setText("Nº Autorização");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel18.setText("Caráter Atendimento");
 
-        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonIncluir.setText("Incluir");
         jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1319,7 +1320,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonLimpar.setText("Limpar");
         jButtonLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1368,17 +1369,17 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel26.setText("Serviço");
 
         jComboBoxUsuarioServico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel27.setText("Classificação");
 
         jComboBoxUsuarioClassificacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonAtualizar.setText("Atualizar");
         jButtonAtualizar.setToolTipText("");
         jButtonAtualizar.setEnabled(false);
@@ -1393,7 +1394,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setEnabled(false);
         jButtonCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1402,7 +1403,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
 
-        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel30.setText("CNPJ");
 
         try {
@@ -1535,69 +1536,72 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         .addComponent(jComboBoxProcCaraterAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextFieldProcNumAut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel21.setText("CBO");
 
         jComboBoxEquipe.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel25.setText("Equipe");
 
-        jTextFieldCBO.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldCBO.setFont(new java.awt.Font("Tahoma", 0, 12));
         jTextFieldCBO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCBOActionPerformed(evt);
             }
         });
 
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel28.setText("F5 = DADOS GLOBALIZADOS / ESC = SAIR DO PROGRAMA / F3 = COLOCA O ÚLTIMO VALOR DO CAMPO / F1 = PESQUISA VALORES PARA CNS, CBO, PROCEDIMENTO, CID, ETC.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBoxEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(10, 10, 10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel5)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldCnes, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldCnsProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldNomeProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldCBO, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(jTextFieldFolha, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(184, 184, 184))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1128, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBoxEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(10, 10, 10)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jLabel7)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel5)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldCnes, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldCnsProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTextFieldNomeProfiss, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGap(10, 10, 10)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldCBO, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6)
+                                .addComponent(jTextFieldFolha, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1636,7 +1640,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel28)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -1669,13 +1676,14 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         //this.sProcedimentoRealizadoController.enviarSProcedimentoRealizado(this.procedimentoRealizado.getProcedimentoRealizadoParaEnviar(), this.sUsuarioDesktop);
                         //salva o paciente, o médico e o médico com CBO e CNS
                         Paciente p=this.procedimentoRealizado.getPaciente();
-                        if( p.getCns() == null ? true : !p.getCns().trim().isEmpty() ){
+                        if( p.getCns() == null ? false : !p.getCns().trim().isEmpty() ){
                             this.pacienteController.merge(p);
                         }
                         //salvo o médico com o CBO
                         this.medicoCboCnesController.merge(this.procedimentoRealizado.getMedicoCboCnes());
                         //salva somente o médico com o cns
-                        this.medicoController.merge(this.procedimentoRealizado.getMedico());
+                        Medico m=this.procedimentoRealizado.getMedico();
+                        this.medicoController.merge(m);
                         //pega uma nova referencia para procedimentoRealizado já com cabeçalho
                         this.procedimentoRealizado=this.procedimentoRealizado.getOnlyHeader();
                         //atualiza a tela
@@ -1844,7 +1852,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 //this.sProcedimentoRealizadoController.atualizarSProcedimentoRealizado(this.procedimentoRealizado.getProcedimentoRealizadoParaEnviar(), this.sUsuarioDesktop);
                 //salva o paciente, o médico e o médico com CBO e CNS
                 Paciente p=this.procedimentoRealizado.getPaciente();
-                if( p.getCns() == null ? true : !p.getCns().trim().isEmpty() ){
+                if( p.getCns() == null ? false : !p.getCns().trim().isEmpty() ){
                     this.pacienteController.merge(p);
                 }
                 this.medicoCboCnesController.merge(this.procedimentoRealizado.getMedicoCboCnes());
@@ -1957,6 +1965,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
@@ -2078,7 +2087,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                    if(!cnes.isEmpty()){
                        //caso os cnes's sejam diferentes vai executar
                        if(!cnes.equals(CadastroIndividualizado.this.procedimentoRealizado.getProcedimentoRealizadoPK().getCnesUnidade())){
-                           CadastroIndividualizado.this.buscarEquipesDaUnidade(CadastroIndividualizado.this.jTextFieldCnes.getText());
+                           CadastroIndividualizado.this.procedimentoRealizado.getProcedimentoRealizadoPK().setCnesUnidade(cnes);
+                           CadastroIndividualizado.this.buscarEquipesDaUnidade(cnes);
                        }
                    }
                }
@@ -2095,8 +2105,26 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-            
-               procedimentoRealizado.getProcedimentoRealizadoPK().setCnsMedico( ((JTextField)e.getComponent()).getText());
+                if (e.getOppositeComponent() instanceof JTextField ){
+                    
+                    String cns=((JTextField)e.getComponent()).getText();
+                    String cnsOld=CadastroIndividualizado.this.procedimentoRealizado.getProcedimentoRealizadoPK().getCnsMedico();
+                    if ( !cns.equals(cnsOld) ){
+                        CadastroIndividualizado.this.procedimentoRealizado.getProcedimentoRealizadoPK().setCnsMedico(cns);
+                        //busca o nome do médico
+                        Medico m=CadastroIndividualizado.this.medicoController.findEqual(new Medico(cns));
+                        if ( m!= null){
+                            CadastroIndividualizado.this.jTextFieldNomeProfiss.setText(m.getNome());
+                            String cnes= CadastroIndividualizado.this.jTextFieldCnes.getText();
+                            //busca o cbo do médico, caso exista somente um para aquela unidade
+                            List<MedicoCboCnes> med=CadastroIndividualizado.this.medicoCboCnesController.findAllEqual(new MedicoCboCnes(new MedicoCboCnesPK(m, cnes, null)));
+                            if (med == null ? false : !med.isEmpty()){
+                                CadastroIndividualizado.this.jTextFieldCBO.setText(med.get(0).getMedicoCboCnesPK().getMedicoCbo());
+                            }
+                        }
+                    }
+                    
+                }
                   
             }
         });
@@ -2109,7 +2137,14 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-             
+                if(e.getOppositeComponent() instanceof JTextField ){
+                    String nome=CadastroIndividualizado.this.jTextFieldNomeProfiss.getText();
+                    String nomeNew=CadastroIndividualizado.this.procedimentoRealizado.getNomeProfissional();
+                    
+                    if( !nome.equals(nomeNew) ){
+                        CadastroIndividualizado.this.procedimentoRealizado.setNomeProfissional(nome);
+                    }
+                }
             }
         });   
          jTextFieldCBO.addFocusListener(new FocusListener() {
@@ -2824,7 +2859,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 jTextFieldAno.setText(p.getProcedimentoRealizadoPK().getCompetencia().substring(0, 4));
               }
               jTextFieldFolha.setText(p.getProcedimentoRealizadoPK().getNumeroFolha());
-             
+              //preenche o nome do médico
+              Medico m=this.medicoController.findEqual(new Medico(this.jTextFieldCnsProfiss.getText()));
+              if( m!= null){
+                 this.jTextFieldNomeProfiss.setText(m.getNome());
+              }
               
           }
           String seqFolha = p.getProcedimentoRealizadoPK().getSequenciaFolha();
