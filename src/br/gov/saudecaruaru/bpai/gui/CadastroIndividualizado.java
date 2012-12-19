@@ -2430,7 +2430,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                        
                        //caso os código sejam diferentes vai executar
                        if(!codigo.equals(CadastroIndividualizado.this.procedimentoRealizado.getCodigoProcedimento())){
-                           CadastroIndividualizado.this.buscarServicoEClassificaoServicoEPrencherCampos(CadastroIndividualizado.this.jTextFieldProcCod.getText());
+                           CadastroIndividualizado.this.buscarServicoEClassificaoServicoEPrencherCampos(codigo);
                        }
                        
                    }
@@ -2963,54 +2963,99 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
       
       private void buscarServicoEClassificaoServicoEPrencherCampos(String codigoProcedimento){
           
+          this.procedimentoRealizado.setCodigoProcedimento(codigoProcedimento);
+          final List<Diversas> lServico;
+          final List<Diversas> lClassificao;
           //vai verificar se o procedimento tem regra 0001 ou 0002
           ProcedimentoRegra pr=new ProcedimentoRegra(new ProcedimentoRegraPK());
           pr.getProcedimentoRegraPK().setCompetencia(ModelUtil.COMPETENCIA_MAIS_RECENTE);
-          pr.getProcedimentoRegraPK().setCodigoProcedimento(codigoProcedimento);
+          pr.getProcedimentoRegraPK().setCodigoProcedimento(codigoProcedimento.substring(0,9));
           
           pr=this.procedimentoRegraController.findEqual(pr);
           //verifica se é diferente de null e as regras
           if ( pr != null){
               String regra=pr.getProcedimentoRegraPK().getRegra();
-              if( regra.equals("0001") || regra.equals("0002")){
-                  //settou o procedimento
-                   this.procedimentoRealizado.setCodigoProcedimento(codigoProcedimento);
-                   HashMap<String, Object> res=new HashMap<String, Object> ();
-                   res.put("procedimentoServicoPK.codigoProcedimento", this.procedimentoRealizado.getCodigoProcedimento().substring(0, 9));
-                   res.put("procedimentoServicoPK.competencia", ModelUtil.COMPETENCIA_MAIS_RECENTE);
-                   //preenche os combobox
-                   ProcedimentoServico pro=this.procedimentoServicoController.findEqual(res);
+              Diversas d=new Diversas(new DiversasPK());
+              if( regra.equals("0001")){
+                  
+                  //busca o serviço de saude bucal
+                  d.getDiversasPK().setCodigoTabela(Diversas.TABELA_SERVICO);
+                  //serviço de saúde bucal
+                  d.getDiversasPK().setCodigoItemTabela("114");
+                  lServico=this.diversasController.findAllEqual(d);
+                  
+                  //busca a classificação
+                  d.getDiversasPK().setCodigoTabela(Diversas.TABELA_CLASSIFICACAO_SERVICO);
+                  //padrão
+                  d.getDiversasPK().setCodigoItemTabela("114007");
+                  lClassificao=this.diversasController.findAllEqual(d);
+                  
+              }
+              else if (regra.equals("0002")){
+                  d.getDiversasPK().setCodigoTabela(Diversas.TABELA_SERVICO);
+                  d.getDiversasPK().setCodigoItemTabela("131");
+                  //busca o serviço
+                  lServico=this.diversasController.findAllEqual(d);
+                  
+                  //busca classificação serviço
+                  
+                  Map<String, Collection> res=new HashMap<String, Collection>();
+                  List<String> tb=new ArrayList<String>();
+                  List<String> classific=new ArrayList<String>();
+                  
+                  tb.add(Diversas.TABELA_CLASSIFICACAO_SERVICO);
+                  classific.add("131004");
+                  classific.add("131005");
+                  classific.add("131006");
+                  classific.add("131007");
+                  res.put("diversasPK.codigoTabela", tb);
+                  res.put("diversasPK.codigoItemTabela", classific);
+                  lClassificao=this.diversasController.findAllEqualIn(res);
+              }
+              else{
+                  
+                   lServico=null;
+                   lClassificao=null;
+              }
+          }else{
+               //restriçoes para busca
+               HashMap<String, Object> res=new HashMap<String, Object> ();
+               res.put("procedimentoServicoPK.codigoProcedimento", codigoProcedimento.substring(0, 9));
+               res.put("procedimentoServicoPK.competencia", ModelUtil.COMPETENCIA_MAIS_RECENTE);
+               //verifica se o serviço tem procedimento
+               ProcedimentoServico pro=this.procedimentoServicoController.findEqual(res);
 
-                   if(pro != null){
-                       String competencia=ModelUtil.COMPETENCIA_MAIS_RECENTE;
-                       String codigo=this.procedimentoRealizado.getCodigoProcedimento().substring(0,9);
-                       //busca as classificaçoes dos serviços que o procedimento tem
-                       List<Diversas> d=this.diversasController.findAllClassificacaoServico(codigo, competencia);
-                       this.objectComboBoxModelClassificaoServico.setData(d);
-                       //seleciona a primeira classificação
-                       if(!d.isEmpty()){
-                           SwingUtilities.invokeLater(new Runnable() {
+               if(pro != null){
+                   String competencia=ModelUtil.COMPETENCIA_MAIS_RECENTE;
+                   String codigo=this.procedimentoRealizado.getCodigoProcedimento().substring(0,9);
+                   //busca as classificaçoes dos serviços que o procedimento tem
+                   lClassificao=this.diversasController.findAllClassificacaoServico(codigo, competencia);
+                   //busca todos os serviços que o procedimento tem
+                   lServico=this.diversasController.findAllServicos(codigo, competencia);
 
-                            @Override
-                            public void run() {
-                                
-                                CadastroIndividualizado.this.jComboBoxUsuarioClassificacao.setSelectedIndex(0);
-                            }
-                        });
-                       }
-                       
-                       //busca todos os serviços que o procedimento tem
-                       d=this.diversasController.findAllServicos(codigo, competencia);
-                       this.objectComboBoxModelServico.setData(d);
-                       //seleciona o primeiro serviço
-                       
-//                       if(!d.isEmpty()){
-//                            this.jComboBoxUsuarioServico.setSelectedIndex(0);
-//                       }
-
-                       }
-                }
+               }
+               else{
+                   lServico=null;
+                   lClassificao=null;
+               }
+                
           }
+           //preenche os combox
+           if( lServico == null ? false : ! lServico.isEmpty() ){
+               SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    //serviço
+                    CadastroIndividualizado.this.objectComboBoxModelServico.setData(lServico);
+                    CadastroIndividualizado.this.jComboBoxUsuarioServico.setSelectedIndex(0);
+                    //classificaçao de serviço
+                    CadastroIndividualizado.this.objectComboBoxModelClassificaoServico.setData(lClassificao);
+                    CadastroIndividualizado.this.jComboBoxUsuarioClassificacao.setSelectedIndex(0);
+                }
+            });
+           }
+           //combobox classificacaoservico
       }
       /**
        * Pega um paciente com base no CNS e preenche todos os campos da tela
