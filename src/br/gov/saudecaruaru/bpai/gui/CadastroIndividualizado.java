@@ -3143,21 +3143,21 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
        * @param CNESUnidade
        */
   private void buscarEquipesDaUnidade(String CNESUnidade){
-//        this.procedimentoRealizado.getProcedimentoRealizadoPK().setCnesUnidade(CNESUnidade);
-//        //vai buscar a equipe caso exista
-//        //cria restrições
-//        String competencia=this.equipeController.getMaximaCompetencia();
-//        if (competencia != null){
-//            HashMap<String,Object> res= new HashMap<String, Object>();
-//            res.put("equipePK.cnes", CNESUnidade);
-//            res.put("equipePK.competencia", competencia);
-//            List<Equipe> equipes=this.equipeController.findAllEqual(res);
-//            //devolveu algo
-//            //a partir de novembro/2012 a equipe é estática e não obrigatória
-//            if(!equipes.isEmpty()){
-//                this.objectComboBoxModelEquipe.setSelectedItem(equipes.get(0));
-//                this.objectComboBoxModelEquipe.setData(equipes);
-//            }
-//        }
+        this.procedimentoRealizado.getProcedimentoRealizadoPK().setCnesUnidade(CNESUnidade);
+        //vai buscar a equipe caso exista
+        //cria restrições
+        String competencia=this.equipeController.getMaximaCompetencia();
+        if (competencia != null){
+            HashMap<String,Object> res= new HashMap<String, Object>();
+            res.put("equipePK.cnes", CNESUnidade);
+            res.put("equipePK.competencia", competencia);
+            List<Equipe> equipes=this.equipeController.findAllEqual(res);
+            //devolveu algo
+            //a partir de novembro/2012 a equipe é estática e não obrigatória
+            if(!equipes.isEmpty()){
+                this.objectComboBoxModelEquipe.setSelectedItem(equipes.get(0));
+                this.objectComboBoxModelEquipe.setData(equipes);
+            }
+        }
   }
 }

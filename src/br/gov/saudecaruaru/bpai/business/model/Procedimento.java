@@ -152,6 +152,14 @@ public class Procedimento implements Serializable {
     
     }
     
+     public boolean isPsicossocial(){
+        if(this.tipoDocumento.equals(Procedimento.ATENCAO_PSICOSSOCIAL) ){
+            return true;
+     }
+        return false;
+    
+    }
+    
     public String typeProcedimento(){
         if(this.isBPA()){
             return "BPA";

@@ -135,8 +135,8 @@ public class ProcedimentoVerifier extends InputVerifier{
                                 
                                 return  MessagesErrors.continuaErro(component,"","PROCED. INCOMPATIVEL COM A IDADE!"+"\n IDADE MÍNIMA: "+idadeMinima+"\n IDADE MÁXIMA: "+idadeMaxima, txtField);
                         } 
-                        if(!procedimentosSearchead.isBPA() && !procedimentosSearchead.isBPI()){
-                                JOptionPane.showMessageDialog(this.component,"TIPO INVÁLIDO INVÁLIDO! (PERMITIDO SOMENTE BPA OU BPI)"
+                        if(!procedimentosSearchead.isBPA() && !procedimentosSearchead.isBPI() && !procedimentosSearchead.isPsicossocial()){
+                                JOptionPane.showMessageDialog(this.component,"TIPO INVÁLIDO INVÁLIDO! (PERMITIDO SOMENTE BPA OU BPI OU PSICOSSOCIAL)"
                                         ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
                                 txtField.setBackground(Color.RED); 
                                 return  false;
