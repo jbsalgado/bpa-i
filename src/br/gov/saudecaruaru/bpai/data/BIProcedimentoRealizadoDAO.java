@@ -9,6 +9,7 @@ import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -17,7 +18,8 @@ import org.hibernate.Session;
  * @author Albuquerque
  */
 public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealizado> {
-
+    
+    private static Logger logger= Logger.getLogger(BIProcedimentoRealizadoDAO.class);
     public BIProcedimentoRealizadoDAO() {
         //super(EntityManagerUtil.getEntityManagerI());
         
@@ -56,6 +58,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             return f;
         }catch(Exception ex){
             ex.printStackTrace();
+            logger.error("Ao executar o método getNextFolha "+ex.getMessage());
             return "";
         }
     }
@@ -91,6 +94,8 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             //agrupa
             sql.append(" GROUP BY pro.biProcedimentoRealizadoPK.competencia,pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
             sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.competenciaMovimento");
+            //ordena
+            sql.append(" ORDER BY pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico");
             //it's create query
             Query q=session.createQuery(sql.toString());
             q.setParameter("origem", ProcedimentoRealizado.ORIGEM_CONSOLIDADO);
@@ -102,6 +107,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             l=q.list();
         }catch(Exception ex){
             ex.printStackTrace();
+            logger.error("Ao executar o método findAllConsolidados "+ex.getMessage());
         }
         finally{
             //session.flush();
@@ -157,6 +163,12 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             sql.append(" WHERE (pro.origemProcedimento=:origem ");
             sql.append(" AND pro.competenciaMovimento=:competenciaMovimento ");
             sql.append(" AND pro.biProcedimentoRealizadoPK.cnesUnidade=:cnesUnidade )");
+            //ordena
+            sql.append(" ORDER BY pro.biProcedimentoRealizadoPK.cnesUnidade,pro.biProcedimentoRealizadoPK.cnsMedico, ");
+            sql.append(" pro.biProcedimentoRealizadoPK.cboMedico, ");
+            sql.append(" pro.biProcedimentoRealizadoPK.numeroFolha, ");
+            sql.append(" pro.biProcedimentoRealizadoPK.sequenciaFolha ");
+            
             //it's create query
             Query q=session.createQuery(sql.toString());
             q.setParameter("origem", ProcedimentoRealizado.ORIGEM_INDIVIDUALIZADO);
@@ -168,6 +180,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             l=q.list();
         }catch(Exception ex){
             ex.printStackTrace();
+            logger.error("Ao executar o método findAllProcedimentosIndividuais "+ex.getMessage());
         }
         finally{
             //session.flush();
@@ -221,6 +234,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             l=q.list();
         }catch(Exception ex){
             ex.printStackTrace();
+            logger.error("Ao executar o método findAllOnlyHeader "+ex.getMessage());
         }
         finally{
             List<ProcedimentoRealizado> list= new ArrayList<ProcedimentoRealizado>();
@@ -277,6 +291,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             list=q.list();
         }catch(Exception ex){
             ex.printStackTrace();
+            logger.error("Ao executar o método getAllCompetenciaMovimento "+ex.getMessage());
         }
         finally{
             return list;
@@ -292,6 +307,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             list=q.list();
         }catch(Exception ex){
             ex.printStackTrace();
+            logger.error("Ao executar o método getAllUnidade "+ex.getMessage());
         }
         finally{
             return list;
