@@ -1110,7 +1110,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel3.setText("Nome Profissional");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel5.setText("MÃªs   /  Ano");
+        jLabel5.setText("Mês   /  Ano");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel6.setText("Folha");
@@ -1123,7 +1123,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel9.setText("CNS");
 
-        jLabel8.setText("UsuÃ¡rio SequÃªncia :");
+        jLabel8.setText("Usuário Sequência :");
 
         jLabelUsuarioSeq.setText("01");
 
@@ -1149,10 +1149,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldUsuarioNomeMunicip.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel13.setText("MunicÃ­pio de ResidÃªncia");
+        jLabel13.setText("Município de Residência");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel15.setText("RaÃ§a/Cor");
+        jLabel15.setText("Raça/Cor");
 
         jTextFieldUsuarioDescEtnia.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -1177,7 +1177,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelUsuarioSeq, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabelUsuarioSeq, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxUsuarioRacaCor, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1278,7 +1278,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jLabel16.setText("Procedimento SequÃªncia :");
+        jLabel16.setText("Procedimento Sequência :");
 
         jLabelProcSeq.setText("01");
 
@@ -1291,7 +1291,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldProcDescriDoenca.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel23.setText("CÃ³digo");
+        jLabel23.setText("Código");
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel24.setText("CID");
@@ -1301,10 +1301,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jComboBoxProcCaraterAtend.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel19.setText("NÂº AutorizaÃ§Ã£o");
+        jLabel19.setText("Nº Autorização");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel18.setText("CarÃ¡ter Atendimento");
+        jLabel18.setText("Caráter Atendimento");
 
         jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonIncluir.setText("Incluir");
@@ -1369,12 +1369,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         });
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel26.setText("ServiÃ§o");
+        jLabel26.setText("Serviço");
 
         jComboBoxUsuarioServico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel27.setText("ClassificaÃ§Ã£o");
+        jLabel27.setText("Classificação");
 
         jComboBoxUsuarioClassificacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -1554,7 +1554,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         });
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 0, 13));
-        jLabel28.setText("F5 = DADOS GLOBALIZADOS / ESC = SAIR DO PROGRAMA / F3 = COLOCA O ÃšLTIMO VALOR DO CAMPO / F1 = PESQUISA VALORES PARA CNS, CBO, PROCEDIMENTO, CID, ETC.");
+        jLabel28.setText("F5 = DADOS GLOBALIZADOS / ESC = SAIR DO PROGRAMA / F3 = COLOCA O ÚLTIMO VALOR DO CAMPO / F1 = PESQUISA VALORES PARA CNS, CBO, PROCEDIMENTO, CID, ETC.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
