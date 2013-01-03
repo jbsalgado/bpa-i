@@ -33,7 +33,7 @@ import javax.swing.table.TableColumnModel;
  */
 public class CadastroIndividualizado extends javax.swing.JDialog implements TelaCadastroI{
     
-     //armazenamento de variáveis para a busca dos dados ficar mais rápida
+     //armazenamento de variÃ¡veis para a busca dos dados ficar mais rÃ¡pida
      public static HashMap<String, Equipe> MAP_EQUIPE= new HashMap<String, Equipe>();
      public static HashMap<Object, Diversas> MAP_DIVERSAS= new HashMap<Object, Diversas>();
      public static HashMap<Object, Paciente> MAP_PACIENTE= new HashMap<Object, Paciente>();
@@ -118,7 +118,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         //this.setExtendedState(Frame.MAXIMIZED_BOTH);
         //inicializa as opcoes do JOptionPane
         UIManager.put("OptionPane.yesButtonText", "Sim");     
-        UIManager.put("OptionPane.noButtonText", "Não");   
+        UIManager.put("OptionPane.noButtonText", "NÃ£o");   
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");
 
         this.objectComboBoxModelRacaCor= new ObjectComboBoxModel<Diversas>();
@@ -163,7 +163,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         
         this.procedimentoRealizado= new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
         
-        //inicializa a lista com as referencias aos campso do cabeçalho
+        //inicializa a lista com as referencias aos campso do cabeÃ§alho
         this.initListFieldsHeader();
         this.initListFieldsProcedimento();
         this.initListFieldsDates();
@@ -190,7 +190,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      private void initListFieldsProcedimento(){
        listFieldsProcedimento= new ArrayList<Component>();
         //seta as referencias dos textsFields na lista
-        //LEMBRE-SE QUE A ORDEM É IMPORTANTE PORQUE A VALIDACAO DE UM TEXTFIELD (nos input verifiers)
+        //LEMBRE-SE QUE A ORDEM Ã‰ IMPORTANTE PORQUE A VALIDACAO DE UM TEXTFIELD (nos input verifiers)
         //PODEM DEPENDER DO VALOR DE OUTRO
         getListFieldsProcedimento().add(jTextFieldUsuarioNome);
         getListFieldsProcedimento().add(jTextFieldUsarioDatNasc);
@@ -329,7 +329,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.initJTableDados();
         this.calcularTamanhoColunasTabela();
         
-        //caso o objeto pego já possua informacoes, desabilita o cabeçalho
+        //caso o objeto pego jÃ¡ possua informacoes, desabilita o cabeÃ§alho
         this.fillFields(this.procedimentoRealizado, true); 
         String seq=ModelUtil.completar(this.sequenciaFolha+"", 2, '0');
         this.jLabelUsuarioSeq.setText(seq);
@@ -402,7 +402,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.jTextFieldNomeProfiss.setInputVerifier(new OnlyLettersVerifier(this, "Nome profissional"));
         this.jTextFieldUsuarioNome.setInputVerifier(new OnlyLettersVerifier(this, "Nome"));
         this.jTextFieldUsuarioSexo.setInputVerifier(new SexoVerifier(this, "Sexo"));
-        this.jTextFieldUsuarioCns.setInputVerifier(new CnsUsuarioVerifier(this, "CNS Usuário",this));
+        this.jTextFieldUsuarioCns.setInputVerifier(new CnsUsuarioVerifier(this, "CNS UsuÃ¡rio",this));
         this.jTextFieldCnes.setInputVerifier(new CnesVerifier(this, "CNES"));
         this.jTextFieldProcQuant.setInputVerifier(new OnlyNumbers(this,"Quantidade"));
         this.jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this,"CNS"));
@@ -412,16 +412,16 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.jTextFieldUsuarioCodEtnia.setInputVerifier(new EtniaVerifier(this,"Etnia", jTextFieldUsuarioDescEtnia));
         this.jTextFieldProcCod.setInputVerifier(new ProcedimentoVerifier(this, "Procedimento", jTextFieldProcDescricao,this));
         this.jTextFieldProcCID.setInputVerifier(new DoencaVerifier(this, "CID", jTextFieldProcDescriDoenca,this));
-        this.jComboBoxProcCaraterAtend.setInputVerifier(new CaraterAtendVerifier(this,"Caráter de Atendimento"));
+        this.jComboBoxProcCaraterAtend.setInputVerifier(new CaraterAtendVerifier(this,"CarÃ¡ter de Atendimento"));
         this.jTextFieldUsarioDatNasc.setInputVerifier(new DataVerifier(this, "Data de Nascimento"));
         this.jTextFieldProcQuant.setInputVerifier(new QuantProcedimentoVerifier(this, "Quantidade",this));
         this.jTextFieldProcDataAtend.setInputVerifier(new DataAtendimentoVerifier(this, "Data Atendimento",this,jTextFieldUsarioDatNasc));
         this.jTextFieldAno.setInputVerifier(new CompetenciaVerifier(this,"Ano", jTextFieldMes,this));
         this.jTextFieldFolha.setInputVerifier(new FolhaVerifier(this, "Folha"));
-        this.jTextFieldMes.setInputVerifier(new MesVerifier(this, "Mês"));
+        this.jTextFieldMes.setInputVerifier(new MesVerifier(this, "MÃªs"));
         //jComboBoxEquipe.setInputVerifier(new ComboBoxVerifier(this, "Equipe"));
-        jComboBoxUsuarioServico.setInputVerifier(new ComboBoxVerifier(this, "Serviço"));
-        this.jComboBoxUsuarioClassificacao.setInputVerifier(new ClassificacaoVerifier(this,this.jComboBoxUsuarioServico, "Classificação"));
+        jComboBoxUsuarioServico.setInputVerifier(new ComboBoxVerifier(this, "ServiÃ§o"));
+        this.jComboBoxUsuarioClassificacao.setInputVerifier(new ClassificacaoVerifier(this,this.jComboBoxUsuarioServico, "ClassificaÃ§Ã£o"));
         this.jTextFieldProcedimentoCnpj.setInputVerifier(new CnpjVerifier(this,"CNPJ"));
     }
     
@@ -465,12 +465,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         
         this.jTextFieldCnsProfiss.addKeyListener(new KeyAdapter() {
              public void keyPressed(java.awt.event.KeyEvent evt) {
-                 //o usuário clicou F2
+                 //o usuÃ¡rio clicou F2
                 if(evt.getKeyCode()==KeyEvent.VK_F1){
                     Search m=CadastroIndividualizado.this.keyPressedJTextFieldCnsProfiss();
-                    //o usuário selecionou um registro
+                    //o usuÃ¡rio selecionou um registro
                     if(m!=null){
-                        //vai setor o valor do código no campo
+                        //vai setor o valor do cÃ³digo no campo
                         CadastroIndividualizado.this.jTextFieldCnsProfiss.setText(m.getId());
                     }
                 }
@@ -495,12 +495,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
          //para CBO do profissional
         this.jTextFieldCBO.addKeyListener(new KeyAdapter() {
              public void keyPressed(java.awt.event.KeyEvent evt) {
-                 //o usuário clicou F2
+                 //o usuÃ¡rio clicou F2
                 if(evt.getKeyCode()==KeyEvent.VK_F1){
                     Search m=CadastroIndividualizado.this.keyPressedJTextFieldCBO();
-                    //o usuário selecionou um registro
+                    //o usuÃ¡rio selecionou um registro
                     if(m!=null){
-                        //vai setor o valor do código no campo
+                        //vai setor o valor do cÃ³digo no campo
                         CadastroIndividualizado.this.jTextFieldCBO.setText(m.getId());
                     }
                 }
@@ -525,7 +525,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 } 
             }
         });
-        //campo mês da competência
+        //campo mÃªs da competÃªncia
         this.jTextFieldMes.addKeyListener(new KeyAdapter() {
 
             @Override
@@ -535,7 +535,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 } 
             }
         });
-        //campo ano da competência
+        //campo ano da competÃªncia
         this.jTextFieldAno.addKeyListener(new KeyAdapter() {
 
             @Override
@@ -546,7 +546,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
         
-        //folha da competência
+        //folha da competÃªncia
         
         this.jTextFieldFolha.addKeyListener(new KeyAdapter() {
 
@@ -562,12 +562,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.jTextFieldUsuarioCns.addKeyListener(new KeyAdapter() {
             @Override
              public void keyPressed(java.awt.event.KeyEvent evt) {
-                 //o usuário clicou F1
+                 //o usuÃ¡rio clicou F1
                 if(evt.getKeyCode()==KeyEvent.VK_F1){
                     Search m=CadastroIndividualizado.this.keyPressedJTextFieldUsuarioCns();
-                    //o usuário selecionou um registro
+                    //o usuÃ¡rio selecionou um registro
                     if(m!=null){
-                        //vai setor o valor do código no campo
+                        //vai setor o valor do cÃ³digo no campo
                         CadastroIndividualizado.this.jTextFieldUsuarioCns.setText(m.getId());
                     }
                 }
@@ -585,7 +585,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         });
         
         
-        //campo nome do paciente/usuário
+        //campo nome do paciente/usuÃ¡rio
         this.jTextFieldUsuarioNome.addKeyListener(new KeyAdapter() {
 
             @Override
@@ -596,7 +596,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
         
-        //campo sexo do paciente/usuário
+        //campo sexo do paciente/usuÃ¡rio
         this.jTextFieldUsuarioSexo.addKeyListener(new KeyAdapter() {
 
             @Override
@@ -607,7 +607,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
         
-        //campo data de nascimento do paciente/usuário
+        //campo data de nascimento do paciente/usuÃ¡rio
         this.jTextFieldUsarioDatNasc.addKeyListener(new KeyAdapter() {
 
             @Override
@@ -618,16 +618,16 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
         
-        //para município
+        //para municÃ­pio
         this.jTextFieldUsuarioCodMunicip.addKeyListener(new KeyAdapter() {
              public void keyPressed(java.awt.event.KeyEvent evt) {
-                 //o usuário clicou F2
+                 //o usuÃ¡rio clicou F2
                 if(evt.getKeyCode()==KeyEvent.VK_F1){
                     Search m=CadastroIndividualizado.this.keyPressedJTextFieldUsuarioMunicip();
-                    //o usuário selecionou um registro
+                    //o usuÃ¡rio selecionou um registro
                     if(m!=null){
-                        //vai setor o valor do código no campo
-                        //26 é referente ao estado de pernambuco
+                        //vai setor o valor do cÃ³digo no campo
+                        //26 Ã© referente ao estado de pernambuco
                         CadastroIndividualizado.this.jTextFieldUsuarioCodMunicip.setText("26"+m.getId());
                         CadastroIndividualizado.this.jTextFieldUsuarioNomeMunicip.setText(m.getDescription());
                     }
@@ -641,16 +641,16 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         
         });
         
-        //para município
+        //para municÃ­pio
         this.jTextFieldUsuarioCodNac.addKeyListener(new KeyAdapter() {
              public void keyPressed(java.awt.event.KeyEvent evt) {
-                 //o usuário clicou F2
+                 //o usuÃ¡rio clicou F2
                 if(evt.getKeyCode()==KeyEvent.VK_F1){
                     Search m=CadastroIndividualizado.this.keyPressedJTextFieldUsuarioCodNac();
-                    //o usuário selecionou um registro
+                    //o usuÃ¡rio selecionou um registro
                     if(m!=null){
-                        //vai setor o valor do código no campo
-                        //26 é referente ao estado de pernambuco
+                        //vai setor o valor do cÃ³digo no campo
+                        //26 Ã© referente ao estado de pernambuco
                         CadastroIndividualizado.this.jTextFieldUsuarioCodNac.setText(m.getId());
                         CadastroIndividualizado.this.jTextFieldUsuarioNomeNac.setText(m.getDescription());
                     }
@@ -662,7 +662,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
              
         
         });
-        //combobox raça/cor
+        //combobox raÃ§a/cor
         this.jComboBoxUsuarioRacaCor.addKeyListener(new KeyAdapter() {
 
             @Override
@@ -681,17 +681,17 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
         
-        //campo código da etnia
+        //campo cÃ³digo da etnia
         this.jTextFieldUsuarioCodEtnia.addKeyListener(new KeyAdapter() {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                  //o usuário clicou F1
+                  //o usuÃ¡rio clicou F1
                 if(e.getKeyCode()==KeyEvent.VK_F1){
                     Search m=CadastroIndividualizado.this.keyPressedJTextFieldEtnia();
-                    //o usuário selecionou um registro
+                    //o usuÃ¡rio selecionou um registro
                     if(m!=null){
-                        //vai setor o valor do código no campo
+                        //vai setor o valor do cÃ³digo no campo
                         CadastroIndividualizado.this.jTextFieldUsuarioCodEtnia.setText(m.getId());
                     }
                 }
@@ -715,13 +715,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         //para procedimento realizado
         this.jTextFieldProcCod.addKeyListener(new KeyAdapter() {
              public void keyPressed(java.awt.event.KeyEvent evt) {
-                 //o usuário clicou F2
+                 //o usuÃ¡rio clicou F2
                 if(evt.getKeyCode()==KeyEvent.VK_F1){
                     Procedimento m=CadastroIndividualizado.this.keyPressedJTextFieldProcCod();
-                    //o usuário selecionou um registro
+                    //o usuÃ¡rio selecionou um registro
                     if(m!=null){
-                        //vai setor o valor do código no campo
-                        //26 é referente ao estado de pernambuco
+                        //vai setor o valor do cÃ³digo no campo
+                        //26 Ã© referente ao estado de pernambuco
                         CadastroIndividualizado.this.jTextFieldProcCod.setText(m.getProcedimentoPk().getId()+m.getDigitoVerificador());
                         CadastroIndividualizado.this.jTextFieldProcDescricao.setText(m.getDescricao());
                     }
@@ -745,7 +745,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
         
-        //comboxo de serviço
+        //comboxo de serviÃ§o
         this.jComboBoxUsuarioServico.addKeyListener(new KeyAdapter() {
 
             @Override
@@ -778,13 +778,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         //para procedimento realizado
         this.jTextFieldProcCID.addKeyListener(new KeyAdapter() {
              public void keyPressed(java.awt.event.KeyEvent evt) {
-                 //o usuário clicou F2
+                 //o usuÃ¡rio clicou F2
                 if(evt.getKeyCode()==KeyEvent.VK_F1){
                     Search m=CadastroIndividualizado.this.keyPressedJTextFieldProcCID();
-                    //o usuário selecionou um registro
+                    //o usuÃ¡rio selecionou um registro
                     if(m!=null){
-                        //vai setor o valor do código no campo
-                        //26 é referente ao estado de pernambuco
+                        //vai setor o valor do cÃ³digo no campo
+                        //26 Ã© referente ao estado de pernambuco
                         CadastroIndividualizado.this.jTextFieldProcCID.setText(m.getId());
                         CadastroIndividualizado.this.jTextFieldProcDescriDoenca.setText(m.getDescription());
                     }
@@ -800,7 +800,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         
         });
         
-        //combobox caráter de atendimento
+        //combobox carÃ¡ter de atendimento
         this.jComboBoxProcCaraterAtend.addKeyListener(new KeyAdapter() {
 
             @Override
@@ -811,7 +811,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }
         });
         
-        //campo número de autorização
+        //campo nÃºmero de autorizaÃ§Ã£o
         this.jTextFieldProcNumAut.addKeyListener(new KeyAdapter() {
 
             @Override
@@ -835,10 +835,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     
     private void calcularTamanhoColunasTabela(){
         
-       //incia o tamanho padrão da tabela
+       //incia o tamanho padrÃ£o da tabela
        TableColumnModel columns=this.jTable1.getColumnModel();
        
-       //coluna sequência
+       //coluna sequÃªncia
        columns.getColumn(0).setPreferredWidth(40);
        //coluna cns do paciente
        columns.getColumn(1).setPreferredWidth(120);
@@ -848,21 +848,21 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
        columns.getColumn(3).setPreferredWidth(70);
        //coluna sexo do paciente
        columns.getColumn(4).setPreferredWidth(40);
-       //coluna município de residência do paciente
+       //coluna municÃ­pio de residÃªncia do paciente
        columns.getColumn(5).setPreferredWidth(120);
        //coluna data de atendimento
        columns.getColumn(6).setPreferredWidth(100);
        //coluna procedimento
        columns.getColumn(7).setPreferredWidth(100);
-       //coluna quantidade de realizações do procedimento no paciente
+       //coluna quantidade de realizaÃ§Ãµes do procedimento no paciente
        columns.getColumn(8).setPreferredWidth(40);
        //cid do procedimento
        columns.getColumn(9).setPreferredWidth(40);
-       //coluna caraterização do atendimento 
+       //coluna caraterizaÃ§Ã£o do atendimento 
        columns.getColumn(10).setPreferredWidth(80);
-       //coluna número de autorização
+       //coluna nÃºmero de autorizaÃ§Ã£o
        columns.getColumn(11).setPreferredWidth(100);
-       //coluna raça/cor
+       //coluna raÃ§a/cor
        columns.getColumn(12).setPreferredWidth(80);
        //coluna etnia
        columns.getColumn(13).setPreferredWidth(80);
@@ -876,7 +876,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
        int size=this.tableModelDados.getRowCount();
        if(size<ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
           List<ProcedimentoRealizado> listP = this.tableModelDados.getList();
-          //verifica se a lista tá vazia
+          //verifica se a lista tÃ¡ vazia
            if(!listP.isEmpty() ){
                int i=1;
                //varre a lista de registros
@@ -898,7 +898,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
                }
            }
-           //é uma folha nova
+           //Ã© uma folha nova
            else{
                 this.sequenciaFolha=1;
            }
@@ -914,29 +914,29 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     //todos os keyPressed
     
     /**
-     * Método que realiza a busca de um médico
-     * @return Search objeto de pesquisa com um identificador e uma descrição
+     * MÃ©todo que realiza a busca de um mÃ©dico
+     * @return Search objeto de pesquisa com um identificador e uma descriÃ§Ã£o
      */
     private Search keyPressedJTextFieldCnsProfiss(){
         return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.medicoController, "cns", "nome","CNS", "Nome",new HashMap<String, Object>());
     }
     
      /**
-     * Método que realiza a busca um CBO
-     * @return Search objeto de pesquisa com um identificador e uma descrição
+     * MÃ©todo que realiza a busca um CBO
+     * @return Search objeto de pesquisa com um identificador e uma descriÃ§Ã£o
      */
     private Search keyPressedJTextFieldCBO(){
-        //restrição para qualquer busca
+        //restriÃ§Ã£o para qualquer busca
         HashMap<String, Object> res=new HashMap<String, Object>();
         res.put("diversasPK.codigoTabela", Diversas.TABELA_PROFISSAO);
         return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.diversasController, 
                                                         "diversasPK.codigoItemTabela", "descricaoItemTabela",
-                                                        "Código", "Profissão",res);
+                                                        "CÃ³digo", "ProfissÃ£o",res);
     }
     
     /**
-     * Método que realiza uma busca de usuários/pacientes
-     * @return Search objeto de pesquisa com um identificador e uma descrição
+     * MÃ©todo que realiza uma busca de usuÃ¡rios/pacientes
+     * @return Search objeto de pesquisa com um identificador e uma descriÃ§Ã£o
      */
     private Search keyPressedJTextFieldUsuarioCns(){
         
@@ -945,17 +945,17 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     
     private Search keyPressedJTextFieldEtnia(){
         
-      //restrição para qualquer busca
+      //restriÃ§Ã£o para qualquer busca
         HashMap<String, Object> res=new HashMap<String, Object>();
         res.put("diversasPK.codigoTabela", Diversas.TABELA_ETNIA);
         return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.diversasController, 
                                                         "diversasPK.codigoItemTabela", "descricaoItemTabela",
-                                                        "Código", "Etnia",res);
+                                                        "CÃ³digo", "Etnia",res);
     }
     
     /**
-     * Método que realiza a busca de um município
-     * @return Search objeto de pesquisa com um identificador e uma descrição
+     * MÃ©todo que realiza a busca de um municÃ­pio
+     * @return Search objeto de pesquisa com um identificador e uma descriÃ§Ã£o
      */
     private Search keyPressedJTextFieldUsuarioMunicip(){
         HashMap<String, Object> res=new HashMap<String, Object>();
@@ -963,35 +963,35 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         res.put("municipioPK.uf", "26");
         return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.municipioController, 
                                                             "municipioPK.codigoMunicipio", "nome",
-                                                            "Código", "Nome", res);
+                                                            "CÃ³digo", "Nome", res);
     }
     
    /**
-     * Método que realiza a busca da nacionalidade
-     * @return Search objeto de pesquisa com um identificador e uma descrição
+     * MÃ©todo que realiza a busca da nacionalidade
+     * @return Search objeto de pesquisa com um identificador e uma descriÃ§Ã£o
      */
     private Search keyPressedJTextFieldUsuarioCodNac(){
-        //restrição para qualquer busca
+        //restriÃ§Ã£o para qualquer busca
         HashMap<String, Object> res=new HashMap<String, Object>();
         res.put("diversasPK.codigoTabela", Diversas.TABELA_PAIS);
         return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.diversasController, 
                                                         "diversasPK.codigoItemTabela", "descricaoItemTabela",
-                                                        "Código", "Nacionalidade",res);
+                                                        "CÃ³digo", "Nacionalidade",res);
     }
     
     /**
-     * Método que realiza a busca da nacionalidade
-     * @return Search objeto de pesquisa com um identificador e uma descrição
+     * MÃ©todo que realiza a busca da nacionalidade
+     * @return Search objeto de pesquisa com um identificador e uma descriÃ§Ã£o
      */
     private Procedimento keyPressedJTextFieldProcCod(){
-        //restrição para qualquer busca
+        //restriÃ§Ã£o para qualquer busca
         HashMap<String, Object> res=new HashMap<String, Object>();
         //vai filtrar os procedimentos pela competencia mais recente
         res.put("procedimentoPk.competencia", ModelUtil.COMPETENCIA_MAIS_RECENTE);
         Search s=SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.procedimentoController, 
                                                         "procedimentoPk.id", "descricao",
-                                                        "Código", "Descrição",res);
-        //  o usuário escolheu um procedimento
+                                                        "CÃ³digo", "DescriÃ§Ã£o",res);
+        //  o usuÃ¡rio escolheu um procedimento
         if(s!=null){
             res.put("procedimentoPk.id",s.getId() );
             Procedimento p=this.procedimentoController.findEqual(res);
@@ -1001,15 +1001,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     }
     
     /**
-     * Método que realiza a busca da nacionalidade
-     * @return Search objeto de pesquisa com um identificador e uma descrição
+     * MÃ©todo que realiza a busca da nacionalidade
+     * @return Search objeto de pesquisa com um identificador e uma descriÃ§Ã£o
      */
     private Search keyPressedJTextFieldProcCID(){
-        //restrição para qualquer busca
+        //restriÃ§Ã£o para qualquer busca
         HashMap<String, Object> res=new HashMap<String, Object>();
         return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.doencaController, 
                                                         "codigo", "descricao",
-                                                        "Código", "Descrição",res);
+                                                        "CÃ³digo", "DescriÃ§Ã£o",res);
     }
     
     
@@ -1110,7 +1110,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel3.setText("Nome Profissional");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel5.setText("Mês   /  Ano");
+        jLabel5.setText("MÃªs   /  Ano");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel6.setText("Folha");
@@ -1123,7 +1123,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel9.setText("CNS");
 
-        jLabel8.setText("Usuário Sequência :");
+        jLabel8.setText("UsuÃ¡rio SequÃªncia :");
 
         jLabelUsuarioSeq.setText("01");
 
@@ -1149,10 +1149,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldUsuarioNomeMunicip.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel13.setText("Município de Residência");
+        jLabel13.setText("MunicÃ­pio de ResidÃªncia");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel15.setText("Raça/Cor");
+        jLabel15.setText("RaÃ§a/Cor");
 
         jTextFieldUsuarioDescEtnia.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -1278,7 +1278,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jLabel16.setText("Procedimento Sequência :");
+        jLabel16.setText("Procedimento SequÃªncia :");
 
         jLabelProcSeq.setText("01");
 
@@ -1291,7 +1291,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jTextFieldProcDescriDoenca.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel23.setText("Código");
+        jLabel23.setText("CÃ³digo");
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel24.setText("CID");
@@ -1301,10 +1301,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jComboBoxProcCaraterAtend.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel19.setText("Nº Autorização");
+        jLabel19.setText("NÂº AutorizaÃ§Ã£o");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel18.setText("Caráter Atendimento");
+        jLabel18.setText("CarÃ¡ter Atendimento");
 
         jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonIncluir.setText("Incluir");
@@ -1369,12 +1369,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         });
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel26.setText("Serviço");
+        jLabel26.setText("ServiÃ§o");
 
         jComboBoxUsuarioServico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel27.setText("Classificação");
+        jLabel27.setText("ClassificaÃ§Ã£o");
 
         jComboBoxUsuarioClassificacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -1554,7 +1554,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         });
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 0, 13));
-        jLabel28.setText("F5 = DADOS GLOBALIZADOS / ESC = SAIR DO PROGRAMA / F3 = COLOCA O ÚLTIMO VALOR DO CAMPO / F1 = PESQUISA VALORES PARA CNS, CBO, PROCEDIMENTO, CID, ETC.");
+        jLabel28.setText("F5 = DADOS GLOBALIZADOS / ESC = SAIR DO PROGRAMA / F3 = COLOCA O ÃšLTIMO VALOR DO CAMPO / F1 = PESQUISA VALORES PARA CNS, CBO, PROCEDIMENTO, CID, ETC.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1663,27 +1663,27 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 int itensFolha=this.tableModelDados.getRowCount();
                 if(itensFolha<ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
                     
-                     //se não houver elemento vazio siginifica que a operação é de edição
+                     //se nÃ£o houver elemento vazio siginifica que a operaÃ§Ã£o Ã© de ediÃ§Ã£o
                      //nesse caso salva o objeto;
                     this.procedimentoRealizado.getProcedimentoRealizadoPK().setSequenciaFolha(ModelUtil.completar(""+this.sequenciaFolha, 2, '0'));
-                    //os atributos que não foram fornecidos são preenchidos com "espaço"
+                    //os atributos que nÃ£o foram fornecidos sÃ£o preenchidos com "espaÃ§o"
                     this.procedimentoRealizado.preencherAtributosVazios();
                     //se salvou com sucesso continua
                     if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
                         //envia o procedimento para a base central
                         //RECURSO DESABILITADO PARA PROJETO PILOTO
                         //this.sProcedimentoRealizadoController.enviarSProcedimentoRealizado(this.procedimentoRealizado.getProcedimentoRealizadoParaEnviar(), this.sUsuarioDesktop);
-                        //salva o paciente, o médico e o médico com CBO e CNS
+                        //salva o paciente, o mÃ©dico e o mÃ©dico com CBO e CNS
                         Paciente p=this.procedimentoRealizado.getPaciente();
                         if( p.getCns() == null ? false : !p.getCns().trim().isEmpty() ){
                             this.pacienteController.merge(p);
                         }
-                        //salvo o médico com o CBO
+                        //salvo o mÃ©dico com o CBO
                         this.medicoCboCnesController.merge(this.procedimentoRealizado.getMedicoCboCnes());
-                        //salva somente o médico com o cns
+                        //salva somente o mÃ©dico com o cns
                         Medico m=this.procedimentoRealizado.getMedico();
                         this.medicoController.merge(m);
-                        //pega uma nova referencia para procedimentoRealizado já com cabeçalho
+                        //pega uma nova referencia para procedimentoRealizado jÃ¡ com cabeÃ§alho
                         this.procedimentoRealizado=this.procedimentoRealizado.getOnlyHeader();
                         //atualiza a tela
                         SwingUtilities.invokeLater(new Runnable() {
@@ -1694,10 +1694,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                                         //atualiza os dados da tabela
                                         CadastroIndividualizado.this.updateJTable( CadastroIndividualizado.this.procedimentoRealizado);
                                         CadastroIndividualizado.this.fillFields(CadastroIndividualizado.this.procedimentoRealizado, true);
-                                        //gera a sequência da folha
+                                        //gera a sequÃªncia da folha
                                         CadastroIndividualizado.this.gerarSequencia();
 
-                                        //verifica se a folha atingiu a quantidade máxima de sequência
+                                        //verifica se a folha atingiu a quantidade mÃ¡xima de sequÃªncia
                                         int itensFolha=CadastroIndividualizado.this.tableModelDados.getRowCount();
                                         if(itensFolha>=ProcedimentoRealizado.MAXIMA_QUANTIDADE_SEQUENCIA){
                                             CadastroIndividualizado.this.initNewFolha();
@@ -1713,10 +1713,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     }
                 }
                 else{
-                    JOptionPane.showMessageDialog(this, "A folha já está completa!\nUma nova folha será gerada.");
+                    JOptionPane.showMessageDialog(this, "A folha jÃ¡ estÃ¡ completa!\nUma nova folha serÃ¡ gerada.");
                 }
             }
-                //transfere o foco após incluir 
+                //transfere o foco apÃ³s incluir 
                 //se o cnes estiver abilitado, transfere para ele
                 //caso nao,transfere para o cns do paciente
                 if(jTextFieldCnes.isEnabled()){
@@ -1737,16 +1737,16 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.jTable1.scrollRectToVisible(new Rectangle(0, this.jTable1.getRowHeight() * (this.jTable1.getRowCount() -1), 0, this.jTable1.getRowHeight()));
     }
     private void initNewFolha(){
-        //pergunta se o usuário deseja continuar com o mesmo cabeçalho
-        int opcao=JOptionPane.showOptionDialog(this,"DESEJA INICIAR A INCLUSÃO COM O MESMO CABEÇALHO?","Questão",
+        //pergunta se o usuÃ¡rio deseja continuar com o mesmo cabeÃ§alho
+        int opcao=JOptionPane.showOptionDialog(this,"DESEJA INICIAR A INCLUSÃƒO COM O MESMO CABEÃ‡ALHO?","QuestÃ£o",
                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         if(opcao==JOptionPane.YES_OPTION){
             
-            //pega a próxima folha
+            //pega a prÃ³xima folha
              String folha=this.bIProcedimentoRealizadoController.getNextFolha(new BIProcedimentoRealizado(this.procedimentoRealizado.getOnlyHeader()));
-             //preenche com zeros a esquerda se necessário com o metodo format
+             //preenche com zeros a esquerda se necessÃ¡rio com o metodo format
              String f = String.format("%03d",Integer.parseInt(folha));  
-             //pega um novo procedimentoRealizado somente com os dados do cabeçalho
+             //pega um novo procedimentoRealizado somente com os dados do cabeÃ§alho
              this.procedimentoRealizado=this.procedimentoRealizado.getOnlyHeader();
              //seta o novo valor de folha no campo folha
              this.procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(f);
@@ -1755,7 +1755,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         }else{
            //preenche todos os campos  
            this.procedimentoRealizado=new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
-           //habilita os campos do cabeçalho
+           //habilita os campos do cabeÃ§alho
            this.enableFieldsHeader();
           
         }
@@ -1846,10 +1846,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }else{
                this.procedimentoRealizado.preencherAtributosVazios();
                if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
-                   //manda atualizar no serviço
+                   //manda atualizar no serviÃ§o
                    //RECURSO DESABILITADO PARA PROJETO PILOTO
                 //this.sProcedimentoRealizadoController.atualizarSProcedimentoRealizado(this.procedimentoRealizado.getProcedimentoRealizadoParaEnviar(), this.sUsuarioDesktop);
-                //salva o paciente, o médico e o médico com CBO e CNS
+                //salva o paciente, o mÃ©dico e o mÃ©dico com CBO e CNS
                 Paciente p=this.procedimentoRealizado.getPaciente();
                 if( p.getCns() == null ? false : !p.getCns().trim().isEmpty() ){
                     this.pacienteController.merge(p);
@@ -1869,7 +1869,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                             
                             CadastroIndividualizado.this.gerarSequencia();
 
-                            //desabilita os botões
+                            //desabilita os botÃµes
                             CadastroIndividualizado.this.jButtonCancelar.setEnabled(false);
                             CadastroIndividualizado.this.jButtonAtualizar.setEnabled(false);
                             CadastroIndividualizado.this.insertOrUpdateState();
@@ -1903,12 +1903,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
     private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
       if ( evt.getKeyCode() == KeyEvent.VK_DELETE ){
         if(this.jTable1.getSelectedRow()>=0){
-            if(JOptionPane.showOptionDialog(this,"DESEJA REALMENTE DELETAR ESTE REGISTRO?","ATENÇÃO!",
+            if(JOptionPane.showOptionDialog(this,"DESEJA REALMENTE DELETAR ESTE REGISTRO?","ATENÃ‡ÃƒO!",
                                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, null, null)==JOptionPane.YES_OPTION){       
             //preenche os campos
             final ProcedimentoRealizado p=this.tableModelDados.getProcedimentoRealizado(this.jTable1.getSelectedRow());
             bIProcedimentoRealizadoController.removeAll(new BIProcedimentoRealizado(p));
-            //pega uma nova referencia para procedimentoRealizado já com cabeçalho
+            //pega uma nova referencia para procedimentoRealizado jÃ¡ com cabeÃ§alho
             this.procedimentoRealizado=this.procedimentoRealizado.getOnlyHeader();
             SwingUtilities.invokeLater(new Runnable() {
 
@@ -2079,7 +2079,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-                //perdeu o foco para um campo e o objeto não tem um CNS
+                //perdeu o foco para um campo e o objeto nÃ£o tem um CNS
                 if(e.getOppositeComponent() instanceof JTextField ){
                    String cnes=CadastroIndividualizado.this.jTextFieldCnes.getText();
                    if(!cnes.isEmpty()){
@@ -2109,12 +2109,12 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     String cnsOld=CadastroIndividualizado.this.procedimentoRealizado.getProcedimentoRealizadoPK().getCnsMedico();
                     if ( !cns.equals(cnsOld) ){
                         CadastroIndividualizado.this.procedimentoRealizado.getProcedimentoRealizadoPK().setCnsMedico(cns);
-                        //busca o nome do médico
+                        //busca o nome do mÃ©dico
                         Medico m=CadastroIndividualizado.this.medicoController.findEqual(new Medico(cns));
                         if ( m!= null){
                             CadastroIndividualizado.this.jTextFieldNomeProfiss.setText(m.getNome());
                             String cnes= CadastroIndividualizado.this.jTextFieldCnes.getText();
-                            //busca o cbo do médico, caso exista somente um para aquela unidade
+                            //busca o cbo do mÃ©dico, caso exista somente um para aquela unidade
                             List<MedicoCboCnes> med=CadastroIndividualizado.this.medicoCboCnesController.findAllEqual(new MedicoCboCnes(new MedicoCboCnesPK(m, cnes, null)));
                             if (med == null ? false : !med.isEmpty()){
                                 CadastroIndividualizado.this.jTextFieldCBO.setText(med.get(0).getMedicoCboCnesPK().getMedicoCbo());
@@ -2191,20 +2191,20 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-               //se o próximo componente for um Component
-               if(e.getOppositeComponent() instanceof JTextField){
+               //se o prÃ³ximo componente for um Component
+               if(e.getOppositeComponent() instanceof Component){
                    String folha = jTextFieldFolha.getText();
                    if(!folha.equals("")){
                         //completa com zeros caso precise
                         folha = String.format("%03d", Integer.parseInt(folha));
                         jTextFieldFolha.setText(folha);
                    
-                   //pega o número da folha
+                   //pega o nÃºmero da folha
                    procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(((JTextField)e.getComponent()).getText());
 
                     if(textFieldVerifier(getListFieldsHeader())){
-                        //desabilita os campos do cabeçalho da tela que são 
-                        //referentes as informações da unidade e do usuário
+                        //desabilita os campos do cabeÃ§alho da tela que sÃ£o 
+                        //referentes as informaÃ§Ãµes da unidade e do usuÃ¡rio
                         disableFieldsHeader();
                         enableFieldsProcedimento();
                         CadastroIndividualizado.this.jTextFieldUsuarioCns.requestFocusInWindow();
@@ -2219,7 +2219,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                        pr.setNacionalidadePaciente(null);
                        pr.setQuantidadeRealizada(null);
                        //pr.getProcedimentoRealizadoPK().setCompetencia();
-                       //retira a sequência
+                       //retira a sequÃªncia
                        pr.getProcedimentoRealizadoPK().setSequenciaFolha(null);
                         CadastroIndividualizado.this.findAllProcedimentosFolha(pr);
                        
@@ -2246,11 +2246,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-                //perdeu o foco para um campo e o objeto não tem um CNS
+                //perdeu o foco para um campo e o objeto nÃ£o tem um CNS
                 if(e.getOppositeComponent() instanceof JTextField ){
                    String cns=CadastroIndividualizado.this.jTextFieldUsuarioCns.getText().trim();
                    if(!cns.isEmpty()){
-                       //caso os códigos sejam diferentes vai executar
+                       //caso os cÃ³digos sejam diferentes vai executar
                        if(!cns.equals(CadastroIndividualizado.this.procedimentoRealizado.getCnsPaciente())){
                            CadastroIndividualizado.this.buscarPacienteECompletarCampos(CadastroIndividualizado.this.jTextFieldUsuarioCns.getText().trim());
                            JTextField t=CadastroIndividualizado.this.getProximoCampoASerPreenchido(listFieldsProcedimento);
@@ -2312,7 +2312,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-               //se o próximo componente for um Component e o método ainda não tinha sido executado
+               //se o prÃ³ximo componente for um Component e o mÃ©todo ainda nÃ£o tinha sido executado
                if( e.getOppositeComponent() instanceof Component){ 
                 if(jTextFieldUsarioDatNasc.getInputVerifier().shouldYieldFocus(jTextFieldUsarioDatNasc)){   
                     //converte a data para o formato YYYMMdd 
@@ -2403,13 +2403,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
             @Override
             public void focusLost(FocusEvent e) {
-               //se o próximo componente for um jtextfield e o método ainda não tinha sido executado
+               //se o prÃ³ximo componente for um jtextfield e o mÃ©todo ainda nÃ£o tinha sido executado
                if(e.getOppositeComponent() instanceof JTextField){ 
                    String dataAtend = ((JTextField)e.getComponent()).getText();
                    if(!dataAtend.isEmpty()){
                         //converte a data para o formato YYYYMMdd    
                         dataAtend = DateUtil.parseToYearMonthDay(dataAtend);
-                        //caso as data sejam diferentes vai executar e o formato do conteudo do campo for válido
+                        //caso as data sejam diferentes vai executar e o formato do conteudo do campo for vÃ¡lido
                         if(!dataAtend.equals(CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento()) 
                                // && jTextFieldProcDataAtend.getInputVerifier().shouldYieldFocus(jTextFieldProcDataAtend)
                                 ){
@@ -2435,7 +2435,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                         String dataAtend = CadastroIndividualizado.this.jTextFieldProcDataAtend.getText();
                        
                         
-                        //se alguma data for diferente da que está persistida no objeto
+                        //se alguma data for diferente da que estÃ¡ persistida no objeto
                         if(!dataNasc.equals(CadastroIndividualizado.this.procedimentoRealizado.getDataNascimentoPaciente()) || !dataAtend.equals(CadastroIndividualizado.this.procedimentoRealizado.getDataAtendimento())){
                              
                             //obtem a idade do paciente
@@ -2460,7 +2460,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                    String codigo=CadastroIndividualizado.this.jTextFieldProcCod.getText();
                    if(!codigo.isEmpty()){
                        
-                       //caso os código sejam diferentes vai executar
+                       //caso os cÃ³digo sejam diferentes vai executar
                        if(!codigo.equals(CadastroIndividualizado.this.procedimentoRealizado.getCodigoProcedimento())){
                            CadastroIndividualizado.this.buscarServicoEClassificaoServicoEPrencherCampos(codigo);
                        }
@@ -2622,14 +2622,14 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
       }
       
       /**
-       * Desabilita os campos do cabeçalho da tela
+       * Desabilita os campos do cabeÃ§alho da tela
        */
       public void disableFieldsHeader(){
            this.changeStatusHeader(false);
       }
       
       /**
-       * Abilita os campos do cabeçalho da tela
+       * Abilita os campos do cabeÃ§alho da tela
        */
       private void enableFieldsHeader(){
           this.changeStatusHeader(true);
@@ -2646,7 +2646,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             jTextFieldFolha.setEnabled(status);
       }
       /**
-       * Desabilita os campos relacionados ao paciente/usuário
+       * Desabilita os campos relacionados ao paciente/usuÃ¡rio
        */
       private void disabledFieldsProcedimento(){
         this.changeStatusFieldsProcedimento(false);
@@ -2684,7 +2684,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
       
       /**
-       * Pega os valores dos campos que ainda não foram colocados no modelo procedimentoRealizado
+       * Pega os valores dos campos que ainda nÃ£o foram colocados no modelo procedimentoRealizado
        */
       private void getValuesToModel(){
         Procedimento procedimento = new Procedimento();
@@ -2758,7 +2758,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           List<ProcedimentoRealizado> l=this.tableModelDados.getListWithOutEmptyElements();
           List<BIProcedimentoRealizado> biProList=new ArrayList<BIProcedimentoRealizado>();
           
-          //vai pegar os médicos e os pacientes
+          //vai pegar os mÃ©dicos e os pacientes
           int size=l.size();
           ProcedimentoRealizado p=null;
           for(int i=0;i<size;i++){
@@ -2769,9 +2769,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
               if(!pa.getCns().isEmpty()){
                     this.setPaciente.add(pa);
               }
-              //pega o médico
+              //pega o mÃ©dico
               Medico m=p.getMedico();
-              //caso nao exista um nome preenche com espaços
+              //caso nao exista um nome preenche com espaÃ§os
               m.setNome( m.getNome()==null?"      ":m.getNome());
               this.setMedico.add(m);
               //pega o MedicoCboCnes e adiciona no Set
@@ -2779,13 +2779,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
               //cria um procedimentoRealizado a ser salvo no bando do sistema
               biProList.add(new BIProcedimentoRealizado(p));
           }
-          //salva todos os pacientes ou senão atualiza
+          //salva todos os pacientes ou senÃ£o atualiza
           this.pacienteController.merge(new ArrayList<Paciente>(this.setPaciente));
-          //salva todos os médicos ou senão atualiza
+          //salva todos os mÃ©dicos ou senÃ£o atualiza
           this.medicoController.merge(new ArrayList<Medico>(this.setMedico));
-          //salva todos os médicosCbosCnes ou senão atualiza
+          //salva todos os mÃ©dicosCbosCnes ou senÃ£o atualiza
           this.medicoCboCnesController.merge(new ArrayList<MedicoCboCnes>(this.setMedicoCboCnes));
-          //salva todos os procedimentos no banco próprio do sistema
+          //salva todos os procedimentos no banco prÃ³prio do sistema
           this.bIProcedimentoRealizadoController.merge(biProList);
           
           
@@ -2824,8 +2824,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
       }
       
       /**
-       * Dada um procedimento com a folha, cbo, cnes, cns e competência, vai buscar outros procedimentos, caso exista.
-       * A tabela é preenchida e os campos também.
+       * Dada um procedimento com a folha, cbo, cnes, cns e competÃªncia, vai buscar outros procedimentos, caso exista.
+       * A tabela Ã© preenchida e os campos tambÃ©m.
        * @param procedimentoRealizado 
        */
       public void findAllProcedimentosFolha(ProcedimentoRealizado procedimentoRealizado){
@@ -2845,7 +2845,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
        *Preenche os campos da tela baseado em um objeto procedimento realizado passado 
        */
       private void  fillFields(ProcedimentoRealizado p,boolean flag){
-          //se o flag for true o cabecalho também sera preenchido
+          //se o flag for true o cabecalho tambÃ©m sera preenchido
           if(flag==true){
               jTextFieldCnes.setText(p.getProcedimentoRealizadoPK().getCnesUnidade());
               jTextFieldCnsProfiss.setText(p.getProcedimentoRealizadoPK().getCnsMedico());
@@ -2856,7 +2856,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 jTextFieldAno.setText(p.getProcedimentoRealizadoPK().getCompetencia().substring(0, 4));
               }
               jTextFieldFolha.setText(p.getProcedimentoRealizadoPK().getNumeroFolha());
-              //preenche o nome do médico
+              //preenche o nome do mÃ©dico
               Medico m=this.medicoController.findEqual(new Medico(this.jTextFieldCnsProfiss.getText()));
               if( m!= null){
                  this.jTextFieldNomeProfiss.setText(m.getNome());
@@ -2905,13 +2905,13 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
       }
     
       /**
-       * Carrega as descrições do combobox de acordo com o procedimento escolhido
-       * e os respectivos código para cada item
+       * Carrega as descriÃ§Ãµes do combobox de acordo com o procedimento escolhido
+       * e os respectivos cÃ³digo para cada item
        * @param p 
        */
       private void carregarComboBox(ProcedimentoRealizado p){
           
-          //comobox raça/cor
+          //comobox raÃ§a/cor
           if(p.getRacaPaciente()!=null){
             this.selectItemJComboBoxRacaCor(p.getRacaPaciente());
           }
@@ -2924,7 +2924,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
               jTextFieldUsuarioCodEtnia.setText(p.getEtniaPaciente());
           }
           
-          //combobox caráter de atendimento
+          //combobox carÃ¡ter de atendimento
           if(p.getCaracterizacaoAtendimento()!=null){
                 this.selectItemJComboBoxCaraterAtend(p.getCaracterizacaoAtendimento());
           }
@@ -2932,7 +2932,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 this.jComboBoxProcCaraterAtend.setSelectedIndex(0);
           }
           
-          //combobox Serviço
+          //combobox ServiÃ§o
           if(p.getCodigoServico()!=null){
                this.selectItemJComboBoxServico(p.getCodigoServico());
                
@@ -2940,7 +2940,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
              initComboBoxServico();
           }
           
-          //combobox classificacao do serviço
+          //combobox classificacao do serviÃ§o
           if(p.getCodigoClassificacaoServico()!=null){
             
               this.selectItemJComboBoxClassificacao(p.getCodigoServico()+p.getCodigoClassificacaoServico());
@@ -2991,9 +2991,9 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
        }
           
       /**
-        * Prenche os combox serviço e classificação de serviço de 
+        * Prenche os combox serviÃ§o e classificaÃ§Ã£o de serviÃ§o de 
         * acordo com o procedimento escolhido
-        * desde que esse serviço tenha a regra 0001 ou 0002
+        * desde que esse serviÃ§o tenha a regra 0001 ou 0002
         * @param codigoProcedimento 
         */
       
@@ -3008,21 +3008,21 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
           pr.getProcedimentoRegraPK().setCodigoProcedimento(codigoProcedimento.substring(0,9));
           
           pr=this.procedimentoRegraController.findEqual(pr);
-          //verifica se é diferente de null e as regras
+          //verifica se Ã© diferente de null e as regras
           if ( pr != null){
               String regra=pr.getProcedimentoRegraPK().getRegra();
               Diversas d=new Diversas(new DiversasPK());
               if( regra.equals("0001")){
                   
-                  //busca o serviço de saude bucal
+                  //busca o serviÃ§o de saude bucal
                   d.getDiversasPK().setCodigoTabela(Diversas.TABELA_SERVICO);
-                  //serviço de saúde bucal
+                  //serviÃ§o de saÃºde bucal
                   d.getDiversasPK().setCodigoItemTabela("114");
                   lServico=this.diversasController.findAllEqual(d);
                   
-                  //busca a classificação
+                  //busca a classificaÃ§Ã£o
                   d.getDiversasPK().setCodigoTabela(Diversas.TABELA_CLASSIFICACAO_SERVICO);
-                  //padrão
+                  //padrÃ£o
                   d.getDiversasPK().setCodigoItemTabela("114007");
                   lClassificao=this.diversasController.findAllEqual(d);
                   
@@ -3030,10 +3030,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
               else if (regra.equals("0002")){
                   d.getDiversasPK().setCodigoTabela(Diversas.TABELA_SERVICO);
                   d.getDiversasPK().setCodigoItemTabela("131");
-                  //busca o serviço
+                  //busca o serviÃ§o
                   lServico=this.diversasController.findAllEqual(d);
                   
-                  //busca classificação serviço
+                  //busca classificaÃ§Ã£o serviÃ§o
                   
                   Map<String, Collection> res=new HashMap<String, Collection>();
                   List<String> tb=new ArrayList<String>();
@@ -3054,19 +3054,19 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                    lClassificao=null;
               }
           }else{
-               //restriçoes para busca
+               //restriÃ§oes para busca
                HashMap<String, Object> res=new HashMap<String, Object> ();
                res.put("procedimentoServicoPK.codigoProcedimento", codigoProcedimento.substring(0, 9));
                res.put("procedimentoServicoPK.competencia", ModelUtil.COMPETENCIA_MAIS_RECENTE);
-               //verifica se o serviço tem procedimento
+               //verifica se o serviÃ§o tem procedimento
                ProcedimentoServico pro=this.procedimentoServicoController.findEqual(res);
 
                if(pro != null){
                    String competencia=ModelUtil.COMPETENCIA_MAIS_RECENTE;
                    String codigo=this.procedimentoRealizado.getCodigoProcedimento().substring(0,9);
-                   //busca as classificaçoes dos serviços que o procedimento tem
+                   //busca as classificaÃ§oes dos serviÃ§os que o procedimento tem
                    lClassificao=this.diversasController.findAllClassificacaoServico(codigo, competencia);
-                   //busca todos os serviços que o procedimento tem
+                   //busca todos os serviÃ§os que o procedimento tem
                    lServico=this.diversasController.findAllServicos(codigo, competencia);
 
                }
@@ -3082,10 +3082,10 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
                 @Override
                 public void run() {
-                    //serviço
+                    //serviÃ§o
                     CadastroIndividualizado.this.objectComboBoxModelServico.setData(lServico);
                     CadastroIndividualizado.this.jComboBoxUsuarioServico.setSelectedIndex(0);
-                    //classificaçao de serviço
+                    //classificaÃ§ao de serviÃ§o
                     CadastroIndividualizado.this.objectComboBoxModelClassificaoServico.setData(lClassificao);
                     CadastroIndividualizado.this.jComboBoxUsuarioClassificacao.setSelectedIndex(0);
                 }
@@ -3104,7 +3104,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             Paciente p= new Paciente(this.procedimentoRealizado.getCnsPaciente());
             if(!p.getCns().isEmpty()){
                 Paciente pa=CadastroIndividualizado.MAP_PACIENTE.get(p.getCns());
-                //não achou nos pacientes já encontrados
+                //nÃ£o achou nos pacientes jÃ¡ encontrados
                 if(pa==null){
                     //pega no banco de dados
                     pa=this.pacienteController.findEqual(p);
@@ -3142,7 +3142,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
   private void buscarEquipesDaUnidade(String CNESUnidade){
         this.procedimentoRealizado.getProcedimentoRealizadoPK().setCnesUnidade(CNESUnidade);
         //vai buscar a equipe caso exista
-        //cria restrições
+        //cria restriÃ§Ãµes
         String competencia=this.equipeController.getMaximaCompetencia();
         if (competencia != null){
             HashMap<String,Object> res= new HashMap<String, Object>();
@@ -3150,7 +3150,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             res.put("equipePK.competencia", competencia);
             List<Equipe> equipes=this.equipeController.findAllEqual(res);
             //devolveu algo
-            //a partir de novembro/2012 a equipe é estática e não obrigatória
+            //a partir de novembro/2012 a equipe Ã© estÃ¡tica e nÃ£o obrigatÃ³ria
             if(!equipes.isEmpty()){
                 this.objectComboBoxModelEquipe.setSelectedItem(equipes.get(0));
                 this.objectComboBoxModelEquipe.setData(equipes);
