@@ -66,7 +66,7 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
                    String tCNES=p.getCnesUnidade();
                    
                    //mudou de CBO ou CNES
-                   if( ( CNES == null ?  false : !CNES.equals(tCNES)) || ( CBO == null ? false : !CBO.equals(tCBO)) ){
+                   if( ( CNES == null ?  false : !CNES.equals(tCNES)) ){
                        //zera a sequência
                        seq=1;
                        //inicia uma nova folha
@@ -119,27 +119,31 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
             String CNES=null;
             String CNS=null;
             List<ProcedimentoRealizado> list=null;
+            boolean primeiraVez=true;
 
             while(size==maxResults){
                 list=dao.findAllProcedimentosIndividuais(competenciaMovimento, cnesUnidade, offset, maxResults);
                 size=list.size();size=list.size();
                 //gerar a sequência e a folha
                 for(int i=0; i<size;i++){
-                    
                    ProcedimentoRealizadoPK p=list.get(i).getProcedimentoRealizadoPK();
                    //pega o CBO e o CNES, quando mudarem, a folha e sequêcia são reiniciadas
                    String tCBO=p.getCboMedico();
                    String tCNES=p.getCnesUnidade();
                    String tCNS=p.getCnsMedico();
+                   //procura saber a ultima folha gerada de acordo com a competencia,unidade e cbo
+                   if (primeiraVez){
+                       //executa somente uma vez
+                       folha=Integer.parseInt(procedimentoDao.getNextFolha(p.getCnesUnidade(), p.getCompetencia(), p.getCboMedico()));
+                       primeiraVez=false;
+                   }
                    
                    //mudou de CBO ou CNES
-                   if( ( CNES == null ?  false : !CNES.equals(tCNES)) || 
-                           ( CBO == null ? false : !CBO.equals(tCBO)) ||
-                           ( CNS == null ? false : !CNS.equals(tCNS)) ){
+                   if( ( CNES == null ?  false : !CNES.equals(tCNES)) ){
                        //zera a sequência
                        seq=1;
                        //inicia uma nova folha
-                       folha=1;
+                       folha=Integer.parseInt(procedimentoDao.getNextFolha(p.getCnesUnidade(), p.getCompetencia(), p.getCboMedico()));
                    }
                    p.setNumeroFolha(ModelUtil.completar(""+folha, 3, '0'));
                    p.setSequenciaFolha(ModelUtil.completar(""+seq, 2, '0'));
@@ -160,6 +164,7 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
                    CNES=tCNES;
                    CNS=tCNS;
                 }
+                primeiraVez=true;
                 //salva os procedimentos no banco de dados do BPA
                 procedimentoDao.save(list);
                 //incremeta a linha que deve ser buscada

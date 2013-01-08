@@ -195,7 +195,7 @@ public class Exportacao extends javax.swing.JDialog {
     private void jButtonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarActionPerformed
         // TODO add your handling code here:
         this.jProgressBar1.setIndeterminate(true);
-        this.jButtonIniciar.setEnabled(false);
+        this.jButtonIniciar.setEnabled(true);
         
         String res=this.exportacao.execute(this.comboboxCompetenciaModel.getSelectedObject(),this.comboboxCnesModel.getSelectedObject());
        

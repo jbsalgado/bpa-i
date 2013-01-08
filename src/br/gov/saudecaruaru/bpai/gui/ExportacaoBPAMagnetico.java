@@ -42,8 +42,8 @@ public class ExportacaoBPAMagnetico implements IExportacaoStrategy{
             
             if(this.procedimentoRealizadoController.removeAll(p)){
             
-                if(this.bIProcedimentoRealizadoController.findAllProcedimentosIndividuaisAndSave(competenciaMovimento,cnesUnidade ,procedimentoRealizadoDAO, 100)){
-                    if(this.bIProcedimentoRealizadoController.findAllProcedimentosConsolidadosAndSave(competenciaMovimento,cnesUnidade, procedimentoRealizadoDAO, 100)){
+                if(this.bIProcedimentoRealizadoController.findAllProcedimentosConsolidadosAndSave(competenciaMovimento,cnesUnidade ,procedimentoRealizadoDAO, 100)){
+                    if(this.bIProcedimentoRealizadoController.findAllProcedimentosIndividuaisAndSave(competenciaMovimento,cnesUnidade, procedimentoRealizadoDAO, 100)){
 
                         msg= "Exportação concluída com sucesso!\nAbra o BPA Magnético para ver os resultados.";
                     }

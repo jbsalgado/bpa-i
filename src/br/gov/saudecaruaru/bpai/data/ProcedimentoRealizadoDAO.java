@@ -8,6 +8,7 @@ import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -18,7 +19,7 @@ import org.hibernate.Session;
  */
 public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> {
     
-    
+    private static Logger logger= Logger.getLogger(ProcedimentoRealizadoDAO.class);
     
     
    /**
@@ -98,7 +99,41 @@ public class ProcedimentoRealizadoDAO extends GenericDAO<ProcedimentoRealizado> 
             return list;
         }
     }
-    
+    public String getNextFolha(String CnesUnidade,String competencia,String cbo){
+        Session session= this.getSession();
+         List l=null;
+        try{     
+            StringBuilder sql=new StringBuilder();
+            //campos a serem selecionados
+            sql.append("select MAX(pro.procedimentoRealizadoPK.numeroFolha)");
+            sql.append(" FROM ProcedimentoRealizado pro");
+            //traz somente os procedimentos que devem ser consolidados
+            sql.append(" WHERE (pro.procedimentoRealizadoPK.cnesUnidade=:cnesUnidade)");
+            sql.append(" AND (pro.procedimentoRealizadoPK.competencia=:competencia)");
+            
+            //it's create query
+            Query q=session.createQuery(sql.toString());
+            q.setParameter("cnesUnidade", CnesUnidade);
+            q.setParameter("competencia",  competencia);
+            
+            l=q.list();
+            String f = "";
+            String folha = null;
+            for(Object row:l){
+               folha = (String)row;
+            }
+            if(folha == null){
+                folha="0";
+            }
+            int nextFolha = (Integer.parseInt(folha)+1);
+            f = String.format("%03d",nextFolha);
+            return f;
+        }catch(Exception ex){
+            ex.printStackTrace();
+            logger.error("Ao executar o método getNextFolha "+ex.getMessage());
+            return "";
+        }
+    }
     
    
    /**
