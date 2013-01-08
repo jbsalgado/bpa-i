@@ -19,6 +19,7 @@ public class Diversas implements Serializable {
     public static final String TABELA_TIPO_ESTABELECIMENTO="05";
     public static final String TABELA_PAIS="31";
     public static final String TABELA_COMPLEXIDADE_PROCEDIMENTO="45";
+    public static final String TABELA_TIPO_FINANCIAMENTO_PROCEDIMENTO="46";
     public static final String TABELA_COR_INDIVIDUO="54";
     public static final String TABELA_ETNIA="58";
     public static final String TABELA_TIPO_PROCEDIMENTO="51";

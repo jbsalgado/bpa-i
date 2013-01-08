@@ -13,9 +13,13 @@ package br.gov.saudecaruaru.bpai.gui;
 import br.gov.saudecaruaru.bpai.gui.interfaces.IExportacaoStrategy;
 import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.business.controller.BIGestorCompetenciaController;
+import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoController;
+import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoController;
 import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoRealizadoController;
+import br.gov.saudecaruaru.bpai.business.model.BIProcedimento;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizadoPK;
+import br.gov.saudecaruaru.bpai.business.model.Procedimento;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
 import br.gov.saudecaruaru.bpai.gui.FocusListener.ChangeBackgroundFieldFocusListener;
@@ -57,6 +61,8 @@ public class ListaProcedimento extends javax.swing.JFrame {
     private ProcedimentoRealizadoTableModelHeader tableModelHeader;
     private ProcedimentoRealizadoTableModelBody tableModelBody;
     private BIProcedimentoRealizadoController biProcedimentoRealizadoController;
+    private BIProcedimentoController bIProcedimentoController=new BIProcedimentoController();
+    private ProcedimentoController procedimentoController=new ProcedimentoController();
     private BIGestorCompetenciaController gestorCompetenciaController;
     private FocusListener listenerFieldsChangeBackground ;
     private static final HashMap<String,String> mapFiltro = new HashMap<String, String>();
@@ -252,6 +258,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         jMenuItemExportarEnvio = new javax.swing.JMenuItem();
         jMenuItemExportarAtualizacao = new javax.swing.JMenuItem();
         jMenuItemAlteraCompetencia = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -417,6 +424,14 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
         jMenuOperacao.add(jMenuItemAlteraCompetencia);
+
+        jMenuItem2.setText("Atualizar base de dados");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenuOperacao.add(jMenuItem2);
 
         jMenuBar1.add(jMenuOperacao);
 
@@ -714,6 +729,24 @@ public class ListaProcedimento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        int maxRes=500;
+        int first=0;
+        int size=maxRes;
+        while(size==maxRes){
+            List<Procedimento> list=this.procedimentoController.findAllEqual(new HashMap<String,Object>(), first, maxRes);
+            List<BIProcedimento> l=new ArrayList<BIProcedimento>();
+            size=list.size();
+            for(Procedimento p:list){
+                BIProcedimento bi=new BIProcedimento(p);
+                l.add(bi);
+            }
+            this.bIProcedimentoController.merge(l);
+            first+=size;
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtualizar;
     private javax.swing.JLabel jLabel1;
@@ -721,6 +754,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemAlteraCompetencia;
     private javax.swing.JMenuItem jMenuItemExportarAtualizacao;
     private javax.swing.JMenuItem jMenuItemExportarBPA;

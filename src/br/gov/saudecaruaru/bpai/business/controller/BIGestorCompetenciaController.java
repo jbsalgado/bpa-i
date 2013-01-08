@@ -25,7 +25,7 @@ public class BIGestorCompetenciaController extends BasecController<BIGestorCompe
     public String getCompetenciaAtual(){
         
         List<BIGestorCompetencia> list = findAll();
-        if(!list.isEmpty()){
+        if( list == null ? false : !list.isEmpty()){
             BIGestorCompetencia g=list.get(0);
             if(g instanceof BIGestorCompetencia && g!=null){
             String competencia = list.get(0).getCompetenciaMovimento();

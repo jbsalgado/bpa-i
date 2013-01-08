@@ -99,7 +99,7 @@ public class BIProcedimento implements Serializable {
 
     public BIProcedimento(Procedimento procedimento){
         this.bIprocedimentoPk=new BIProcedimentoPK(procedimento.getProcedimentoPk());
-        this.descricao=procedimento.getDescricao();
+        this.setDescricao(procedimento.getDescricao());
         this.digitoVerificador=procedimento.getDigitoVerificador();
         this.exigeCBO=procedimento.getExigeCBO();
         this.exigeIdadeBPA=procedimento.getExigeIdadeBPA();
@@ -115,6 +115,7 @@ public class BIProcedimento implements Serializable {
         this.paSa=procedimento.getPaSa();
         this.paSp=procedimento.getPaSp();
         this.paTotal=procedimento.getPaTotal();
+        this.paTpcc=procedimento.getPaTpcc();
         this.quantidadeMaximaExecucao=procedimento.getQuantidadeMaximaExecucao();
         this.sexo=procedimento.getSexo();
         this.tipoDocumento=procedimento.getTipoDocumento();
@@ -151,7 +152,7 @@ public class BIProcedimento implements Serializable {
     }
 
     public void setDescricao(String descricao) {
-        this.descricao = descricao;
+        this.descricao = "bugado";//descricao.length() > 59 ? descricao.substring(0,59) : descricao;
     }
 
     public char getDigitoVerificador() {
