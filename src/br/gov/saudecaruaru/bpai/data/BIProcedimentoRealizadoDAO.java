@@ -362,23 +362,24 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
                 //cada objeto de l contém um vetor que representa os campos selecionados
                 for(BIProcedimentoRealizado row:l){
                     ProcedimentoRealizado pro=new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
-                    
+                    if(row!=null){
                     //o tamanho do vetor é igual a quantidade de campos do select
                     //o índíce do campo no select é igual ao do vetor, começando por zero.
-                    pro.getProcedimentoRealizadoPK().setCnesUnidade(row.getBiProcedimentoRealizadoPK().getCnesUnidade());
-                    pro.getProcedimentoRealizadoPK().setCboMedico(row.getBiProcedimentoRealizadoPK().getCboMedico());
-                    pro.getProcedimentoRealizadoPK().setNumeroFolha(row.getBiProcedimentoRealizadoPK().getNumeroFolha());
-                    pro.getProcedimentoRealizadoPK().setCompetencia(row.getBiProcedimentoRealizadoPK().getCompetencia());
-                    pro.getProcedimentoRealizadoPK().setCnsMedico(row.getBiProcedimentoRealizadoPK().getCnsMedico());
-                    
-                    list.add(pro);
+                        pro.getProcedimentoRealizadoPK().setCnesUnidade(row.getBiProcedimentoRealizadoPK().getCnesUnidade());
+                        pro.getProcedimentoRealizadoPK().setCboMedico(row.getBiProcedimentoRealizadoPK().getCboMedico());
+                        pro.getProcedimentoRealizadoPK().setNumeroFolha(row.getBiProcedimentoRealizadoPK().getNumeroFolha());
+                        pro.getProcedimentoRealizadoPK().setCompetencia(row.getBiProcedimentoRealizadoPK().getCompetencia());
+                        pro.getProcedimentoRealizadoPK().setCnsMedico(row.getBiProcedimentoRealizadoPK().getCnsMedico());
+
+                        list.add(pro);
+                    }
                 }
             }
             return list;
     }
     
     public List<String> getAllCompetenciaMovimento(){
-        List list=new ArrayList<String>();;
+        List list=new ArrayList<String>();
         Session session=this.getSession();
         try{
             Query q=session.createQuery("SELECT competenciaMovimento FROM BIProcedimentoRealizado GROUP BY competenciaMovimento");

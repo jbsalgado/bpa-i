@@ -663,9 +663,10 @@ public class ListaProcedimento extends javax.swing.JFrame {
         if(itemBusca.equals(ListaProcedimento.CBO)){
            biPK.setCboMedico(jTextFieldPesquisa.getText());
         }
-        
-         
-            this.tableModelHeader= new ProcedimentoRealizadoTableModelHeader(biProcedimentoRealizadoController.findAllOnlyHeaderEqual(bipr));
+        List<ProcedimentoRealizado> list= biProcedimentoRealizadoController.findAllOnlyHeaderEqual(bipr);
+        if(list!=null){  
+            this.tableModelHeader= new ProcedimentoRealizadoTableModelHeader(list);
+            
             this.jTableHeader.setModel(tableModelHeader);
             //redimensiona as colunas das Tabelas
             this.tableHeaderRedimendionaColunas();
@@ -674,7 +675,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
             if(!this.tableModelHeader.isEmpty()){
                 this.jTableHeader.setRowSelectionInterval(0, 0);
              }
-        
+         }
     }//GEN-LAST:event_jbtnPesquisarMouseClicked
 
     private void jTableHeaderKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableHeaderKeyPressed
