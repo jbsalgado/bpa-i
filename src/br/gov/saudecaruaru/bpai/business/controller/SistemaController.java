@@ -83,14 +83,14 @@ public class SistemaController {
   
             File f = new File( "./configs.conf" );  
               
-            // se não existe o arquivo, cria, caso contrário carrega  
+            // se nÃ£o existe o arquivo, cria, caso contrÃ¡rio carrega  
             if ( !f.exists() ) {  
                                       
                 prop.setProperty("bpa.database.path", HibernateUtil.PATH_DATABASE_BPA);  
                 prop.setProperty("bpai.database.path", HibernateUtil.PATH_DATABASE_BPA_I);
                 FileOutputStream out=new FileOutputStream( f );
                 prop.store( out,   
-                        "Esse arquivo não deve ser modificado!" );  
+                        "Esse arquivo nÃ£o deve ser modificado!" );  
                 out.close();
                 loadConfigurations(); 
                   
@@ -114,7 +114,7 @@ public class SistemaController {
             FileInputStream in= new FileInputStream( f );
             prop.load(in );  
             
-            //configuraçoes do banco
+            //configuraÃ§oes do banco
             HibernateUtil.PATH_DATABASE_BPA=prop.getProperty("bpa.database.path");
             HibernateUtil.PATH_DATABASE_BPA_I=prop.getProperty("bpai.database.path");
             
@@ -150,7 +150,7 @@ public class SistemaController {
           
         try {  
   
-            File f = new File( "./exceçao.conf" );  
+            File f = new File( "./excecao.conf" );  
             FileInputStream in=new FileInputStream(f);
             prop.load(in); 
             //atualiza
