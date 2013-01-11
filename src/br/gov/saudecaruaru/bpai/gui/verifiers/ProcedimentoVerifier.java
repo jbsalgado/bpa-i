@@ -7,6 +7,7 @@ package br.gov.saudecaruaru.bpai.gui.verifiers;
 
 import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoCboController;
 import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoController;
+import br.gov.saudecaruaru.bpai.business.controller.SistemaController;
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
 import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
@@ -102,7 +103,11 @@ public class ProcedimentoVerifier extends InputVerifier{
                 }else {
                     
                        
-                        
+                        String exceçao = SistemaController.procedimentoExcessao(codProc);
+                        if(!exceçao.isEmpty()){
+                            MessagesErrors.erro(component,txtField,"PROCED. EXCLUSIVO DO "+exceçao);
+                            return false;
+                        }
                         
                         int idadePaciente = 1000;
                         
@@ -141,6 +146,7 @@ public class ProcedimentoVerifier extends InputVerifier{
                                 txtField.setBackground(Color.RED); 
                                 return  false;
                             }
+                       
                         //exibe a descricao do Procedimento no campo de descricao 
                         procNome.setText(procedimentosSearchead.getDescricao());
                   }

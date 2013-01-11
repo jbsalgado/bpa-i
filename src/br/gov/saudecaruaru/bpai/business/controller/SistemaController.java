@@ -144,4 +144,30 @@ public class SistemaController {
         } catch ( IOException exc ) {                                      
         }
    }
+   
+    public static String procedimentoExcessao(String codigoProcedimento){
+        Properties prop = new Properties();  
+          
+        try {  
+  
+            File f = new File( "./exceçao.conf" );  
+            FileInputStream in=new FileInputStream(f);
+            prop.load(in); 
+            //atualiza
+            //prop.setProperty("bpa.database.path", HibernateUtil.PATH_DATABASE_BPA);  
+            //prop.setProperty("bpai.database.path", HibernateUtil.PATH_DATABASE_BPA_I); 
+            if(prop.containsKey(codigoProcedimento)){
+                in.close();
+                return prop.getProperty(codigoProcedimento);
+            }
+           
+            in.close();
+           
+        } catch ( IOException exc ) {   
+            exc.printStackTrace();
+            return "";
+        }
+        
+        return "";
+   }
 }
