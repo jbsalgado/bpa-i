@@ -70,7 +70,7 @@ public class ProcedimentoVerifier extends InputVerifier{
       
       
        if(valor.trim().isEmpty() || valor.trim().length()<10){
-          MessagesErrors.erro(component,txtField,"PROCEDIMENTO INVÁLIDO!");
+          MessagesErrors.erro(component,txtField,"PROCEDIMENTO INVÃ�LIDO!");
           return  false;
       
       }
@@ -91,21 +91,21 @@ public class ProcedimentoVerifier extends InputVerifier{
       //procedimento.getProcedimentoPk().setCompetencia(proRealizado.getProcedimentoRealizadoPK().getCompetencia());
       
      
-      //faz a busca pelo Procedimento  digitado, se nao encontra notifica ao usuário
+      //faz a busca pelo Procedimento  digitado, se nao encontra notifica ao usuÃ¡rio
       List<Procedimento> list=procedimentoController.findAllEqual(this.procedimento);
       procedimentosSearchead = list.isEmpty() ? null : list.get(0);
                 //verifica se o procedimento existe
                 if (procedimentosSearchead==null) {  
-                   MessagesErrors.erro(component,txtField,"PROCEDIMENTO NÃO ENCONTRADO!");
+                   MessagesErrors.erro(component,txtField,"PROCEDIMENTO NÃƒO ENCONTRADO!");
                    return false;
                                 //return  MessagesErrors.exibeTelaContinuaErro(component, fieldName, "nao encontrado");
                  
                 }else {
                     
                        
-                        String exceçao = SistemaController.procedimentoExcessao(codProc);
-                        if(!exceçao.isEmpty()){
-                            MessagesErrors.erro(component,txtField,"PROCED. EXCLUSIVO DO "+exceçao);
+                        String excecao = SistemaController.procedimentoExcessao(codProc);
+                        if(!excecao.isEmpty()){
+                            MessagesErrors.erro(component,txtField,"PROCED. EXCLUSIVO DO "+excecao);
                             return false;
                         }
                         
@@ -120,7 +120,7 @@ public class ProcedimentoVerifier extends InputVerifier{
                       
                         //verifica se o procedimento exige CBO
                         if(procedimentosSearchead.exigeCbo()){
-                            // verifica se o procedimento é compativel com o CBO
+                            // verifica se o procedimento Ã© compativel com o CBO
                             if(!temProcedimentoECbo(valor.substring(0, 9),proRealizado.getProcedimentoRealizadoPK().getCboMedico())){
                                             MessagesErrors.erro(component,txtField,"PROCED. INCOMPATIVEL COM CBO!");
                                             return false;
@@ -129,7 +129,7 @@ public class ProcedimentoVerifier extends InputVerifier{
                         //verifica se o procedimento exige sexo
                         if(procedimentosSearchead.exigeSexo()){
                             String sexo =proRealizado.getSexoPaciente();
-                            //verifica se o sexo digitado é compativel com o exigido
+                            //verifica se o sexo digitado Ã© compativel com o exigido
                             if(!procedimentosSearchead.getSexo().toString().equals(sexo)){
                                     return  MessagesErrors.continuaErro(component,"","PROCED. INCOMPATIVEL COM O SEXO!", txtField);
                             }
@@ -138,11 +138,11 @@ public class ProcedimentoVerifier extends InputVerifier{
                             
                         if((idadePaciente<idadeMinima) || (idadePaciente>idadeMaxima)){
                                 
-                                return  MessagesErrors.continuaErro(component,"","PROCED. INCOMPATIVEL COM A IDADE!"+"\n IDADE MÍNIMA: "+idadeMinima+"\n IDADE MÁXIMA: "+idadeMaxima, txtField);
+                                return  MessagesErrors.continuaErro(component,"","PROCED. INCOMPATIVEL COM A IDADE!"+"\n IDADE MÃ�NIMA: "+idadeMinima+"\n IDADE MÃ�XIMA: "+idadeMaxima, txtField);
                         } 
                         if(!procedimentosSearchead.isBPA() && !procedimentosSearchead.isBPI() && !procedimentosSearchead.isPsicossocial()){
-                                JOptionPane.showMessageDialog(this.component,"TIPO INVÁLIDO INVÁLIDO! (PERMITIDO SOMENTE BPA OU BPI OU PSICOSSOCIAL)"
-                                        ,"Erro de validação!", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(this.component,"TIPO INVÃ�LIDO INVÃ�LIDO! (PERMITIDO SOMENTE BPA OU BPI OU PSICOSSOCIAL)"
+                                        ,"Erro de validaÃ§Ã£o!", JOptionPane.ERROR_MESSAGE);
                                 txtField.setBackground(Color.RED); 
                                 return  false;
                             }
