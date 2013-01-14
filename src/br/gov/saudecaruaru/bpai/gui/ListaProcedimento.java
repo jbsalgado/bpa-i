@@ -115,6 +115,12 @@ public class ListaProcedimento extends javax.swing.JFrame {
         this.jMenuItemAlteraCompetencia.setText("Alterar Competência");
         this.jcomboBoxFiltro.addFocusListener(this.listenerFieldsChangeBackground );
         this.jTextFieldPesquisa.addFocusListener(this.listenerFieldsChangeBackground);
+        
+        try{
+            this.bIProcedimentoController.insereProcedimentosSemReferencia();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
 
   

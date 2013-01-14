@@ -126,4 +126,6 @@ public interface BasicDAO<T extends Serializable> {
      * @return List com todos os objetos que satisfaçam a condição
      */
     public List<T> findAllLike(Map<String,Object> restrictions);
+    
+    public List<T> findAllEqualInMap(Map<String,List<Object>> restrictions);
 }

@@ -5,6 +5,7 @@
 package br.gov.saudecaruaru.bpai.business.controller;
 
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
+import br.gov.saudecaruaru.bpai.business.model.Procedimento;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
 import br.gov.saudecaruaru.bpai.data.BIProcedimentoRealizadoDAO;
@@ -37,7 +38,7 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
         return ((BIProcedimentoRealizadoDAO)this.getDao()).getNextFolha(BIProcedimentoRealizado);
     }
     
-
+    
     
     
     public boolean findAllProcedimentosConsolidadosAndSave(String competenciaMovimento, String cnesUnidade,ProcedimentoRealizadoDAO procedimentoDao, int maxResults){
