@@ -46,15 +46,16 @@ public class BIProcedimentoController extends BasecController<BIProcedimento> {
             
             //busca esses procedimentos
             List<Procedimento> procedimentos = pc.findAllEqualInMap(restrictions);
-            
-            List<BIProcedimento> listBIProcedimentos = new ArrayList<BIProcedimento>();
-            //transforma os procedimentos em BIProcedimentos
-            for (Procedimento procedimento : procedimentos) {
-                listBIProcedimentos.add(new BIProcedimento(procedimento));
-            }
+            if(!procedimentos.isEmpty()){
+                List<BIProcedimento> listBIProcedimentos = new ArrayList<BIProcedimento>();
+                //transforma os procedimentos em BIProcedimentos
+                for (Procedimento procedimento : procedimentos) {
+                    listBIProcedimentos.add(new BIProcedimento(procedimento));
+                }
 
-            //salva esses procedimentos no banco
-            this.getDao().save(listBIProcedimentos);
+                //salva esses procedimentos no banco
+                this.salvar(listBIProcedimentos);
+            }
         }
     }
     
