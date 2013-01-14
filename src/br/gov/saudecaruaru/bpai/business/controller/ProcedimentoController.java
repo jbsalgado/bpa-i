@@ -6,6 +6,8 @@ package br.gov.saudecaruaru.bpai.business.controller;
 
 import br.gov.saudecaruaru.bpai.business.model.Procedimento;
 import br.gov.saudecaruaru.bpai.data.ProcedimentoDAO;
+import br.gov.saudecaruaru.bpai.util.ModelUtil;
+import java.util.List;
 
 /**
  *
