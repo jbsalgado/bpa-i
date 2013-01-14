@@ -259,6 +259,10 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
         return l;
     }
     
+    /*
+     * Recebe uma lista de ProcedimentoRealizado e 
+     * devolve uma lista de BIProcedimentoRealizado
+     */
     public List<ProcedimentoRealizado> parserBIProcedimentoRealizadoToProcedimentoRealizado(List<BIProcedimentoRealizado> list){
         List<ProcedimentoRealizado> l= new ArrayList<ProcedimentoRealizado>();
         for(BIProcedimentoRealizado p: list){
@@ -267,11 +271,27 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
         return l;
     }
     
+    /*
+     * Devolve todas as competências movimento que
+     * estão presentes na produção digitada
+     */
     public List<String> getTodasCompetenciaMovimento(){
         return ((BIProcedimentoRealizadoDAO)this.getDao()).getAllCompetenciaMovimento();
     }
     
+    /*
+     * Devolve todas as unidades que tem produção digitada.
+     */
     public List<String> getAllUnidade(){
         return ((BIProcedimentoRealizadoDAO)this.getDao()).getAllUnidade();
+    }
+    
+    /*
+     * Devolve todos os procedimentos que ainda não estão
+     * cadastrados na tabela S_PA (BIProcedimento).
+     * O código do procedimento vem sem o dígito verificador.
+     */
+    public List<String> getAllCodigoProcedimentoSemReferencia(String competencia){
+        return ((BIProcedimentoRealizadoDAO)this.getDao()).getAllCodigoProcedimentoSemReferencia(competencia);
     }
 }

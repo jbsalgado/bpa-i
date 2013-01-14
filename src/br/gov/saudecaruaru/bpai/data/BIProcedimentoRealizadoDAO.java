@@ -19,17 +19,18 @@ import org.hibernate.Session;
  * @author Albuquerque
  */
 public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealizado> {
-    
-    private static Logger logger= Logger.getLogger(BIProcedimentoRealizadoDAO.class);
+
+    private static Logger logger = Logger.getLogger(BIProcedimentoRealizadoDAO.class);
+
     public BIProcedimentoRealizadoDAO() {
         //super(EntityManagerUtil.getEntityManagerI());
-        
     }
-    public String getNextFolha(BIProcedimentoRealizado BIProcedimentoRealizado){
-         Session session= this.getSession();
-         List l=null;
-        try{     
-            StringBuilder sql=new StringBuilder();
+
+    public String getNextFolha(BIProcedimentoRealizado BIProcedimentoRealizado) {
+        Session session = this.getSession();
+        List l = null;
+        try {
+            StringBuilder sql = new StringBuilder();
             //campos a serem selecionados
             sql.append("select MAX(pro.biProcedimentoRealizadoPK.numeroFolha)");
             sql.append(" FROM BIProcedimentoRealizado pro");
@@ -38,31 +39,32 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             sql.append(" AND (pro.biProcedimentoRealizadoPK.competencia=:competencia)");
             sql.append(" AND (pro.biProcedimentoRealizadoPK.cboMedico=:cbo)");
             sql.append(" AND (pro.biProcedimentoRealizadoPK.cnsMedico=:cnsMedico)");
-            
+
             //it's create query
-            Query q=session.createQuery(sql.toString());
+            Query q = session.createQuery(sql.toString());
             q.setParameter("cnesUnidade", BIProcedimentoRealizado.getBiProcedimentoRealizadoPK().getCnesUnidade());
-            q.setParameter("competencia",  BIProcedimentoRealizado.getBiProcedimentoRealizadoPK().getCompetencia());
-            q.setParameter("cbo",  BIProcedimentoRealizado.getBiProcedimentoRealizadoPK().getCboMedico());
-            q.setParameter("cnsMedico",  BIProcedimentoRealizado.getBiProcedimentoRealizadoPK().getCnsMedico());
-            
-            l=q.list();
+            q.setParameter("competencia", BIProcedimentoRealizado.getBiProcedimentoRealizadoPK().getCompetencia());
+            q.setParameter("cbo", BIProcedimentoRealizado.getBiProcedimentoRealizadoPK().getCboMedico());
+            q.setParameter("cnsMedico", BIProcedimentoRealizado.getBiProcedimentoRealizadoPK().getCnsMedico());
+
+            l = q.list();
             String f = "";
             String folha = null;
-            for(Object row:l){
-               folha = (String)row;
+            for (Object row : l) {
+                folha = (String) row;
             }
-            if(folha!=null){
-                int nextFolha = (Integer.parseInt(folha)+1);
-                f = String.format("%03d",nextFolha);
+            if (folha != null) {
+                int nextFolha = (Integer.parseInt(folha) + 1);
+                f = String.format("%03d", nextFolha);
             }
             return f;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
-            logger.error("Ao executar o método getNextFolha "+ex.getMessage());
+            logger.error("Ao executar o método getNextFolha " + ex.getMessage());
             return "";
         }
     }
+
     /**
      * Pega todos os procedimentos consolidados de forma páginada, mas de forma agrupada pelos seguintes campos:
      * Cnes da unidade, CBO do profissional, Idade do paciente, código do procedimento e competência
@@ -71,36 +73,11 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
      * @param maxResult -  a quantidade máxima de resultados resultados
      * @return  Lista de com os procedimentos realizados
      */
-    public List<ProcedimentoRealizado> findAllConsolidados(String competenciaMovimento, String cnesUnidade,int firstResult,int maxResult){
-        List<Object[]> l=null;
-        Session session= this.getSession();
-        try{
-//            example in SQL for get the procedimentos
-//            ===> first X skip Y equivalent in Mysql at limit Y,X <===
-//            select first 100 skip 50 pr.prd_cbo,pr.prd_uid,pr.prd_idade,p.pa_dc,p.pa_id,pr.prd_org,pr.prd_mvm,pr.prd_cmp, sum(pr.prd_qt_p) 
-//            FROM s_prd pr inner join S_PA p on (p.pa_id||p.pa_dv=pr.prd_pa and  p.pa_idebpa='S' ) 
-//            group by pr.prd_uid,pr.prd_cbo, p.pa_id,pr.prd_idade, p.pa_dc,pr.prd_org,pr.prd_cmp,pr.prd_mvm;
-                StringBuilder sql=new StringBuilder();
-//            //campos a serem selecionados
-//            sql.append("SELECT  pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
-//            sql.append("pro.idadePaciente, pro.codigoProcedimento, pro.biProcedimentoRealizadoPK.competencia, pro.competenciaMovimento, ");
-//            //faz o somatório da quantidade de execuções
-//            sql.append("SUM(pro.quantidadeRealizada) AS quantidadeRealizada");
-//            sql.append(" FROM BIProcedimentoRealizado pro");
-//            //traz somente os procedimentos que devem ser consolidados
-//            sql.append(" WHERE (pro.origemProcedimento=:origem ");
-//            sql.append(" AND pro.competenciaMovimento=:competenciaMovimento ");
-//            sql.append(" AND pro.biProcedimentoRealizadoPK.cnesUnidade=:cnesUnidade )");
-//            //agrupa
-//            sql.append(" GROUP BY pro.biProcedimentoRealizadoPK.competencia,pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
-//            sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.competenciaMovimento");
-//            //ordena
-//            sql.append(" ORDER BY pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico");
-//            //it's create query
-//            Query q=session.createQuery(sql.toString());
-//            q.setParameter("origem", ProcedimentoRealizado.ORIGEM_CONSOLIDADO);
-//            q.setParameter("competenciaMovimento", competenciaMovimento);
-//            q.setParameter("cnesUnidade", cnesUnidade);
+    public List<ProcedimentoRealizado> findAllConsolidados(String competenciaMovimento, String cnesUnidade, int firstResult, int maxResult) {
+        List<Object[]> l = null;
+        Session session = this.getSession();
+        try {
+            StringBuilder sql = new StringBuilder();
             sql.append("SELECT  pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
             sql.append(" pro.codigoProcedimento, pro.biProcedimentoRealizadoPK.competencia, pro.competenciaMovimento, ");
             //faz o somatório da quantidade de execuções
@@ -118,7 +95,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             //ordena
             sql.append(" ORDER BY pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico");
             //it's create query
-            Query q=session.createQuery(sql.toString());
+            Query q = session.createQuery(sql.toString());
             q.setParameter("origem", ProcedimentoRealizado.ORIGEM_CONSOLIDADO);
             q.setParameter("exige", Procedimento.NAO_EXIGE_IDADE);
             q.setParameter("competenciaMovimento", competenciaMovimento);
@@ -126,35 +103,34 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             //paginacao dos resultados
             q.setFirstResult(firstResult);
             q.setMaxResults(maxResult);
-            l=q.list();
-        }catch(Exception ex){
+            l = q.list();
+        } catch (Exception ex) {
             ex.printStackTrace();
-            logger.error("Ao executar o método findAllConsolidados "+ex.getMessage());
-        }
-        finally{
+            logger.error("Ao executar o método findAllConsolidados " + ex.getMessage());
+        } finally {
             //session.flush();
             session.close();
-            List<ProcedimentoRealizado> list= new ArrayList<ProcedimentoRealizado>();
-            if(l!=null){
+            List<ProcedimentoRealizado> list = new ArrayList<ProcedimentoRealizado>();
+            if (l != null) {
                 //cada objeto de l contém um vetor que representa os campos selecionados
-                for(Object[] row:l){
-                    ProcedimentoRealizado pro=new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
-                    
+                for (Object[] row : l) {
+                    ProcedimentoRealizado pro = new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
+
                     //o tamanho do vetor é igual a quantidade de campos do select
                     //o índíce do campo no select é igual ao do vetor, começando por zero.
-                    pro.getProcedimentoRealizadoPK().setCnesUnidade((String)row[0]);
-                    pro.getProcedimentoRealizadoPK().setCboMedico((String)row[1]);
+                    pro.getProcedimentoRealizadoPK().setCnesUnidade((String) row[0]);
+                    pro.getProcedimentoRealizadoPK().setCboMedico((String) row[1]);
                     pro.setIdadePaciente("000");
-                    pro.setCodigoProcedimento((String)row[2]);
-                    pro.getProcedimentoRealizadoPK().setCompetencia((String)row[3]);
-                    pro.setCompetenciaMovimento((String)row[4]);
+                    pro.setCodigoProcedimento((String) row[2]);
+                    pro.getProcedimentoRealizadoPK().setCompetencia((String) row[3]);
+                    pro.setCompetenciaMovimento((String) row[4]);
                     pro.setQuantidadeRealizada((Double) row[5]);
-                    
+
                     //valores padrões
-                    
+
                     pro.setOrigemProcedimento(ProcedimentoRealizado.ORIGEM_CONSOLIDADO);
                     pro.preencherAtributosVazios();
-                    
+
                     list.add(pro);
                 }
                 l.clear();
@@ -162,17 +138,12 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             return list;
         }
     }
-    public List<ProcedimentoRealizado> findAllConsolidadosPorIdade(String competenciaMovimento, String cnesUnidade,int firstResult,int maxResult){
-        List<Object[]> l=null;
-        Session session= this.getSession();
-        try{
-//            example in SQL for get the procedimentos
-//            ===> first X skip Y equivalent in Mysql at limit Y,X <===
-//            select first 100 skip 50 pr.prd_cbo,pr.prd_uid,pr.prd_idade,p.pa_dc,p.pa_id,pr.prd_org,pr.prd_mvm,pr.prd_cmp, sum(pr.prd_qt_p) 
-//            FROM s_prd pr inner join S_PA p on (p.pa_id||p.pa_dv=pr.prd_pa and  p.pa_idebpa='S' ) 
-//            group by pr.prd_uid,pr.prd_cbo, p.pa_id,pr.prd_idade, p.pa_dc,pr.prd_org,pr.prd_cmp,pr.prd_mvm;
 
-            StringBuilder sql=new StringBuilder();
+    public List<ProcedimentoRealizado> findAllConsolidadosPorIdade(String competenciaMovimento, String cnesUnidade, int firstResult, int maxResult) {
+        List<Object[]> l = null;
+        Session session = this.getSession();
+        try {
+            StringBuilder sql = new StringBuilder();
             //campos a serem selecionados
             sql.append("SELECT  pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
             sql.append("pro.idadePaciente, pro.codigoProcedimento, pro.biProcedimentoRealizadoPK.competencia, pro.competenciaMovimento, ");
@@ -191,7 +162,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             //ordena
             sql.append(" ORDER BY pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico");
             //it's create query
-            Query q=session.createQuery(sql.toString());
+            Query q = session.createQuery(sql.toString());
             q.setParameter("origem", ProcedimentoRealizado.ORIGEM_CONSOLIDADO);
             q.setParameter("exige", Procedimento.EXIGE_IDADE);
             q.setParameter("competenciaMovimento", competenciaMovimento);
@@ -199,35 +170,34 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             //paginacao dos resultados
             q.setFirstResult(firstResult);
             q.setMaxResults(maxResult);
-            l=q.list();
-        }catch(Exception ex){
+            l = q.list();
+        } catch (Exception ex) {
             ex.printStackTrace();
-            logger.error("Ao executar o método findAllConsolidados "+ex.getMessage());
-        }
-        finally{
+            logger.error("Ao executar o método findAllConsolidados " + ex.getMessage());
+        } finally {
             //session.flush();
             session.close();
-            List<ProcedimentoRealizado> list= new ArrayList<ProcedimentoRealizado>();
-            if(l!=null){
+            List<ProcedimentoRealizado> list = new ArrayList<ProcedimentoRealizado>();
+            if (l != null) {
                 //cada objeto de l contém um vetor que representa os campos selecionados
-                for(Object[] row:l){
-                    ProcedimentoRealizado pro=new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
-                    
+                for (Object[] row : l) {
+                    ProcedimentoRealizado pro = new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
+
                     //o tamanho do vetor é igual a quantidade de campos do select
                     //o índíce do campo no select é igual ao do vetor, começando por zero.
-                    pro.getProcedimentoRealizadoPK().setCnesUnidade((String)row[0]);
-                    pro.getProcedimentoRealizadoPK().setCboMedico((String)row[1]);
-                    pro.setIdadePaciente((String)row[2]);
-                    pro.setCodigoProcedimento((String)row[3]);
-                    pro.getProcedimentoRealizadoPK().setCompetencia((String)row[4]);
-                    pro.setCompetenciaMovimento((String)row[5]);
+                    pro.getProcedimentoRealizadoPK().setCnesUnidade((String) row[0]);
+                    pro.getProcedimentoRealizadoPK().setCboMedico((String) row[1]);
+                    pro.setIdadePaciente((String) row[2]);
+                    pro.setCodigoProcedimento((String) row[3]);
+                    pro.getProcedimentoRealizadoPK().setCompetencia((String) row[4]);
+                    pro.setCompetenciaMovimento((String) row[5]);
                     pro.setQuantidadeRealizada((Double) row[6]);
-                    
+
                     //valores padrões
-                    
+
                     pro.setOrigemProcedimento(ProcedimentoRealizado.ORIGEM_CONSOLIDADO);
                     pro.preencherAtributosVazios();
-                    
+
                     list.add(pro);
                 }
                 l.clear();
@@ -235,6 +205,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             return list;
         }
     }
+
     /**
      * Pega todos os procedimentos realizados que são individuais de forma páginada
      * @param competencia - competência dos registros
@@ -242,13 +213,13 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
      * @param maxResult -  a quantidade máxima de resultados resultados
      * @return  Lista de com os procedimentos realizados
      */
-    public List<ProcedimentoRealizado> findAllProcedimentosIndividuais(String competenciaMovimento, String cnesUnidade,int firstResult,int maxResult){
-        List<ProcedimentoRealizado> list=new ArrayList<ProcedimentoRealizado>();
-        List<BIProcedimentoRealizado> l=null;
-        Session session= this.getSession();
-        try{
+    public List<ProcedimentoRealizado> findAllProcedimentosIndividuais(String competenciaMovimento, String cnesUnidade, int firstResult, int maxResult) {
+        List<ProcedimentoRealizado> list = new ArrayList<ProcedimentoRealizado>();
+        List<BIProcedimentoRealizado> l = null;
+        Session session = this.getSession();
+        try {
 
-            StringBuilder sql=new StringBuilder();
+            StringBuilder sql = new StringBuilder();
             //campos a serem selecionados
             sql.append("");
             //faz o somatório da quantidade de execuções
@@ -262,27 +233,26 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             sql.append(" pro.biProcedimentoRealizadoPK.cboMedico, ");
             sql.append(" pro.biProcedimentoRealizadoPK.numeroFolha, ");
             sql.append(" pro.biProcedimentoRealizadoPK.sequenciaFolha ");
-            
+
             //it's create query
-            Query q=session.createQuery(sql.toString());
+            Query q = session.createQuery(sql.toString());
             q.setParameter("origem", ProcedimentoRealizado.ORIGEM_INDIVIDUALIZADO);
             q.setParameter("competenciaMovimento", competenciaMovimento);
             q.setParameter("cnesUnidade", cnesUnidade);
             //paginacao dos resultados
             q.setFirstResult(firstResult);
             q.setMaxResults(maxResult);
-            l=q.list();
-        }catch(Exception ex){
+            l = q.list();
+        } catch (Exception ex) {
             ex.printStackTrace();
-            logger.error("Ao executar o método findAllProcedimentosIndividuais "+ex.getMessage());
-        }
-        finally{
+            logger.error("Ao executar o método findAllProcedimentosIndividuais " + ex.getMessage());
+        } finally {
             //session.flush();
             session.close();
-            if(l!=null){
+            if (l != null) {
                 //cada objeto de l contém um vetor que representa os campos selecionados
-                for(BIProcedimentoRealizado row: l){
-                    ProcedimentoRealizado pro=new ProcedimentoRealizado(row);
+                for (BIProcedimentoRealizado row : l) {
+                    ProcedimentoRealizado pro = new ProcedimentoRealizado(row);
                     pro.preencherAtributosVazios();
                     list.add(pro);
                 }
@@ -290,26 +260,26 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             }
             return list;
         }
-    
+
     }
-    
+
     @Override
     public Session getSession() {
         return HibernateUtil.getSessionBpaI();
     }
-    
-    /**
-    * Devolve todos os procedimentos somente com os campos d cabeçalho preenchido.
-    * A saber: CNES da Unidade, CBO do profissional, Número da Folha, Competência e CNS do médico.
-    * Em outras palavaras: agrupa os resgistros pelos campos descritos acima.
-    * @return List<ProcedimentoRealizado> - A lista de todos os procedimentos encontrados
-    */
-   public List<ProcedimentoRealizado> findAllOnlyHeader(String competencia){
-        List<Object[]> l=null;
-        Session session= this.getSession();
-        try{
 
-            StringBuilder sql=new StringBuilder();
+    /**
+     * Devolve todos os procedimentos somente com os campos d cabeçalho preenchido.
+     * A saber: CNES da Unidade, CBO do profissional, Número da Folha, Competência e CNS do médico.
+     * Em outras palavaras: agrupa os resgistros pelos campos descritos acima.
+     * @return List<ProcedimentoRealizado> - A lista de todos os procedimentos encontrados
+     */
+    public List<ProcedimentoRealizado> findAllOnlyHeader(String competencia) {
+        List<Object[]> l = null;
+        Session session = this.getSession();
+        try {
+
+            StringBuilder sql = new StringBuilder();
             //campos a serem selecionados
             sql.append("SELECT  pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
             sql.append(" pro.biProcedimentoRealizadoPK.numeroFolha, pro.biProcedimentoRealizadoPK.competencia,");
@@ -322,29 +292,28 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             sql.append(" GROUP BY pro.biProcedimentoRealizadoPK.competencia, pro.biProcedimentoRealizadoPK.cnesUnidade,");
             sql.append(" pro.biProcedimentoRealizadoPK.cnsMedico,pro.biProcedimentoRealizadoPK.cboMedico,pro.biProcedimentoRealizadoPK.numeroFolha");
             //it's create query
-            Query q=session.createQuery(sql.toString());
+            Query q = session.createQuery(sql.toString());
             q.setParameter("competencia", competencia);
             //paginacao dos resultados
-            l=q.list();
-        }catch(Exception ex){
+            l = q.list();
+        } catch (Exception ex) {
             ex.printStackTrace();
-            logger.error("Ao executar o método findAllOnlyHeader "+ex.getMessage());
-        }
-        finally{
-            List<ProcedimentoRealizado> list= new ArrayList<ProcedimentoRealizado>();
-            if(l!=null){
+            logger.error("Ao executar o método findAllOnlyHeader " + ex.getMessage());
+        } finally {
+            List<ProcedimentoRealizado> list = new ArrayList<ProcedimentoRealizado>();
+            if (l != null) {
                 //cada objeto de l contém um vetor que representa os campos selecionados
-                for(Object[] row:l){
-                    ProcedimentoRealizado pro=new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
-                    
+                for (Object[] row : l) {
+                    ProcedimentoRealizado pro = new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
+
                     //o tamanho do vetor é igual a quantidade de campos do select
                     //o índíce do campo no select é igual ao do vetor, começando por zero.
-                    pro.getProcedimentoRealizadoPK().setCnesUnidade((String)row[0]);
-                    pro.getProcedimentoRealizadoPK().setCboMedico((String)row[1]);
-                    pro.getProcedimentoRealizadoPK().setNumeroFolha((String)row[2]);
-                    pro.getProcedimentoRealizadoPK().setCompetencia((String)row[3]);
-                    pro.getProcedimentoRealizadoPK().setCnsMedico((String)row[4]);
-                    
+                    pro.getProcedimentoRealizadoPK().setCnesUnidade((String) row[0]);
+                    pro.getProcedimentoRealizadoPK().setCboMedico((String) row[1]);
+                    pro.getProcedimentoRealizadoPK().setNumeroFolha((String) row[2]);
+                    pro.getProcedimentoRealizadoPK().setCompetencia((String) row[3]);
+                    pro.getProcedimentoRealizadoPK().setCnsMedico((String) row[4]);
+
                     list.add(pro);
                 }
             }
@@ -352,61 +321,97 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             return list;
         }
     }
-   
-   
-    public List<ProcedimentoRealizado> findAllOnlyHeaderEqual(BIProcedimentoRealizado BIprocedimentoRealizado){
-            
-            List<BIProcedimentoRealizado> l = this.findAllEqual(BIprocedimentoRealizado);
-            List<ProcedimentoRealizado> list= new ArrayList<ProcedimentoRealizado>();
-            if(l!=null){
-                //cada objeto de l contém um vetor que representa os campos selecionados
-                for(BIProcedimentoRealizado row:l){
-                    ProcedimentoRealizado pro=new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
-                    if(row!=null){
+
+    public List<ProcedimentoRealizado> findAllOnlyHeaderEqual(BIProcedimentoRealizado BIprocedimentoRealizado) {
+
+        List<BIProcedimentoRealizado> l = this.findAllEqual(BIprocedimentoRealizado);
+        List<ProcedimentoRealizado> list = new ArrayList<ProcedimentoRealizado>();
+        if (l != null) {
+            //cada objeto de l contém um vetor que representa os campos selecionados
+            for (BIProcedimentoRealizado row : l) {
+                ProcedimentoRealizado pro = new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
+                if (row != null) {
                     //o tamanho do vetor é igual a quantidade de campos do select
                     //o índíce do campo no select é igual ao do vetor, começando por zero.
-                        pro.getProcedimentoRealizadoPK().setCnesUnidade(row.getBiProcedimentoRealizadoPK().getCnesUnidade());
-                        pro.getProcedimentoRealizadoPK().setCboMedico(row.getBiProcedimentoRealizadoPK().getCboMedico());
-                        pro.getProcedimentoRealizadoPK().setNumeroFolha(row.getBiProcedimentoRealizadoPK().getNumeroFolha());
-                        pro.getProcedimentoRealizadoPK().setCompetencia(row.getBiProcedimentoRealizadoPK().getCompetencia());
-                        pro.getProcedimentoRealizadoPK().setCnsMedico(row.getBiProcedimentoRealizadoPK().getCnsMedico());
+                    pro.getProcedimentoRealizadoPK().setCnesUnidade(row.getBiProcedimentoRealizadoPK().getCnesUnidade());
+                    pro.getProcedimentoRealizadoPK().setCboMedico(row.getBiProcedimentoRealizadoPK().getCboMedico());
+                    pro.getProcedimentoRealizadoPK().setNumeroFolha(row.getBiProcedimentoRealizadoPK().getNumeroFolha());
+                    pro.getProcedimentoRealizadoPK().setCompetencia(row.getBiProcedimentoRealizadoPK().getCompetencia());
+                    pro.getProcedimentoRealizadoPK().setCnsMedico(row.getBiProcedimentoRealizadoPK().getCnsMedico());
 
-                        list.add(pro);
-                    }
+                    list.add(pro);
                 }
             }
-            return list;
+        }
+        return list;
     }
-    
-    public List<String> getAllCompetenciaMovimento(){
-        List list=new ArrayList<String>();
-        Session session=this.getSession();
-        try{
-            Query q=session.createQuery("SELECT competenciaMovimento FROM BIProcedimentoRealizado GROUP BY competenciaMovimento");
-            list=q.list();
-        }catch(Exception ex){
+
+    public List<String> getAllCompetenciaMovimento() {
+        List list = new ArrayList<String>();
+        Session session = this.getSession();
+        try {
+            Query q = session.createQuery("SELECT competenciaMovimento FROM BIProcedimentoRealizado GROUP BY competenciaMovimento");
+            list = q.list();
+        } catch (Exception ex) {
             ex.printStackTrace();
-            logger.error("Ao executar o método getAllCompetenciaMovimento "+ex.getMessage());
-        }
-        finally{
+            logger.error("Ao executar o método getAllCompetenciaMovimento " + ex.getMessage());
+        } finally {
             return list;
         }
-        
+
     }
-    
-    public List<String> getAllUnidade(){
-        List list=new ArrayList<String>();;
-        Session session=this.getSession();
-        try{
-            Query q=session.createQuery("SELECT biProcedimentoRealizadoPK.cnesUnidade FROM BIProcedimentoRealizado GROUP BY biProcedimentoRealizadoPK.cnesUnidade");
-            list=q.list();
-        }catch(Exception ex){
+
+    public List<String> getAllUnidade() {
+        List list = new ArrayList<String>();;
+        Session session = this.getSession();
+        try {
+            Query q = session.createQuery("SELECT biProcedimentoRealizadoPK.cnesUnidade FROM BIProcedimentoRealizado GROUP BY biProcedimentoRealizadoPK.cnesUnidade");
+            list = q.list();
+        } catch (Exception ex) {
             ex.printStackTrace();
-            logger.error("Ao executar o método getAllUnidade "+ex.getMessage());
-        }
-        finally{
+            logger.error("Ao executar o método getAllUnidade " + ex.getMessage());
+        } finally {
             return list;
         }
-        
+
+    }
+
+    public List<String> getAllCodigoProcedimentoSemReferencia(String competenciaMovimento) {
+        List<String> list = new ArrayList<String>();
+        Session session = this.getSession();
+        try {
+            StringBuilder str = new StringBuilder();
+            //PRIMEIRO PEGA OS PROCEDIMENTOS
+            str.append("SELECT DISTINCT(pro.codigoProcedimento) FROM BIProcedimentoRealizado pro");
+            str.append(" WHERE pro.competenciaMovimento=:competencia");
+//            str.append(" GROUP BY pro.codigoProcedimento");
+//            Query query=session.createQuery(str.toString());
+//            query.setParameter("competencia", competencia);
+//            list=query.list();
+//            
+            str.append(" AND (SELECT p.bIprocedimentoPk.id FROM BIProcedimento p");
+            str.append(" WHERE pro.codigoProcedimento=concat(p.bIprocedimentoPk.id,p.digitoVerificador) ");
+            str.append(" AND pro.biProcedimentoRealizadoPK.competencia=p.bIprocedimentoPk.competencia) IS NULL");
+
+
+            Query query = session.createQuery(str.toString());
+            query.setParameter("competencia", competenciaMovimento);
+            list = query.list();
+            if (list == null ? false : !list.isEmpty()) {
+                int size = list.size();
+                for (int i = 0; i < size; i++) {
+                    String s=list.get(i).substring(0, 9);
+                    list.set(i, s);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            logger.error("Ao executar o método getAllUCodigoProcedimentoSemReferencia " + ex.getMessage());
+        } finally {
+            if (session == null ? false : session.isOpen()) {
+                session.close();
+            }
+            return list;
+        }
     }
 }
