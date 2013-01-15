@@ -7,6 +7,7 @@ package br.gov.saudecaruaru.bpai.business.controller;
 
 import br.gov.saudecaruaru.bpai.business.model.BIGestorCompetencia;
 import br.gov.saudecaruaru.bpai.data.GestorCompetenciaDAO;
+import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.util.List;
 
 /**
@@ -43,7 +44,14 @@ public class BIGestorCompetenciaController extends BasecController<BIGestorCompe
         return true;
     }
     
-    
+    public boolean comparaCompetencias(){
+        String cBPAMAG = ModelUtil.COMPETENCIA_MAIS_RECENTE;
+        String cAtual = this.getCompetenciaAtual();
+        if(!this.getCompetenciaAtual().equals(ModelUtil.COMPETENCIA_MAIS_RECENTE)){
+            return false;
+        }
+        return true;
+    }
     
     
 }

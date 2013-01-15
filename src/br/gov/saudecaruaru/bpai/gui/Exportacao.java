@@ -11,8 +11,10 @@
 package br.gov.saudecaruaru.bpai.gui;
 
 
+import br.gov.saudecaruaru.bpai.business.controller.BIGestorCompetenciaController;
 import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoController;
 import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
+import br.gov.saudecaruaru.bpai.business.model.BIGestorCompetencia;
 import br.gov.saudecaruaru.bpai.gui.interfaces.IExportacaoStrategy;
 import br.gov.saudecaruaru.bpai.gui.formatter.CompetenciaFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.UnidadeFormatter;
@@ -31,7 +33,7 @@ import javax.swing.JOptionPane;
  * @author Albuquerque
  */
 public class Exportacao extends javax.swing.JDialog {
-    
+    private BIGestorCompetenciaController gestorCompetenciaController;
     private IExportacaoStrategy exportacao;
     private FocusListener listenerFieldsChangeBackground;
     private ObjectComboBoxModel<String> comboboxCompetenciaModel= new ObjectComboBoxModel<String>();
@@ -42,6 +44,7 @@ public class Exportacao extends javax.swing.JDialog {
     public Exportacao(java.awt.Frame parent, IExportacaoStrategy exportacao) {
         super(parent);
         initComponents();
+        this.gestorCompetenciaController = new BIGestorCompetenciaController();
         this.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -195,23 +198,28 @@ public class Exportacao extends javax.swing.JDialog {
 
     private void jButtonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarActionPerformed
         // TODO add your handling code here:
-        BIProcedimentoController bipc = new BIProcedimentoController();
-        //antes da exportação atualiza a base de procedimentos com os procedimentos digitados
-         try{
-            bipc.insereProcedimentosSemReferencia();
-        }catch(Exception ex){
-            ex.printStackTrace();
+        if(this.gestorCompetenciaController.comparaCompetencias()){
+            BIProcedimentoController bipc = new BIProcedimentoController();
+            //antes da exportação atualiza a base de procedimentos com os procedimentos digitados
+            try{
+                bipc.insereProcedimentosSemReferencia();
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+
+            this.jProgressBar1.setIndeterminate(true);
+            this.jButtonIniciar.setEnabled(true);
+
+            String res=this.exportacao.execute(this.comboboxCompetenciaModel.getSelectedObject(),this.comboboxCnesModel.getSelectedObject());
+
+            JOptionPane.showMessageDialog(this, res);
+            this.jProgressBar1.setIndeterminate(false);
+            this.jProgressBar1.setString(null);
+            this.jProgressBar1.setValue(100);
+        }else{
+            JOptionPane.showMessageDialog(Exportacao.this,"Competência do BPA-Mag diferente da competência atual!\n"
+                    + "Atualize a competência do BPA-Mag","ERRO!", JOptionPane.ERROR_MESSAGE);
         }
-         
-        this.jProgressBar1.setIndeterminate(true);
-        this.jButtonIniciar.setEnabled(true);
-        
-        String res=this.exportacao.execute(this.comboboxCompetenciaModel.getSelectedObject(),this.comboboxCnesModel.getSelectedObject());
-       
-        JOptionPane.showMessageDialog(this, res);
-        this.jProgressBar1.setIndeterminate(false);
-        this.jProgressBar1.setString(null);
-        this.jProgressBar1.setValue(100);
     }//GEN-LAST:event_jButtonIniciarActionPerformed
 
     private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
