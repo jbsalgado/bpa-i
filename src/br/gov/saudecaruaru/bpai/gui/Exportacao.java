@@ -11,6 +11,7 @@
 package br.gov.saudecaruaru.bpai.gui;
 
 
+import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoController;
 import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.gui.interfaces.IExportacaoStrategy;
 import br.gov.saudecaruaru.bpai.gui.formatter.CompetenciaFormatter;
@@ -194,6 +195,14 @@ public class Exportacao extends javax.swing.JDialog {
 
     private void jButtonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarActionPerformed
         // TODO add your handling code here:
+        BIProcedimentoController bipc = new BIProcedimentoController();
+        //antes da exportação atualiza a base de procedimentos com os procedimentos digitados
+         try{
+            bipc.insereProcedimentosSemReferencia();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+         
         this.jProgressBar1.setIndeterminate(true);
         this.jButtonIniciar.setEnabled(true);
         
