@@ -45,8 +45,6 @@ public class BIGestorCompetenciaController extends BasecController<BIGestorCompe
     }
     
     public boolean comparaCompetencias(){
-        String cBPAMAG = ModelUtil.COMPETENCIA_MAIS_RECENTE;
-        String cAtual = this.getCompetenciaAtual();
         if(!this.getCompetenciaAtual().equals(ModelUtil.COMPETENCIA_MAIS_RECENTE)){
             return false;
         }
