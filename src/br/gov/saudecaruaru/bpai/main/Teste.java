@@ -25,9 +25,9 @@ import br.gov.saudecaruaru.bpai.gui.ExportacaoCentralEnvio;
 import br.gov.saudecaruaru.bpai.gui.interfaces.IExportacaoStrategy;
 import br.gov.saudecaruaru.bpai.util.EnvioProcedimentosRealizadosBackground;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
+//import com.sun.jersey.api.client.Client;
+//import com.sun.jersey.api.client.ClientResponse;
+//import com.sun.jersey.api.client.WebResource;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -160,41 +160,41 @@ public class Teste {
     }
     
     public static void testarRestFul(){
-        Client client=Client.create();
-        WebResource webResource = client.resource("http://localhost:8080/sispadreport/hello");
-        ClientResponse response = webResource.accept("application/pdf")
-                   .get(ClientResponse.class);
-        if (response.getStatus() != 200) {
-		   throw new RuntimeException("Failed : HTTP error code : "
-			+ response.getStatus());
-		}
-        else{
-            
-            try {
-                InputStream ob= response.getEntityInputStream();
-
-                // write the inputStream to a FileOutputStream
-                OutputStream out;
-                        out = new FileOutputStream(new File("D:\\newfile.pdf"));
-
-                int read = 0;
-                byte[] bytes = new byte[1024];
-                    while ((read = ob.read(bytes)) != -1) {
-                            out.write(bytes, 0, read);
-                    }
-                
-
-                ob.close();
-                out.flush();
-                out.close();
-        
-            } catch (FileNotFoundException ex) {
-                java.util.logging.Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
-            }
-             catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            //System.out.println(ob);
-        }
+//        //Client client=Client.create();
+//       // WebResource webResource = client.resource("http://localhost:8080/sispadreport/hello");
+//        //ClientResponse response = webResource.accept("application/pdf")
+//        //           .get(ClientResponse.class);
+//        //if (response.getStatus() != 200) {
+//	//	   throw new RuntimeException("Failed : HTTP error code : "
+//	//		+ response.getStatus());
+//		}
+//        else{
+//            
+//            try {
+//          //      InputStream ob= response.getEntityInputStream();
+//
+//                // write the inputStream to a FileOutputStream
+//                OutputStream out;
+//                        out = new FileOutputStream(new File("D:\\newfile.pdf"));
+//
+//                int read = 0;
+//                byte[] bytes = new byte[1024];
+//                    while ((read = ob.read(bytes)) != -1) {
+//                            out.write(bytes, 0, read);
+//                    }
+//                
+//
+//                ob.close();
+//                out.flush();
+//                out.close();
+//        
+//            } catch (FileNotFoundException ex) {
+//                java.util.logging.Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//             catch (IOException ex) {
+//                    java.util.logging.Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            //System.out.println(ob);
+//        }
     }
 }
