@@ -25,7 +25,7 @@ import java.util.logging.Level;
  */
 public class Manager {
 
-    private static String host = "http://localhost";
+    private static String host = "http://www.saudecaruaru.pe.gov.br";
 
     public List<Recurso> getRecursosASeremAtualizados(Client client) {
         try {
