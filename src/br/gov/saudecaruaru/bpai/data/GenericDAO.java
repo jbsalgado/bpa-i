@@ -360,6 +360,31 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
     }
     
     @Override
+     public List<T> findAllEqualInMap(Map<String,List<Object>> restrictions){
+        Session session= this.getSession();
+        List<T> l=null;
+        try{
+            Criteria c=session.createCriteria(persistentClass);
+            for(String key: restrictions.keySet()){
+                if(key!=null){
+                    c.add(Restrictions.in(key, restrictions.get(key)));
+
+                }
+            }
+            l=c.list();
+        }catch(Exception ex){
+            this.logger.error("Erro ao tentar executar o método findAllEqual [map<string,object>]");
+            this.logger.error(ex.getMessage());
+            ex.printStackTrace();
+        }
+        finally{
+           if(session != null){
+                session.close();
+            }
+           return l;
+        }
+    }
+    @Override
     public List<T> findAllEqualIn(Map<String,Collection> restrictions){
         Session session= this.getSession();
         List<T> l=null;

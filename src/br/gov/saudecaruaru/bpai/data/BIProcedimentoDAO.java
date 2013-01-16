@@ -6,6 +6,7 @@ package br.gov.saudecaruaru.bpai.data;
 
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimento;
 import java.io.Serializable;
+import java.util.List;
 import org.hibernate.Session;
 
 /**
