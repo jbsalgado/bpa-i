@@ -83,6 +83,10 @@ public class BasecController < T extends Serializable>{
     
     public List<T> findAllEqualIn(Map<String,Collection> restrictions){
         return this.dao.findAllEqualIn(restrictions);
+    }  
+    
+    public List<T> findAllEqualInMap(Map<String,List<String>> restrictions){
+        return this.dao.findAllEqualInMap(restrictions);
     }
     public T findEqual(T modelo){
         return (T) this.dao.findEqual(modelo);
