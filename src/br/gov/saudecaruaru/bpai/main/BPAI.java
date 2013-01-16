@@ -9,17 +9,13 @@ import br.gov.saudecaruaru.bpai.data.*;
 import br.gov.saudecaruaru.bpai.gui.EscolhaBanco;
 import br.gov.saudecaruaru.bpai.gui.ListaProcedimento;
 import br.gov.saudecaruaru.bpai.gui.SearchGeneric;
-import br.gov.saudecaruaru.bpai.util.ModelUtil;
+import br.gov.saudecaruaru.bpai.util.Manager;
+import br.gov.saudecaruaru.bpai.util.Recurso;
+import com.sun.jersey.api.client.Client;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.log4j.PropertyConfigurator;
@@ -30,6 +26,9 @@ import org.apache.log4j.PropertyConfigurator;
  */
 public class BPAI {
     
+    public static String DIRETORIO_BANCO;
+    public static String DIRETORIO_LOG;
+    
     //CARREGA AS CONFIGURAÇÕES PARA O LOG
     static {
         try {
@@ -39,6 +38,7 @@ public class BPAI {
                 pro.load(file);
                 PropertyConfigurator.configure(pro);
                 file.close();
+                BPAI.criarDiretorioPadrao();
             }
             catch(Exception ex){
                 ex.printStackTrace();
@@ -99,6 +99,26 @@ public class BPAI {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        BPAI home= new BPAI();
+        home.start();
+        
+    }
+    
+    public void start(){
+        //atualiza os arquivos necessários
+        Manager ini= new Manager();
+        Client client = Client.create();
+        List<Recurso> list=ini.getRecursosASeremAtualizados(client);
+        if (list!= null){
+        for (Recurso r : list) {
+            ini.atualizarRecurso(client, r);
+       
+        }
+        }
+        //verifica se o banco ja existe, senão vai baixar
+        if ( !(new File("C:/BPAI/banco/TESTANDO.GDB").exists()) ){
+            ini.baixarBancoDeDados(client);
+        }
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -120,6 +140,20 @@ public class BPAI {
        principal.setVisible(true);
        principal.setLocationRelativeTo(null);
        principal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
     }
+    
+    private static void criarDiretorioPadrao(){
+        File dir=new File("C:/BPAI/banco");
+        if (!dir.exists()){
+            dir.mkdirs();
+            DIRETORIO_BANCO=dir.getAbsolutePath();
+        }
+        dir=new File("C:/BPAI/log");
+        if (!dir.exists()){
+            dir.mkdirs();
+            DIRETORIO_LOG=dir.getAbsolutePath();
+        }
+    }
+    
+    
 }

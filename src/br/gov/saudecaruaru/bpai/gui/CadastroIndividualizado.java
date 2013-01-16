@@ -50,6 +50,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
      private PacienteController pacienteController;
      private MunicipioController municipioController;
      private ProcedimentoController procedimentoController;
+     private BIProcedimentoController bIProcedimentoController;
      private DoencaController doencaController;
      private BIProcedimentoRealizadoController bIProcedimentoRealizadoController;
      private ProcedimentoServicoController procedimentoServicoController;
@@ -139,6 +140,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.medicoController= new MedicoController();
         this.medicoCboCnesController=new MedicoCboCnesController();
         this.pacienteController=new PacienteController();
+        this.bIProcedimentoController=new BIProcedimentoController();
         this.municipioController= new MunicipioController();
         this.procedimentoController= new ProcedimentoController();
         this.doencaController=new DoencaController();
@@ -1664,6 +1666,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                     this.procedimentoRealizado.preencherAtributosVazios();
                     //se salvou com sucesso continua
                     if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
+                        //salvo o BIProcedimento
+                        this.salvarBIProcedimentoAmbulatorial(this.procedimentoRealizado.getCodigoProcedimento().substring(0,9), this.procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia());
                         //envia o procedimento para a base central
                         //RECURSO DESABILITADO PARA PROJETO PILOTO
                         //this.sProcedimentoRealizadoController.enviarSProcedimentoRealizado(this.procedimentoRealizado.getProcedimentoRealizadoParaEnviar(), this.sUsuarioDesktop);
@@ -1840,6 +1844,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
             }else{
                this.procedimentoRealizado.preencherAtributosVazios();
                if(this.bIProcedimentoRealizadoController.merge(new BIProcedimentoRealizado(this.procedimentoRealizado))!=null){
+                   //salva o BIProcedimento
+                   this.salvarBIProcedimentoAmbulatorial(this.procedimentoRealizado.getCodigoProcedimento().substring(0,9), this.procedimentoRealizado.getProcedimentoRealizadoPK().getCompetencia());
                    //manda atualizar no serviÃ§o
                    //RECURSO DESABILITADO PARA PROJETO PILOTO
                 //this.sProcedimentoRealizadoController.atualizarSProcedimentoRealizado(this.procedimentoRealizado.getProcedimentoRealizadoParaEnviar(), this.sUsuarioDesktop);
@@ -3150,5 +3156,15 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 this.objectComboBoxModelEquipe.setData(equipes);
             }
         }
+  }
+  
+  private void salvarBIProcedimentoAmbulatorial(String codigo,String competencia){
+      Map<String,Object> res=new HashMap<String,Object>();
+      res.put("procedimentoPk.id", codigo);
+      res.put("procedimentoPk.competencia", competencia);
+      Procedimento p= this.procedimentoController.findEqual(res);
+      if ( p!= null){
+          this.bIProcedimentoController.merge(new BIProcedimento(p));
+      }
   }
 }

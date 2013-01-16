@@ -57,7 +57,9 @@ public class Teste {
         //testInEnvioBackground();
         //testLogger();
         //testXML();
-        testeExportacaoProcedimentosCosolidados();
+        //testeExportacaoProcedimentosCosolidados();
+        //testarProcedimentoSemreferencia();
+        testarRestFul();
     }
     
     public static void testeDiversasServicos(){
@@ -161,8 +163,8 @@ public class Teste {
     
     public static void testarRestFul(){
         Client client=Client.create();
-        WebResource webResource = client.resource("http://localhost:8080/sispadreport/hello");
-        ClientResponse response = webResource.accept("application/pdf")
+        WebResource webResource = client.resource("http://localhost/sispad/index.php/sistema/bpai");
+        ClientResponse response = webResource.accept("application/txt")
                    .get(ClientResponse.class);
         if (response.getStatus() != 200) {
 		   throw new RuntimeException("Failed : HTTP error code : "
@@ -175,7 +177,7 @@ public class Teste {
 
                 // write the inputStream to a FileOutputStream
                 OutputStream out;
-                        out = new FileOutputStream(new File("D:\\newfile.pdf"));
+                        out = new FileOutputStream(new File("D:\\newfileteste.txt"));
 
                 int read = 0;
                 byte[] bytes = new byte[1024];
@@ -197,4 +199,11 @@ public class Teste {
             //System.out.println(ob);
         }
     }
+    
+   public static void testarProcedimentoSemreferencia(){
+       BIProcedimentoRealizadoDAO dao=new BIProcedimentoRealizadoDAO();
+       for(String s:dao.getAllCodigoProcedimentoSemReferencia("201212")){
+           System.out.println(s);
+       }
+   }
 }

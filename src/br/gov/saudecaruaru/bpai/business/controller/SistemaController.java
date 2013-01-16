@@ -81,7 +81,7 @@ public class SistemaController {
           
         try {  
   
-            File f = new File( "./configs.conf" );  
+            File f = new File( "C:/BPAI/configs.conf" );  
               
             // se nÃ£o existe o arquivo, cria, caso contrÃ¡rio carrega  
             if ( !f.exists() ) {  
@@ -110,7 +110,7 @@ public class SistemaController {
                       
         try {  
               
-            File f = new File( "./configs.conf" );  
+            File f = new File( "C:/BPAI/configs.conf" );  
             FileInputStream in= new FileInputStream( f );
             prop.load(in );  
             
@@ -130,7 +130,7 @@ public class SistemaController {
           
         try {  
   
-            File f = new File( "./configs.conf" );  
+            File f = new File( "C:/BPAI/configs.conf" );  
             FileInputStream in=new FileInputStream(f);
             prop.load(in); 
             //atualiza
