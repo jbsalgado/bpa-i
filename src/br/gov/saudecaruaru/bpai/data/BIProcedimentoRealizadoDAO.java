@@ -389,7 +389,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
 //            query.setParameter("competencia", competencia);
 //            list=query.list();
 //            
-            str.append(" AND (SELECT p.bIprocedimentoPk.id FROM BIProcedimento p");
+            str.append(" AND (SELECT DISTINCT(p.bIprocedimentoPk.id) FROM BIProcedimento p");
             str.append(" WHERE pro.codigoProcedimento=concat(p.bIprocedimentoPk.id,p.digitoVerificador) ");
             str.append(" AND pro.biProcedimentoRealizadoPK.competencia=p.bIprocedimentoPk.competencia) IS NULL");
 
