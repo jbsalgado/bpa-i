@@ -653,20 +653,26 @@ public class ListaProcedimento extends javax.swing.JFrame {
 
     private void jbtnPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnPesquisarMouseClicked
         String itemBusca = this.jcomboBoxFiltro.getSelectedItem().toString();
-         BIProcedimentoRealizadoPK biPK =new BIProcedimentoRealizadoPK();
+        BIGestorCompetenciaController competenciaController = new BIGestorCompetenciaController();
+       
+        BIProcedimentoRealizadoPK biPK =new BIProcedimentoRealizadoPK();
         
-         BIProcedimentoRealizado bipr = new BIProcedimentoRealizado(biPK);
+        BIProcedimentoRealizado bipr = new BIProcedimentoRealizado(biPK);
         
+        String competencia = competenciaController.getCompetenciaAtual();
         if(itemBusca.equals(ListaProcedimento.COMPETENCIA)){
            biPK.setCompetencia(jTextFieldPesquisa.getText());
         }
         if(itemBusca.equals(ListaProcedimento.CNS)){
+           biPK.setCompetencia(competencia); 
            biPK.setCnsMedico(jTextFieldPesquisa.getText());
         }
         if(itemBusca.equals(ListaProcedimento.CNES)){
+           biPK.setCompetencia(competencia);  
            biPK.setCnesUnidade(jTextFieldPesquisa.getText());
         }
         if(itemBusca.equals(ListaProcedimento.CBO)){
+           biPK.setCompetencia(competencia);  
            biPK.setCboMedico(jTextFieldPesquisa.getText());
         }
         List<ProcedimentoRealizado> list= biProcedimentoRealizadoController.findAllOnlyHeaderEqual(bipr);
