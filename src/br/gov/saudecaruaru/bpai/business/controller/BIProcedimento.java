@@ -10,6 +10,6 @@ import java.io.Serializable;
  *
  * @author Albuquerque
  */
-class BIProcediemnto implements Serializable {
+class BIProcedimento implements Serializable {
     
 }
