@@ -341,7 +341,7 @@ public class ProcedimentoRealizado implements Serializable,Cloneable {
         if(this.equipe==null ? true : this.equipe.isEmpty()){
             this.equipe="            ";
         }
-        if(this.etniaPaciente == null ? true : this.equipe.isEmpty()){
+        if(this.etniaPaciente == null ? true : this.etniaPaciente.isEmpty()){
             this.etniaPaciente="    ";
         }
         if(this.numeroAutorizacao == null ? true : this.numeroAutorizacao.isEmpty()){

@@ -122,11 +122,43 @@ public class HibernateUtil {
         Session s=HibernateUtil.getSession();
         Transaction t=null;
         try{
+            //tabela equipe
             SQLQuery sql=s.createSQLQuery("SELECT RDB$INDEX_NAME  FROM RDB$INDICES WHERE RDB$RELATION_NAME='S_EQESF' and RDB$INDEX_NAME='S_EQESF_CMP_CNES';");
             List l=sql.list();
             if(l.isEmpty()){
                 t=s.beginTransaction();
                 sql=s.createSQLQuery("CREATE INDEX S_EQESF_CMP_CNES ON S_EQESF( ESF_CMP,ESF_CNES );");
+                sql.executeUpdate();
+                t.commit();
+            }
+            //indices para a tabela S_PA
+            sql=s.createSQLQuery("SELECT RDB$INDEX_NAME  FROM RDB$INDICES WHERE RDB$RELATION_NAME='S_PA' and RDB$INDEX_NAME='S_PA_DIGITO_CODIGO_COMPETENCIA';");
+            l=sql.list();
+            if(l.isEmpty()){
+                t=s.beginTransaction();
+                sql=s.createSQLQuery("CREATE INDEX S_PA_DIGITO_CODIGO_COMPETENCIA ON S_PA( PA_ID,PA_DV,PA_CMP );");
+                sql.executeUpdate();
+                t.commit();
+            }
+            s.close();
+        }catch(Exception ex){
+            t.rollback();
+            ex.printStackTrace();
+        }
+    }
+    
+    public static void createIndicesBPAI(){
+        Session s=HibernateUtil.getSessionBpaI();
+        Transaction t=null;
+        try{
+            
+            //cria indices para a tabela S_PRD
+            //primeiro para os procedimentos consolidados
+            SQLQuery sql=s.createSQLQuery("SELECT RDB$INDEX_NAME  FROM RDB$INDICES WHERE RDB$RELATION_NAME='S_PRD' and RDB$INDEX_NAME='S_PRD_EXPORTACAO';");
+            List l=sql.list();
+            if(l.isEmpty()){
+                t=s.beginTransaction();
+                sql=s.createSQLQuery("CREATE INDEX S_PRD_EXPORTACAO ON S_PRD( PRD_MVM,PRD_ORG,PRD_UID );");
                 sql.executeUpdate();
                 t.commit();
             }

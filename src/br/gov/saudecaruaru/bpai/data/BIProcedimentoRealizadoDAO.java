@@ -95,11 +95,13 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             sql.append(" WHERE (pro.origemProcedimento=:origem AND p.exigeIdadeBPA=:exige");
             sql.append(" AND pro.competenciaMovimento=:competenciaMovimento ");
             sql.append(" AND pro.codigoProcedimento=concat(p.bIprocedimentoPk.id,p.digitoVerificador)");
-            sql.append(" AND pro.biProcedimentoRealizadoPK.competencia=p.bIprocedimentoPk.competencia ");
+            sql.append(" AND pro.competenciaMovimento=p.bIprocedimentoPk.competencia ");
             sql.append(" AND pro.biProcedimentoRealizadoPK.cnesUnidade=:cnesUnidade )");
             //agrupa
-            sql.append(" GROUP BY pro.biProcedimentoRealizadoPK.competencia,pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
-            sql.append(" pro.codigoProcedimento,pro.competenciaMovimento");
+//            sql.append(" GROUP BY pro.biProcedimentoRealizadoPK.competencia,pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
+//            sql.append(" pro.codigoProcedimento,pro.competenciaMovimento");
+            sql.append(" GROUP BY pro.competenciaMovimento,pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
+            sql.append(" pro.codigoProcedimento,pro.biProcedimentoRealizadoPK.competencia");
             //ordena
             sql.append(" ORDER BY pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico");
             //it's create query
@@ -162,11 +164,13 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             sql.append(" WHERE (pro.origemProcedimento=:origem AND p.exigeIdadeBPA=:exige");
             sql.append(" AND pro.competenciaMovimento=:competenciaMovimento ");
             sql.append(" AND pro.codigoProcedimento=concat(p.bIprocedimentoPk.id,p.digitoVerificador)");
-            sql.append(" AND pro.biProcedimentoRealizadoPK.competencia=p.bIprocedimentoPk.competencia ");
+            sql.append(" AND pro.competenciaMovimento=p.bIprocedimentoPk.competencia ");
             sql.append(" AND pro.biProcedimentoRealizadoPK.cnesUnidade=:cnesUnidade )");
             //agrupa
-            sql.append(" GROUP BY pro.biProcedimentoRealizadoPK.competencia,pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
-            sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.competenciaMovimento");
+//            sql.append(" GROUP BY pro.biProcedimentoRealizadoPK.competencia,pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
+//            sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.competenciaMovimento");
+            sql.append(" GROUP BY pro.competenciaMovimento,pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
+            sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.biProcedimentoRealizadoPK.competencia");
             //ordena
             sql.append(" ORDER BY pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico");
             //it's create query
@@ -181,7 +185,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             l = q.list();
         } catch (Exception ex) {
             ex.printStackTrace();
-            logger.error("Ao executar o método findAllConsolidados " + ex.getMessage());
+            logger.error("Ao executar o método findAllConsolidadosPorIdade " + ex.getMessage());
         } finally {
             //session.flush();
             session.close();
@@ -282,7 +286,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
      * Em outras palavaras: agrupa os resgistros pelos campos descritos acima.
      * @return List<ProcedimentoRealizado> - A lista de todos os procedimentos encontrados
      */
-    public List<ProcedimentoRealizado> findAllOnlyHeader(String competencia) {
+    public List<ProcedimentoRealizado> findAllOnlyHeader(String competenciaMovimento) {
         List<Object[]> l = null;
         Session session = this.getSession();
         try {
@@ -295,13 +299,13 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             sql.append("pro.biProcedimentoRealizadoPK.cnsMedico, COUNT(pro.biProcedimentoRealizadoPK.sequenciaFolha) AS VOID");
             sql.append(" FROM BIProcedimentoRealizado pro");
             //traz somente os procedimentos que devem ser consolidados
-            sql.append(" WHERE (pro.biProcedimentoRealizadoPK.competencia=:competencia)");
+            sql.append(" WHERE (pro.competenciaMovimento=:competencia)");
             //agrupa
             sql.append(" GROUP BY pro.biProcedimentoRealizadoPK.competencia, pro.biProcedimentoRealizadoPK.cnesUnidade,");
             sql.append(" pro.biProcedimentoRealizadoPK.cnsMedico,pro.biProcedimentoRealizadoPK.cboMedico,pro.biProcedimentoRealizadoPK.numeroFolha");
             //it's create query
             Query q = session.createQuery(sql.toString());
-            q.setParameter("competencia", competencia);
+            q.setParameter("competencia", competenciaMovimento);
             //paginacao dos resultados
             l = q.list();
         } catch (Exception ex) {
@@ -365,7 +369,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
         List list = new ArrayList<String>();
         Session session = this.getSession();
         try {
-            Query q = session.createQuery("SELECT competenciaMovimento FROM BIProcedimentoRealizado GROUP BY competenciaMovimento");
+            Query q = session.createQuery("SELECT DISTINCT(competenciaMovimento) FROM BIProcedimentoRealizado ");
             list = q.list();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -380,7 +384,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
         List list = new ArrayList<String>();;
         Session session = this.getSession();
         try {
-            Query q = session.createQuery("SELECT biProcedimentoRealizadoPK.cnesUnidade FROM BIProcedimentoRealizado GROUP BY biProcedimentoRealizadoPK.cnesUnidade");
+            Query q = session.createQuery("SELECT DISTINCT(biProcedimentoRealizadoPK.cnesUnidade) FROM BIProcedimentoRealizado ");
             list = q.list();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -406,6 +410,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
 //            
             str.append(" AND (SELECT DISTINCT(p.bIprocedimentoPk.id) FROM BIProcedimento p");
             str.append(" WHERE pro.codigoProcedimento=concat(p.bIprocedimentoPk.id,p.digitoVerificador) ");
+            //str.append(" AND p.bIprocedimentoPk.competencia=:");
             str.append(" AND pro.biProcedimentoRealizadoPK.competencia=p.bIprocedimentoPk.competencia) IS NULL");
 
 

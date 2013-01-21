@@ -50,7 +50,7 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
             int size=maxResults;
             int offset=0;
             int seq=1;
-            String CBO=null;
+            String COMPETENCIA=null;
             String CNES=null;
             BIProcedimentoRealizadoDAO dao= (BIProcedimentoRealizadoDAO)this.getDao();
             //list para armazenar os procedimentos consolidados
@@ -63,11 +63,11 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
                     
                    ProcedimentoRealizadoPK p=list.get(i).getProcedimentoRealizadoPK();
                    //pega o CBO e o CNES, quando mudarem, a folha e sequêcia são reiniciadas
-                   String tCBO=p.getCboMedico();
+                   String tCompetencia=p.getCompetencia();
                    String tCNES=p.getCnesUnidade();
                    
-                   //mudou de CBO ou CNES
-                   if( ( CNES == null ?  false : !CNES.equals(tCNES)) ){
+                   //mudou de Competência ou CNES
+                   if( ( CNES == null ?  false : !CNES.equals(tCNES)) || ( COMPETENCIA == null ?  false : !COMPETENCIA.equals(tCompetencia)) ){
                        //zera a sequência
                        seq=1;
                        //inicia uma nova folha
@@ -88,7 +88,7 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
                   //incrementa a sequência
                    seq++;
                    //guarda os valores
-                   CBO=tCBO;
+                   COMPETENCIA=tCompetencia;
                    CNES=tCNES;
                 }
                 //salva a lista no banco de dados
@@ -115,7 +115,7 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
             int size=maxResults;
             int offset=0;
             int seq=1;
-            String CBO=null;
+            String COMPETENCIA=null;
             String CNES=null;
             BIProcedimentoRealizadoDAO dao= (BIProcedimentoRealizadoDAO)this.getDao();
             //list para armazenar os procedimentos consolidados
@@ -130,7 +130,7 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
                     
                    ProcedimentoRealizadoPK p=list.get(i).getProcedimentoRealizadoPK();
                    //pega o CBO e o CNES, quando mudarem, a folha e sequêcia são reiniciadas
-                   String tCBO=p.getCboMedico();
+                   String tCompetencia=p.getCompetencia();
                    String tCNES=p.getCnesUnidade();
                    if (primeiraVez){
                        //executa somente uma vez
@@ -138,7 +138,7 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
                        primeiraVez=false;
                    }
                    //mudou de CBO ou CNES
-                   if( ( CNES == null ?  false : !CNES.equals(tCNES)) ){
+                   if( ( CNES == null ?  false : !CNES.equals(tCNES)) || ( COMPETENCIA == null ?  false : !COMPETENCIA.equals(tCompetencia)) ){
                        //zera a sequência
                        seq=1;
                        //inicia uma nova folha
@@ -159,7 +159,7 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
                   //incrementa a sequência
                    seq++;
                    //guarda os valores
-                   CBO=tCBO;
+                   COMPETENCIA=tCompetencia;
                    CNES=tCNES;
                 }
                 //salva a lista no banco de dados
@@ -204,18 +204,20 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
                    String tCNES=p.getCnesUnidade();
                    String tCNS=p.getCnsMedico();
                    //procura saber a ultima folha gerada de acordo com a competencia,unidade e cbo
-                   if (primeiraVez){
-                       //executa somente uma vez
-                       folha=Integer.parseInt(procedimentoDao.getNextFolha(p.getCnesUnidade(), p.getCompetencia(), p.getCboMedico()));
-                       primeiraVez=false;
-                   }
+//                   if (primeiraVez){
+//                       //executa somente uma vez
+//                       folha=Integer.parseInt(procedimentoDao.getNextFolha(p.getCnesUnidade(), p.getCompetencia(), p.getCboMedico()));
+//                       primeiraVez=false;
+//                   }
                    
                    //mudou de CBO ou CNES
-                   if( ( CNES == null ?  false : !CNES.equals(tCNES)) ){
+                   if( ( CNES == null ?  false : !CNES.equals(tCNES) ) || 
+                           ( CBO == null ?  false : !CBO.equals(tCBO)) || 
+                           ( CNS == null ?  false : !CNS.equals(tCNS))){
                        //zera a sequência
                        seq=1;
                        //inicia uma nova folha
-                       folha=Integer.parseInt(procedimentoDao.getNextFolha(p.getCnesUnidade(), p.getCompetencia(), p.getCboMedico()));
+                       folha=1;//Integer.parseInt(procedimentoDao.getNextFolha(p.getCnesUnidade(), p.getCompetencia(), p.getCboMedico()));
                    }
                    p.setNumeroFolha(ModelUtil.completar(""+folha, 3, '0'));
                    p.setSequenciaFolha(ModelUtil.completar(""+seq, 2, '0'));
