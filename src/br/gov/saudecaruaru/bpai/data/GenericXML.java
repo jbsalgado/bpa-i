@@ -4,6 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.data;
 
+import br.gov.saudecaruaru.bpai.business.model.XMLAlias;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.io.BufferedReader;
@@ -22,15 +23,16 @@ import java.util.logging.Logger;
  *
  * @author Albuquerque
  */
-public class GenericXML<T extends Serializable>  {
+public class GenericXML<T extends Serializable >  {
     
     private XStream stream= new XStream(new DomDriver());
     private Class<T> classType;
     
     public GenericXML(){
       classType=  (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-      this.stream.alias(classType.getSimpleName()+"_list", List.class);
+      this.stream.alias(classType.getSimpleName().toLowerCase()+"_lista", List.class);
      this.stream.alias(classType.getSimpleName(), classType);
+     this.stream.processAnnotations(classType);
     }
     
     public boolean salvar(List<T> object,String filePath){

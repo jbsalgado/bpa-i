@@ -4,6 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.business.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,29 +14,35 @@ import javax.persistence.Embeddable;
  *
  * @author Albuquerque
  */
-
+@XStreamAlias("procedimento_realizado_pk")
 @Embeddable
 public class BIProcedimentoRealizadoPK implements Serializable{
     
+    @XStreamAlias("cnes_unidade")
     @Basic(optional = false)
     @Column(name = "PRD_UID")
     private String cnesUnidade;
     
+    @XStreamAlias("competencia")
     @Basic(optional = false)
     @Column(name = "PRD_CMP")
     private String competencia;
     
+    @XStreamAlias("cns_profissional")
     @Basic(optional = false)
     @Column(name = "PRD_CNSMED")
     private String cnsMedico;
     
+    @XStreamAlias("cbo_profissional")
     @Column(name = "PRD_CBO")
     private String cboMedico;
     
+    @XStreamAlias("numero_folha")
     @Basic(optional = false)
     @Column(name = "PRD_FLH")
     private String numeroFolha;
     
+    @XStreamAlias("sequencia_folha")
     @Basic(optional = false)
     @Column(name = "PRD_SEQ")
     private String sequenciaFolha;
