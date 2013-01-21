@@ -8,11 +8,19 @@ import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.Procedimento;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizadoPK;
+import br.gov.saudecaruaru.bpai.util.ModelUtil;
+import java.io.Serializable;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -322,9 +330,16 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
         }
     }
 
+ 
     public List<ProcedimentoRealizado> findAllOnlyHeaderEqual(BIProcedimentoRealizado BIprocedimentoRealizado) {
-
-        List<BIProcedimentoRealizado> l = this.findAllEqual(BIprocedimentoRealizado);
+        List<String> listGroupBy = new ArrayList<String>();
+        listGroupBy.add("biProcedimentoRealizadoPK.competencia");
+        listGroupBy.add("biProcedimentoRealizadoPK.cnesUnidade");
+        listGroupBy.add("biProcedimentoRealizadoPK.cnsMedico");
+        listGroupBy.add("biProcedimentoRealizadoPK.cboMedico");
+        listGroupBy.add("biProcedimentoRealizadoPK.numeroFolha");
+        
+        List<BIProcedimentoRealizado> l = this.findAllEqualGroupBy(BIprocedimentoRealizado,listGroupBy);
         List<ProcedimentoRealizado> list = new ArrayList<ProcedimentoRealizado>();
         if (l != null) {
             //cada objeto de l contém um vetor que representa os campos selecionados

@@ -4,7 +4,6 @@
  */
 package br.gov.saudecaruaru.bpai.gui.keylistener;
 
-import com.sun.corba.se.impl.protocol.giopmsgheaders.KeyAddr;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;

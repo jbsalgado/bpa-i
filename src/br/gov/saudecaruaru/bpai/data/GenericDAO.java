@@ -9,6 +9,7 @@ package br.gov.saudecaruaru.bpai.data;
 
 
 
+import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -22,10 +23,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
 
 public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
     
@@ -304,6 +302,48 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
             return l;
         }
     }
+    
+       @Override
+       public List<T> findAllEqualGroupBy(Serializable objeto,List<String> groupByList){
+        Session session= this.getSession();
+        List<T> l=null;
+        try{
+            Criteria c=session.createCriteria(persistentClass);   
+            Map<String, Object> restrictions=ModelUtil.getRestrictions(objeto);
+            ProjectionList projectionList = Projections.projectionList();
+            for(String key: restrictions.keySet()){
+                if(key!=null){
+                    c.add(Restrictions.eq(key, restrictions.get(key)));
+                }
+                
+                
+            }
+              for(String groupBy: groupByList){
+               projectionList.add(Projections.groupProperty(groupBy));
+                
+                
+                
+            }
+            
+            session.clear();
+             
+             
+           
+            c.setProjection(projectionList);
+            l=c.list();
+        }catch(Exception ex){
+            this.logger.error("Erro ao tentar executar o método findAllEqual [serializable].");
+            this.logger.error(ex.getMessage());
+            ex.printStackTrace();
+        }
+        finally{
+            if(session != null){
+                session.close();
+            }
+            return l;
+        }
+    }
+    
     @Override
     public List<T> findAllEqualOrderBy(Serializable objeto,String desc){
         Session session= this.getSession();

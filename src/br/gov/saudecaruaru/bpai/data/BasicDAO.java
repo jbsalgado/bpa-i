@@ -14,7 +14,7 @@ import java.util.Map;
  * @author Albuquerque
  */
 public interface BasicDAO<T extends Serializable> {
-    
+    public List<T> findAllEqualGroupBy(Serializable objeto,List<String> groupByList);
     /**
      * Salva o objeto (mapeado) no banco de dados
      * @param object - entidade que deve ser persistida

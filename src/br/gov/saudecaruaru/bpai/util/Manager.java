@@ -9,13 +9,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import com.sun.org.apache.xml.internal.security.Init;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -130,9 +124,9 @@ public class Manager {
             out.close();
             sucess = true;
         } catch (FileNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Init.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(Init.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
