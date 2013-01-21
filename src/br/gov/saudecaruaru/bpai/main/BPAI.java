@@ -136,6 +136,9 @@ public class BPAI {
             java.util.logging.Logger.getLogger(SearchGeneric.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
        BPAI.initDatabaseConfiguration();
+       //CRIA OS ÍNDICES
+       HibernateUtil.createIndices();
+       HibernateUtil.createIndicesBPAI();
        ListaProcedimento principal= new ListaProcedimento();
        principal.setVisible(true);
        principal.setLocationRelativeTo(null);
