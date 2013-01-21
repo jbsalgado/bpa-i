@@ -158,7 +158,7 @@ public class HibernateUtil {
             List l=sql.list();
             if(l.isEmpty()){
                 t=s.beginTransaction();
-                sql=s.createSQLQuery("CREATE INDEX S_PRD_CONSOLIDADO ON S_PRD( PRD_MVM,PRD_ORG,PRD_UID );");
+                sql=s.createSQLQuery("CREATE INDEX S_PRD_EXPORTACAO ON S_PRD( PRD_MVM,PRD_ORG,PRD_UID );");
                 sql.executeUpdate();
                 t.commit();
             }
