@@ -304,9 +304,9 @@ public class GenericDAO<T extends Serializable> implements BasicDAO<T> {
     }
     
        @Override
-       public List<T> findAllEqualGroupBy(Serializable objeto,List<String> groupByList){
+       public List<Object[]> findAllEqualGroupBy(Serializable objeto,List<String> groupByList){
         Session session= this.getSession();
-        List<T> l=null;
+        List<Object[]> l=null;
         try{
             Criteria c=session.createCriteria(persistentClass);   
             Map<String, Object> restrictions=ModelUtil.getRestrictions(objeto);

@@ -336,33 +336,58 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
 
  
     public List<ProcedimentoRealizado> findAllOnlyHeaderEqual(BIProcedimentoRealizado BIprocedimentoRealizado) {
+        List<Object[]> l = null;
         List<String> listGroupBy = new ArrayList<String>();
         listGroupBy.add("biProcedimentoRealizadoPK.competencia");
         listGroupBy.add("biProcedimentoRealizadoPK.cnesUnidade");
         listGroupBy.add("biProcedimentoRealizadoPK.cnsMedico");
         listGroupBy.add("biProcedimentoRealizadoPK.cboMedico");
         listGroupBy.add("biProcedimentoRealizadoPK.numeroFolha");
-        
-        List<BIProcedimentoRealizado> l = this.findAllEqualGroupBy(BIprocedimentoRealizado,listGroupBy);
-        List<ProcedimentoRealizado> list = new ArrayList<ProcedimentoRealizado>();
-        if (l != null) {
-            //cada objeto de l contém um vetor que representa os campos selecionados
-            for (BIProcedimentoRealizado row : l) {
-                ProcedimentoRealizado pro = new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
-                if (row != null) {
+        try{
+            l = this.findAllEqualGroupBy(BIprocedimentoRealizado,listGroupBy);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally {
+            List<ProcedimentoRealizado> list = new ArrayList<ProcedimentoRealizado>();
+            if (l != null) {
+                //cada objeto de l contém um vetor que representa os campos selecionados
+                for (Object[] row : l) {
+                    ProcedimentoRealizado pro = new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
+
                     //o tamanho do vetor é igual a quantidade de campos do select
                     //o índíce do campo no select é igual ao do vetor, começando por zero.
-                    pro.getProcedimentoRealizadoPK().setCnesUnidade(row.getBiProcedimentoRealizadoPK().getCnesUnidade());
-                    pro.getProcedimentoRealizadoPK().setCboMedico(row.getBiProcedimentoRealizadoPK().getCboMedico());
-                    pro.getProcedimentoRealizadoPK().setNumeroFolha(row.getBiProcedimentoRealizadoPK().getNumeroFolha());
-                    pro.getProcedimentoRealizadoPK().setCompetencia(row.getBiProcedimentoRealizadoPK().getCompetencia());
-                    pro.getProcedimentoRealizadoPK().setCnsMedico(row.getBiProcedimentoRealizadoPK().getCnsMedico());
+                    pro.getProcedimentoRealizadoPK().setCompetencia((String) row[0]);
+                    pro.getProcedimentoRealizadoPK().setCnesUnidade((String) row[1]);
+                    pro.getProcedimentoRealizadoPK().setCnsMedico((String) row[2]);
+                    pro.getProcedimentoRealizadoPK().setCboMedico((String) row[3]);
+                    pro.getProcedimentoRealizadoPK().setNumeroFolha((String) row[4]);
+                   
+                    
 
                     list.add(pro);
                 }
             }
+            return list;
         }
-        return list;
+//        List<ProcedimentoRealizado> list = new ArrayList<ProcedimentoRealizado>();
+//        if (l != null) {
+//            //cada objeto de l contém um vetor que representa os campos selecionados
+//            for (BIProcedimentoRealizado row : l) {
+//                ProcedimentoRealizado pro = new ProcedimentoRealizado(new ProcedimentoRealizadoPK());
+//                if (row != null) {
+//                    //o tamanho do vetor é igual a quantidade de campos do select
+//                    //o índíce do campo no select é igual ao do vetor, começando por zero.
+//                    pro.getProcedimentoRealizadoPK().setCnesUnidade(row.getBiProcedimentoRealizadoPK().getCnesUnidade());
+//                    pro.getProcedimentoRealizadoPK().setCboMedico(row.getBiProcedimentoRealizadoPK().getCboMedico());
+//                    pro.getProcedimentoRealizadoPK().setNumeroFolha(row.getBiProcedimentoRealizadoPK().getNumeroFolha());
+//                    pro.getProcedimentoRealizadoPK().setCompetencia(row.getBiProcedimentoRealizadoPK().getCompetencia());
+//                    pro.getProcedimentoRealizadoPK().setCnsMedico(row.getBiProcedimentoRealizadoPK().getCnsMedico());
+//
+//                    list.add(pro);
+//                }
+//            }
+//        }
+        //return list;
     }
 
     public List<String> getAllCompetenciaMovimento() {
