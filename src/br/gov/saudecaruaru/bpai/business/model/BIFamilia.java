@@ -6,13 +6,12 @@ package br.gov.saudecaruaru.bpai.business.model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 /**
  *
  * @author juniorpires
  */
 @Entity
-@Table(name="familia")
+@Table(name="FAMILIA")
 public class BIFamilia implements Serializable {
     
     @Id @GeneratedValue

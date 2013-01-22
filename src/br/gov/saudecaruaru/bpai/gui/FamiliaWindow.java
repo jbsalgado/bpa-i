@@ -5,17 +5,23 @@
 package br.gov.saudecaruaru.bpai.gui;
 
 import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
+import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
 import com.towel.bind.Binder;
 import com.towel.bind.annotation.AnnotatedBinder;
 import com.towel.bind.annotation.Bindable;
 import com.towel.bind.annotation.Form;
+import java.awt.Component;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import javax.swing.JDialog;
+import javax.swing.JTextField;
 
 /**
  *
  * @author juniorpires
  */
 @Form(BIFamilia.class)
-public class FamiliaWindow extends javax.swing.JFrame {
+public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
      private Binder binder;
     /**
      * Creates new form FamiliaWindow
@@ -23,11 +29,18 @@ public class FamiliaWindow extends javax.swing.JFrame {
     public FamiliaWindow() {
         initComponents();
         initInstances();
+        this.initMyComponents();
     }
 
-    
-     private void initInstances(){
-
+     private void initMyComponents(){
+         
+        this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        this.initInstances();
+    }
+     
+    private void initInstances(){
+        //centralizará a tela
+        this.setLocationRelativeTo(null);
         this.binder=new AnnotatedBinder(this);
     }
     /**
@@ -66,9 +79,9 @@ public class FamiliaWindow extends javax.swing.JFrame {
         jBtConfirmar = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTbFamilias = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Segmento");
 
@@ -100,7 +113,7 @@ public class FamiliaWindow extends javax.swing.JFrame {
 
         jBtCancelar.setText("Cancelar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTbFamilias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -111,7 +124,7 @@ public class FamiliaWindow extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTbFamilias);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -288,18 +301,18 @@ public class FamiliaWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTbFamilias;
     @Bindable(field="area")
     private javax.swing.JTextField jTxtArea;
     @Bindable(field="bairro")
     private javax.swing.JTextField jTxtBairro;
     @Bindable(field="cep")
     private javax.swing.JTextField jTxtCep;
-    @Bindable(field="data_cadastro")
+    @Bindable(field="dataCadastro")
     private javax.swing.JTextField jTxtDataCadastro;
     @Bindable(field="familia")
     private javax.swing.JTextField jTxtFamilia;
-    @Bindable(field="microarea")
+    @Bindable(field="microArea")
     private javax.swing.JTextField jTxtMicroArea;
     @Bindable(field="municipio")
     private javax.swing.JTextField jTxtMunicipio;
@@ -312,4 +325,157 @@ public class FamiliaWindow extends javax.swing.JFrame {
     @Bindable(field="endereco")
     private javax.swing.JTextField jTxtendereco;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setSelecionarLinhaJTableActionListener(MouseListener listener) {
+        this.jTbFamilias.addMouseListener(listener);
+    }
+
+    @Override
+    public void clearFields() {
+      Component[] componentes = this.getContentPane().getComponents();  
+          
+        for (int i = 0; i < componentes.length; i++) {  
+            if (componentes[i] instanceof JTextField) {  
+                JTextField field = (JTextField)componentes[i];  
+                field.setText("");  
+            }  
+        }  
+    }
+
+    @Override
+    public void packAndShow() {
+        this.pack();  
+        this.setVisible(true);  
+    }
+
+    @Override
+    public FamiliaTableModel getFamiliaTableModel() {
+       return (FamiliaTableModel) this.jTbFamilias.getModel();
+    }
+
+    @Override
+    public void setFamiliaTableModel(FamiliaTableModel model) {
+        this.jTbFamilias.setModel(model);
+    }
+
+    @Override
+    public int linhaSelecionadaTableFamilias() {
+      return this.jTbFamilias.getSelectedRow();
+    }
+
+    @Override
+    public void refreshTablePortes() {
+        this.jTbFamilias.updateUI();
+    }
+
+    @Override
+    public void setVerifiers() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setDocuments() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Binder getBinder() {
+       return this.binder;
+    }
+
+    @Override
+    public void enableTxtSegmento(boolean arg) {
+       this.jTxtSegmento.setEnabled(arg);
+    }
+
+    @Override
+    public void enableTxtArea(boolean arg) {
+        this.jTxtArea.setEnabled(arg);
+    }
+
+    @Override
+    public void enableTxtMicroarea(boolean arg) {
+       this.jTxtMicroArea.setEnabled(arg);
+    }
+
+    @Override
+    public void enableTxtFamilia(boolean arg) {
+       this.jTxtFamilia.setEnabled(arg);
+    }
+
+    @Override
+    public void enableTxtEndereco(boolean arg) {
+       this.jTxtendereco.setEnabled(arg);
+    }
+
+    @Override
+    public void enableTxtNumero(boolean arg) {
+        this.jTxtNumero.setEnabled(arg);
+    }
+
+    @Override
+    public void enableTxtBairro(boolean arg) {
+       this.jTxtBairro.setEnabled(arg);
+    }
+
+    @Override
+    public void enableTxtCep(boolean arg) {
+       this.jTxtCep.setEnabled(arg);
+    }
+
+    @Override
+    public void enableTxtMunicipio(boolean arg) {
+      this.jTxtMunicipio.setEnabled(arg);
+    }
+
+    @Override
+    public void enableTxtUF(boolean arg) {
+       this.jTxtUF.setEnabled(arg);
+    }
+
+    @Override
+    public void enableBtnNovo(boolean arg) {
+       this.jBtNovo.setEnabled(arg);
+    }
+
+    @Override
+    public void enableBtnEditar(boolean arg) {
+       this.jBtEditar.setEnabled(arg);
+    }
+
+    @Override
+    public void enableBtnConfirmar(boolean arg) {
+       this.jBtConfirmar.setEnabled(arg);
+    }
+
+    @Override
+    public void enableBtnCancelar(boolean arg) {
+        this.jBtCancelar.setEnabled(arg);
+    }
+
+    @Override
+    public void setNovoActionListener(ActionListener listener) {
+        this.jBtNovo.addActionListener(listener);
+    }
+
+    @Override
+    public void setEditarActionListener(ActionListener listener) {
+        this.jBtEditar.addActionListener(listener);
+    }
+
+    @Override
+    public void setConfirmarActionListener(ActionListener listener) {
+       this.jBtConfirmar.addActionListener(listener);
+    }
+
+    @Override
+    public void setCancelarActionListener(ActionListener listener) {
+        this.jBtCancelar.addActionListener(listener);
+    }
+
+    @Override
+    public void enableTxtDataCadastro(boolean arg) {
+        this.jTxtDataCadastro.setEnabled(arg);
+    }
 }

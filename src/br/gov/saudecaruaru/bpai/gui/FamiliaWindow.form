@@ -2,7 +2,7 @@
 
 <Form version="1.4" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -188,7 +188,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtMicroArea">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="@Bindable(field=&quot;microarea&quot;)"/>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="@Bindable(field=&quot;microArea&quot;)"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
@@ -268,7 +268,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtDataCadastro">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="@Bindable(field=&quot;data_cadastro&quot;)"/>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="@Bindable(field=&quot;dataCadastro&quot;)"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="jBtNovo">
@@ -295,7 +295,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable1">
+        <Component class="javax.swing.JTable" name="jTbFamilias">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="4" rowCount="4">

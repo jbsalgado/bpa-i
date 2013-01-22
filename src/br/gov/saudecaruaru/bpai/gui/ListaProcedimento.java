@@ -21,6 +21,7 @@ import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizadoPK;
 import br.gov.saudecaruaru.bpai.business.model.Procedimento;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
+import br.gov.saudecaruaru.bpai.business.presenter.familia.FamiliaPresenter;
 import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
 import br.gov.saudecaruaru.bpai.gui.FocusListener.ChangeBackgroundFieldFocusListener;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelBody;
@@ -265,6 +266,8 @@ public class ListaProcedimento extends javax.swing.JFrame {
         jMenuItemExportarAtualizacao = new javax.swing.JMenuItem();
         jMenuItemAlteraCompetencia = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -294,7 +297,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableHeader);
 
-        jcomboBoxFiltro.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jcomboBoxFiltro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jcomboBoxFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CNS DO PROFISSIONAL", "CNES", "COMPETÊNCIA", "CBO", "PROFISSIONAL" }));
         jcomboBoxFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -302,13 +305,13 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Filtro de Pesquisa");
 
-        jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextFieldPesquisa.setToolTipText("");
 
-        jbtnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jbtnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbtnPesquisar.setText("Pesquisar");
         jbtnPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -316,7 +319,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jLabelTipoPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabelTipoPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelTipoPesquisa.setText("tipo");
 
         jTableBody.setModel(new javax.swing.table.DefaultTableModel(
@@ -332,7 +335,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTableBody);
 
-        jbtnIncluirFolha.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jbtnIncluirFolha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbtnIncluirFolha.setText("Incluir folha");
         jbtnIncluirFolha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -340,7 +343,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jbtnSair.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jbtnSair.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbtnSair.setText("Sair");
         jbtnSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -348,7 +351,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonAtualizar.setText("Atualizar");
         jButtonAtualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -440,6 +443,18 @@ public class ListaProcedimento extends javax.swing.JFrame {
         jMenuOperacao.add(jMenuItem2);
 
         jMenuBar1.add(jMenuOperacao);
+
+        jMenu2.setText("Cadastro");
+
+        jMenuItem3.setText("Familia");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -760,14 +775,21 @@ public class ListaProcedimento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        FamiliaPresenter familiaPresenter = new FamiliaPresenter();
+        familiaPresenter.createView();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtualizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelTipoPesquisa;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItemAlteraCompetencia;
     private javax.swing.JMenuItem jMenuItemExportarAtualizacao;
     private javax.swing.JMenuItem jMenuItemExportarBPA;

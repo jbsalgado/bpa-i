@@ -6,7 +6,6 @@ package br.gov.saudecaruaru.bpai.business.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 /**
  *
  * @author juniorpires
