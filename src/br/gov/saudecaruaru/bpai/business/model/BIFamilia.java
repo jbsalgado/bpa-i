@@ -6,57 +6,63 @@ package br.gov.saudecaruaru.bpai.business.model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 /**
  *
  * @author juniorpires
  */
 @Entity
 @Table(name="FAMILIA")
+@SequenceGenerator(name="INC_FAMILIA_ID",sequenceName="GEN_FAMILIA_ID",allocationSize=0,initialValue=1)
 public class BIFamilia implements Serializable {
     
-    @Id @GeneratedValue
+    @Id 
+    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator="INC_FAMILIA_ID")
     @Basic(optional=false)
     @Column(name="id")
     private Integer id;
     
-    @Column(name="segmento")
+    @Column(name="segmento",length=2)
     @Basic(optional=false)
     private String segmento;
     
-    @Column(name="area")
+    @Column(name="area", length=3)
     @Basic(optional=false)
     private String area;
     
-    @Column(name="micro_area")
+    @Column(name="micro_area",length=2)
     @Basic(optional=false)
     private String microArea;
     
-    @Column(name="familia")
+    @Column(name="familia",length=3)
     @Basic(optional=false)
     private String familia;
     
-    @Column(name="endereco")
+    @Column(name="endereco",length=60)
     private String endereco;
     
-    @Column(name="numero")
+    @Column(name="numero",length=4)
     private String numero;
     
-    @Column(name="bairro")
+    @Column(name="bairro",length=60)
     private String bairro;
     
-    @Column(name="cep")
+    @Column(name="cep",length=8)
     private String cep;
     
-    @Column(name="municipio")
+    @Column(name="municipio",length=60)
     private String municipio;
     
-    @Column(name="uf")
+    @Column(name="uf",length=2)
     private String uf;
     
-    @Column(name="data_cadastro")
+    @Column(name="data_cadastro",length=8)
     private String dataCadastro;
-    @OneToMany(mappedBy="familia",targetEntity=BIPaciente.class,fetch=FetchType.LAZY,cascade= CascadeType.ALL )
-    List<BIPaciente> pacientes;
+    
+    @OneToMany(mappedBy="familia",fetch=FetchType.LAZY )
+    @Fetch(FetchMode.SELECT)
+    private List<BIPaciente> pacientes;
     /**
      * @return the id
      */

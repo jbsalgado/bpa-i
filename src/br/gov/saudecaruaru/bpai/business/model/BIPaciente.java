@@ -15,33 +15,33 @@ import javax.persistence.*;
 public class BIPaciente implements Serializable {
     @Id
     @Basic(optional=false)
-    @Column(name = "cns")
+    @Column(name = "cns",length=15)
     private String cns;
     
     @Basic(optional = false)
-    @Column(name="nome")
+    @Column(name="nome",length=45)
     private String nome;
    
-    @Column(name="data_nascimento")
+    @Column(name="data_nascimento",length=10)
     private String dataNascimento;
   
     @Column(name="idade")
-    private int idade;
+    private Integer idade;
    
-    @Column(name="sexo")
+    @Column(name="sexo",length=1)
     private Character sexo;
    
-    @Column(name = "alfabetizado")
+    @Column(name = "alfabetizado",length=1)
     private Character alfabetizado;
    
-    @Column(name="ocupacao")
+    @Column(name="ocupacao",length=45)
     private String ocupacao;
     
-    @Column(name="doenca_condicao")
+    @Column(name="doenca_condicao",length=3)
     private String doencaCondicao;
     
-    @ManyToOne
-    @JoinColumn(name="familia_id")
+    @ManyToOne(fetch= FetchType.EAGER)
+    @JoinColumn(name="familia_id",referencedColumnName="id")
     private BIFamilia familia;
     /**
      * @return the cns
@@ -88,14 +88,14 @@ public class BIPaciente implements Serializable {
     /**
      * @return the idade
      */
-    public int getIdade() {
+    public Integer getIdade() {
         return idade;
     }
 
     /**
      * @param idade the idade to set
      */
-    public void setIdade(int idade) {
+    public void setIdade(Integer idade) {
         this.idade = idade;
     }
 
