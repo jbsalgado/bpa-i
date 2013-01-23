@@ -50,6 +50,7 @@ public class FamiliaActionListener {
                  
                  //executa a operaçao escolhida
                  this.presenter.getOperacao().execute();
+                 view.clearFields();
         }
     }
 }

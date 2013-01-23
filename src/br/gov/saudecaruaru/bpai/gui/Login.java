@@ -92,9 +92,10 @@ public class Login extends javax.swing.JDialog {
         jPasswordFieldSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Controle de Acesso - Login");
         setAlwaysOnTop(true);
 
-        jButtonLogin.setFont(new java.awt.Font("Tahoma", 0, 15));
+        jButtonLogin.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jButtonLogin.setText("Login");
         jButtonLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -112,7 +113,7 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
-        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 15));
+        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -130,20 +131,20 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 15));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel1.setText("Usuário");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 15));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel2.setText("Senha");
 
-        jTextFieldUsuario.setFont(new java.awt.Font("Tahoma", 0, 15));
+        jTextFieldUsuario.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jTextFieldUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldUsuarioKeyPressed(evt);
             }
         });
 
-        jPasswordFieldSenha.setFont(new java.awt.Font("Tahoma", 0, 15));
+        jPasswordFieldSenha.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jPasswordFieldSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordFieldSenhaActionPerformed(evt);
@@ -175,7 +176,7 @@ public class Login extends javax.swing.JDialog {
                         .addComponent(jButtonCancelar))
                     .addComponent(jTextFieldUsuario)
                     .addComponent(jPasswordFieldSenha))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,7 +193,7 @@ public class Login extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonLogin)
                     .addComponent(jButtonCancelar))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
