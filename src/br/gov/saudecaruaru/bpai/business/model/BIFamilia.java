@@ -27,7 +27,7 @@ public class BIFamilia implements Serializable {
     @Basic(optional=false)
     private String area;
     
-    @Column(name="micro_area")
+    @Column(name="microarea")
     @Basic(optional=false)
     private String microArea;
     
