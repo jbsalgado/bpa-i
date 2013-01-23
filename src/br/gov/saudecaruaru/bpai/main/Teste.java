@@ -37,12 +37,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
-import org.apache.axis.attachments.OctetStream;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.log4j.Logger;
 /**
  *
@@ -51,18 +61,23 @@ import org.apache.log4j.Logger;
 public class Teste {
     public static void main(String[] args){
         SistemaController.loadConfigurations();
-//        HibernateUtil.createIndices();
-//        testeExportacaoProcedimentosIndividuais();
-//        testeExportacaoProcedimentosCosolidados();
-//        testeEquipes();
-        //init();
-        //testServico();
-        //testInEnvioBackground();
-        //testLogger();
-        //testXML();
-        //testeExportacaoProcedimentosCosolidados();
-        //testarProcedimentoSemreferencia();
-        testarRestFul();
+        try {
+            //        HibernateUtil.createIndices();
+            //        testeExportacaoProcedimentosIndividuais();
+            //        testeExportacaoProcedimentosCosolidados();
+            //        testeEquipes();
+                    //init();
+                    //testServico();
+                    //testInEnvioBackground();
+                    //testLogger();
+                    //testXML();
+                    //testeExportacaoProcedimentosCosolidados();
+                    //testarProcedimentoSemreferencia();
+                    //testarRestFul();
+                    testarEnvioRest();
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public static void testeDiversasServicos(){
@@ -208,5 +223,39 @@ public class Teste {
        for(String s:dao.getAllCodigoProcedimentoSemReferencia("201212")){
            System.out.println(s);
        }
+   }
+   
+   public static void testarEnvioRest() throws IOException{
+//       Client cli=Client.create();
+//       WebResource resorce=cli.resource("http://localhost/sispad/index.php/bpa/procedimentorealizado/envio");
+//       //.
+//       resorce.type(MediaType.APPLICATION_XML);
+//       resorce.accept(MediaType.TEXT_XML);
+//       resorce.queryParam("t", "<inicio> valor</inicio>");
+//       resorce.entity(new File("C:\\Users\\Albuquerque\\Desktop\\bck.xml"));
+//       System.out.println( resorce.get(String.class));
+        try {
+            URI url=new URI("http://localhost/sispad/index.php/bpa/procedimentorealizado/envio");
+            //new URI
+             HttpClient httpclient = new DefaultHttpClient();
+                HttpPost httppost = new HttpPost(url);
+                String fileName="C:\\Users\\Albuquerque\\Desktop\\bck.xml";
+                FileBody fileContent= new FileBody(new File(fileName));
+               
+                StringBody comment = new StringBody("Filename: "+"arquivo de teste");
+                MultipartEntity reqEntity = new MultipartEntity();
+                reqEntity.addPart("Filename: "+"arquivo de teste", fileContent);
+                
+                httppost.setEntity(reqEntity);
+                HttpResponse response = httpclient.execute(httppost);
+                if (response!= null){
+                    
+                HttpEntity resEntity = response.getEntity();
+                resEntity.writeTo(System.out);
+                }
+            
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
+        }
    }
 }

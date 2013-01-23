@@ -42,235 +42,233 @@ import org.hibernate.exception.GenericJDBCException;
  * @author Albuquerque
  */
 public class SistemaController {
+
+    private static SistemaController instance = new SistemaController();
     
-    private static SistemaController instance= new SistemaController();
-    
-    public static final Logger logger=Logger.getLogger(SistemaController.class);
+    public static final Logger logger = Logger.getLogger(SistemaController.class);
     /*
      * Endereço do servidor onde os dados serão enviado e recuperados
      */
-    public static String HOST_SERVIDOR="http://localhost/sispad";
+    public static String HOST_SERVIDOR = "http://localhost/sispad";
     /*
      * Direttório principal da aplicação
      */
-    public static String DIRETORIO_PRINCIPAL="C:/BPAI";
+    public static String DIRETORIO_PRINCIPAL = "C:/BPAI";
     /*
      * Diretório default do banco de dados
      */
-    public static String DIRETORIO_DEFAULT_BANCO=DIRETORIO_PRINCIPAL+"/banco";
+    public static String DIRETORIO_DEFAULT_BANCO = DIRETORIO_PRINCIPAL + "/banco";
     /*
      * Diretório default dos arquivos de log
      */
-    public static String DIRETORIO_DEFAULT_LOG=DIRETORIO_PRINCIPAL+"/log";
-    
-    
-    public static SistemaController getnstance(){
+    public static String DIRETORIO_DEFAULT_LOG = DIRETORIO_PRINCIPAL + "/log";
+
+    public static SistemaController getnstance() {
         return instance;
     }
 
     private SistemaController() {
     }
-    
-    
-    public static boolean testConnectionBPA(String pathBanco){
-        HibernateUtil.PATH_DATABASE_BPA=pathBanco;
-        Session s=null;
-        boolean sucess=false;
-        try{
-            s=HibernateUtil.getSession();
-            Transaction t=s.beginTransaction();
+
+    public static boolean testConnectionBPA(String pathBanco) {
+        HibernateUtil.PATH_DATABASE_BPA = pathBanco;
+        Session s = null;
+        boolean sucess = false;
+        try {
+            s = HibernateUtil.getSession();
+            Transaction t = s.beginTransaction();
             t.rollback();
-            sucess=true;
-        }catch(GenericJDBCException ex){
+            sucess = true;
+        } catch (GenericJDBCException ex) {
             HibernateUtil.restartSessionFactory();
-            sucess=false;
+            sucess = false;
             //ex.printStackTrace();
-            logger.severe("Erro ao tentar executar o método testConnectionBPA "+ex.getMessage());
+            logger.severe("Erro ao tentar executar o método testConnectionBPA " + ex.getMessage());
             logger.logException(ex, Level.SEVERE);
-        }
-        finally{
-            if(s!=null)
-            if(s.isOpen()){
-                s.close();
+        } finally {
+            if (s != null) {
+                if (s.isOpen()) {
+                    s.close();
+                }
             }
             return sucess;
         }
     }
-    
-   public static boolean testConnectionBPA(){
-       return testConnectionBPA(HibernateUtil.PATH_DATABASE_BPA);
-   }
-    
-   public static boolean testConnectionBPAI(String pathBanco){
-        HibernateUtil.PATH_DATABASE_BPA_I=pathBanco;
-        Session s=HibernateUtil.getSessionBpaI();
-        boolean sussess=false;
-        try{
-            Transaction t=s.beginTransaction();
+
+    public static boolean testConnectionBPA() {
+        return testConnectionBPA(HibernateUtil.PATH_DATABASE_BPA);
+    }
+
+    public static boolean testConnectionBPAI(String pathBanco) {
+        HibernateUtil.PATH_DATABASE_BPA_I = pathBanco;
+        Session s = HibernateUtil.getSessionBpaI();
+        boolean sussess = false;
+        try {
+            Transaction t = s.beginTransaction();
             t.rollback();
-            sussess=true;
-        }catch(GenericJDBCException ex){
+            sussess = true;
+        } catch (GenericJDBCException ex) {
             HibernateUtil.restartSessionFactoryBpaI();
-            sussess=false;
-            logger.severe("Erro ao tentar executar o método testConnectionBPAI "+ex.getMessage());
+            sussess = false;
+            logger.severe("Erro ao tentar executar o método testConnectionBPAI " + ex.getMessage());
             logger.logException(ex, Level.SEVERE);
-        }
-        finally{
-            if(s.isOpen()){
+        } finally {
+            if (s.isOpen()) {
                 s.close();
             }
             return sussess;
         }
     }
-    
-   public static boolean testConnectionBPAI(){
-       return testConnectionBPAI(HibernateUtil.PATH_DATABASE_BPA_I);
-   }
-   
-   public static void createConfiguration(){
-       Properties prop = new Properties();  
-          
-        try {  
-  
-            File f = new File( DIRETORIO_PRINCIPAL+"/configs.conf" );  
-              
+
+    public static boolean testConnectionBPAI() {
+        return testConnectionBPAI(HibernateUtil.PATH_DATABASE_BPA_I);
+    }
+
+    public static void createConfiguration() {
+        Properties prop = new Properties();
+
+        try {
+
+            File f = new File(DIRETORIO_PRINCIPAL + "/configs.conf");
+
             // se nÃ£o existe o arquivo, cria, caso contrÃ¡rio carrega  
-            if ( !f.exists() ) {  
-                                      
-                prop.setProperty("bpa.database.path", HibernateUtil.PATH_DATABASE_BPA);  
+            if (!f.exists()) {
+
+                prop.setProperty("bpa.database.path", HibernateUtil.PATH_DATABASE_BPA);
                 prop.setProperty("bpai.database.path", HibernateUtil.PATH_DATABASE_BPA_I);
-                FileOutputStream out=new FileOutputStream( f );
-                prop.store( out,   
-                        "Esse arquivo nÃ£o deve ser modificado!" );  
+                FileOutputStream out = new FileOutputStream(f);
+                prop.store(out,
+                        "Esse arquivo nÃ£o deve ser modificado!");
                 out.close();
-                loadConfigurations(); 
-                  
-            } else {  
-                  
-                loadConfigurations(); 
-                  
-            }  
-              
-        } catch ( IOException exc ) {   
-            logger.severe("Erro ao tentar executar o método createConfiguration "+exc.getMessage());
+                loadConfigurations();
+
+            } else {
+
+                loadConfigurations();
+
+            }
+
+        } catch (IOException exc) {
+            logger.severe("Erro ao tentar executar o método createConfiguration " + exc.getMessage());
             logger.logException(exc, Level.SEVERE);
-        } 
-   }
-   
-   public static void loadConfigurations(){
-        Properties prop = new Properties();  
-                      
-        try {  
-              
-            File f = new File( DIRETORIO_PRINCIPAL+"/configs.conf" );  
-            FileInputStream in= new FileInputStream( f );
-            prop.load(in );  
-            
+        }
+    }
+
+    public static void loadConfigurations() {
+        Properties prop = new Properties();
+
+        try {
+
+            File f = new File(DIRETORIO_PRINCIPAL + "/configs.conf");
+            FileInputStream in = new FileInputStream(f);
+            prop.load(in);
+
             //configuraÃ§oes do banco
-            HibernateUtil.PATH_DATABASE_BPA=prop.getProperty("bpa.database.path");
-            HibernateUtil.PATH_DATABASE_BPA_I=prop.getProperty("bpai.database.path");
-            
+            HibernateUtil.PATH_DATABASE_BPA = prop.getProperty("bpa.database.path");
+            HibernateUtil.PATH_DATABASE_BPA_I = prop.getProperty("bpai.database.path");
+
             //libera recursos
             in.close();
             //f.
-        } catch ( IOException exc ) {
-            logger.severe("Erro ao tentar executar o método loadConfigurations "+exc.getMessage());
-            logger.logException(exc, Level.SEVERE);
-        } 
-   }
-   
-   public static void updateConfigurations(){
-        Properties prop = new Properties();  
-          
-        try {  
-  
-            File f = new File( DIRETORIO_PRINCIPAL+"/configs.conf" );  
-            FileInputStream in=new FileInputStream(f);
-            prop.load(in); 
-            //atualiza
-            prop.setProperty("bpa.database.path", HibernateUtil.PATH_DATABASE_BPA);  
-            prop.setProperty("bpai.database.path", HibernateUtil.PATH_DATABASE_BPA_I); 
-            
-            FileOutputStream out= new FileOutputStream(f);
-            prop.store(out,null);
-            in.close();
-            out.close();
-        } catch ( IOException exc ) {  
-            logger.severe("Erro ao tentar executar o método updateConfigurations "+exc.getMessage());
+        } catch (IOException exc) {
+            logger.severe("Erro ao tentar executar o método loadConfigurations " + exc.getMessage());
             logger.logException(exc, Level.SEVERE);
         }
-   }
-   
-    public static String procedimentoExcessao(String codigoProcedimento){
-        Properties prop = new Properties();  
-          
-        try {  
-  
-            File f = new File( "./excecao.conf" );  
-            FileInputStream in=new FileInputStream(f);
-            prop.load(in); 
+    }
+
+    public static void updateConfigurations() {
+        Properties prop = new Properties();
+
+        try {
+
+            File f = new File(DIRETORIO_PRINCIPAL + "/configs.conf");
+            FileInputStream in = new FileInputStream(f);
+            prop.load(in);
+            //atualiza
+            prop.setProperty("bpa.database.path", HibernateUtil.PATH_DATABASE_BPA);
+            prop.setProperty("bpai.database.path", HibernateUtil.PATH_DATABASE_BPA_I);
+
+            FileOutputStream out = new FileOutputStream(f);
+            prop.store(out, null);
+            in.close();
+            out.close();
+        } catch (IOException exc) {
+            logger.severe("Erro ao tentar executar o método updateConfigurations " + exc.getMessage());
+            logger.logException(exc, Level.SEVERE);
+        }
+    }
+
+    public static String procedimentoExcessao(String codigoProcedimento) {
+        Properties prop = new Properties();
+
+        try {
+
+            File f = new File("./excecao.conf");
+            FileInputStream in = new FileInputStream(f);
+            prop.load(in);
             //atualiza
             //prop.setProperty("bpa.database.path", HibernateUtil.PATH_DATABASE_BPA);  
             //prop.setProperty("bpai.database.path", HibernateUtil.PATH_DATABASE_BPA_I); 
-            if(prop.containsKey(codigoProcedimento)){
+            if (prop.containsKey(codigoProcedimento)) {
                 in.close();
                 return prop.getProperty(codigoProcedimento);
             }
-           
+
             in.close();
-           
-        } catch ( IOException exc ) {   
-            logger.severe("Erro ao tentar executar o método procedimentoExcessao "+exc.getMessage());
+
+        } catch (IOException exc) {
+            logger.severe("Erro ao tentar executar o método procedimentoExcessao " + exc.getMessage());
             logger.logException(exc, Level.SEVERE);
             return "";
         }
-        
+
         return "";
-   }
+    }
+
     /**
      * Envia um arquivo XML com a produção dos dados
      *@param file arquivo XML
      * 
      */
-    public void enviarProducaoParaServidor(File file){
-        try{
-        URI url=new URI(HOST_SERVIDOR+"/index.php/bpa/procedimentorealizado/envio");
+    public void enviarProducaoParaServidor(File file) {
+        try {
+            URI url = new URI(HOST_SERVIDOR + "/index.php/bpa/procedimentorealizado/envio");
             //new URI
-             HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost(url);;
-                FileBody fileContent= new FileBody(file);
-                //StringBody comment = new StringBody("Filename: " + fileName);
-                MultipartEntity reqEntity = new MultipartEntity();
-                reqEntity.addPart(file.getName(), fileContent);
-                httppost.setEntity(reqEntity);
-                HttpResponse response = httpclient.execute(httppost);
-                if (response!= null){
-                    
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(url);;
+            FileBody fileContent = new FileBody(file);
+            //StringBody comment = new StringBody("Filename: " + fileName);
+            MultipartEntity reqEntity = new MultipartEntity();
+            reqEntity.addPart(file.getName(), fileContent);
+            httppost.setEntity(reqEntity);
+            HttpResponse response = httpclient.execute(httppost);
+            if (response != null) {
+
                 HttpEntity resEntity = response.getEntity();
                 resEntity.writeTo(System.out);
-                }
-        }catch(URISyntaxException ex){
-            logger.severe("Erro ao tentar executar o método enviarProducaoParaServidor "+ex.getMessage());
+            }
+        } catch (URISyntaxException ex) {
+            logger.severe("Erro ao tentar executar o método enviarProducaoParaServidor " + ex.getMessage());
             logger.logException(ex, Level.SEVERE);
-        }catch(ConnectException ex){
-            logger.severe("Erro ao tentar executar o método enviarProducaoParaServidor "+ex.getMessage());
+        } catch (ConnectException ex) {
+            logger.severe("Erro ao tentar executar o método enviarProducaoParaServidor " + ex.getMessage());
             logger.logException(ex, Level.SEVERE);
-        }catch(IOException ex){
-            logger.severe("Erro ao tentar executar o método enviarProducaoParaServidor "+ex.getMessage());
+        } catch (IOException ex) {
+            logger.severe("Erro ao tentar executar o método enviarProducaoParaServidor " + ex.getMessage());
             logger.logException(ex, Level.SEVERE);
         }
     }
-    
+
     /**
      * 
      * @param client instancia de Client do Jersey
      * @return List<Recurso> que devem ser atualizados
      */
     public List<Recurso> getRecursosASeremAtualizados(Client client) {
-        List<Recurso> list=null;
+        List<Recurso> list = null;
         try {
-            WebResource webResource = client.resource(HOST_SERVIDOR+"/index.php/sistema/BPAI");
-            
+            WebResource webResource = client.resource(HOST_SERVIDOR + "/index.php/sistema/BPAI");
+
             ClientResponse response = webResource.accept("application/xml").get(ClientResponse.class);
             //verifica se a resposta está correta
             if (response.getStatus() == 200) {
@@ -279,18 +277,16 @@ public class SistemaController {
                 re.setNomeLocal("/temp");
                 if (this.criarArquivo(response.getEntityInputStream(), re)) {
                     RecursoXML xml = new RecursoXML();
-                    list= xml.carregar(DIRETORIO_PRINCIPAL+"temp.xml");
+                    list = xml.carregar(DIRETORIO_PRINCIPAL + "/temp.xml");
                 }
             }
-        } catch (ClientHandlerException ex){
-            logger.severe("Erro ao tentar executar o método getRecursosASeremAtualizados "+ex.getMessage());
+        } catch (ClientHandlerException ex) {
+            logger.severe("Erro ao tentar executar o método getRecursosASeremAtualizados " + ex.getMessage());
             logger.logException(ex, Level.SEVERE);
-        }
-        catch (Exception ex) {
-            logger.severe("Erro ao tentar executar o método getRecursosASeremAtualizados "+ex.getMessage());
+        } catch (Exception ex) {
+            logger.severe("Erro ao tentar executar o método getRecursosASeremAtualizados " + ex.getMessage());
             logger.logException(ex, Level.SEVERE);
-        }
-        finally{
+        } finally {
             return list;
         }
     }
@@ -308,16 +304,16 @@ public class SistemaController {
             if (response.getStatus() == 200) {
                 Recurso re = new Recurso();
                 re.setExtensao("GDB");
-                re.setNomeLocal(DIRETORIO_DEFAULT_BANCO+"/TESTANDO");
+                re.setNomeLocal(DIRETORIO_DEFAULT_BANCO + "/TESTANDO");
                 return this.criarArquivo(response.getEntityInputStream(), re);
             }
             return false;
-        }  catch (ClientHandlerException ex){
-            logger.severe("Erro ao tentar executar o método baixarBancoDeDados "+ex.getMessage());
+        } catch (ClientHandlerException ex) {
+            logger.severe("Erro ao tentar executar o método baixarBancoDeDados " + ex.getMessage());
             logger.logException(ex, Level.SEVERE);
             return false;
-        }catch (Exception ex) {
-            logger.severe("Erro ao tentar executar o método baixarBancoDeDados "+ex.getMessage());
+        } catch (Exception ex) {
+            logger.severe("Erro ao tentar executar o método baixarBancoDeDados " + ex.getMessage());
             logger.logException(ex, Level.SEVERE);
             return false;
         }
@@ -353,7 +349,7 @@ public class SistemaController {
                 return this.criarArquivo(response.getEntityInputStream(), recurso);
             }
         } catch (Exception ex) {
-            logger.severe("Erro ao tentar executar o método atualizarRecurso "+ex.getMessage());
+            logger.severe("Erro ao tentar executar o método atualizarRecurso " + ex.getMessage());
             logger.logException(ex, Level.SEVERE);
             return false;
         }
@@ -371,7 +367,7 @@ public class SistemaController {
         try {
 
             // write the inputStream to a FileOutputStream
-            File f = new File(DIRETORIO_PRINCIPAL+ recurso.getNomeLocal() + "." + recurso.getExtensao());
+            File f = new File(DIRETORIO_PRINCIPAL + recurso.getNomeLocal() + "." + recurso.getExtensao());
             OutputStream out;
             out = new FileOutputStream(f);
 
@@ -387,13 +383,13 @@ public class SistemaController {
             out.close();
             sucess = true;
         } catch (FileNotFoundException ex) {
-            logger.severe("Erro ao tentar executar o método criarArquivo "+ex.getMessage());
+            logger.severe("Erro ao tentar executar o método criarArquivo " + ex.getMessage());
             logger.logException(ex, Level.SEVERE);
         } catch (IOException ex) {
-            logger.severe("Erro ao tentar executar o método criarArquivo "+ex.getMessage());
+            logger.severe("Erro ao tentar executar o método criarArquivo " + ex.getMessage());
             logger.logException(ex, Level.SEVERE);
         } catch (Exception ex) {
-            logger.severe("Erro ao tentar executar o método criarArquivo "+ex.getMessage());
+            logger.severe("Erro ao tentar executar o método criarArquivo " + ex.getMessage());
             logger.logException(ex, Level.SEVERE);
         } finally {
             return sucess;
