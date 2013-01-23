@@ -49,6 +49,8 @@ public class FamiliaPresenter {
     private void setUpViewListeners(){
         this.view.setNovoActionListener(new FamiliaActionListener.NovoActionListener(this));
         this.view.setConfirmarActionListener(new FamiliaActionListener.ConfirmarActionListener(this));
+        this.view.setSelecionarLinhaJTableActionListener(new FamiliaWindowMouseListener.SelecionarLinhaMouseListener(this));
+        this.view.setEditarActionListener(new FamiliaActionListener.EditarActionListener(this));
     }
     
      private void initDadosJTable(){
@@ -95,7 +97,7 @@ public class FamiliaPresenter {
     private class UpdateStrategy implements OperacaoStrategy {  
         @Override
         public void execute() {  
-           // CadastroPortePresenter.this.inserir; 
+          FamiliaPresenter.this.atualizarFamilia(); 
             
         }  
     }  
@@ -113,6 +115,25 @@ public class FamiliaPresenter {
         this.getView().getBinder().updateModel(this.familia);
         this.familiaDao.save(this.familia);
         this.initDadosJTable();
-        this.view.refreshTablePortes();
+        this.view.refreshTableFamilias();
     }
+     
+    public void atualizarFamilia(){
+        this.getView().getBinder().updateModel(this.familia);
+        this.familiaDao.update(this.familia);
+        this.initDadosJTable();
+        this.view.refreshTableFamilias();
+    }
+    
+    public void atualizarModeloDaJTable() {  
+        FamiliaTableModel tbModel = view.getFamiliaTableModel();  
+          
+        this.familia = tbModel.getFamilia(view.linhaSelecionadaTableFamilias());  
+          
+        if (this.familia != null) {  
+            this.view.getBinder().updateView(this.familia);  
+        }  
+           
+    }  
+     
 }

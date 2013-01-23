@@ -15,15 +15,15 @@ import javax.swing.table.AbstractTableModel;
  */
 public class FamiliaTableModel extends AbstractTableModel {  
       
-    private List portes;  
+    private List familias;  
       
     public FamiliaTableModel(List portes) {  
-        this.portes = portes;  
+        this.familias = portes;  
     }  
       
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {  
-        BIFamilia familia = (BIFamilia) portes.get(rowIndex);  
+        BIFamilia familia = (BIFamilia) familias.get(rowIndex);  
           
         if (familia != null) {  
               
@@ -40,8 +40,8 @@ public class FamiliaTableModel extends AbstractTableModel {
   
     @Override
     public int getRowCount() {  
-        if (portes != null) {  
-            return this.portes.size();  
+        if (familias != null) {  
+            return this.familias.size();  
         }  
           
         return 0;  
@@ -52,9 +52,9 @@ public class FamiliaTableModel extends AbstractTableModel {
         return 4;  
     }  
       
-    public BIFamilia getPorte(int row) {  
+    public BIFamilia getFamilia(int row) {  
         if (row >= 0) {  
-            return (BIFamilia) this.portes.get(row);  
+            return (BIFamilia) this.familias.get(row);  
         }  
           
         return null;  

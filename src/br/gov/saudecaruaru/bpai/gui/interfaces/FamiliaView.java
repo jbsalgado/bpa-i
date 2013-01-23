@@ -20,7 +20,7 @@ public interface FamiliaView {
     public FamiliaTableModel getFamiliaTableModel();
     public void setFamiliaTableModel(FamiliaTableModel model);
     public int linhaSelecionadaTableFamilias(); 
-    public void refreshTablePortes();
+    public void refreshTableFamilias();
     public void setVerifiers();
     public void setDocuments();
     public Binder getBinder();

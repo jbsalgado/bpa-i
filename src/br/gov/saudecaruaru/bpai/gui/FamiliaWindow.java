@@ -365,7 +365,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     }
 
     @Override
-    public void refreshTablePortes() {
+    public void refreshTableFamilias() {
         this.jTbFamilias.updateUI();
     }
 
