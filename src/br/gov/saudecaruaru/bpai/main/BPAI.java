@@ -9,7 +9,6 @@ import br.gov.saudecaruaru.bpai.data.*;
 import br.gov.saudecaruaru.bpai.gui.EscolhaBanco;
 import br.gov.saudecaruaru.bpai.gui.ListaProcedimento;
 import br.gov.saudecaruaru.bpai.gui.SearchGeneric;
-import br.gov.saudecaruaru.bpai.util.Manager;
 import br.gov.saudecaruaru.bpai.util.Recurso;
 import com.sun.jersey.api.client.Client;
 import java.io.File;
@@ -25,9 +24,7 @@ import org.apache.log4j.PropertyConfigurator;
  * @author Junior Pires
  */
 public class BPAI {
-    
-    public static String DIRETORIO_BANCO;
-    public static String DIRETORIO_LOG;
+ 
     
     //CARREGA AS CONFIGURAÇÕES PARA O LOG
     static {
@@ -106,18 +103,18 @@ public class BPAI {
     
     public void start(){
         //atualiza os arquivos necessários
-        Manager ini= new Manager();
+        SistemaController sistema=  SistemaController.getnstance();
         Client client = Client.create();
-        List<Recurso> list=ini.getRecursosASeremAtualizados(client);
+        List<Recurso> list=sistema.getRecursosASeremAtualizados(client);
         if (list!= null){
         for (Recurso r : list) {
-            ini.atualizarRecurso(client, r);
+            sistema.atualizarRecurso(client, r);
        
         }
         }
         //verifica se o banco ja existe, senão vai baixar
-        if ( !(new File("C:/BPAI/banco/TESTANDO.GDB").exists()) ){
-            ini.baixarBancoDeDados(client);
+        if ( !(new File(SistemaController.DIRETORIO_DEFAULT_BANCO+ "/TESTANDO.GDB").exists()) ){
+            sistema.baixarBancoDeDados(client);
         }
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -146,15 +143,13 @@ public class BPAI {
     }
     
     private static void criarDiretorioPadrao(){
-        File dir=new File("C:/BPAI/banco");
+        File dir=new File(SistemaController.DIRETORIO_DEFAULT_BANCO);
         if (!dir.exists()){
             dir.mkdirs();
-            DIRETORIO_BANCO=dir.getAbsolutePath();
         }
-        dir=new File("C:/BPAI/log");
+        dir=new File(SistemaController.DIRETORIO_DEFAULT_LOG);
         if (!dir.exists()){
             dir.mkdirs();
-            DIRETORIO_LOG=dir.getAbsolutePath();
         }
     }
     
