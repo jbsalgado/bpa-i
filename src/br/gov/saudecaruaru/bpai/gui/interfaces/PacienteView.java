@@ -14,6 +14,9 @@ import java.awt.event.MouseListener;
  * @author juniorpires
  */
 public interface PacienteView {
+    
+    public Character getAlfabetizado();
+    public Integer getIdFamilia();
     public void setSelecionarLinhaJTableActionListener(MouseListener listener);
     public void clearFields();
     public void packAndShow();

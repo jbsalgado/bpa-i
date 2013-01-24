@@ -115,14 +115,20 @@ public class PacientePresenter {
     
     
      public void inserirFamilia(){
-        this.getView().getBinder().updateModel(this.paciente);
+        this.updateModel();
         this.pacienteDao.save(this.paciente);
         this.initDadosJTable();
         this.view.refreshTablePacientes();
     }
      
+     private void updateModel(){
+         this.getView().getBinder().updateModel(this.paciente);
+         this.paciente.setAlfabetizado(this.view.getAlfabetizado());
+         this.paciente.setFamilia(new BIFamilia());
+         this.paciente.getFamilia().setId(this.view.getIdFamilia());
+     }
     public void atualizarFamilia(){
-        this.getView().getBinder().updateModel(this.paciente);
+        this.updateModel();
         this.pacienteDao.update(this.paciente);
         this.initDadosJTable();
         this.view.refreshTablePacientes();

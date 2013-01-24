@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -357,8 +358,27 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     @Override
     public void setFamiliaTableModel(FamiliaTableModel model) {
         this.jTbFamilias.setModel(model);
+        
+        // Configura as colunas da JTable  
+        TableColumnModel columnModel = this.jTbFamilias.getColumnModel();  
+          
+        columnModel.getColumn(0).setHeaderValue("Id");  
+        columnModel.getColumn(0).setPreferredWidth(200);  
+          
+        columnModel.getColumn(1).setHeaderValue("Segmento");  
+        columnModel.getColumn(1).setPreferredWidth(200);  
+        
+        columnModel.getColumn(2).setHeaderValue("Área");  
+        columnModel.getColumn(2).setPreferredWidth(200);  
+        
+        columnModel.getColumn(3).setHeaderValue("Microarea");  
+        columnModel.getColumn(3).setPreferredWidth(200);  
+        
+        columnModel.getColumn(4).setHeaderValue("Família");  
+        columnModel.getColumn(4).setPreferredWidth(200);  
     }
 
+  
     @Override
     public int linhaSelecionadaTableFamilias() {
       return this.jTbFamilias.getSelectedRow();

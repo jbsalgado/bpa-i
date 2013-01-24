@@ -29,7 +29,7 @@ public class PacienteWindowMouseListener {
             view.enableBtnEditar(true);
             view.enableBtnNovo(false);
             view.enableBtnConfirmar(false);
-            
+            view.enableTxtCns(false);
             
         }
 

@@ -31,7 +31,12 @@ public class PacienteTableModel extends AbstractTableModel {
             switch (columnIndex) {  
                 case 0: return paciente.getCns();  
                 case 1: return paciente.getNome();  
-                case 2: return paciente.getFamilia();  
+                case 2: {
+                            if(paciente.getFamilia()!=null){
+                                return paciente.getFamilia().getId();
+                            }else
+                                return "";
+                        }
                   
             }  
         }  
