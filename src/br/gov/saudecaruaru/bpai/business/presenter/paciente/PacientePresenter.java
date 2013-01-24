@@ -2,26 +2,31 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.business.presenter.familia;
+package br.gov.saudecaruaru.bpai.business.presenter.paciente;
 
 import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
+import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
 import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
+import br.gov.saudecaruaru.bpai.data.BIPacienteDAO;
 import br.gov.saudecaruaru.bpai.gui.FamiliaTableModel;
 import br.gov.saudecaruaru.bpai.gui.FamiliaWindow;
+import br.gov.saudecaruaru.bpai.gui.PacienteTableModel;
+import br.gov.saudecaruaru.bpai.gui.PacienteWindow;
 import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
 import br.gov.saudecaruaru.bpai.gui.interfaces.OperacaoStrategy;
+import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
 import java.util.List;
 
 /**
  *
  * @author juniorpires
  */
-public class FamiliaPresenter {
+public class PacientePresenter {
     
-    private FamiliaWindow view;
-    private BIFamiliaDAO familiaDao;
-    private BIFamilia familia;
-    private List<BIFamilia> list;
+    private PacienteWindow view;
+    private BIPacienteDAO pacienteDao;
+    private BIPaciente paciente;
+    private List<BIPaciente> list;
     
     public final OperacaoStrategy INSERT_STRATEGY = new InsertStrategy();  
     public final OperacaoStrategy UPDATE_STRATEGY = new UpdateStrategy();  
@@ -30,11 +35,11 @@ public class FamiliaPresenter {
     
     public void createView() { 
         //cria a view 
-        this.view = new FamiliaWindow();
+        this.view = new PacienteWindow();
         //cria o modelo
-        this.novaFamilia();
+        this.novoPaciente();
         //cria o DAO
-        this.familiaDao = new BIFamiliaDAO();
+        this.pacienteDao = new BIPacienteDAO();
         
         this.setUpViewListeners();  
         this.habilitarEdicao(false);
@@ -47,49 +52,47 @@ public class FamiliaPresenter {
      
     
     private void setUpViewListeners(){
-        this.view.setNovoActionListener(new FamiliaActionListener.NovoActionListener(this));
-        this.view.setConfirmarActionListener(new FamiliaActionListener.ConfirmarActionListener(this));
-        this.view.setSelecionarLinhaJTableActionListener(new FamiliaWindowMouseListener.SelecionarLinhaMouseListener(this));
-        this.view.setEditarActionListener(new FamiliaActionListener.EditarActionListener(this));
+        this.view.setNovoActionListener(new PacienteActionListener.NovoActionListener(this));
+        this.view.setConfirmarActionListener(new PacienteActionListener.ConfirmarActionListener(this));
+        this.view.setSelecionarLinhaJTableActionListener(new PacienteWindowMouseListener.SelecionarLinhaMouseListener(this));
+        this.view.setEditarActionListener(new PacienteActionListener.EditarActionListener(this));
     }
     
      private void initDadosJTable(){
       
         try {
-            list= this.familiaDao.findAll();
+            list= this.pacienteDao.findAll();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        FamiliaTableModel familiaTableModel= new FamiliaTableModel(list);
-        view.setFamiliaTableModel(familiaTableModel);
+        PacienteTableModel pacienteTableModel= new PacienteTableModel(list);
+        view.setPacienteTableModel(pacienteTableModel);
         
     }
-    public void novaFamilia(){
-        this.familia = new BIFamilia();
+    public void novoPaciente(){
+        this.paciente = new BIPaciente();
     }
     
     public void habilitarEdicao(boolean arg){
-        this.view.enableTxtArea(arg);
-        this.view.enableTxtBairro(arg);
-        this.view.enableTxtCep(arg);
-        this.view.enableTxtEndereco(arg);
+        this.view.enableTxtCns(arg);
+        this.view.enableTxtDataNascimento(arg);
+        this.view.enableTxtDoencaCondicao(arg);
         this.view.enableTxtFamilia(arg);
-        this.view.enableTxtMicroarea(arg);
-        this.view.enableTxtMunicipio(arg);
-        this.view.enableTxtNumero(arg);
-        this.view.enableTxtSegmento(arg);
-        this.view.enableTxtUF(arg);
-        this.view.enableTxtDataCadastro(arg);
+        this.view.enableTxtIdade(arg);
+        this.view.enableTxtNome(arg);
+        this.view.enableTxtOcupacao(arg);
+        this.view.enableTxtSexo(arg);
+        this.view.enableJCbAlfabetizado(arg);
     }
     
-    public FamiliaView getView(){
+    public PacienteView getView(){
         return this.view;
     }
     
     private class InsertStrategy implements OperacaoStrategy {  
         @Override
         public void execute() {  
-            FamiliaPresenter.this.inserirFamilia(); 
+            PacientePresenter.this.inserirFamilia(); 
             
         }  
     }  
@@ -97,7 +100,7 @@ public class FamiliaPresenter {
     private class UpdateStrategy implements OperacaoStrategy {  
         @Override
         public void execute() {  
-          FamiliaPresenter.this.atualizarFamilia(); 
+          PacientePresenter.this.atualizarFamilia(); 
             
         }  
     }  
@@ -112,26 +115,26 @@ public class FamiliaPresenter {
     
     
      public void inserirFamilia(){
-        this.getView().getBinder().updateModel(this.familia);
-        this.familiaDao.save(this.familia);
+        this.getView().getBinder().updateModel(this.paciente);
+        this.pacienteDao.save(this.paciente);
         this.initDadosJTable();
-        this.view.refreshTableFamilias();
+        this.view.refreshTablePacientes();
     }
      
     public void atualizarFamilia(){
-        this.getView().getBinder().updateModel(this.familia);
-        this.familiaDao.update(this.familia);
+        this.getView().getBinder().updateModel(this.paciente);
+        this.pacienteDao.update(this.paciente);
         this.initDadosJTable();
-        this.view.refreshTableFamilias();
+        this.view.refreshTablePacientes();
     }
     
     public void atualizarModeloDaJTable() {  
-        FamiliaTableModel tbModel = view.getFamiliaTableModel();  
+        PacienteTableModel tbModel = view.getPacienteTableModel();  
           
-        this.familia = tbModel.getFamilia(view.linhaSelecionadaTableFamilias());  
+        this.paciente = tbModel.getPaciente(view.linhaSelecionadaTablePacientes());  
           
-        if (this.familia != null) {  
-            this.view.getBinder().updateView(this.familia);  
+        if (this.paciente != null) {  
+            this.view.getBinder().updateView(this.paciente);  
         }  
            
     }  

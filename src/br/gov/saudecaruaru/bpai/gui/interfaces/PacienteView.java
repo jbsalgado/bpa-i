@@ -4,7 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.gui.interfaces;
 
-import br.gov.saudecaruaru.bpai.gui.FamiliaTableModel;
+import br.gov.saudecaruaru.bpai.gui.PacienteTableModel;
 import com.towel.bind.Binder;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
@@ -13,29 +13,27 @@ import java.awt.event.MouseListener;
  *
  * @author juniorpires
  */
-public interface FamiliaView {
+public interface PacienteView {
     public void setSelecionarLinhaJTableActionListener(MouseListener listener);
     public void clearFields();
     public void packAndShow();
-    public FamiliaTableModel getFamiliaTableModel();
-    public void setFamiliaTableModel(FamiliaTableModel model);
-    public int linhaSelecionadaTableFamilias(); 
-    public void refreshTableFamilias();
+    public PacienteTableModel getPacienteTableModel();
+    public void setPacienteTableModel(PacienteTableModel model);
+    public int linhaSelecionadaTablePacientes(); 
+    public void refreshTablePacientes();
     public void setVerifiers();
     public void setDocuments();
     public Binder getBinder();
-    public void enableTxtSegmento(boolean arg);
-    public void enableTxtArea(boolean arg);
-    public void enableTxtMicroarea(boolean arg);
+    public void enableTxtCns(boolean arg);
+    public void enableTxtNome(boolean arg);
+    public void enableTxtIdade(boolean arg);
+    public void enableTxtSexo(boolean arg);
+    public void enableJCbAlfabetizado(boolean arg);
+    public void enableTxtDataNascimento(boolean arg);
+    public void enableTxtOcupacao(boolean arg);
     public void enableTxtFamilia(boolean arg);
-    public void enableTxtEndereco(boolean arg);
-    public void enableTxtNumero(boolean arg);
-    public void enableTxtBairro(boolean arg);
-    public void enableTxtCep(boolean arg);
-    public void enableTxtMunicipio(boolean arg);
-    public void enableTxtUF(boolean arg);
-    public void enableTxtDataCadastro(boolean arg);
-    
+    public void enableTxtDoencaCondicao(boolean arg);
+   
     public void enableBtnNovo(boolean arg);
     public void enableBtnEditar(boolean arg);
     public void enableBtnConfirmar(boolean arg);

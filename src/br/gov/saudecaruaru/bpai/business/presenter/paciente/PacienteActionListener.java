@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.business.presenter.familia;
+package br.gov.saudecaruaru.bpai.business.presenter.paciente;
 
-import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
+import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,18 +12,18 @@ import java.awt.event.ActionListener;
  *
  * @author juniorpires
  */
-public class FamiliaActionListener {
+public class PacienteActionListener {
     static class NovoActionListener implements ActionListener{
-        private FamiliaPresenter presenter;  
+        private PacientePresenter presenter;  
           
-        public NovoActionListener(FamiliaPresenter presenter) {  
+        public NovoActionListener(PacientePresenter presenter) {  
             this.presenter = presenter;  
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            FamiliaView view = (FamiliaView) this.presenter.getView(); 
+            PacienteView view = (PacienteView) this.presenter.getView(); 
                  this.presenter.habilitarEdicao(true);
-                 this.presenter.novaFamilia();
+                 this.presenter.novoPaciente();
                  view.clearFields();
                  
                  view.enableBtnEditar(false);
@@ -36,14 +36,14 @@ public class FamiliaActionListener {
     
     
     static class ConfirmarActionListener implements ActionListener{
-        private FamiliaPresenter presenter;  
+        private PacientePresenter presenter;  
           
-        public ConfirmarActionListener(FamiliaPresenter presenter) {  
+        public ConfirmarActionListener(PacientePresenter presenter) {  
             this.presenter = presenter;  
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            FamiliaView view = (FamiliaView) this.presenter.getView(); 
+            PacienteView view = (PacienteView) this.presenter.getView(); 
                  this.presenter.habilitarEdicao(false);
                  //view.enableBtnConfirmar(false);
                  view.enableBtnCancelar(false);
@@ -57,14 +57,14 @@ public class FamiliaActionListener {
     }
     
      static class EditarActionListener implements ActionListener{
-        private FamiliaPresenter presenter;  
+        private PacientePresenter presenter;  
           
-        public EditarActionListener(FamiliaPresenter presenter) {  
+        public EditarActionListener(PacientePresenter presenter) {  
             this.presenter = presenter;  
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            FamiliaView view = (FamiliaView) this.presenter.getView(); 
+           PacienteView view = (PacienteView) this.presenter.getView(); 
                  this.presenter.habilitarEdicao(true);
                  view.enableBtnConfirmar(true);
                  view.enableBtnCancelar(true);
