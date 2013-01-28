@@ -7,18 +7,11 @@ package br.gov.saudecaruaru.bpai.business.controller;
 import br.gov.saudecaruaru.bpai.data.HibernateUtil;
 import br.gov.saudecaruaru.bpai.data.RecursoXML;
 import br.gov.saudecaruaru.bpai.util.Recurso;
-import com.sun.istack.internal.logging.Logger;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -31,8 +24,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.exception.GenericJDBCException;
@@ -83,8 +76,8 @@ public class SistemaController {
             HibernateUtil.restartSessionFactory();
             sucess = false;
             //ex.printStackTrace();
-            logger.severe("Erro ao tentar executar o método testConnectionBPA " + ex.getMessage());
-            logger.logException(ex, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método testConnectionBPA " + ex.getMessage());
+            //logger.logException(ex, Level.SEVERE);
         } finally {
             if (s != null) {
                 if (s.isOpen()) {
@@ -110,8 +103,8 @@ public class SistemaController {
         } catch (GenericJDBCException ex) {
             HibernateUtil.restartSessionFactoryBpaI();
             sussess = false;
-            logger.severe("Erro ao tentar executar o método testConnectionBPAI " + ex.getMessage());
-            logger.logException(ex, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método testConnectionBPAI " + ex.getMessage());
+            //logger.logException(ex, Level.SEVERE);
         } finally {
             if (s.isOpen()) {
                 s.close();
@@ -149,8 +142,8 @@ public class SistemaController {
             }
 
         } catch (IOException exc) {
-            logger.severe("Erro ao tentar executar o método createConfiguration " + exc.getMessage());
-            logger.logException(exc, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método createConfiguration " + exc.getMessage());
+           // logger.logException(exc, Level.SEVERE);
         }
     }
 
@@ -171,8 +164,8 @@ public class SistemaController {
             in.close();
             //f.
         } catch (IOException exc) {
-            logger.severe("Erro ao tentar executar o método loadConfigurations " + exc.getMessage());
-            logger.logException(exc, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método loadConfigurations " + exc.getMessage());
+            //logger.logException(exc, Level.SEVERE);
         }
     }
 
@@ -193,8 +186,8 @@ public class SistemaController {
             in.close();
             out.close();
         } catch (IOException exc) {
-            logger.severe("Erro ao tentar executar o método updateConfigurations " + exc.getMessage());
-            logger.logException(exc, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método updateConfigurations " + exc.getMessage());
+           // logger.logException(exc, Level.SEVERE);
         }
     }
 
@@ -217,8 +210,8 @@ public class SistemaController {
             in.close();
 
         } catch (IOException exc) {
-            logger.severe("Erro ao tentar executar o método procedimentoExcessao " + exc.getMessage());
-            logger.logException(exc, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método procedimentoExcessao " + exc.getMessage());
+            //logger.logException(exc, Level.SEVERE);
             return "";
         }
 
@@ -248,14 +241,14 @@ public class SistemaController {
                 resEntity.writeTo(System.out);
             }
         } catch (URISyntaxException ex) {
-            logger.severe("Erro ao tentar executar o método enviarProducaoParaServidor " + ex.getMessage());
-            logger.logException(ex, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método enviarProducaoParaServidor " + ex.getMessage());
+            //logger.logException(ex, Level.SEVERE);
         } catch (ConnectException ex) {
-            logger.severe("Erro ao tentar executar o método enviarProducaoParaServidor " + ex.getMessage());
-            logger.logException(ex, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método enviarProducaoParaServidor " + ex.getMessage());
+            //logger.logException(ex, Level.SEVERE);
         } catch (IOException ex) {
-            logger.severe("Erro ao tentar executar o método enviarProducaoParaServidor " + ex.getMessage());
-            logger.logException(ex, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método enviarProducaoParaServidor " + ex.getMessage());
+            //logger.logException(ex, Level.SEVERE);
         }
     }
 
@@ -281,11 +274,11 @@ public class SistemaController {
                 }
             }
         } catch (ClientHandlerException ex) {
-            logger.severe("Erro ao tentar executar o método getRecursosASeremAtualizados " + ex.getMessage());
-            logger.logException(ex, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método getRecursosASeremAtualizados " + ex.getMessage());
+            //logger.logException(ex, Level.SEVERE);
         } catch (Exception ex) {
-            logger.severe("Erro ao tentar executar o método getRecursosASeremAtualizados " + ex.getMessage());
-            logger.logException(ex, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método getRecursosASeremAtualizados " + ex.getMessage());
+            //logger.logException(ex, Level.SEVERE);
         } finally {
             return list;
         }
@@ -309,12 +302,12 @@ public class SistemaController {
             }
             return false;
         } catch (ClientHandlerException ex) {
-            logger.severe("Erro ao tentar executar o método baixarBancoDeDados " + ex.getMessage());
-            logger.logException(ex, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método baixarBancoDeDados " + ex.getMessage());
+            //logger.logException(ex, Level.SEVERE);
             return false;
         } catch (Exception ex) {
-            logger.severe("Erro ao tentar executar o método baixarBancoDeDados " + ex.getMessage());
-            logger.logException(ex, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método baixarBancoDeDados " + ex.getMessage());
+            //logger.logException(ex, Level.SEVERE);
             return false;
         }
     }
@@ -349,8 +342,8 @@ public class SistemaController {
                 return this.criarArquivo(response.getEntityInputStream(), recurso);
             }
         } catch (Exception ex) {
-            logger.severe("Erro ao tentar executar o método atualizarRecurso " + ex.getMessage());
-            logger.logException(ex, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método atualizarRecurso " + ex.getMessage());
+            //logger.logException(ex, Level.SEVERE);
             return false;
         }
         return false;
@@ -383,14 +376,14 @@ public class SistemaController {
             out.close();
             sucess = true;
         } catch (FileNotFoundException ex) {
-            logger.severe("Erro ao tentar executar o método criarArquivo " + ex.getMessage());
-            logger.logException(ex, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método criarArquivo " + ex.getMessage());
+            //logger.logException(ex, Level.SEVERE);
         } catch (IOException ex) {
-            logger.severe("Erro ao tentar executar o método criarArquivo " + ex.getMessage());
-            logger.logException(ex, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método criarArquivo " + ex.getMessage());
+            //logger.logException(ex, Level.SEVERE);
         } catch (Exception ex) {
-            logger.severe("Erro ao tentar executar o método criarArquivo " + ex.getMessage());
-            logger.logException(ex, Level.SEVERE);
+            logger.error("Erro ao tentar executar o método criarArquivo " + ex.getMessage());
+            //logger.logException(ex, Level.SEVERE);
         } finally {
             return sucess;
         }
