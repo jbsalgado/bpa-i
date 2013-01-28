@@ -16,13 +16,15 @@ import java.awt.event.MouseListener;
 public class PacienteWindowMouseListener {
     
     static class SelecionarLinhaMouseListener implements MouseListener{
-        private PacientePresenter presenter;  
+        private PacientePresenter presenter;
+
           
         public SelecionarLinhaMouseListener(PacientePresenter presenter) {  
             this.presenter = presenter;  
         }
         @Override
         public void mouseClicked(MouseEvent e) {
+          
             PacienteView view = this.presenter.getView();
             this.presenter.atualizarModeloDaJTable();
             this.presenter.habilitarEdicao(true);
@@ -30,8 +32,8 @@ public class PacienteWindowMouseListener {
             view.enableBtnNovo(false);
             view.enableBtnConfirmar(false);
             view.enableTxtCns(false);
-            
-        }
+            }
+        
 
         @Override
         public void mousePressed(MouseEvent e) {

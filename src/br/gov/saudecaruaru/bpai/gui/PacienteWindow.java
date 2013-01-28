@@ -6,16 +6,22 @@ package br.gov.saudecaruaru.bpai.gui;
 
 
 import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
+import br.gov.saudecaruaru.bpai.business.model.Escolha;
 import br.gov.saudecaruaru.bpai.gui.formatter.CharFormatter;
+import br.gov.saudecaruaru.bpai.gui.formatter.EscolhaFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.IntFormatter;
 import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
 import com.towel.bind.Binder;
 import com.towel.bind.annotation.AnnotatedBinder;
 import com.towel.bind.annotation.Bindable;
 import com.towel.bind.annotation.Form;
+import com.towel.swing.combo.ObjectComboBoxModel;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumnModel;
@@ -40,10 +46,20 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
          
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.initInstances();
+        
+        modelEscolha = new ObjectComboBoxModel<Character>();
+
+        modelEscolha.setFormatter(new EscolhaFormatter());
+
+        List<Character> lis= new ArrayList<Character>();
+        lis.add(new Character('S'));
+        lis.add(new Character('N'));
+        modelEscolha.setData(lis);
+        jCbalfabetizado.setModel(modelEscolha);
     }
      
     private void initInstances(){
-        //centralizará a tela
+        //centralizarÃ¡ a tela
         this.setLocationRelativeTo(null);
         this.binder=new AnnotatedBinder(this);
     }
@@ -89,7 +105,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
 
         jLabel2.setText("Alfabetizado: ");
 
-        jCbalfabetizado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sim", "Não" }));
+        jCbalfabetizado.setModel(new DefaultComboBoxModel(new String[]{"Sim","Não"}));
         jCbalfabetizado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCbalfabetizadoActionPerformed(evt);
@@ -290,7 +306,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
     private javax.swing.JButton jBtEditar;
     private javax.swing.JButton jBtFamilia;
     private javax.swing.JButton jBtNovo;
-    @Bindable(field="alfabetizado",formatter=CharFormatter.class)
+    @Bindable(field="alfabetizado",formatter=EscolhaFormatter.class)
     private javax.swing.JComboBox jCbalfabetizado;
     @Bindable(field="dataNascimento")
     private javax.swing.JFormattedTextField jFTxtDataNascimento;
@@ -320,6 +336,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
     @Bindable(field="sexo",formatter=CharFormatter.class)
     private javax.swing.JTextField jTxtSexo;
     // End of variables declaration//GEN-END:variables
+    private ObjectComboBoxModel<Character> modelEscolha;
 
     @Override
     public void setSelecionarLinhaJTableActionListener(MouseListener listener) {
@@ -363,7 +380,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
         columnModel.getColumn(1).setHeaderValue("Nome");  
         columnModel.getColumn(1).setPreferredWidth(200);  
         
-        columnModel.getColumn(2).setHeaderValue("Família");  
+        columnModel.getColumn(2).setHeaderValue("FamÃ­lia");  
         columnModel.getColumn(2).setPreferredWidth(200);  
         
     }

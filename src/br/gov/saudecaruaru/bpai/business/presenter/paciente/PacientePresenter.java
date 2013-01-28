@@ -123,10 +123,16 @@ public class PacientePresenter {
      
      private void updateModel(){
          this.getView().getBinder().updateModel(this.paciente);
-         this.paciente.setAlfabetizado(this.view.getAlfabetizado());
+         //this.paciente.setAlfabetizado(this.view.getAlfabetizado());
          this.paciente.setFamilia(new BIFamilia());
          this.paciente.getFamilia().setId(this.view.getIdFamilia());
      }
+     
+//     private void updateView(){
+//          this.getView().getBinder().updateView(this.paciente);
+//          this.getView().
+//          
+//     }
     public void atualizarFamilia(){
         this.updateModel();
         this.pacienteDao.update(this.paciente);

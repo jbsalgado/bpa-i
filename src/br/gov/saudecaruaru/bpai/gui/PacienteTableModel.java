@@ -18,8 +18,8 @@ public class PacienteTableModel extends AbstractTableModel {
       
     private List pacientes;  
       
-    public PacienteTableModel(List portes) {  
-        this.pacientes = portes;  
+    public PacienteTableModel(List pacientes) {  
+        this.pacientes = pacientes;  
     }  
       
     @Override
