@@ -46,5 +46,8 @@ public interface FamiliaView {
     public void setConfirmarActionListener(ActionListener listener);
     public void setCancelarActionListener(ActionListener listener);
     
+    public void visibleBtnBuscar(boolean arg);
+    public void setBuscarActionListener(ActionListener listener);
+    public void fecharJanela();
     
 }

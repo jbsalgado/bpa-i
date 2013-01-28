@@ -49,4 +49,6 @@ public interface PacienteView {
     
     public void setSelectedAlfabetizado(Character o);
     public void setSelectedIndexAlfabetizado(int i);
+    
+    public void setFamiliaActionListener(ActionListener listener);
 }

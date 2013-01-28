@@ -2,14 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.business.presenter.cadastrofamilia;
+package br.gov.saudecaruaru.bpai.business.presenter.buscafamilia;
 
+import br.gov.saudecaruaru.bpai.business.presenter.cadastrofamilia.*;
 import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
+import br.gov.saudecaruaru.bpai.business.model.Observer;
+import br.gov.saudecaruaru.bpai.business.model.Subject;
+import br.gov.saudecaruaru.bpai.business.presenter.buscafamilia.BuscaFamiliaWindowMouseListener.SelecionarLinhaMouseListener;
 import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
 import br.gov.saudecaruaru.bpai.gui.FamiliaTableModel;
 import br.gov.saudecaruaru.bpai.gui.FamiliaWindow;
 import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
 import br.gov.saudecaruaru.bpai.gui.interfaces.OperacaoStrategy;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,18 +22,24 @@ import java.util.List;
  *
  * @author juniorpires
  */
-public class CadastroFamiliaPresenter {
+public class BuscaFamiliaPresenter{
     
     private FamiliaWindow view;
     private BIFamiliaDAO familiaDao;
     private BIFamilia familia;
     private List<BIFamilia> list;
+    private SelecionarLinhaMouseListener selecionarLinhaMouseListener;
+
+    public BuscaFamiliaPresenter() {
+        this.selecionarLinhaMouseListener = new BuscaFamiliaWindowMouseListener.SelecionarLinhaMouseListener(this);
+    }
     
-    public final OperacaoStrategy INSERT_STRATEGY = new InsertStrategy();  
-    public final OperacaoStrategy UPDATE_STRATEGY = new UpdateStrategy();  
-      
-    private OperacaoStrategy operacao = INSERT_STRATEGY;  
-    
+    //metodo que cria a tela e registra um observer para ela
+    public void createView(Observer o){
+        this.createView();
+        this.selecionarLinhaMouseListener.registerObserver(o);
+       
+    }
     public void createView() { 
         //cria a view 
         this.view = new FamiliaWindow();
@@ -38,9 +49,11 @@ public class CadastroFamiliaPresenter {
         this.familiaDao = new BIFamiliaDAO();
         
         this.setUpViewListeners();  
-        this.habilitarEdicao(false);
         this.view.enableBtnEditar(false);
-        this.view.visibleBtnBuscar(false);
+        this.view.enableBtnConfirmar(false);
+        this.view.enableBtnNovo(false);
+        this.view.enableBtnCancelar(false);
+        this.view.visibleBtnBuscar(true);
         this.initDadosJTable();
         //this.view.setVerifiers();
         //this.view.setDocuments();
@@ -49,10 +62,8 @@ public class CadastroFamiliaPresenter {
      
     
     private void setUpViewListeners(){
-        this.view.setNovoActionListener(new CadastroFamiliaActionListener.NovoActionListener(this));
-        this.view.setConfirmarActionListener(new CadastroFamiliaActionListener.ConfirmarActionListener(this));
-        this.view.setSelecionarLinhaJTableActionListener(new CadastroFamiliaWindowMouseListener.SelecionarLinhaMouseListener(this));
-        this.view.setEditarActionListener(new CadastroFamiliaActionListener.EditarActionListener(this));
+          this.view.setSelecionarLinhaJTableActionListener(this.selecionarLinhaMouseListener);
+          this.view.setBuscarActionListener(new BuscaFamiliaActionListener.BuscaActionListener(this));
     }
     
      private void initDadosJTable(){
@@ -87,46 +98,7 @@ public class CadastroFamiliaPresenter {
     public FamiliaView getView(){
         return this.view;
     }
-    
-    private class InsertStrategy implements OperacaoStrategy {  
-        @Override
-        public void execute() {  
-            CadastroFamiliaPresenter.this.inserirFamilia(); 
-            
-        }  
-    }  
-    
-    private class UpdateStrategy implements OperacaoStrategy {  
-        @Override
-        public void execute() {  
-          CadastroFamiliaPresenter.this.atualizarFamilia(); 
-            
-        }  
-    }  
-    
-    public void setOperacao(OperacaoStrategy operacao) {  
-        this.operacao = operacao;  
-    }  
-  
-    public OperacaoStrategy getOperacao() {  
-        return operacao;  
-    }
-    
-    
-     public void inserirFamilia(){
-        this.getView().getBinder().updateModel(this.familia);
-        this.familiaDao.save(this.familia);
-        this.initDadosJTable();
-        this.view.refreshTableFamilias();
-    }
-     
-    public void atualizarFamilia(){
-        this.getView().getBinder().updateModel(this.familia);
-        this.familiaDao.update(this.familia);
-        this.initDadosJTable();
-        this.view.refreshTableFamilias();
-    }
-    
+
     public void atualizarModeloDaJTable() {  
         FamiliaTableModel tbModel = view.getFamiliaTableModel();  
           
@@ -136,6 +108,24 @@ public class CadastroFamiliaPresenter {
             this.view.getBinder().updateView(this.familia);  
         }  
            
-    }  
+    }
+    
+    public void atualizarJTable(){
+        FamiliaTableModel familiaTableModel= new FamiliaTableModel(list);
+        view.setFamiliaTableModel(familiaTableModel);
+        this.view.refreshTableFamilias();
+          
+    }
+    public void buscarFamilias(){
+        this.view.getBinder().updateModel(this.familia);
+        list = this.familiaDao.findAllEqual(this.familia);
+        this.atualizarJTable();
+    }
+    public int getIdFamilia(){
+        return this.familia.getId();
+    }
+
+   
+    
      
 }

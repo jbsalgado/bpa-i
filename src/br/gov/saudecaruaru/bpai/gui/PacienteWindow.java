@@ -7,6 +7,8 @@ package br.gov.saudecaruaru.bpai.gui;
 
 import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
 import br.gov.saudecaruaru.bpai.business.model.Escolha;
+import br.gov.saudecaruaru.bpai.business.model.Observer;
+import br.gov.saudecaruaru.bpai.business.model.Subject;
 import br.gov.saudecaruaru.bpai.gui.formatter.CharFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.EscolhaFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.IntFormatter;
@@ -31,7 +33,7 @@ import javax.swing.table.TableColumnModel;
  * @author juniorpires
  */
 @Form(BIPaciente.class)
-public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
+public class PacienteWindow extends javax.swing.JFrame implements PacienteView,Observer{
     private Binder binder;
     /**
      * Creates new form PacienteWindow
@@ -495,6 +497,10 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
     public void setCancelarActionListener(ActionListener listener) {
         this.jBtCancelar.addActionListener(listener);
     }
+    
+    public void setFamiliaActionListener(ActionListener listener) {
+        this.jBtFamilia.addActionListener(listener);
+    }
 
     @Override
     public Character getAlfabetizado() {
@@ -514,6 +520,16 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
     @Override
     public void setSelectedIndexAlfabetizado(int i){
         this.jCbalfabetizado.setSelectedIndex(i);
+    }
+
+    @Override
+    public void update(Subject sub, Object arg) {
+        if(arg!=null){
+            if(arg instanceof Integer){
+                //atualiza o valor do campo com o valor vindo do observado
+                this.jTxtFamilia.setText(String.valueOf(arg));
+            }
+        }
     }
     
 }

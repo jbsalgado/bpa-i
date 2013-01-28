@@ -95,7 +95,8 @@
                       <Component id="jBtConfirmar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jBtCancelar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jBtBuscar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" max="32767" attributes="0"/>
               </Group>
@@ -152,6 +153,7 @@
                   <Component id="jBtEditar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jBtConfirmar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jBtCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBtBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="160" max="32767" attributes="0"/>
@@ -309,5 +311,10 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="jBtBuscar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Buscar"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

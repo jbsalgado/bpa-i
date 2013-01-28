@@ -81,6 +81,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         jBtCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbFamilias = new javax.swing.JTable();
+        jBtBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -126,6 +127,8 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
             }
         ));
         jScrollPane1.setViewportView(jTbFamilias);
+
+        jBtBuscar.setText("Buscar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,7 +192,8 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
                         .addComponent(jBtConfirmar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtCancelar)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtBuscar))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -235,7 +239,8 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
                     .addComponent(jBtNovo)
                     .addComponent(jBtEditar)
                     .addComponent(jBtConfirmar)
-                    .addComponent(jBtCancelar))
+                    .addComponent(jBtCancelar)
+                    .addComponent(jBtBuscar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                 .addContainerGap())
@@ -286,6 +291,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtBuscar;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtConfirmar;
     private javax.swing.JButton jBtEditar;
@@ -473,7 +479,16 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     public void enableBtnCancelar(boolean arg) {
         this.jBtCancelar.setEnabled(arg);
     }
-
+    
+    @Override
+    public void visibleBtnBuscar(boolean arg){
+        this.jBtBuscar.setVisible(arg);
+    }
+    
+    @Override
+    public void setBuscarActionListener(ActionListener listener){
+        this.jBtBuscar.addActionListener(listener);
+    }
     @Override
     public void setNovoActionListener(ActionListener listener) {
         this.jBtNovo.addActionListener(listener);
@@ -497,5 +512,9 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     @Override
     public void enableTxtDataCadastro(boolean arg) {
         this.jTxtDataCadastro.setEnabled(arg);
+    }
+    
+    public void fecharJanela(){
+        this.dispose();
     }
 }

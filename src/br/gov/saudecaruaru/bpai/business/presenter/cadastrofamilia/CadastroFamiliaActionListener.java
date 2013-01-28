@@ -76,4 +76,22 @@ public class CadastroFamiliaActionListener {
                  
         }
     }
+     
+       static class CancelarActionListener implements ActionListener{
+        private CadastroFamiliaPresenter presenter;  
+          
+        public CancelarActionListener(CadastroFamiliaPresenter presenter) {  
+            this.presenter = presenter;  
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+           FamiliaView view = (FamiliaView) this.presenter.getView(); 
+                 view.clearFields();
+                 this.presenter.habilitarEdicao(false);
+                 view.enableBtnConfirmar(false);
+                 view.enableBtnCancelar(false);
+                 
+                 
+        }
+    }
 }

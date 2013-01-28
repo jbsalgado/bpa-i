@@ -58,6 +58,8 @@ public class CadastroPacientePresenter {
         this.view.setConfirmarActionListener(new CadastroPacienteActionListener.ConfirmarActionListener(this));
         this.view.setSelecionarLinhaJTableActionListener(new CadastroPacienteWindowMouseListener.SelecionarLinhaMouseListener(this));
         this.view.setEditarActionListener(new CadastroPacienteActionListener.EditarActionListener(this));
+        this.view.setFamiliaActionListener(new CadastroPacienteActionListener.FamiliaActionListener(this));
+        this.view.setCancelarActionListener(new CadastroPacienteActionListener.CancelarActionListener(this));
     }
     
      private void initDadosJTable(){
