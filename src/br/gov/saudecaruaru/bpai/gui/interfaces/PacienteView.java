@@ -46,4 +46,7 @@ public interface PacienteView {
     public void setEditarActionListener(ActionListener listener);
     public void setConfirmarActionListener(ActionListener listener);
     public void setCancelarActionListener(ActionListener listener);
+    
+    public void setSelectedAlfabetizado(Character o);
+    public void setSelectedIndexAlfabetizado(int i);
 }

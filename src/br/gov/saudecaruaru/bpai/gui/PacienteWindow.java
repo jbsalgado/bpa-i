@@ -506,5 +506,14 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
         return Integer.parseInt(this.jTxtFamilia.getText());
     }
     
+    @Override
+    public void setSelectedAlfabetizado(Character c){
+        this.modelEscolha.setSelectedObject(c);
+    }
+    
+    @Override
+    public void setSelectedIndexAlfabetizado(int i){
+        this.jCbalfabetizado.setSelectedIndex(i);
+    }
     
 }

@@ -6,6 +6,7 @@ package br.gov.saudecaruaru.bpai.business.presenter.paciente;
 
 import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
 import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
+import br.gov.saudecaruaru.bpai.business.model.Escolha;
 import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
 import br.gov.saudecaruaru.bpai.data.BIPacienteDAO;
 import br.gov.saudecaruaru.bpai.gui.FamiliaTableModel;
@@ -23,7 +24,7 @@ import java.util.List;
  */
 public class PacientePresenter {
     
-    private PacienteWindow view;
+    private PacienteView view;
     private BIPacienteDAO pacienteDao;
     private BIPaciente paciente;
     private List<BIPaciente> list;
@@ -83,6 +84,7 @@ public class PacientePresenter {
         this.view.enableTxtOcupacao(arg);
         this.view.enableTxtSexo(arg);
         this.view.enableJCbAlfabetizado(arg);
+        this.view.setSelectedIndexAlfabetizado(0);
     }
     
     public PacienteView getView(){
@@ -128,11 +130,11 @@ public class PacientePresenter {
          this.paciente.getFamilia().setId(this.view.getIdFamilia());
      }
      
-//     private void updateView(){
-//          this.getView().getBinder().updateView(this.paciente);
-//          this.getView().
-//          
-//     }
+     private void updateView(){
+          this.getView().getBinder().updateView(this.paciente);
+          this.getView().setSelectedAlfabetizado(this.paciente.getAlfabetizado());
+          
+     }
     public void atualizarFamilia(){
         this.updateModel();
         this.pacienteDao.update(this.paciente);
@@ -146,7 +148,7 @@ public class PacientePresenter {
         this.paciente = tbModel.getPaciente(view.linhaSelecionadaTablePacientes());  
           
         if (this.paciente != null) {  
-            this.view.getBinder().updateView(this.paciente);  
+            this.updateView();
         }  
            
     }  

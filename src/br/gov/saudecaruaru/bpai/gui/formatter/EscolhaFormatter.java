@@ -25,7 +25,7 @@ public class EscolhaFormatter implements Formatter{
                 return p.getDescricao();
         }
         
-        return "erro";
+        return "";
     }
 
     @Override
