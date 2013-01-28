@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.business.presenter.familia;
+package br.gov.saudecaruaru.bpai.business.presenter.cadastrofamilia;
 
 import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
 import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author juniorpires
  */
-public class FamiliaPresenter {
+public class CadastroFamiliaPresenter {
     
     private FamiliaWindow view;
     private BIFamiliaDAO familiaDao;
@@ -47,10 +47,10 @@ public class FamiliaPresenter {
      
     
     private void setUpViewListeners(){
-        this.view.setNovoActionListener(new FamiliaActionListener.NovoActionListener(this));
-        this.view.setConfirmarActionListener(new FamiliaActionListener.ConfirmarActionListener(this));
-        this.view.setSelecionarLinhaJTableActionListener(new FamiliaWindowMouseListener.SelecionarLinhaMouseListener(this));
-        this.view.setEditarActionListener(new FamiliaActionListener.EditarActionListener(this));
+        this.view.setNovoActionListener(new CadastroFamiliaActionListener.NovoActionListener(this));
+        this.view.setConfirmarActionListener(new CadastroFamiliaActionListener.ConfirmarActionListener(this));
+        this.view.setSelecionarLinhaJTableActionListener(new CadastroFamiliaWindowMouseListener.SelecionarLinhaMouseListener(this));
+        this.view.setEditarActionListener(new CadastroFamiliaActionListener.EditarActionListener(this));
     }
     
      private void initDadosJTable(){
@@ -89,7 +89,7 @@ public class FamiliaPresenter {
     private class InsertStrategy implements OperacaoStrategy {  
         @Override
         public void execute() {  
-            FamiliaPresenter.this.inserirFamilia(); 
+            CadastroFamiliaPresenter.this.inserirFamilia(); 
             
         }  
     }  
@@ -97,7 +97,7 @@ public class FamiliaPresenter {
     private class UpdateStrategy implements OperacaoStrategy {  
         @Override
         public void execute() {  
-          FamiliaPresenter.this.atualizarFamilia(); 
+          CadastroFamiliaPresenter.this.atualizarFamilia(); 
             
         }  
     }  

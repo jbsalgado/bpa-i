@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.business.presenter.paciente;
+package br.gov.saudecaruaru.bpai.business.presenter.cadastropaciente;
 
 import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
 import java.awt.event.ActionEvent;
@@ -12,11 +12,11 @@ import java.awt.event.ActionListener;
  *
  * @author juniorpires
  */
-public class PacienteActionListener {
+public class CadastroPacienteActionListener {
     static class NovoActionListener implements ActionListener{
-        private PacientePresenter presenter;  
+        private CadastroPacientePresenter presenter;  
           
-        public NovoActionListener(PacientePresenter presenter) {  
+        public NovoActionListener(CadastroPacientePresenter presenter) {  
             this.presenter = presenter;  
         }
         @Override
@@ -36,9 +36,9 @@ public class PacienteActionListener {
     
     
     static class ConfirmarActionListener implements ActionListener{
-        private PacientePresenter presenter;  
+        private CadastroPacientePresenter presenter;  
           
-        public ConfirmarActionListener(PacientePresenter presenter) {  
+        public ConfirmarActionListener(CadastroPacientePresenter presenter) {  
             this.presenter = presenter;  
         }
         @Override
@@ -57,9 +57,9 @@ public class PacienteActionListener {
     }
     
      static class EditarActionListener implements ActionListener{
-        private PacientePresenter presenter;  
+        private CadastroPacientePresenter presenter;  
           
-        public EditarActionListener(PacientePresenter presenter) {  
+        public EditarActionListener(CadastroPacientePresenter presenter) {  
             this.presenter = presenter;  
         }
         @Override

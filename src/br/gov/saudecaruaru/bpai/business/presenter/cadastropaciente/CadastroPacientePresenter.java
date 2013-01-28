@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.business.presenter.paciente;
+package br.gov.saudecaruaru.bpai.business.presenter.cadastropaciente;
 
 import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
 import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author juniorpires
  */
-public class PacientePresenter {
+public class CadastroPacientePresenter {
     
     private PacienteView view;
     private BIPacienteDAO pacienteDao;
@@ -53,10 +53,10 @@ public class PacientePresenter {
      
     
     private void setUpViewListeners(){
-        this.view.setNovoActionListener(new PacienteActionListener.NovoActionListener(this));
-        this.view.setConfirmarActionListener(new PacienteActionListener.ConfirmarActionListener(this));
-        this.view.setSelecionarLinhaJTableActionListener(new PacienteWindowMouseListener.SelecionarLinhaMouseListener(this));
-        this.view.setEditarActionListener(new PacienteActionListener.EditarActionListener(this));
+        this.view.setNovoActionListener(new CadastroPacienteActionListener.NovoActionListener(this));
+        this.view.setConfirmarActionListener(new CadastroPacienteActionListener.ConfirmarActionListener(this));
+        this.view.setSelecionarLinhaJTableActionListener(new CadastroPacienteWindowMouseListener.SelecionarLinhaMouseListener(this));
+        this.view.setEditarActionListener(new CadastroPacienteActionListener.EditarActionListener(this));
     }
     
      private void initDadosJTable(){
@@ -94,7 +94,7 @@ public class PacientePresenter {
     private class InsertStrategy implements OperacaoStrategy {  
         @Override
         public void execute() {  
-            PacientePresenter.this.inserirFamilia(); 
+            CadastroPacientePresenter.this.inserirFamilia(); 
             
         }  
     }  
@@ -102,7 +102,7 @@ public class PacientePresenter {
     private class UpdateStrategy implements OperacaoStrategy {  
         @Override
         public void execute() {  
-          PacientePresenter.this.atualizarFamilia(); 
+          CadastroPacientePresenter.this.atualizarPaciente(); 
             
         }  
     }  
@@ -135,7 +135,7 @@ public class PacientePresenter {
           this.getView().setSelectedAlfabetizado(this.paciente.getAlfabetizado());
           
      }
-    public void atualizarFamilia(){
+    public void atualizarPaciente(){
         this.updateModel();
         this.pacienteDao.update(this.paciente);
         this.initDadosJTable();

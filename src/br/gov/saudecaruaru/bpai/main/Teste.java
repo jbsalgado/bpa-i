@@ -58,9 +58,9 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.log4j.Logger;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+//import org.json.simple.JSONObject;
+//import org.json.simple.parser.JSONParser;
+//import org.json.simple.parser.ParseException;
 import sun.org.mozilla.javascript.internal.json.JsonParser;
 /**
  *
@@ -242,13 +242,13 @@ public class Teste {
        //JSONC
       // resorce.queryParam("t", "<inicio> valor</inicio>");
        //resorce.entity(new File("C:\\Users\\Albuquerque\\Desktop\\bck.xml"));
-       String s=resorce.get(String.class);
-       JSONParser parser=new JSONParser();
-        try {
-            Object o=parser.parse(s);
-            JSONObject obj=(JSONObject) o;
-            System.out.println(obj.get("raca"));
-            System.out.println(obj);
+//       String s=resorce.get(String.class);
+//       JSONParser parser=new JSONParser();
+//        try {
+//            Object o=parser.parse(s);
+//            JSONObject obj=(JSONObject) o;
+//            System.out.println(obj.get("raca"));
+//            System.out.println(obj);
            // System.out.println( resorce.get(String.class));
      //        try {
      //            URI url=new URI("http://localhost/sispad/index.php/bpa/procedimentorealizado/envio");
@@ -273,8 +273,8 @@ public class Teste {
      //        } catch (Exception ex) {
      //        }
      //        }
-        } catch (ParseException ex) {
-            java.util.logging.Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        } catch (ParseException ex) {
+//            java.util.logging.Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
+//        }
    }
 }

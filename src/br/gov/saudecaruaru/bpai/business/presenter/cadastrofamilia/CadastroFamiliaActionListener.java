@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.business.presenter.familia;
+package br.gov.saudecaruaru.bpai.business.presenter.cadastrofamilia;
 
 import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
 import java.awt.event.ActionEvent;
@@ -12,11 +12,11 @@ import java.awt.event.ActionListener;
  *
  * @author juniorpires
  */
-public class FamiliaActionListener {
+public class CadastroFamiliaActionListener {
     static class NovoActionListener implements ActionListener{
-        private FamiliaPresenter presenter;  
+        private CadastroFamiliaPresenter presenter;  
           
-        public NovoActionListener(FamiliaPresenter presenter) {  
+        public NovoActionListener(CadastroFamiliaPresenter presenter) {  
             this.presenter = presenter;  
         }
         @Override
@@ -36,9 +36,9 @@ public class FamiliaActionListener {
     
     
     static class ConfirmarActionListener implements ActionListener{
-        private FamiliaPresenter presenter;  
+        private CadastroFamiliaPresenter presenter;  
           
-        public ConfirmarActionListener(FamiliaPresenter presenter) {  
+        public ConfirmarActionListener(CadastroFamiliaPresenter presenter) {  
             this.presenter = presenter;  
         }
         @Override
@@ -57,9 +57,9 @@ public class FamiliaActionListener {
     }
     
      static class EditarActionListener implements ActionListener{
-        private FamiliaPresenter presenter;  
+        private CadastroFamiliaPresenter presenter;  
           
-        public EditarActionListener(FamiliaPresenter presenter) {  
+        public EditarActionListener(CadastroFamiliaPresenter presenter) {  
             this.presenter = presenter;  
         }
         @Override

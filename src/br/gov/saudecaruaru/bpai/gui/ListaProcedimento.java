@@ -27,8 +27,8 @@ import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizadoPK;
 import br.gov.saudecaruaru.bpai.business.model.Procedimento;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
-import br.gov.saudecaruaru.bpai.business.presenter.familia.FamiliaPresenter;
-import br.gov.saudecaruaru.bpai.business.presenter.paciente.PacientePresenter;
+import br.gov.saudecaruaru.bpai.business.presenter.cadastrofamilia.CadastroFamiliaPresenter;
+import br.gov.saudecaruaru.bpai.business.presenter.cadastropaciente.CadastroPacientePresenter;
 import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
 import br.gov.saudecaruaru.bpai.gui.FocusListener.ChangeBackgroundFieldFocusListener;
 import br.gov.saudecaruaru.bpai.gui.exportacao.ExportacaoCentralViaXML;
@@ -807,12 +807,12 @@ public class ListaProcedimento extends javax.swing.JFrame {
         ex.setVisible(true);
     }
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        FamiliaPresenter familiaPresenter = new FamiliaPresenter();
+        CadastroFamiliaPresenter familiaPresenter = new CadastroFamiliaPresenter();
         familiaPresenter.createView();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        PacientePresenter pacientePresenter = new PacientePresenter();
+        CadastroPacientePresenter pacientePresenter = new CadastroPacientePresenter();
         pacientePresenter.createView();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
