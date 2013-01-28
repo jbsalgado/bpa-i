@@ -28,10 +28,11 @@ public class FamiliaTableModel extends AbstractTableModel {
         if (familia != null) {  
               
             switch (columnIndex) {  
-                case 0: return familia.getSegmento();  
-                case 1: return familia.getArea();  
-                case 2: return familia.getMicroArea();  
-                case 3: return familia.getFamilia();  
+                case 0: return familia.getId();  
+                case 1: return familia.getSegmento();  
+                case 2: return familia.getArea();  
+                case 3: return familia.getMicroArea();  
+                case 4: return familia.getFamilia();  
             }  
         }  
           
@@ -49,7 +50,7 @@ public class FamiliaTableModel extends AbstractTableModel {
   
     @Override
     public int getColumnCount() {  
-        return 4;  
+        return 5;  
     }  
       
     public BIFamilia getFamilia(int row) {  
