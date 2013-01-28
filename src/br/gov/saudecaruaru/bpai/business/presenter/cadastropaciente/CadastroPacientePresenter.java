@@ -18,6 +18,7 @@ import br.gov.saudecaruaru.bpai.gui.interfaces.OperacaoStrategy;
 import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
 import java.util.List;
 
+
 /**
  *
  * @author juniorpires

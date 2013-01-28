@@ -12,6 +12,7 @@ import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
 import br.gov.saudecaruaru.bpai.gui.interfaces.OperacaoStrategy;
 import java.util.List;
 
+
 /**
  *
  * @author juniorpires
