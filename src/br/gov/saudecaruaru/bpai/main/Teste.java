@@ -21,7 +21,7 @@ import br.gov.saudecaruaru.bpai.data.BIProcedimentoRealizadoXML;
 import br.gov.saudecaruaru.bpai.data.DiversasDAO;
 import br.gov.saudecaruaru.bpai.data.HibernateUtil;
 import br.gov.saudecaruaru.bpai.data.ProcedimentoRealizadoDAO;
-import br.gov.saudecaruaru.bpai.gui.ExportacaoCentralEnvio;
+import br.gov.saudecaruaru.bpai.gui.exportacao.ExportacaoCentralEnvio;
 import br.gov.saudecaruaru.bpai.gui.interfaces.IExportacaoStrategy;
 import br.gov.saudecaruaru.bpai.util.EnvioProcedimentosRealizadosBackground;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;

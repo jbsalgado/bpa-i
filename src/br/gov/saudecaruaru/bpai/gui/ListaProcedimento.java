@@ -10,6 +10,12 @@
  */
 package br.gov.saudecaruaru.bpai.gui;
 
+import br.gov.saudecaruaru.bpai.gui.exportacao.ImportacaoBackup;
+import br.gov.saudecaruaru.bpai.gui.exportacao.Exportacao;
+import br.gov.saudecaruaru.bpai.gui.exportacao.ExportacaoXML;
+import br.gov.saudecaruaru.bpai.gui.exportacao.ExportacaoBPAMagnetico;
+import br.gov.saudecaruaru.bpai.gui.exportacao.ExportacaoCentralEnvio;
+import br.gov.saudecaruaru.bpai.gui.exportacao.ExportacaoCentralAtualizacao;
 import br.gov.saudecaruaru.bpai.gui.interfaces.IExportacaoStrategy;
 import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.business.controller.BIGestorCompetenciaController;
@@ -25,6 +31,7 @@ import br.gov.saudecaruaru.bpai.business.presenter.familia.FamiliaPresenter;
 import br.gov.saudecaruaru.bpai.business.presenter.paciente.PacientePresenter;
 import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
 import br.gov.saudecaruaru.bpai.gui.FocusListener.ChangeBackgroundFieldFocusListener;
+import br.gov.saudecaruaru.bpai.gui.exportacao.ExportacaoCentralViaXML;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelBody;
 import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelHeader;
 import java.awt.Color;
@@ -299,7 +306,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableHeader);
 
-        jcomboBoxFiltro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jcomboBoxFiltro.setFont(new java.awt.Font("Tahoma", 0, 14));
         jcomboBoxFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CNS DO PROFISSIONAL", "CNES", "COMPETÊNCIA", "CBO", "PROFISSIONAL" }));
         jcomboBoxFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -307,13 +314,13 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel1.setText("Filtro de Pesquisa");
 
-        jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextFieldPesquisa.setToolTipText("");
 
-        jbtnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jbtnPesquisar.setText("Pesquisar");
         jbtnPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -321,7 +328,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jLabelTipoPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelTipoPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabelTipoPesquisa.setText("tipo");
 
         jTableBody.setModel(new javax.swing.table.DefaultTableModel(
@@ -337,7 +344,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTableBody);
 
-        jbtnIncluirFolha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtnIncluirFolha.setFont(new java.awt.Font("Tahoma", 0, 14));
         jbtnIncluirFolha.setText("Incluir folha");
         jbtnIncluirFolha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -345,7 +352,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jbtnSair.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtnSair.setFont(new java.awt.Font("Tahoma", 0, 14));
         jbtnSair.setText("Sair");
         jbtnSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -353,7 +360,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
             }
         });
 
-        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonAtualizar.setText("Atualizar");
         jButtonAtualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -436,7 +443,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         });
         jMenuOperacao.add(jMenuItemAlteraCompetencia);
 
-        jMenuItem2.setText("Atualizar base de dados");
+        jMenuItem2.setText("Enviar Produção ");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -747,6 +754,23 @@ public class ListaProcedimento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTableHeaderKeyPressed
 
+    
+    private void atualizarBaseDeDados(){
+            int maxRes=500;
+        int first=0;
+        int size=maxRes;
+        while(size==maxRes){
+            List<Procedimento> list=this.procedimentoController.findAllEqual(new HashMap<String,Object>(), first, maxRes);
+            List<BIProcedimento> l=new ArrayList<BIProcedimento>();
+            size=list.size();
+            for(Procedimento p:list){
+                BIProcedimento bi=new BIProcedimento(p);
+                l.add(bi);
+            }
+            this.bIProcedimentoController.merge(l);
+            first+=size;
+        }
+    }
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         JFileChooser fil= new JFileChooser();
@@ -768,23 +792,20 @@ public class ListaProcedimento extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-        int maxRes=500;
-        int first=0;
-        int size=maxRes;
-        while(size==maxRes){
-            List<Procedimento> list=this.procedimentoController.findAllEqual(new HashMap<String,Object>(), first, maxRes);
-            List<BIProcedimento> l=new ArrayList<BIProcedimento>();
-            size=list.size();
-            for(Procedimento p:list){
-                BIProcedimento bi=new BIProcedimento(p);
-                l.add(bi);
-            }
-            this.bIProcedimentoController.merge(l);
-            first+=size;
-        }
+        // TODO add your handling code here
+        this.enviarProducao();
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void enviarProducao(){
+        IExportacaoStrategy expo= new ExportacaoCentralViaXML();
+        Exportacao ex=new  Exportacao(this,expo);
+        ex.setTitle("Envio da produção via Arquivo.");
+        ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        ex.setLocationRelativeTo(null);
+        ex.setModal(true);
+        ex.setVisible(true);
+    }
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         FamiliaPresenter familiaPresenter = new FamiliaPresenter();
         familiaPresenter.createView();

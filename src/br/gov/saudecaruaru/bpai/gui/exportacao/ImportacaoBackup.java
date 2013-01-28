@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.gui;
+package br.gov.saudecaruaru.bpai.gui.exportacao;
 
+import br.gov.saudecaruaru.bpai.gui.exportacao.ExportacaoXML;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.model.Medico;
 import br.gov.saudecaruaru.bpai.business.model.MedicoCboCnes;
