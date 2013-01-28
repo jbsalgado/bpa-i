@@ -8,8 +8,7 @@
  *
  * Created on 20/09/2012, 16:41:22
  */
-package br.gov.saudecaruaru.bpai.gui;
-
+package br.gov.saudecaruaru.bpai.gui.exportacao;
 
 import br.gov.saudecaruaru.bpai.business.controller.BIGestorCompetenciaController;
 import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoController;
@@ -27,18 +26,21 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.List;
 import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Albuquerque
  */
 public class Exportacao extends javax.swing.JDialog {
+
+    private Logger logger = Logger.getLogger(Exportacao.class);
     private BIGestorCompetenciaController gestorCompetenciaController;
     private IExportacaoStrategy exportacao;
     private FocusListener listenerFieldsChangeBackground;
-    private ObjectComboBoxModel<String> comboboxCompetenciaModel= new ObjectComboBoxModel<String>();
-    private ObjectComboBoxModel<String> comboboxCnesModel= new ObjectComboBoxModel<String>();
-    private BIProcedimentoRealizadoController bIProcedimentoRealizadoController= new BIProcedimentoRealizadoController();
+    private ObjectComboBoxModel<String> comboboxCompetenciaModel = new ObjectComboBoxModel<String>();
+    private ObjectComboBoxModel<String> comboboxCnesModel = new ObjectComboBoxModel<String>();
+    private BIProcedimentoRealizadoController bIProcedimentoRealizadoController = new BIProcedimentoRealizadoController();
 
     /** Creates new form Exportacao */
     public Exportacao(java.awt.Frame parent, IExportacaoStrategy exportacao) {
@@ -47,54 +49,55 @@ public class Exportacao extends javax.swing.JDialog {
         this.gestorCompetenciaController = new BIGestorCompetenciaController();
         this.addWindowListener(new java.awt.event.WindowAdapter() {
 
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        dispose();
-                    }
-                });
-        this.exportacao=exportacao;
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                dispose();
+            }
+        });
+        this.exportacao = exportacao;
         this.comboboxCompetenciaModel.setFormatter(new CompetenciaFormatter());
         this.comboboxCnesModel.setFormatter(new UnidadeFormatter());
-        
-        List<String> lis=this.bIProcedimentoRealizadoController.getTodasCompetenciaMovimento();
-        List<String> list=this.bIProcedimentoRealizadoController.getAllUnidade();
-       // lis.add(this.gestorCompetenciaController.getCompetenciaAtual());
+
+        List<String> lis = this.bIProcedimentoRealizadoController.getTodasCompetenciaMovimento();
+        List<String> list = this.bIProcedimentoRealizadoController.getAllUnidade();
+        // lis.add(this.gestorCompetenciaController.getCompetenciaAtual());
         this.comboboxCompetenciaModel.setData(lis);
         this.comboboxCnesModel.setData(list);
-        
+
         this.jComboBoxCompetencia.setModel(comboboxCompetenciaModel);
         this.jComboBoxCnes.setModel(this.comboboxCnesModel);
-        
-        if(!lis.isEmpty()){
+
+        if (!lis.isEmpty()) {
             this.jComboBoxCompetencia.setSelectedIndex(0);
         }
-        if(!list.isEmpty()){
+        if (!list.isEmpty()) {
             this.jComboBoxCnes.setSelectedIndex(0);
         }
-        
+
         this.jComboBoxCompetencia.setInputVerifier(new ComboBoxVerifier(this, "Competência"));
         this.jComboBoxCnes.setInputVerifier(new ComboBoxVerifier(this, "CNES/Unidade"));
-        
+
         listenerFieldsChangeBackground = new FocusListener() {
 
             @Override
             public void focusGained(FocusEvent e) {
-                Component c = ((Component)e.getComponent());
-                if(!c.getBackground().equals(Color.RED) || !c.getBackground().equals(Color.red))
-                    ((Component)e.getComponent()).setBackground(Color.GREEN);
+                Component c = ((Component) e.getComponent());
+                if (!c.getBackground().equals(Color.RED) || !c.getBackground().equals(Color.red)) {
+                    ((Component) e.getComponent()).setBackground(Color.GREEN);
+                }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-               ((Component)e.getComponent()).setBackground(Color.WHITE);
+                ((Component) e.getComponent()).setBackground(Color.WHITE);
             }
         };
-        
+
         this.jComboBoxCnes.addFocusListener(this.listenerFieldsChangeBackground);
         this.jComboBoxCompetencia.addFocusListener(this.listenerFieldsChangeBackground);
     }
-    
-    public void enabledComboBoxs(boolean abilitar){
+
+    public void enabledComboBoxs(boolean abilitar) {
         this.jComboBoxCnes.setEnabled(abilitar);
         this.jComboBoxCompetencia.setEnabled(abilitar);
     }
@@ -118,7 +121,7 @@ public class Exportacao extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButtonIniciar.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonIniciar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButtonIniciar.setText("Iniciar");
         jButtonIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,7 +129,7 @@ public class Exportacao extends javax.swing.JDialog {
             }
         });
 
-        jButtonSair.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButtonSair.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButtonSair.setText("Sair");
         jButtonSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,62 +137,61 @@ public class Exportacao extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel1.setText("CNES");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("CNES/Unidade");
 
-        jComboBoxCompetencia.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jComboBoxCompetencia.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jComboBoxCompetencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Competência");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("Competência(Mês e Ano da Digitação)");
 
-        jComboBoxCnes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBoxCnes.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jComboBoxCnes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCnes.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jComboBoxCnesFocusGained(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jButtonIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxCnes, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26)
-                .addComponent(jLabel2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxCompetencia, 0, 150, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButtonIniciar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxCnes, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxCompetencia, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxCnes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxCompetencia)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBoxCompetencia, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jComboBoxCnes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonSair)
-                    .addComponent(jButtonIniciar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jButtonIniciar)
+                    .addComponent(jButtonSair))
+                .addGap(11, 11, 11)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -198,28 +200,29 @@ public class Exportacao extends javax.swing.JDialog {
 
     private void jButtonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarActionPerformed
         // TODO add your handling code here:
-        if(this.gestorCompetenciaController.comparaCompetencias()){
-            BIProcedimentoController bipc = new BIProcedimentoController();
-            //antes da exportação atualiza a base de procedimentos com os procedimentos digitados
-            try{
-                bipc.insereProcedimentosSemReferencia();
-            }catch(Exception ex){
-                ex.printStackTrace();
-            }
-
-            this.jProgressBar1.setIndeterminate(true);
-            this.jButtonIniciar.setEnabled(true);
-
-            String res=this.exportacao.execute(this.comboboxCompetenciaModel.getSelectedObject(),this.comboboxCnesModel.getSelectedObject());
-
-            JOptionPane.showMessageDialog(this, res);
-            this.jProgressBar1.setIndeterminate(false);
-            this.jProgressBar1.setString(null);
-            this.jProgressBar1.setValue(100);
-        }else{
-            JOptionPane.showMessageDialog(Exportacao.this,"Competência do BPA-Mag diferente da competência atual!\n"
-                    + "Atualize a competência do BPA-Mag","ERRO!", JOptionPane.ERROR_MESSAGE);
-        }
+        this.exportar();
+//        if (this.gestorCompetenciaController.comparaCompetencias()) {
+//            BIProcedimentoController bipc = new BIProcedimentoController();
+//            //antes da exportação atualiza a base de procedimentos com os procedimentos digitados
+//            try {
+//                bipc.insereProcedimentosSemReferencia();
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//            }
+//
+//            this.jProgressBar1.setIndeterminate(true);
+//            this.jButtonIniciar.setEnabled(true);
+//
+//            String res = this.exportacao.execute(this.comboboxCompetenciaModel.getSelectedObject(), this.comboboxCnesModel.getSelectedObject());
+//
+//            JOptionPane.showMessageDialog(this, res);
+//            this.jProgressBar1.setIndeterminate(false);
+//            this.jProgressBar1.setString(null);
+//            this.jProgressBar1.setValue(100);
+//        } else {
+//            JOptionPane.showMessageDialog(Exportacao.this, "Competência do BPA-Mag diferente da competência atual!\n"
+//                    + "Atualize a competência do BPA-Mag", "ERRO!", JOptionPane.ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_jButtonIniciarActionPerformed
 
     private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
@@ -227,6 +230,44 @@ public class Exportacao extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jButtonSairActionPerformed
 
+    private void jComboBoxCnesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBoxCnesFocusGained
+        // TODO add your handling code here:
+        this.jProgressBar1.setValue(0);
+    }//GEN-LAST:event_jComboBoxCnesFocusGained
+
+    private void exportar() {
+
+        String msg = null;
+        try {
+            //verifica se as competências batem  
+            if (this.gestorCompetenciaController.comparaCompetencias()) {
+                //inicia a barra de status
+                //this.jProgressBar1.setValue(100);
+                this.jProgressBar1.setIndeterminate(true);
+                this.jButtonIniciar.setEnabled(false);
+                //verifica se os procedimentos da produção estão exportados
+                BIProcedimentoController bipc = new BIProcedimentoController();
+                //antes da exportação atualiza a base de procedimentos com os procedimentos digitados
+                bipc.insereProcedimentosSemReferencia();
+                //executa a exportação
+                msg = this.exportacao.execute(this.comboboxCompetenciaModel.getSelectedObject(), this.comboboxCnesModel.getSelectedObject());
+                
+                JOptionPane.showMessageDialog(this, msg, "Resultado", JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+                JOptionPane.showMessageDialog(Exportacao.this, "Competência do BPA-Mag diferente da competência atual!\n"
+                        + "Atualize a competência do BPA-Mag", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            logger.error("Erro ao exportar. " + this.exportacao.getClass().getName() + " método execute. " + ex.getMessage());
+            JOptionPane.showMessageDialog(Exportacao.this, "Não foi possível realizar a exportação!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.jProgressBar1.setIndeterminate(false);
+            this.jProgressBar1.setString(null);
+            this.jButtonIniciar.setEnabled(true);
+            this.jProgressBar1.setValue(0);
+        }
+    }
     /**
      * @param args the command line arguments
      */
