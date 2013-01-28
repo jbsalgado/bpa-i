@@ -28,9 +28,12 @@ import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+
 //import com.sun.jersey.api.client.Client;
 //import com.sun.jersey.api.client.ClientResponse;
 //import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -45,6 +48,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import javax.ws.rs.core.MediaType;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -54,6 +58,10 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import sun.org.mozilla.javascript.internal.json.JsonParser;
 /**
  *
  * @author Albuquerque
@@ -226,35 +234,46 @@ public class Teste {
    }
    
    public static void testarEnvioRest() throws IOException{
-//       Client cli=Client.create();
-//       WebResource resorce=cli.resource("http://localhost/sispad/index.php/bpa/procedimentorealizado/envio");
-//       //.
-//       resorce.type(MediaType.APPLICATION_XML);
-//       resorce.accept(MediaType.TEXT_XML);
-//       resorce.queryParam("t", "<inicio> valor</inicio>");
-//       resorce.entity(new File("C:\\Users\\Albuquerque\\Desktop\\bck.xml"));
-//       System.out.println( resorce.get(String.class));
+       Client cli=Client.create();
+       WebResource resorce=cli.resource("http://localhost/sispad/index.php/bpa/paciente/");
+       //.
+       
+       //resorce.accept(MediaType.APPLICATION_JSON);
+       //JSONC
+      // resorce.queryParam("t", "<inicio> valor</inicio>");
+       //resorce.entity(new File("C:\\Users\\Albuquerque\\Desktop\\bck.xml"));
+       String s=resorce.get(String.class);
+       JSONParser parser=new JSONParser();
         try {
-            URI url=new URI("http://localhost/sispad/index.php/bpa/procedimentorealizado/envio");
-            //new URI
-             HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost(url);
-                String fileName="C:\\Users\\Albuquerque\\Desktop\\bck.xml";
-                FileBody fileContent= new FileBody(new File(fileName));
-               
-                StringBody comment = new StringBody("Filename: "+"arquivo de teste");
-                MultipartEntity reqEntity = new MultipartEntity();
-                reqEntity.addPart("Filename: "+"arquivo de teste", fileContent);
-                
-                httppost.setEntity(reqEntity);
-                HttpResponse response = httpclient.execute(httppost);
-                if (response!= null){
-                    
-                HttpEntity resEntity = response.getEntity();
-                resEntity.writeTo(System.out);
-                }
-            
-        } catch (Exception ex) {
+            Object o=parser.parse(s);
+            JSONObject obj=(JSONObject) o;
+            System.out.println(obj.get("raca"));
+            System.out.println(obj);
+           // System.out.println( resorce.get(String.class));
+     //        try {
+     //            URI url=new URI("http://localhost/sispad/index.php/bpa/procedimentorealizado/envio");
+     //            //new URI
+     //             HttpClient httpclient = new DefaultHttpClient();
+     //                HttpPost httppost = new HttpPost(url);
+     //                String fileName="C:\\Users\\Albuquerque\\Desktop\\bck.xml";
+     //                FileBody fileContent= new FileBody(new File(fileName));
+     //               
+     //                StringBody comment = new StringBody("Filename: "+"arquivo de teste");
+     //                MultipartEntity reqEntity = new MultipartEntity();
+     //                reqEntity.addPart("Filename: "+"arquivo de teste", fileContent);
+     //                
+     //                httppost.setEntity(reqEntity);
+     //                HttpResponse response = httpclient.execute(httppost);
+     //                if (response!= null){
+     //                    
+     //                HttpEntity resEntity = response.getEntity();
+     //                resEntity.writeTo(System.out);
+     //                }
+     //            
+     //        } catch (Exception ex) {
+     //        }
+     //        }
+        } catch (ParseException ex) {
             java.util.logging.Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
         }
    }
