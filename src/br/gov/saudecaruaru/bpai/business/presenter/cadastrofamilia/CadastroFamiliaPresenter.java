@@ -61,7 +61,6 @@ public class CadastroFamiliaPresenter {
         this.view.setTxtNumeroDocument(new OnlyNumbersDocument(4));
         this.view.setTxtBairroDocument(new OnlyUpperLettersDocument(60));
         this.view.setTxtMunicipioDocument(new OnlyUpperLettersDocument(60));
-        this.view.setTxtUFDocument(new OnlyUpperLettersDocument(2));
     }
     
     private void setVerifiers(){
@@ -102,7 +101,7 @@ public class CadastroFamiliaPresenter {
         this.view.enableTxtMunicipio(arg);
         this.view.enableTxtNumero(arg);
         this.view.enableTxtSegmento(arg);
-        this.view.enableTxtUF(arg);
+        this.view.enableCbUF(arg);
         this.view.enableTxtDataCadastro(arg);
     }
     

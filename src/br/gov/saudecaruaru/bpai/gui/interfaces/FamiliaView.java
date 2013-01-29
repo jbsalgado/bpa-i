@@ -35,7 +35,7 @@ public interface FamiliaView {
     public void enableTxtBairro(boolean arg);
     public void enableTxtCep(boolean arg);
     public void enableTxtMunicipio(boolean arg);
-    public void enableTxtUF(boolean arg);
+    public void enableCbUF(boolean arg);
     public void enableTxtDataCadastro(boolean arg);
     
     public void enableBtnNovo(boolean arg);
@@ -61,7 +61,6 @@ public interface FamiliaView {
     public void setTxtBairroDocument(Document d);
     public void setTxtCepDocument(Document d);
     public void setTxtMunicipioDocument(Document d);
-    public void setTxtUFDocument(Document d);
     public String getCep();
     public String getDataCadastro();
     
