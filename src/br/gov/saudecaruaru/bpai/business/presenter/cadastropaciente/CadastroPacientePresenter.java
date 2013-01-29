@@ -20,6 +20,7 @@ import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
 import br.gov.saudecaruaru.bpai.gui.interfaces.OperacaoStrategy;
 import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
 import br.gov.saudecaruaru.bpai.gui.verifiers.CnesVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.CnsVerifier;
 import br.gov.saudecaruaru.bpai.gui.verifiers.DataVerifier;
 import java.awt.Component;
 import java.util.List;
@@ -82,7 +83,7 @@ public class CadastroPacientePresenter {
     }
     
     private void setVerifiers(){
-        this.view.setTxtCnsVerifier(new CnesVerifier((Component) this.view,"CNS"));
+        this.view.setTxtCnsVerifier(new CnsVerifier((Component) this.view,"CNS"));
         this.view.setFmTxtDatanascimentoVerifier(new DataVerifier((Component) this.view, "Data de Nascimento"));
     }
      private void initDadosJTable(){
