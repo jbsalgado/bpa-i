@@ -8,6 +8,8 @@ import br.gov.saudecaruaru.bpai.gui.PacienteTableModel;
 import com.towel.bind.Binder;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import javax.swing.InputVerifier;
+import javax.swing.text.Document;
 
 /**
  *
@@ -41,7 +43,7 @@ public interface PacienteView {
     public void enableBtnEditar(boolean arg);
     public void enableBtnConfirmar(boolean arg);
     public void enableBtnCancelar(boolean arg);
-    
+    public void enableBtnFamilia(boolean arg);
     public void setNovoActionListener(ActionListener listener);
     public void setEditarActionListener(ActionListener listener);
     public void setConfirmarActionListener(ActionListener listener);
@@ -51,4 +53,16 @@ public interface PacienteView {
     public void setSelectedIndexAlfabetizado(int i);
     
     public void setFamiliaActionListener(ActionListener listener);
+    
+    public void setTxtCnsDocument(Document d);
+    public void setTxtNomeDocument(Document d);
+    public void setTxtIdadeDocument(Document d);
+    public void setTxtSexoDocument(Document d);
+    public void setTxtOcupacaoDocument(Document d);
+    public void setTxtDoencaCondicaoDocument(Document d);
+    
+    public String getDataNascimento();
+    
+    public void setTxtCnsVerifier(InputVerifier verifier);
+    public void setFmTxtDatanascimentoVerifier(InputVerifier verifier);
 }

@@ -24,9 +24,11 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.InputVerifier;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumnModel;
+import javax.swing.text.Document;
 
 /**
  *
@@ -115,6 +117,12 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         });
 
         jLabel3.setText("Data Nascimento: ");
+
+        try {
+            jFTxtDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         jLabel4.setText("Nome: ");
 
@@ -340,6 +348,11 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     // End of variables declaration//GEN-END:variables
     private ObjectComboBoxModel<Character> modelEscolha;
 
+    
+    @Override
+    public String getDataNascimento(){
+        return this.jFTxtDataNascimento.getText().replaceAll("[/]","");
+    }
     @Override
     public void setSelecionarLinhaJTableActionListener(MouseListener listener) {
         this.jTbPacientes.addMouseListener(listener);
@@ -477,6 +490,11 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     public void enableBtnCancelar(boolean arg) {
         this.jBtCancelar.setEnabled(arg);
     }
+    
+    @Override
+    public void enableBtnFamilia(boolean arg) {
+        this.jBtFamilia.setEnabled(arg);
+    }
 
     @Override
     public void setNovoActionListener(ActionListener listener) {
@@ -498,6 +516,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         this.jBtCancelar.addActionListener(listener);
     }
     
+    @Override
     public void setFamiliaActionListener(ActionListener listener) {
         this.jBtFamilia.addActionListener(listener);
     }
@@ -520,6 +539,40 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     @Override
     public void setSelectedIndexAlfabetizado(int i){
         this.jCbalfabetizado.setSelectedIndex(i);
+    }
+    
+    @Override
+    public void setTxtCnsDocument(Document d){
+        this.jTxtCns.setDocument(d);
+    }
+    @Override
+    public void setTxtNomeDocument(Document d){
+        this.jTxtNome.setDocument(d);
+    }
+    @Override
+    public void setTxtIdadeDocument(Document d){
+        this.jTxtIdade.setDocument(d);
+    }
+    @Override
+    public void setTxtSexoDocument(Document d){
+        this.jTxtSexo.setDocument(d);
+    }
+    @Override
+    public void setTxtOcupacaoDocument(Document d){
+        this.jTxtOcupacao.setDocument(d);
+    }
+    @Override
+    public void setTxtDoencaCondicaoDocument(Document d){
+        this.jTxtDoencaCondicao.setDocument(d);
+    }
+    
+    @Override
+    public void setTxtCnsVerifier(InputVerifier verifier){
+        this.jTxtCns.setInputVerifier(verifier);
+    }
+    
+    public void setFmTxtDatanascimentoVerifier(InputVerifier verifier){
+        this.jFTxtDataNascimento.setInputVerifier(verifier);
     }
 
     @Override

@@ -13,9 +13,11 @@ import com.towel.bind.annotation.Form;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import javax.swing.InputVerifier;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumnModel;
+import javax.swing.text.Document;
 
 /**
  *
@@ -68,13 +70,11 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         jLabel7 = new javax.swing.JLabel();
         jTxtBairro = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTxtCep = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTxtMunicipio = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jTxtUF = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTxtDataCadastro = new javax.swing.JTextField();
         jBtNovo = new javax.swing.JButton();
         jBtEditar = new javax.swing.JButton();
         jBtConfirmar = new javax.swing.JButton();
@@ -82,6 +82,8 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbFamilias = new javax.swing.JTable();
         jBtBuscar = new javax.swing.JButton();
+        jFmTxtCep = new javax.swing.JFormattedTextField();
+        jFmTxtDataCadastro = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -130,6 +132,18 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
 
         jBtBuscar.setText("Buscar");
 
+        try {
+            jFmTxtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            jFmTxtDataCadastro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,7 +160,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                            .addComponent(jTxtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jFmTxtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(jTxtMunicipio))
                                         .addComponent(jTxtendereco, javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,11 +193,11 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
                             .addComponent(jTxtNumero)
                             .addComponent(jTxtUF))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel7)
-                            .addComponent(jTxtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTxtBairro, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                             .addComponent(jLabel11)
-                            .addComponent(jTxtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jFmTxtDataCadastro)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBtNovo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -230,10 +244,10 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFmTxtCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFmTxtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtNovo)
@@ -296,6 +310,8 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     private javax.swing.JButton jBtConfirmar;
     private javax.swing.JButton jBtEditar;
     private javax.swing.JButton jBtNovo;
+    private javax.swing.JFormattedTextField jFmTxtCep;
+    private javax.swing.JFormattedTextField jFmTxtDataCadastro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -313,10 +329,6 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     private javax.swing.JTextField jTxtArea;
     @Bindable(field="bairro")
     private javax.swing.JTextField jTxtBairro;
-    @Bindable(field="cep")
-    private javax.swing.JTextField jTxtCep;
-    @Bindable(field="dataCadastro")
-    private javax.swing.JTextField jTxtDataCadastro;
     @Bindable(field="familia")
     private javax.swing.JTextField jTxtFamilia;
     @Bindable(field="microArea")
@@ -384,6 +396,14 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         columnModel.getColumn(4).setPreferredWidth(200);  
     }
 
+    
+    public String getCep(){
+        return this.jFmTxtCep.getText().replaceAll("[.,-]", "");
+    }
+    
+    public String getDataCadastro(){
+        return this.jFmTxtDataCadastro.getText().replaceAll("[/]", "");
+    }
   
     @Override
     public int linhaSelecionadaTableFamilias() {
@@ -447,7 +467,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
 
     @Override
     public void enableTxtCep(boolean arg) {
-       this.jTxtCep.setEnabled(arg);
+       this.jFmTxtCep.setEnabled(arg);
     }
 
     @Override
@@ -511,9 +531,71 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
 
     @Override
     public void enableTxtDataCadastro(boolean arg) {
-        this.jTxtDataCadastro.setEnabled(arg);
+        this.jFmTxtDataCadastro.setEnabled(arg);
     }
     
+    @Override
+    public void setTxtSegmentoDocument(Document d){
+        this.jTxtSegmento.setDocument(d);
+    }
+    
+    @Override
+    public void setTxtAreaDocument(Document d){
+        this.jTxtArea.setDocument(d);
+    }
+    
+    @Override
+    public void setTxtMicroareaDocument(Document d){
+        this.jTxtMicroArea.setDocument(d);
+    }
+    
+    @Override
+    public void setTxtFamiliaDocument(Document d){
+        this.jTxtFamilia.setDocument(d);
+    }
+    
+    @Override
+    public void setTxtEnderecoDocument(Document d){
+        this.jTxtendereco.setDocument(d);
+    }
+    
+    @Override
+    public void setTxtNumeroDocument(Document d){
+        this.jTxtNumero.setDocument(d);
+    }
+    
+    @Override
+    public void setTxtBairroDocument(Document d){
+        this.jTxtBairro.setDocument(d);
+    }
+    
+    @Override
+    public void setTxtCepDocument(Document d){
+        this.jTxtBairro.setDocument(d);
+    }
+    
+    @Override
+    public void setTxtMunicipioDocument(Document d){
+        this.jTxtMunicipio.setDocument(d);
+    }
+    
+    @Override
+    public void setTxtUFDocument(Document d){
+        this.jTxtUF.setDocument(d);
+    }
+    
+    @Override
+    public void setFmDataCadastroVerifier(InputVerifier verifier){
+        this.jFmTxtDataCadastro.setInputVerifier(verifier);
+    }
+    
+    public void setFmCepVerifier(InputVerifier verifier){
+        this.jFmTxtCep.setInputVerifier(verifier);
+    }
+    
+    
+    
+    @Override
     public void fecharJanela(){
         this.dispose();
     }
