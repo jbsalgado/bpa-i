@@ -176,7 +176,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         jBtBuscar.setText("Buscar");
 
         try {
-            jFmTxtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###-###")));
+            jFmTxtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###-###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
