@@ -9,6 +9,7 @@ import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
 import br.gov.saudecaruaru.bpai.gui.PacienteTableModel;
 import com.towel.bind.Binder;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseListener;
 import javax.swing.InputVerifier;
 import javax.swing.text.Document;
@@ -70,4 +71,7 @@ public interface PacienteView {
     
     public void setSelectedDoencaCondicao(DoencaCondicao c);
     public void setSelectedIndexDoencaCondicao(int i);
+    
+    public String getCns();
+    public void setCnsFocusListener(FocusListener listener);
 }

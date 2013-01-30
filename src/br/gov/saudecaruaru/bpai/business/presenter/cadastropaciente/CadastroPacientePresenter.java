@@ -4,10 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.business.presenter.cadastropaciente;
 
-import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
-import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
-import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
-import br.gov.saudecaruaru.bpai.business.model.Escolha;
+import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
 import br.gov.saudecaruaru.bpai.data.BIPacienteDAO;
 import br.gov.saudecaruaru.bpai.gui.FamiliaTableModel;
@@ -72,6 +69,7 @@ public class CadastroPacientePresenter {
         this.view.setEditarActionListener(new CadastroPacienteActionListener.EditarActionListener(this));
         this.view.setFamiliaActionListener(new CadastroPacienteActionListener.FamiliaActionListener(this));
         this.view.setCancelarActionListener(new CadastroPacienteActionListener.CancelarActionListener(this));
+        this.view.setCnsFocusListener(new CadastroPacienteFocusListener.CnsFocusListener(this));
     }
     
     private void setDocuments(){
@@ -189,5 +187,22 @@ public class CadastroPacientePresenter {
         }  
            
     }  
+    
+    public boolean exibePaciente(String cns){
+        BIPaciente p = this.buscaPaciente(cns);
+        if(p!=null){
+            this.paciente = p;
+            this.updateView();
+            return true;
+        }
+        
+        return false;
+    }
+    
+    private BIPaciente buscaPaciente(String cns){
+        BIPaciente p = new BIPaciente();
+        p.setCns(cns);
+        return this.pacienteDao.findEqual(p);
+    }
      
 }

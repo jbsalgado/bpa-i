@@ -23,6 +23,7 @@ import com.towel.bind.annotation.Form;
 import com.towel.swing.combo.ObjectComboBoxModel;
 import java.awt.Component;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -358,7 +359,10 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     private ObjectComboBoxModel<Character> modelEscolha;
     private ObjectComboBoxModel<DoencaCondicao> modelDoencaCondicao;
 
-    
+    @Override
+    public String getCns(){
+        return this.jTxtCns.getText();
+    }
     @Override
     public String getDataNascimento(){
         return this.jTxtDataNascimento.getText().replaceAll("[/]","");
@@ -606,6 +610,10 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     @Override
     public void setTxtDataNascimentoDocument(Document d) {
         this.jTxtDataNascimento.setDocument(d);
+    }
+    
+    public void setCnsFocusListener(FocusListener listener){
+        this.jTxtCns.addFocusListener(listener);
     }
     
 }
