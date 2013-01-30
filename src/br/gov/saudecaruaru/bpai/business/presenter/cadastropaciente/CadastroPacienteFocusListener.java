@@ -36,6 +36,7 @@ public class CadastroPacienteFocusListener {
                  view.enableBtnConfirmar(false);
                  view.enableBtnEditar(true);
                  view.enableBtnCancelar(true);
+                 view.enableTxtCns(false);
              }
              
         }
