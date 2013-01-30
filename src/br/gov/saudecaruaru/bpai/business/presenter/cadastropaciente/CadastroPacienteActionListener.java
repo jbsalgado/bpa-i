@@ -109,6 +109,8 @@ public class CadastroPacienteActionListener {
                  view.clearFields();
                  this.presenter.habilitarEdicao(false);
                  view.enableBtnConfirmar(false);
+                 view.enableBtnNovo(true);
+                 view.enableBtnEditar(false);
                  view.enableBtnCancelar(false);
                  
                  

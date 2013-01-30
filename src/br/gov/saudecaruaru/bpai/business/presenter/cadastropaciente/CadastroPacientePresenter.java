@@ -6,6 +6,7 @@ package br.gov.saudecaruaru.bpai.business.presenter.cadastropaciente;
 
 import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
 import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
+import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
 import br.gov.saudecaruaru.bpai.business.model.Escolha;
 import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
 import br.gov.saudecaruaru.bpai.data.BIPacienteDAO;
@@ -78,7 +79,6 @@ public class CadastroPacientePresenter {
         this.view.setTxtIdadeDocument(new OnlyNumbersDocument(3));
         this.view.setTxtSexoDocument(new OnlyUpperLettersDocument(1));
         this.view.setTxtOcupacaoDocument(new OnlyUpperLettersDocument(45));
-        this.view.setTxtDoencaCondicaoDocument(new OnlyUpperLettersDocument(3));
         this.view.setTxtSexoDocument(new SexoDocument());
     }
     
@@ -104,7 +104,7 @@ public class CadastroPacientePresenter {
     public void habilitarEdicao(boolean arg){
         this.view.enableTxtCns(arg);
         this.view.enableTxtDataNascimento(arg);
-        this.view.enableTxtDoencaCondicao(arg);
+        this.view.enableCbDoencaCondicao(arg);
         //this.view.enableTxtFamilia(arg);
         this.view.enableTxtIdade(arg);
         this.view.enableTxtNome(arg);
@@ -112,6 +112,7 @@ public class CadastroPacientePresenter {
         this.view.enableTxtSexo(arg);
         this.view.enableJCbAlfabetizado(arg);
         this.view.setSelectedIndexAlfabetizado(0);
+        this.view.setSelectedIndexDoencaCondicao(0);
         this.view.enableBtnFamilia(arg);
     }
     
@@ -166,6 +167,7 @@ public class CadastroPacientePresenter {
      private void updateView(){
           this.getView().getBinder().updateView(this.paciente);
           this.getView().setSelectedAlfabetizado(this.paciente.getAlfabetizado());
+          this.getView().setSelectedDoencaCondicao(DoencaCondicao.MAP.get(this.paciente.getDoencaCondicao()));
           
      }
     public void atualizarPaciente(){

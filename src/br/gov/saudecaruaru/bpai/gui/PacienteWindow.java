@@ -6,10 +6,12 @@ package br.gov.saudecaruaru.bpai.gui;
 
 
 import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
+import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
 import br.gov.saudecaruaru.bpai.business.model.Escolha;
 import br.gov.saudecaruaru.bpai.business.model.Observer;
 import br.gov.saudecaruaru.bpai.business.model.Subject;
 import br.gov.saudecaruaru.bpai.gui.formatter.CharFormatter;
+import br.gov.saudecaruaru.bpai.gui.formatter.DoencaCondicaoFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.EscolhaFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.IntFormatter;
 import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
@@ -52,14 +54,19 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         this.initInstances();
         
         modelEscolha = new ObjectComboBoxModel<Character>();
+        modelDoencaCondicao = new ObjectComboBoxModel<DoencaCondicao>();
 
         modelEscolha.setFormatter(new EscolhaFormatter());
+        modelDoencaCondicao.setFormatter(new DoencaCondicaoFormatter());
 
         List<Character> lis= new ArrayList<Character>();
         lis.add(new Character('S'));
         lis.add(new Character('N'));
         modelEscolha.setData(lis);
+        modelDoencaCondicao.setData(DoencaCondicao.LIST);
+        
         jCbalfabetizado.setModel(modelEscolha);
+        jCbDoencaCondicao.setModel(modelDoencaCondicao);
     }
      
     private void initInstances(){
@@ -92,7 +99,6 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         jLabel7 = new javax.swing.JLabel();
         jTxtOcupacao = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTxtDoencaCondicao = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTxtFamilia = new javax.swing.JTextField();
         jBtFamilia = new javax.swing.JButton();
@@ -102,6 +108,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         jBtCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbPacientes = new javax.swing.JTable();
+        jCbDoencaCondicao = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -159,6 +166,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         ));
         jScrollPane1.setViewportView(jTbPacientes);
 
+        jCbDoencaCondicao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -166,7 +175,6 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(32, 32, 32)
@@ -182,13 +190,17 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jBtConfirmar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtCancelar))
+                                .addComponent(jBtCancelar)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTxtFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jBtFamilia)
                                 .addGap(6, 6, 6)
-                                .addComponent(jLabel8))))
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCbDoencaCondicao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -209,10 +221,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jFTxtDataNascimento))
-                            .addComponent(jTxtOcupacao, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(412, 412, 412)
-                                .addComponent(jTxtDoencaCondicao))))
+                            .addComponent(jTxtOcupacao, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(25, 25, 25)
@@ -250,7 +259,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                     .addComponent(jTxtFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtFamilia)
                     .addComponent(jLabel8)
-                    .addComponent(jTxtDoencaCondicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCbDoencaCondicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtNovo)
@@ -316,6 +325,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     private javax.swing.JButton jBtEditar;
     private javax.swing.JButton jBtFamilia;
     private javax.swing.JButton jBtNovo;
+    @Bindable(field="doencaCondicao",formatter=DoencaCondicaoFormatter.class)
+    private javax.swing.JComboBox jCbDoencaCondicao;
     @Bindable(field="alfabetizado",formatter=EscolhaFormatter.class)
     private javax.swing.JComboBox jCbalfabetizado;
     @Bindable(field="dataNascimento")
@@ -333,8 +344,6 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     private javax.swing.JTable jTbPacientes;
     @Bindable(field="cns")
     private javax.swing.JTextField jTxtCns;
-    @Bindable(field="doencaCondicao")
-    private javax.swing.JTextField jTxtDoencaCondicao;
     @Bindable(field="familia.id",formatter=IntFormatter.class)
     private javax.swing.JTextField jTxtFamilia;
     @Bindable(field="idade",formatter=IntFormatter.class)
@@ -347,6 +356,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     private javax.swing.JTextField jTxtSexo;
     // End of variables declaration//GEN-END:variables
     private ObjectComboBoxModel<Character> modelEscolha;
+    private ObjectComboBoxModel<DoencaCondicao> modelDoencaCondicao;
 
     
     @Override
@@ -467,8 +477,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     }
 
     @Override
-    public void enableTxtDoencaCondicao(boolean arg) {
-        this.jTxtDoencaCondicao.setEnabled(arg);
+    public void enableCbDoencaCondicao(boolean arg) {
+        this.jCbDoencaCondicao.setEnabled(arg);
     }
 
   @Override
@@ -536,11 +546,22 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         this.modelEscolha.setSelectedObject(c);
     }
     
+    
     @Override
     public void setSelectedIndexAlfabetizado(int i){
         this.jCbalfabetizado.setSelectedIndex(i);
     }
     
+    @Override
+    public void setSelectedDoencaCondicao(DoencaCondicao c){
+        this.modelDoencaCondicao.setSelectedObject(c);
+    }
+    
+    
+    @Override
+    public void setSelectedIndexDoencaCondicao(int i){
+        this.jCbDoencaCondicao.setSelectedIndex(i);
+    }
     @Override
     public void setTxtCnsDocument(Document d){
         this.jTxtCns.setDocument(d);
@@ -561,10 +582,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     public void setTxtOcupacaoDocument(Document d){
         this.jTxtOcupacao.setDocument(d);
     }
-    @Override
-    public void setTxtDoencaCondicaoDocument(Document d){
-        this.jTxtDoencaCondicao.setDocument(d);
-    }
+    
     
     @Override
     public void setTxtCnsVerifier(InputVerifier verifier){

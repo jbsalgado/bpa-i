@@ -4,6 +4,8 @@
  */
 package br.gov.saudecaruaru.bpai.gui.interfaces;
 
+import br.gov.saudecaruaru.bpai.business.model.Doenca;
+import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
 import br.gov.saudecaruaru.bpai.gui.PacienteTableModel;
 import com.towel.bind.Binder;
 import java.awt.event.ActionListener;
@@ -37,7 +39,7 @@ public interface PacienteView {
     public void enableTxtDataNascimento(boolean arg);
     public void enableTxtOcupacao(boolean arg);
     public void enableTxtFamilia(boolean arg);
-    public void enableTxtDoencaCondicao(boolean arg);
+    public void enableCbDoencaCondicao(boolean arg);
    
     public void enableBtnNovo(boolean arg);
     public void enableBtnEditar(boolean arg);
@@ -59,10 +61,12 @@ public interface PacienteView {
     public void setTxtIdadeDocument(Document d);
     public void setTxtSexoDocument(Document d);
     public void setTxtOcupacaoDocument(Document d);
-    public void setTxtDoencaCondicaoDocument(Document d);
     
     public String getDataNascimento();
     
     public void setTxtCnsVerifier(InputVerifier verifier);
     public void setFmTxtDatanascimentoVerifier(InputVerifier verifier);
+    
+    public void setSelectedDoencaCondicao(DoencaCondicao c);
+    public void setSelectedIndexDoencaCondicao(int i);
 }
