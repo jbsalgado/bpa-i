@@ -10,6 +10,7 @@ import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
 import br.gov.saudecaruaru.bpai.business.model.Escolha;
 import br.gov.saudecaruaru.bpai.business.model.Observer;
 import br.gov.saudecaruaru.bpai.business.model.Subject;
+import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.CharFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.DoencaCondicaoFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.EscolhaFormatter;
@@ -67,6 +68,9 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         
         jCbalfabetizado.setModel(modelEscolha);
         jCbDoencaCondicao.setModel(modelDoencaCondicao);
+        
+        
+        jFTxtDataNascimento.setDocument(new DataDocument());
     }
      
     private void initInstances(){
@@ -89,7 +93,6 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         jLabel2 = new javax.swing.JLabel();
         jCbalfabetizado = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        jFTxtDataNascimento = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jTxtNome = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -109,6 +112,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbPacientes = new javax.swing.JTable();
         jCbDoencaCondicao = new javax.swing.JComboBox();
+        jFTxtDataNascimento = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,12 +128,6 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         });
 
         jLabel3.setText("Data Nascimento: ");
-
-        try {
-            jFTxtDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
 
         jLabel4.setText("Nome: ");
 
@@ -220,7 +218,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFTxtDataNascimento))
+                                .addComponent(jFTxtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jTxtOcupacao, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -330,7 +329,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     @Bindable(field="alfabetizado",formatter=EscolhaFormatter.class)
     private javax.swing.JComboBox jCbalfabetizado;
     @Bindable(field="dataNascimento")
-    private javax.swing.JFormattedTextField jFTxtDataNascimento;
+    private javax.swing.JTextField jFTxtDataNascimento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
