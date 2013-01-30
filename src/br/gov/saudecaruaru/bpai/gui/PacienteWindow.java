@@ -70,7 +70,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         jCbDoencaCondicao.setModel(modelDoencaCondicao);
         
         
-        jFTxtDataNascimento.setDocument(new DataDocument());
+        jTxtDataNascimento.setDocument(new DataDocument());
+        
     }
      
     private void initInstances(){
@@ -112,7 +113,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbPacientes = new javax.swing.JTable();
         jCbDoencaCondicao = new javax.swing.JComboBox();
-        jFTxtDataNascimento = new javax.swing.JTextField();
+        jTxtDataNascimento = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -218,7 +219,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFTxtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTxtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jTxtOcupacao, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
@@ -247,7 +248,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                     .addComponent(jLabel2)
                     .addComponent(jCbalfabetizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jFTxtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -328,8 +329,6 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     private javax.swing.JComboBox jCbDoencaCondicao;
     @Bindable(field="alfabetizado",formatter=EscolhaFormatter.class)
     private javax.swing.JComboBox jCbalfabetizado;
-    @Bindable(field="dataNascimento")
-    private javax.swing.JTextField jFTxtDataNascimento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -343,6 +342,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     private javax.swing.JTable jTbPacientes;
     @Bindable(field="cns")
     private javax.swing.JTextField jTxtCns;
+    @Bindable(field="dataNascimento")
+    private javax.swing.JTextField jTxtDataNascimento;
     @Bindable(field="familia.id",formatter=IntFormatter.class)
     private javax.swing.JTextField jTxtFamilia;
     @Bindable(field="idade",formatter=IntFormatter.class)
@@ -360,7 +361,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     
     @Override
     public String getDataNascimento(){
-        return this.jFTxtDataNascimento.getText().replaceAll("[/]","");
+        return this.jTxtDataNascimento.getText().replaceAll("[/]","");
     }
     @Override
     public void setSelecionarLinhaJTableActionListener(MouseListener listener) {
@@ -462,7 +463,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
 
     @Override
     public void enableTxtDataNascimento(boolean arg) {
-       this.jFTxtDataNascimento.setEnabled(arg);
+       this.jTxtDataNascimento.setEnabled(arg);
     }
 
     @Override
@@ -588,8 +589,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         this.jTxtCns.setInputVerifier(verifier);
     }
     
-    public void setFmTxtDatanascimentoVerifier(InputVerifier verifier){
-        this.jFTxtDataNascimento.setInputVerifier(verifier);
+    public void setTxtDatanascimentoVerifier(InputVerifier verifier){
+        this.jTxtDataNascimento.setInputVerifier(verifier);
     }
 
     @Override
@@ -600,6 +601,11 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                 this.jTxtFamilia.setText(String.valueOf(arg));
             }
         }
+    }
+
+    @Override
+    public void setTxtDataNascimentoDocument(Document d) {
+        this.jTxtDataNascimento.setDocument(d);
     }
     
 }

@@ -61,11 +61,12 @@ public interface PacienteView {
     public void setTxtIdadeDocument(Document d);
     public void setTxtSexoDocument(Document d);
     public void setTxtOcupacaoDocument(Document d);
+    public void setTxtDataNascimentoDocument(Document d);
     
     public String getDataNascimento();
     
     public void setTxtCnsVerifier(InputVerifier verifier);
-    public void setFmTxtDatanascimentoVerifier(InputVerifier verifier);
+    public void setTxtDatanascimentoVerifier(InputVerifier verifier);
     
     public void setSelectedDoencaCondicao(DoencaCondicao c);
     public void setSelectedIndexDoencaCondicao(int i);

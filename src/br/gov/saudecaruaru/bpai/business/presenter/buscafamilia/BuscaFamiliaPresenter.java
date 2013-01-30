@@ -12,6 +12,8 @@ import br.gov.saudecaruaru.bpai.business.presenter.buscafamilia.BuscaFamiliaWind
 import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
 import br.gov.saudecaruaru.bpai.gui.FamiliaTableModel;
 import br.gov.saudecaruaru.bpai.gui.FamiliaWindow;
+import br.gov.saudecaruaru.bpai.gui.documents.CepDocument;
+import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyNumbersDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
 import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
@@ -80,11 +82,12 @@ public class BuscaFamiliaPresenter{
         this.view.setTxtNumeroDocument(new OnlyNumbersDocument(0));
         this.view.setTxtBairroDocument(new OnlyUpperLettersDocument(0));
         this.view.setTxtMunicipioDocument(new OnlyUpperLettersDocument(0));
-        this.view.setTxtUFDocument(new OnlyUpperLettersDocument(2));
+        this.view.setTxtCepDocument(new CepDocument());
+        this.view.setTxtDataCadastroDocument(new DataDocument());
     }
      
     private void setVerifiers(){
-        this.view.setFmDataCadastroVerifier(new DataVerifier((Component) this.view, "Data Cadastro"));
+        this.view.setTxtDataCadastroVerifier(new DataVerifier((Component) this.view, "Data Cadastro"));
         //this.view.setFmCepVerifier(null);
     }
      private void initDadosJTable(){
@@ -112,7 +115,7 @@ public class BuscaFamiliaPresenter{
         this.view.enableTxtMunicipio(arg);
         this.view.enableTxtNumero(arg);
         this.view.enableTxtSegmento(arg);
-        this.view.enableTxtUF(arg);
+        this.view.enableCbUF(arg);
         this.view.enableTxtDataCadastro(arg);
     }
     

@@ -14,6 +14,7 @@ import br.gov.saudecaruaru.bpai.gui.FamiliaTableModel;
 import br.gov.saudecaruaru.bpai.gui.FamiliaWindow;
 import br.gov.saudecaruaru.bpai.gui.PacienteTableModel;
 import br.gov.saudecaruaru.bpai.gui.PacienteWindow;
+import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyNumbersDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.SexoDocument;
@@ -80,11 +81,12 @@ public class CadastroPacientePresenter {
         this.view.setTxtSexoDocument(new OnlyUpperLettersDocument(1));
         this.view.setTxtOcupacaoDocument(new OnlyUpperLettersDocument(45));
         this.view.setTxtSexoDocument(new SexoDocument());
+        this.view.setTxtDataNascimentoDocument(new DataDocument());
     }
     
     private void setVerifiers(){
         this.view.setTxtCnsVerifier(new CnsVerifier((Component) this.view,"CNS"));
-        this.view.setFmTxtDatanascimentoVerifier(new DataVerifier((Component) this.view, "Data de Nascimento"));
+        this.view.setTxtDatanascimentoVerifier(new DataVerifier((Component) this.view, "Data de Nascimento"));
     }
      private void initDadosJTable(){
       

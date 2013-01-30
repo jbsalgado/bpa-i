@@ -8,6 +8,8 @@ import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
 import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
 import br.gov.saudecaruaru.bpai.gui.FamiliaTableModel;
 import br.gov.saudecaruaru.bpai.gui.FamiliaWindow;
+import br.gov.saudecaruaru.bpai.gui.documents.CepDocument;
+import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyNumbersDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
 import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
@@ -61,10 +63,12 @@ public class CadastroFamiliaPresenter {
         this.view.setTxtNumeroDocument(new OnlyNumbersDocument(4));
         this.view.setTxtBairroDocument(new OnlyUpperLettersDocument(60));
         this.view.setTxtMunicipioDocument(new OnlyUpperLettersDocument(60));
+        this.view.setTxtCepDocument(new CepDocument());
+        this.view.setTxtDataCadastroDocument(new DataDocument());
     }
     
     private void setVerifiers(){
-        this.view.setFmDataCadastroVerifier(new DataVerifier((Component) this.view, "Data Cadastro"));
+        this.view.setTxtDataCadastroVerifier(new DataVerifier((Component) this.view, "Data Cadastro"));
         //this.view.setFmCepVerifier(null);
     }
     

@@ -61,11 +61,12 @@ public interface FamiliaView {
     public void setTxtBairroDocument(Document d);
     public void setTxtCepDocument(Document d);
     public void setTxtMunicipioDocument(Document d);
+    public void setTxtDataCadastroDocument(Document d);
     public String getCep();
     public String getDataCadastro();
     
     
-    public void setFmDataCadastroVerifier(InputVerifier verifier);
-    public void setFmCepVerifier(InputVerifier verifier);
+    public void setTxtDataCadastroVerifier(InputVerifier verifier);
+    public void setTxtCepVerifier(InputVerifier verifier);
     
 }
