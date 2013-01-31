@@ -9,8 +9,10 @@ import br.gov.saudecaruaru.bpai.business.presenter.cadastrofamilia.CadastroFamil
 import br.gov.saudecaruaru.bpai.gui.PacienteWindow;
 import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
 import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -49,15 +51,19 @@ public class CadastroPacienteActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             PacienteView view = (PacienteView) this.presenter.getView(); 
-                 this.presenter.habilitarEdicao(false);
-                 //view.enableBtnConfirmar(false);
-                 view.enableBtnCancelar(false);
-                 view.enableBtnEditar(false);
-                 view.enableBtnNovo(true);
-                 
-                 //executa a operaçao escolhida
-                 this.presenter.getOperacao().execute();
-                 view.clearFields();
+                 if(view.validaCamposVazios()){
+                    this.presenter.habilitarEdicao(false);
+                    //view.enableBtnConfirmar(false);
+                    view.enableBtnCancelar(false);
+                    view.enableBtnEditar(false);
+                    view.enableBtnNovo(true);
+
+                    //executa a operaçao escolhida
+                    this.presenter.getOperacao().execute();
+                    view.clearFields();
+                 }else{
+                    JOptionPane.showMessageDialog((Component)view,"Preencha os campos vazios","Erro",JOptionPane.ERROR_MESSAGE);
+               }   
         }
     }
     

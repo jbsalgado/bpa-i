@@ -21,16 +21,14 @@ import com.towel.bind.annotation.AnnotatedBinder;
 import com.towel.bind.annotation.Bindable;
 import com.towel.bind.annotation.Form;
 import com.towel.swing.combo.ObjectComboBoxModel;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.InputVerifier;
-import javax.swing.JDialog;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.Document;
 
@@ -359,6 +357,44 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     private ObjectComboBoxModel<Character> modelEscolha;
     private ObjectComboBoxModel<DoencaCondicao> modelDoencaCondicao;
 
+    @Override
+    public boolean validaCamposVazios() {
+      boolean verifica = false;   
+      Component[] componentes = this.getContentPane().getComponents();  
+        for (int i = 0; i < componentes.length; i++) {  
+            if (componentes[i] instanceof JTextField) {  
+                JTextField field = (JTextField)componentes[i];  
+                field.setBackground(Color.white);
+                
+                //se o campo estiver vazio colore o campo de vermelho
+                if(field.getText().equals("")){
+                   //field.requestFocusInWindow();
+                   field.setBackground(Color.red);
+                   verifica  = true;
+                   
+                }  
+            }else{
+                        if (componentes[i] instanceof JComboBox) {  
+                            JComboBox fieldC = (JComboBox)componentes[i];
+                            fieldC.setBackground(Color.gray);
+                            //se o campo estiver vazio colore o campo de vermelho
+                            if(fieldC.getSelectedItem().equals("")){
+                                //fieldC.requestFocusInWindow();
+                                fieldC.setBackground(Color.red);
+                                verifica  = true;
+                        }
+                }
+                    
+            }  
+            
+             
+        }
+        if(verifica){
+            return false;
+        }
+        return true;
+    }
+        
     @Override
     public String getCns(){
         return this.jTxtCns.getText();

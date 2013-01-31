@@ -74,4 +74,5 @@ public interface PacienteView {
     
     public String getCns();
     public void setCnsFocusListener(FocusListener listener);
+    public boolean validaCamposVazios();
 }

@@ -421,7 +421,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         }  
     }
     
-     @Override
+    @Override
     public boolean validaCamposVazios() {
       boolean verifica = false;   
       Component[] componentes = this.getContentPane().getComponents();  
@@ -429,6 +429,8 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
             if (componentes[i] instanceof JTextField) {  
                 JTextField field = (JTextField)componentes[i];  
                 field.setBackground(Color.white);
+                
+                //se o campo estiver vazio colore o campo de vermelho
                 if(field.getText().equals("")){
                    //field.requestFocusInWindow();
                    field.setBackground(Color.red);
@@ -439,6 +441,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
                         if (componentes[i] instanceof JComboBox) {  
                             JComboBox fieldC = (JComboBox)componentes[i];
                             fieldC.setBackground(Color.gray);
+                            //se o campo estiver vazio colore o campo de vermelho
                             if(fieldC.getSelectedItem().equals("")){
                                 //fieldC.requestFocusInWindow();
                                 fieldC.setBackground(Color.red);
