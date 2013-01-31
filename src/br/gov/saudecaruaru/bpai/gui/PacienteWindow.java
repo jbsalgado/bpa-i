@@ -593,6 +593,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         this.jTxtCns.setInputVerifier(verifier);
     }
     
+    @Override
     public void setTxtDatanascimentoVerifier(InputVerifier verifier){
         this.jTxtDataNascimento.setInputVerifier(verifier);
     }
@@ -612,6 +613,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         this.jTxtDataNascimento.setDocument(d);
     }
     
+    @Override
     public void setCnsFocusListener(FocusListener listener){
         this.jTxtCns.addFocusListener(listener);
     }

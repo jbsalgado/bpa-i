@@ -17,6 +17,7 @@ import com.towel.bind.annotation.Form;
 import com.towel.swing.combo.ObjectComboBoxModel;
 import java.awt.Component;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -384,7 +385,22 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     // End of variables declaration//GEN-END:variables
     private ObjectComboBoxModel<String> modelUF;
     
-    
+    @Override
+    public String getSegmento(){
+        return this.jTxtSegmento.getText();
+    }
+    @Override
+    public String getArea(){
+        return this.jTxtArea.getText();
+    }
+    @Override
+    public String getMicroarea(){
+        return this.jTxtMicroArea.getText();
+    }
+    @Override
+    public String getFamilia(){
+        return this.jTxtFamilia.getText();
+    }
     
     @Override
     public void setSelecionarLinhaJTableActionListener(MouseListener listener) {
@@ -437,11 +453,28 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         columnModel.getColumn(4).setPreferredWidth(200);  
     }
 
+    @Override
+    public void setFamiliaFocusListener(FocusListener listener){
+        this.jTxtFamilia.addFocusListener(listener);
+    } 
     
+    @Override
+    public void setSelectedUF(String uf){
+        this.modelUF.setSelectedObject(uf);
+    }
+    
+    
+    @Override
+    public void setSelectedIndexUF(int i){
+        this.jCbUF.setSelectedIndex(i);
+    }
+    
+    @Override
     public String getCep(){
         return this.jTxtCep.getText().replaceAll("[.,-]", "");
     }
     
+    @Override
     public String getDataCadastro(){
         return this.jTxtDataCadastro.getText().replaceAll("[/]", "");
     }
@@ -615,6 +648,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         this.jTxtCep.setDocument(d);
     }
     
+    @Override
     public void setTxtDataCadastroDocument(Document d){
         this.jTxtDataCadastro.setDocument(d);
     }

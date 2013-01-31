@@ -30,6 +30,7 @@ public class CadastroFamiliaWindowMouseListener {
             view.enableBtnEditar(true);
             view.enableBtnNovo(false);
             view.enableBtnConfirmar(false);
+            this.presenter.desabilitaCabecalho();
             
             
         }

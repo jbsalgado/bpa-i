@@ -7,6 +7,7 @@ package br.gov.saudecaruaru.bpai.gui.interfaces;
 import br.gov.saudecaruaru.bpai.gui.FamiliaTableModel;
 import com.towel.bind.Binder;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseListener;
 import javax.swing.InputVerifier;
 import javax.swing.text.Document;
@@ -69,4 +70,13 @@ public interface FamiliaView {
     public void setTxtDataCadastroVerifier(InputVerifier verifier);
     public void setTxtCepVerifier(InputVerifier verifier);
     
+    public void setSelectedUF(String uf);
+    public void setSelectedIndexUF(int i);
+    
+    public void setFamiliaFocusListener(FocusListener listener);
+    
+    public String getSegmento();
+    public String getArea();
+    public String getMicroarea();
+    public String getFamilia();
 }

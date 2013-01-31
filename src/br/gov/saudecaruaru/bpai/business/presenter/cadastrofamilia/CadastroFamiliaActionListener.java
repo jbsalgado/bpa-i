@@ -29,6 +29,8 @@ public class CadastroFamiliaActionListener {
                  
                  view.enableBtnEditar(false);
                  view.enableBtnCancelar(true);
+                 view.enableBtnConfirmar(true);
+                 view.enableBtnNovo(false);
                  
                  this.presenter.setOperacao(this.presenter.INSERT_STRATEGY);  
                  
@@ -50,6 +52,7 @@ public class CadastroFamiliaActionListener {
                  view.enableBtnCancelar(false);
                  view.enableBtnEditar(false);
                  view.enableBtnNovo(true);
+                 view.enableBtnConfirmar(false);
                  
                  //executa a operaçao escolhida
                  this.presenter.getOperacao().execute();
@@ -89,7 +92,9 @@ public class CadastroFamiliaActionListener {
                  view.clearFields();
                  this.presenter.habilitarEdicao(false);
                  view.enableBtnConfirmar(false);
+                 view.enableBtnEditar(false);
                  view.enableBtnCancelar(false);
+                 view.enableBtnNovo(true);
                  
                  
         }

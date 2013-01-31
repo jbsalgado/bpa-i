@@ -5,6 +5,8 @@
 package br.gov.saudecaruaru.bpai.business.presenter.cadastrofamilia;
 
 import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
+import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
+import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
 import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
 import br.gov.saudecaruaru.bpai.gui.FamiliaTableModel;
 import br.gov.saudecaruaru.bpai.gui.FamiliaWindow;
@@ -78,6 +80,7 @@ public class CadastroFamiliaPresenter {
         this.view.setSelecionarLinhaJTableActionListener(new CadastroFamiliaWindowMouseListener.SelecionarLinhaMouseListener(this));
         this.view.setEditarActionListener(new CadastroFamiliaActionListener.EditarActionListener(this));
         this.view.setCancelarActionListener(new CadastroFamiliaActionListener.CancelarActionListener(this));
+        this.view.setFamiliaFocusListener(new CadastroFamiliaFocusListener.FamiliaFocusListener(this));
     }
     
      private void initDadosJTable(){
@@ -107,6 +110,13 @@ public class CadastroFamiliaPresenter {
         this.view.enableTxtSegmento(arg);
         this.view.enableCbUF(arg);
         this.view.enableTxtDataCadastro(arg);
+    }
+    
+    public void desabilitaCabecalho(){
+        view.enableTxtSegmento(false);
+        view.enableTxtArea(false);
+        view.enableTxtMicroarea(false);
+        view.enableTxtFamilia(false);
     }
     
     public FamiliaView getView(){
@@ -149,6 +159,11 @@ public class CadastroFamiliaPresenter {
         }
         
     }
+    
+     private void updateView(){
+       view.getBinder().updateView(this.familia);  
+       this.getView().setSelectedUF(this.familia.getUf());    
+   }
      public void inserirFamilia(){
         this.updateModel();
         this.familiaDao.save(this.familia);
@@ -157,7 +172,7 @@ public class CadastroFamiliaPresenter {
     }
      
     public void atualizarFamilia(){
-        this.getView().getBinder().updateModel(this.familia);
+        this.updateModel();
         this.familiaDao.update(this.familia);
         this.initDadosJTable();
         this.view.refreshTableFamilias();
@@ -169,9 +184,34 @@ public class CadastroFamiliaPresenter {
         this.familia = tbModel.getFamilia(view.linhaSelecionadaTableFamilias());  
           
         if (this.familia != null) {  
-            this.view.getBinder().updateView(this.familia);  
+            this.updateView();
         }  
            
     }  
+    
+    
+  
+    
+     public boolean exibeFamilia(){
+         BIFamilia f = new BIFamilia();
+         f.setSegmento(this.view.getSegmento());
+         f.setArea(this.view.getArea());
+         f.setMicroArea(this.view.getMicroarea());
+         f.setFamilia(this.view.getFamilia());
+         
+         
+         List<BIFamilia> listFamilia = this.buscaFamilia(f);
+         if(!listFamilia.isEmpty()){
+            this.familia = listFamilia.get(0);
+            this.updateView();
+            return true;
+         }
+        
+        return false;
+    }
+    
+    private List<BIFamilia> buscaFamilia(BIFamilia p){
+        return this.familiaDao.findAllEqual(p);
+    }
      
 }
