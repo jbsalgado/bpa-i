@@ -53,6 +53,7 @@ public class BuscaFamiliaPresenter{
         this.novaFamilia();
         //cria o DAO
         this.familiaDao = new BIFamiliaDAO();
+        this.desabilitaCabecalho();
         this.setVerifiers();
         this.setDocuments();
         this.setUpViewListeners();  
@@ -119,6 +120,12 @@ public class BuscaFamiliaPresenter{
         this.view.enableTxtDataCadastro(arg);
     }
     
+    private void desabilitaCabecalho(){
+        view.enableTxtSegmento(false);
+        view.enableTxtArea(false);
+        view.enableTxtMicroarea(false);
+        view.enableTxtFamilia(false);
+    }
     public FamiliaView getView(){
         return this.view;
     }
@@ -129,9 +136,14 @@ public class BuscaFamiliaPresenter{
         this.familia = tbModel.getFamilia(view.linhaSelecionadaTableFamilias());  
           
         if (this.familia != null) {  
-            this.view.getBinder().updateView(this.familia);  
+            this.updateView();
         }  
            
+    }
+    
+    private void updateView(){
+       view.getBinder().updateView(this.familia);  
+       this.getView().setSelectedUF(this.familia.getUf());    
     }
     
     public void atualizarJTable(){
