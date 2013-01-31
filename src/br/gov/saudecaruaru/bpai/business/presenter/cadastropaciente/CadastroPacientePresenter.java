@@ -111,8 +111,8 @@ public class CadastroPacientePresenter {
         this.view.enableTxtOcupacao(arg);
         this.view.enableTxtSexo(arg);
         this.view.enableJCbAlfabetizado(arg);
-        this.view.setSelectedIndexAlfabetizado(0);
-        this.view.setSelectedIndexDoencaCondicao(0);
+        //this.view.setSelectedIndexAlfabetizado(0);
+        //this.view.setSelectedIndexDoencaCondicao(0);
         this.view.enableBtnFamilia(arg);
     }
     
