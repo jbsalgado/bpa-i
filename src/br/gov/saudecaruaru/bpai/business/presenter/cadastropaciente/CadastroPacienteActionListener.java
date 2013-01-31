@@ -53,7 +53,7 @@ public class CadastroPacienteActionListener {
             PacienteView view = (PacienteView) this.presenter.getView(); 
                  if(view.validaCamposVazios()){
                     this.presenter.habilitarEdicao(false);
-                    //view.enableBtnConfirmar(false);
+                    view.enableBtnConfirmar(false);
                     view.enableBtnCancelar(false);
                     view.enableBtnEditar(false);
                     view.enableBtnNovo(true);
