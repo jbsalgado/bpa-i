@@ -62,6 +62,7 @@ public class CadastroPacienteActionListener {
                     this.presenter.getOperacao().execute();
                     view.clearFields();
                  }else{
+                     
                     JOptionPane.showMessageDialog((Component)view,"Preencha os campos vazios","Erro",JOptionPane.ERROR_MESSAGE);
                }   
         }
@@ -76,13 +77,16 @@ public class CadastroPacienteActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
            PacienteView view = (PacienteView) this.presenter.getView(); 
-                 this.presenter.habilitarEdicao(true);
-                 view.enableBtnConfirmar(true);
-                 view.enableBtnCancelar(true);
-                 this.presenter.habilitarEdicao(false);
-                 
-                 this.presenter.setOperacao(this.presenter.UPDATE_STRATEGY);  
-                 
+                 if(view.validaCamposVazios()){
+                    this.presenter.habilitarEdicao(true);
+                    view.enableBtnConfirmar(true);
+                    view.enableBtnCancelar(true);
+                    this.presenter.habilitarEdicao(false);
+
+                    this.presenter.setOperacao(this.presenter.UPDATE_STRATEGY);  
+                  }else{
+                    JOptionPane.showMessageDialog((Component)view,"Preencha os campos vazios","Erro",JOptionPane.ERROR_MESSAGE);
+               }    
                  
         }
     }

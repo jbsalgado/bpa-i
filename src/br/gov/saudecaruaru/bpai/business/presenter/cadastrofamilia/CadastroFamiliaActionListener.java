@@ -74,14 +74,17 @@ public class CadastroFamiliaActionListener {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            FamiliaView view = (FamiliaView) this.presenter.getView(); 
+            FamiliaView view = (FamiliaView) this.presenter.getView();
+             if(view.validaCamposVazios()){
                  this.presenter.habilitarEdicao(true);
                  view.enableBtnConfirmar(true);
                  view.enableBtnCancelar(true);
                  this.presenter.habilitarEdicao(false);
                  
                  this.presenter.setOperacao(this.presenter.UPDATE_STRATEGY);  
-                 
+              }else{
+                    JOptionPane.showMessageDialog((Component)view,"Preencha os campos vazios","Erro",JOptionPane.ERROR_MESSAGE);
+               }    
                  
         }
     }
