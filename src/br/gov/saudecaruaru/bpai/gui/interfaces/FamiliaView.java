@@ -73,6 +73,11 @@ public interface FamiliaView {
     public void setSelectedUF(String uf);
     public void setSelectedIndexUF(int i);
     
+    
+    public void setSegmentoFocusListener(FocusListener listener);
+  
+    public void setAreaFocusListener(FocusListener listener);
+    public void setMicroareaFocusListener(FocusListener listener);
     public void setFamiliaFocusListener(FocusListener listener);
     
     public String getSegmento();

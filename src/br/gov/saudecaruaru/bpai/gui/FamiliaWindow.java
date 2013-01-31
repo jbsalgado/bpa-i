@@ -492,7 +492,19 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         columnModel.getColumn(4).setHeaderValue("Família");  
         columnModel.getColumn(4).setPreferredWidth(200);  
     }
-
+    
+    @Override
+    public void setSegmentoFocusListener(FocusListener listener){
+        this.jTxtSegmento.addFocusListener(listener);
+    }
+    @Override
+    public void setAreaFocusListener(FocusListener listener){
+        this.jTxtArea.addFocusListener(listener);
+    }
+    @Override
+    public void setMicroareaFocusListener(FocusListener listener){
+        this.jTxtMicroArea.addFocusListener(listener);
+    }
     @Override
     public void setFamiliaFocusListener(FocusListener listener){
         this.jTxtFamilia.addFocusListener(listener);

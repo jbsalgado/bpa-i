@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import javax.swing.JTextField;
 
 /**
  *
@@ -18,7 +19,7 @@ import java.awt.event.FocusListener;
  */
 public class CadastroFamiliaFocusListener {
   
-        static class FamiliaFocusListener implements FocusListener{
+  static class FamiliaFocusListener implements FocusListener{
         private CadastroFamiliaPresenter presenter;  
           
         public  FamiliaFocusListener(CadastroFamiliaPresenter presenter) {  
@@ -42,6 +43,34 @@ public class CadastroFamiliaFocusListener {
                  this.presenter.desabilitaCabecalho();
              }
              
+        }
+       
+    }
+  
+  static class CompletarComZerosFocusListener implements FocusListener{ 
+        private String quantZeros; 
+        
+        public  CompletarComZerosFocusListener(String quantZeros) {  
+            this.quantZeros = quantZeros;
+        }
+
+        @Override
+        public void focusGained(FocusEvent e) {
+           
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+             if(e.getComponent()instanceof JTextField){
+                 //pega a referencia ao textField
+                 JTextField field = (JTextField) e.getComponent();
+                 //pega o valor do campo
+                 String valor = field.getText();
+                 //completa com zeros a esquerda se necessario
+                 String formatado = String.format("%0"+this.quantZeros+"d",Integer.parseInt(valor));
+                 //seta o novo valor no campo
+                 field.setText(formatado);
+             }
         }
        
     }

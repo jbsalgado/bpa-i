@@ -80,6 +80,14 @@ public class CadastroFamiliaPresenter {
         this.view.setSelecionarLinhaJTableActionListener(new CadastroFamiliaWindowMouseListener.SelecionarLinhaMouseListener(this));
         this.view.setEditarActionListener(new CadastroFamiliaActionListener.EditarActionListener(this));
         this.view.setCancelarActionListener(new CadastroFamiliaActionListener.CancelarActionListener(this));
+        
+        //listeners para completar com zeros a esquerda
+        this.view.setSegmentoFocusListener(new CadastroFamiliaFocusListener.CompletarComZerosFocusListener("2"));
+        this.view.setAreaFocusListener(new CadastroFamiliaFocusListener.CompletarComZerosFocusListener("3"));
+        this.view.setMicroareaFocusListener(new CadastroFamiliaFocusListener.CompletarComZerosFocusListener("2"));
+        this.view.setFamiliaFocusListener(new CadastroFamiliaFocusListener.CompletarComZerosFocusListener("3"));
+        
+        // esse listener tem que ser adicionado depois dos listeneres de completar com zero
         this.view.setFamiliaFocusListener(new CadastroFamiliaFocusListener.FamiliaFocusListener(this));
     }
     
