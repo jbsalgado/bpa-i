@@ -16,6 +16,7 @@ import br.gov.saudecaruaru.bpai.gui.documents.OnlyNumbersDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
 import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
 import br.gov.saudecaruaru.bpai.gui.interfaces.OperacaoStrategy;
+import br.gov.saudecaruaru.bpai.gui.verifiers.CepVerifier;
 import br.gov.saudecaruaru.bpai.gui.verifiers.DataVerifier;
 import java.awt.Component;
 import java.util.List;
@@ -71,7 +72,7 @@ public class CadastroFamiliaPresenter {
     
     private void setVerifiers(){
         this.view.setTxtDataCadastroVerifier(new DataVerifier((Component) this.view, "Data Cadastro"));
-        //this.view.setFmCepVerifier(null);
+        this.view.setTxtCepVerifier(new CepVerifier((Component)this.view,"Cep"));
     }
     
     private void setUpViewListeners(){

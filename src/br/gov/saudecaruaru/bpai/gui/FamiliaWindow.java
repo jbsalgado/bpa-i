@@ -541,15 +541,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         this.jTbFamilias.updateUI();
     }
 
-    @Override
-    public void setVerifiers() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setDocuments() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    
 
     @Override
     public Binder getBinder() {

@@ -24,8 +24,6 @@ public interface FamiliaView {
     public void setFamiliaTableModel(FamiliaTableModel model);
     public int linhaSelecionadaTableFamilias(); 
     public void refreshTableFamilias();
-    public void setVerifiers();
-    public void setDocuments();
     public Binder getBinder();
     public void enableTxtSegmento(boolean arg);
     public void enableTxtArea(boolean arg);
