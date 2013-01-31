@@ -15,6 +15,7 @@ import com.towel.bind.annotation.AnnotatedBinder;
 import com.towel.bind.annotation.Bindable;
 import com.towel.bind.annotation.Form;
 import com.towel.swing.combo.ObjectComboBoxModel;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
@@ -22,6 +23,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.InputVerifier;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumnModel;
@@ -417,6 +419,41 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
                 field.setText("");  
             }  
         }  
+    }
+    
+     @Override
+    public boolean validaCamposVazios() {
+      boolean verifica = false;   
+      Component[] componentes = this.getContentPane().getComponents();  
+        for (int i = 0; i < componentes.length; i++) {  
+            if (componentes[i] instanceof JTextField) {  
+                JTextField field = (JTextField)componentes[i];  
+                field.setBackground(Color.white);
+                if(field.getText().equals("")){
+                   //field.requestFocusInWindow();
+                   field.setBackground(Color.red);
+                   verifica  = true;
+                   
+                }  
+            }else{
+                        if (componentes[i] instanceof JComboBox) {  
+                            JComboBox fieldC = (JComboBox)componentes[i];
+                            fieldC.setBackground(Color.gray);
+                            if(fieldC.getSelectedItem().equals("")){
+                                //fieldC.requestFocusInWindow();
+                                fieldC.setBackground(Color.red);
+                                verifica  = true;
+                        }
+                }
+                    
+            }  
+            
+             
+        }
+        if(verifica){
+            return false;
+        }
+        return true;
     }
 
     @Override

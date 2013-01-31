@@ -5,8 +5,10 @@
 package br.gov.saudecaruaru.bpai.business.presenter.cadastrofamilia;
 
 import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -46,17 +48,21 @@ public class CadastroFamiliaActionListener {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            FamiliaView view = (FamiliaView) this.presenter.getView(); 
-                 this.presenter.habilitarEdicao(false);
-                 //view.enableBtnConfirmar(false);
-                 view.enableBtnCancelar(false);
-                 view.enableBtnEditar(false);
-                 view.enableBtnNovo(true);
-                 view.enableBtnConfirmar(false);
-                 
-                 //executa a operaçao escolhida
-                 this.presenter.getOperacao().execute();
-                 view.clearFields();
+            FamiliaView view = (FamiliaView) this.presenter.getView();
+                if(view.validaCamposVazios()){
+                    this.presenter.habilitarEdicao(false);
+                    //view.enableBtnConfirmar(false);
+                    view.enableBtnCancelar(false);
+                    view.enableBtnEditar(false);
+                    view.enableBtnNovo(true);
+                    view.enableBtnConfirmar(false);
+
+                    //executa a operaçao escolhida
+                    this.presenter.getOperacao().execute();
+                    view.clearFields();
+               }else{
+                    JOptionPane.showMessageDialog((Component)view,"Preencha os campos vazios","Erro",JOptionPane.ERROR_MESSAGE);
+               }    
         }
     }
     

@@ -79,4 +79,6 @@ public interface FamiliaView {
     public String getArea();
     public String getMicroarea();
     public String getFamilia();
+    
+    public boolean validaCamposVazios();
 }

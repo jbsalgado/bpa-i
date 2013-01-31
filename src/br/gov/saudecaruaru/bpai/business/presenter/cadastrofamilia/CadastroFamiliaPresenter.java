@@ -110,6 +110,8 @@ public class CadastroFamiliaPresenter {
         this.view.enableTxtSegmento(arg);
         this.view.enableCbUF(arg);
         this.view.enableTxtDataCadastro(arg);
+        
+        //this.view.setSelectedIndexUF(0);
     }
     
     public void desabilitaCabecalho(){
