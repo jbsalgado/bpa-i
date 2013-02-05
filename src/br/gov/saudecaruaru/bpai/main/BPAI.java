@@ -5,6 +5,7 @@
 package br.gov.saudecaruaru.bpai.main;
 
 import br.gov.saudecaruaru.bpai.business.controller.SistemaController;
+import br.gov.saudecaruaru.bpai.business.presenter.principal.PrincipalPresenter;
 import br.gov.saudecaruaru.bpai.data.*;
 import br.gov.saudecaruaru.bpai.gui.EscolhaBanco;
 import br.gov.saudecaruaru.bpai.gui.ListaProcedimento;
@@ -136,10 +137,9 @@ public class BPAI {
        //CRIA OS ÍNDICES
        HibernateUtil.createIndices();
        HibernateUtil.createIndicesBPAI();
-       ListaProcedimento principal= new ListaProcedimento();
-       principal.setVisible(true);
-       principal.setLocationRelativeTo(null);
-       principal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       
+       PrincipalPresenter presenter=new PrincipalPresenter();
+       presenter.createView();
     }
     
     private static void criarDiretorioPadrao(){
