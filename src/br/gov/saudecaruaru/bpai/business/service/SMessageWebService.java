@@ -7,11 +7,17 @@
 
 package br.gov.saudecaruaru.bpai.business.service;
 
+import com.google.gson.annotations.SerializedName;
+
 public class SMessageWebService  implements java.io.Serializable {
+    
+    @SerializedName("codigo")
     private java.lang.String codigo;
 
+    @SerializedName("message")
     private java.lang.String message;
 
+    @SerializedName("tipo")
     private java.lang.String tipo;
 
     public SMessageWebService() {
