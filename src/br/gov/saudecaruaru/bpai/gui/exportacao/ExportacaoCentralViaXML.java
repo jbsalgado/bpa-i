@@ -6,6 +6,7 @@ package br.gov.saudecaruaru.bpai.gui.exportacao;
 
 import br.gov.saudecaruaru.bpai.business.controller.SistemaController;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
+import br.gov.saudecaruaru.bpai.business.service.SMessageWebService;
 import br.gov.saudecaruaru.bpai.data.BIProcedimentoRealizadoDAO;
 import br.gov.saudecaruaru.bpai.data.BIProcedimentoRealizadoXML;
 import br.gov.saudecaruaru.bpai.gui.interfaces.IExportacaoStrategy;
@@ -39,9 +40,23 @@ public class ExportacaoCentralViaXML implements IExportacaoStrategy {
             String fileName = SistemaController.DIRETORIO_PRINCIPAL + "/exportacao.xml";
             this.bIProcedimentoRealizadoXML.salvar(list, fileName);
             //exporta para o servidor.
-            msg = SistemaController.getnstance().enviarProducaoParaServidor(new File(fileName));
-            if (msg == null) {
+            SMessageWebService[] m = SistemaController.getnstance().enviarProducaoParaServidor(new File(fileName),competenciaMovimento,cnesUnidade);
+            if (m == null) {
                 msg = "Erro ao exportar o arquivo. Verifique sua coneção com a internet.";
+            }
+            else{
+                StringBuilder str= new StringBuilder();
+                for(SMessageWebService message: m){
+                    str.append(message.getMessage());
+                    str.append("\n");
+                    if (message.getTipo().equals("0")){
+                        str.append("ERRO: ");
+                        str.append(message.getCodigo());
+                        
+                    }
+                    str.append("\n");
+                }
+                msg=str.toString();
             }
         } catch (Exception ex) {
             logger.error("ERRO ao tentar executar o método execute. " + ex.getMessage());
