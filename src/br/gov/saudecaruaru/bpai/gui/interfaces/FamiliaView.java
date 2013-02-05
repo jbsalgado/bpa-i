@@ -7,7 +7,10 @@ package br.gov.saudecaruaru.bpai.gui.interfaces;
 import br.gov.saudecaruaru.bpai.gui.FamiliaTableModel;
 import com.towel.bind.Binder;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseListener;
+import javax.swing.InputVerifier;
+import javax.swing.text.Document;
 
 /**
  *
@@ -21,8 +24,6 @@ public interface FamiliaView {
     public void setFamiliaTableModel(FamiliaTableModel model);
     public int linhaSelecionadaTableFamilias(); 
     public void refreshTableFamilias();
-    public void setVerifiers();
-    public void setDocuments();
     public Binder getBinder();
     public void enableTxtSegmento(boolean arg);
     public void enableTxtArea(boolean arg);
@@ -33,7 +34,7 @@ public interface FamiliaView {
     public void enableTxtBairro(boolean arg);
     public void enableTxtCep(boolean arg);
     public void enableTxtMunicipio(boolean arg);
-    public void enableTxtUF(boolean arg);
+    public void enableCbUF(boolean arg);
     public void enableTxtDataCadastro(boolean arg);
     
     public void enableBtnNovo(boolean arg);
@@ -45,4 +46,42 @@ public interface FamiliaView {
     public void setEditarActionListener(ActionListener listener);
     public void setConfirmarActionListener(ActionListener listener);
     public void setCancelarActionListener(ActionListener listener);
+    
+    public void visibleBtnBuscar(boolean arg);
+    public void setBuscarActionListener(ActionListener listener);
+    public void fecharJanela();
+    
+    public void setTxtSegmentoDocument(Document d);
+    public void setTxtAreaDocument(Document d);
+    public void setTxtMicroareaDocument(Document d);
+    public void setTxtFamiliaDocument(Document d);
+    public void setTxtEnderecoDocument(Document d);
+    public void setTxtNumeroDocument(Document d);
+    public void setTxtBairroDocument(Document d);
+    public void setTxtCepDocument(Document d);
+    public void setTxtMunicipioDocument(Document d);
+    public void setTxtDataCadastroDocument(Document d);
+    public String getCep();
+    public String getDataCadastro();
+    
+    
+    public void setTxtDataCadastroVerifier(InputVerifier verifier);
+    public void setTxtCepVerifier(InputVerifier verifier);
+    
+    public void setSelectedUF(String uf);
+    public void setSelectedIndexUF(int i);
+    
+    
+    public void setSegmentoFocusListener(FocusListener listener);
+  
+    public void setAreaFocusListener(FocusListener listener);
+    public void setMicroareaFocusListener(FocusListener listener);
+    public void setFamiliaFocusListener(FocusListener listener);
+    
+    public String getSegmento();
+    public String getArea();
+    public String getMicroarea();
+    public String getFamilia();
+    
+    public boolean validaCamposVazios();
 }

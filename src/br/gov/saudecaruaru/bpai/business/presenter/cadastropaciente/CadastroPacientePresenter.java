@@ -2,28 +2,36 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.business.presenter.paciente;
+package br.gov.saudecaruaru.bpai.business.presenter.cadastropaciente;
 
-import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
-import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
+import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
 import br.gov.saudecaruaru.bpai.data.BIPacienteDAO;
 import br.gov.saudecaruaru.bpai.gui.FamiliaTableModel;
 import br.gov.saudecaruaru.bpai.gui.FamiliaWindow;
 import br.gov.saudecaruaru.bpai.gui.PacienteTableModel;
 import br.gov.saudecaruaru.bpai.gui.PacienteWindow;
+import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;
+import br.gov.saudecaruaru.bpai.gui.documents.OnlyNumbersDocument;
+import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
+import br.gov.saudecaruaru.bpai.gui.documents.SexoDocument;
 import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
 import br.gov.saudecaruaru.bpai.gui.interfaces.OperacaoStrategy;
 import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
+import br.gov.saudecaruaru.bpai.gui.verifiers.CnesVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.CnsVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.DataVerifier;
+import java.awt.Component;
 import java.util.List;
+
 
 /**
  *
  * @author juniorpires
  */
-public class PacientePresenter {
+public class CadastroPacientePresenter {
     
-    private PacienteWindow view;
+    private PacienteView view;
     private BIPacienteDAO pacienteDao;
     private BIPaciente paciente;
     private List<BIPaciente> list;
@@ -40,10 +48,13 @@ public class PacientePresenter {
         this.novoPaciente();
         //cria o DAO
         this.pacienteDao = new BIPacienteDAO();
-        
+        this.setVerifiers();
+        this.setDocuments();
         this.setUpViewListeners();  
         this.habilitarEdicao(false);
         this.view.enableBtnEditar(false);
+        this.view.enableBtnFamilia(false);
+        this.view.enableTxtFamilia(false);
         this.initDadosJTable();
         //this.view.setVerifiers();
         //this.view.setDocuments();
@@ -52,12 +63,29 @@ public class PacientePresenter {
      
     
     private void setUpViewListeners(){
-        this.view.setNovoActionListener(new PacienteActionListener.NovoActionListener(this));
-        this.view.setConfirmarActionListener(new PacienteActionListener.ConfirmarActionListener(this));
-        this.view.setSelecionarLinhaJTableActionListener(new PacienteWindowMouseListener.SelecionarLinhaMouseListener(this));
-        this.view.setEditarActionListener(new PacienteActionListener.EditarActionListener(this));
+        this.view.setNovoActionListener(new CadastroPacienteActionListener.NovoActionListener(this));
+        this.view.setConfirmarActionListener(new CadastroPacienteActionListener.ConfirmarActionListener(this));
+        this.view.setSelecionarLinhaJTableActionListener(new CadastroPacienteWindowMouseListener.SelecionarLinhaMouseListener(this));
+        this.view.setEditarActionListener(new CadastroPacienteActionListener.EditarActionListener(this));
+        this.view.setFamiliaActionListener(new CadastroPacienteActionListener.FamiliaActionListener(this));
+        this.view.setCancelarActionListener(new CadastroPacienteActionListener.CancelarActionListener(this));
+        this.view.setCnsFocusListener(new CadastroPacienteFocusListener.CnsFocusListener(this));
     }
     
+    private void setDocuments(){
+        this.view.setTxtCnsDocument(new OnlyNumbersDocument(15));
+        this.view.setTxtNomeDocument(new OnlyUpperLettersDocument(45));
+        this.view.setTxtIdadeDocument(new OnlyNumbersDocument(3));
+        this.view.setTxtSexoDocument(new OnlyUpperLettersDocument(1));
+        this.view.setTxtOcupacaoDocument(new OnlyUpperLettersDocument(45));
+        this.view.setTxtSexoDocument(new SexoDocument());
+        this.view.setTxtDataNascimentoDocument(new DataDocument());
+    }
+    
+    private void setVerifiers(){
+        this.view.setTxtCnsVerifier(new CnsVerifier((Component) this.view,"CNS"));
+        this.view.setTxtDatanascimentoVerifier(new DataVerifier((Component) this.view, "Data de Nascimento"));
+    }
      private void initDadosJTable(){
       
         try {
@@ -76,13 +104,16 @@ public class PacientePresenter {
     public void habilitarEdicao(boolean arg){
         this.view.enableTxtCns(arg);
         this.view.enableTxtDataNascimento(arg);
-        this.view.enableTxtDoencaCondicao(arg);
-        this.view.enableTxtFamilia(arg);
+        this.view.enableCbDoencaCondicao(arg);
+        //this.view.enableTxtFamilia(arg);
         this.view.enableTxtIdade(arg);
         this.view.enableTxtNome(arg);
         this.view.enableTxtOcupacao(arg);
         this.view.enableTxtSexo(arg);
         this.view.enableJCbAlfabetizado(arg);
+        //this.view.setSelectedIndexAlfabetizado(0);
+        //this.view.setSelectedIndexDoencaCondicao(0);
+        this.view.enableBtnFamilia(arg);
     }
     
     public PacienteView getView(){
@@ -92,7 +123,7 @@ public class PacientePresenter {
     private class InsertStrategy implements OperacaoStrategy {  
         @Override
         public void execute() {  
-            PacientePresenter.this.inserirFamilia(); 
+            CadastroPacientePresenter.this.inserirFamilia(); 
             
         }  
     }  
@@ -100,7 +131,7 @@ public class PacientePresenter {
     private class UpdateStrategy implements OperacaoStrategy {  
         @Override
         public void execute() {  
-          PacientePresenter.this.atualizarFamilia(); 
+          CadastroPacientePresenter.this.atualizarPaciente(); 
             
         }  
     }  
@@ -126,14 +157,20 @@ public class PacientePresenter {
          //this.paciente.setAlfabetizado(this.view.getAlfabetizado());
          this.paciente.setFamilia(new BIFamilia());
          this.paciente.getFamilia().setId(this.view.getIdFamilia());
+         
+         String dataNascimento = this.view.getDataNascimento();
+         if(dataNascimento!=null){
+             this.paciente.setDataNascimento(dataNascimento);
+         }
      }
      
-//     private void updateView(){
-//          this.getView().getBinder().updateView(this.paciente);
-//          this.getView().
-//          
-//     }
-    public void atualizarFamilia(){
+     private void updateView(){
+          this.getView().getBinder().updateView(this.paciente);
+          this.getView().setSelectedAlfabetizado(this.paciente.getAlfabetizado());
+          this.getView().setSelectedDoencaCondicao(DoencaCondicao.MAP.get(this.paciente.getDoencaCondicao()));
+          
+     }
+    public void atualizarPaciente(){
         this.updateModel();
         this.pacienteDao.update(this.paciente);
         this.initDadosJTable();
@@ -146,9 +183,26 @@ public class PacientePresenter {
         this.paciente = tbModel.getPaciente(view.linhaSelecionadaTablePacientes());  
           
         if (this.paciente != null) {  
-            this.view.getBinder().updateView(this.paciente);  
+            this.updateView();
         }  
            
     }  
+    
+    public boolean exibePaciente(String cns){
+        BIPaciente p = this.buscaPaciente(cns);
+        if(p!=null){
+            this.paciente = p;
+            this.updateView();
+            return true;
+        }
+        
+        return false;
+    }
+    
+    private BIPaciente buscaPaciente(String cns){
+        BIPaciente p = new BIPaciente();
+        p.setCns(cns);
+        return this.pacienteDao.findEqual(p);
+    }
      
 }

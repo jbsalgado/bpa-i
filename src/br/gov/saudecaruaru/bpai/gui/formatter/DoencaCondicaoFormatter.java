@@ -4,6 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.gui.formatter;
 
+import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
 import br.gov.saudecaruaru.bpai.business.model.Escolha;
 import com.towel.bean.Formatter;
 
@@ -11,18 +12,18 @@ import com.towel.bean.Formatter;
  *
  * @author Albuquerque
  */
-public class EscolhaFormatter implements Formatter{
+public class DoencaCondicaoFormatter implements Formatter{
 
     @Override
     public Object format(Object o) {
         
-        if ( o instanceof Character){
-            o=Escolha.MAP.get(o);
-            
-        }
-        if(o instanceof Escolha ){
-            Escolha p = (Escolha) o;
-                return p.getDescricao();
+//        if ( o instanceof DoencaCondicao){
+//            o=Escolha.MAP.get(o);
+//            
+//        }
+        if(o instanceof DoencaCondicao ){
+            DoencaCondicao p = (DoencaCondicao) o;
+                return p.getCodigo()+" - "+p.getDescricao();
         }
         
         return "";
@@ -30,12 +31,14 @@ public class EscolhaFormatter implements Formatter{
 
     @Override
     public Object parse(Object o) {
-      return o;
+        DoencaCondicao p = (DoencaCondicao) o;
+        return p.getCodigo();
+        
     }
 
     @Override
     public String getName() {
-        return "Escolha";
+        return "DoencaCondicao";
     }
     
 }

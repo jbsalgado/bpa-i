@@ -2,23 +2,24 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.business.presenter.familia;
+package br.gov.saudecaruaru.bpai.business.presenter.cadastrofamilia;
 
 
 import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+
 /**
  *
  * @author Junior Pires
  */
-public class FamiliaWindowMouseListener {
+public class CadastroFamiliaWindowMouseListener {
     
     static class SelecionarLinhaMouseListener implements MouseListener{
-        private FamiliaPresenter presenter;  
+        private CadastroFamiliaPresenter presenter;  
           
-        public SelecionarLinhaMouseListener(FamiliaPresenter presenter) {  
+        public SelecionarLinhaMouseListener(CadastroFamiliaPresenter presenter) {  
             this.presenter = presenter;  
         }
         @Override
@@ -29,6 +30,7 @@ public class FamiliaWindowMouseListener {
             view.enableBtnEditar(true);
             view.enableBtnNovo(false);
             view.enableBtnConfirmar(false);
+            this.presenter.desabilitaCabecalho();
             
             
         }

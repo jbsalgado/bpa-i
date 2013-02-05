@@ -2,24 +2,25 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.business.presenter.paciente;
+package br.gov.saudecaruaru.bpai.business.presenter.cadastropaciente;
 
 
 import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+
 /**
  *
  * @author Junior Pires
  */
-public class PacienteWindowMouseListener {
+public class CadastroPacienteWindowMouseListener {
     
     static class SelecionarLinhaMouseListener implements MouseListener{
-        private PacientePresenter presenter;
+        private CadastroPacientePresenter presenter;
 
           
-        public SelecionarLinhaMouseListener(PacientePresenter presenter) {  
+        public SelecionarLinhaMouseListener(CadastroPacientePresenter presenter) {  
             this.presenter = presenter;  
         }
         @Override

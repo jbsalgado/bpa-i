@@ -4,10 +4,15 @@
  */
 package br.gov.saudecaruaru.bpai.gui.interfaces;
 
+import br.gov.saudecaruaru.bpai.business.model.Doenca;
+import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
 import br.gov.saudecaruaru.bpai.gui.PacienteTableModel;
 import com.towel.bind.Binder;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseListener;
+import javax.swing.InputVerifier;
+import javax.swing.text.Document;
 
 /**
  *
@@ -35,15 +40,39 @@ public interface PacienteView {
     public void enableTxtDataNascimento(boolean arg);
     public void enableTxtOcupacao(boolean arg);
     public void enableTxtFamilia(boolean arg);
-    public void enableTxtDoencaCondicao(boolean arg);
+    public void enableCbDoencaCondicao(boolean arg);
    
     public void enableBtnNovo(boolean arg);
     public void enableBtnEditar(boolean arg);
     public void enableBtnConfirmar(boolean arg);
     public void enableBtnCancelar(boolean arg);
-    
+    public void enableBtnFamilia(boolean arg);
     public void setNovoActionListener(ActionListener listener);
     public void setEditarActionListener(ActionListener listener);
     public void setConfirmarActionListener(ActionListener listener);
     public void setCancelarActionListener(ActionListener listener);
+    
+    public void setSelectedAlfabetizado(Character o);
+    public void setSelectedIndexAlfabetizado(int i);
+    
+    public void setFamiliaActionListener(ActionListener listener);
+    
+    public void setTxtCnsDocument(Document d);
+    public void setTxtNomeDocument(Document d);
+    public void setTxtIdadeDocument(Document d);
+    public void setTxtSexoDocument(Document d);
+    public void setTxtOcupacaoDocument(Document d);
+    public void setTxtDataNascimentoDocument(Document d);
+    
+    public String getDataNascimento();
+    
+    public void setTxtCnsVerifier(InputVerifier verifier);
+    public void setTxtDatanascimentoVerifier(InputVerifier verifier);
+    
+    public void setSelectedDoencaCondicao(DoencaCondicao c);
+    public void setSelectedIndexDoencaCondicao(int i);
+    
+    public String getCns();
+    public void setCnsFocusListener(FocusListener listener);
+    public boolean validaCamposVazios();
 }

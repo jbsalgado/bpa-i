@@ -4,7 +4,11 @@
  */
 package br.gov.saudecaruaru.bpai.business.model;
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -63,6 +67,71 @@ public class BIFamilia implements Serializable {
     @OneToMany(mappedBy="familia",fetch=FetchType.LAZY )
     @Fetch(FetchMode.SELECT)
     private List<BIPaciente> pacientes;
+    
+    
+    public void setNullCamposVazios(){
+        if(this.area!=null){ 
+            if(this.area.equals("")){
+                this.area = null;
+            }
+        }
+        if(this.microArea!=null){ 
+            if(this.microArea.equals("")){
+                this.microArea = null;
+            }
+         }
+         if(this.segmento!=null){  
+            if(this.segmento.equals("")){
+                this.segmento = null;
+            }
+         }
+         if(this.bairro!=null){ 
+            if(this.bairro.equals("")){
+                this.bairro = null;
+            }
+         }
+         if(this.cep!=null){  
+            if(this.cep.equals("")){
+                this.cep = null;
+            }
+         }
+        if(this.dataCadastro!=null){  
+            if(this.dataCadastro.equals("")){
+                this.dataCadastro = null;
+            }
+        }
+        if(this.endereco!=null){ 
+            if(this.endereco.equals("")){
+                this.endereco = null;
+            } 
+        }
+        if(this.familia!=null){ 
+            if(this.familia.equals("")){
+                this.familia = null;
+            }
+         }
+        if(this.municipio!=null){ 
+            if(this.municipio.equals("")){
+                this.municipio = null;
+            } 
+        }
+        if(this.numero!=null){ 
+            if(this.numero.equals("")){
+                this.numero = null;
+            }
+        }
+        if(this.uf!=null){ 
+            if(this.uf.equals("")){
+                this.uf = null;
+            }
+        }
+         
+        
+         
+             
+        
+        
+    }
     /**
      * @return the id
      */

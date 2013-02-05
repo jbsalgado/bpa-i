@@ -6,8 +6,13 @@ package br.gov.saudecaruaru.bpai.gui;
 
 
 import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
+import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
 import br.gov.saudecaruaru.bpai.business.model.Escolha;
+import br.gov.saudecaruaru.bpai.business.model.Observer;
+import br.gov.saudecaruaru.bpai.business.model.Subject;
+import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.CharFormatter;
+import br.gov.saudecaruaru.bpai.gui.formatter.DoencaCondicaoFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.EscolhaFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.IntFormatter;
 import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
@@ -16,22 +21,23 @@ import com.towel.bind.annotation.AnnotatedBinder;
 import com.towel.bind.annotation.Bindable;
 import com.towel.bind.annotation.Form;
 import com.towel.swing.combo.ObjectComboBoxModel;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JDialog;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.table.TableColumnModel;
+import javax.swing.text.Document;
 
 /**
  *
  * @author juniorpires
  */
 @Form(BIPaciente.class)
-public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
+public class PacienteWindow extends javax.swing.JFrame implements PacienteView,Observer{
     private Binder binder;
     /**
      * Creates new form PacienteWindow
@@ -48,14 +54,23 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
         this.initInstances();
         
         modelEscolha = new ObjectComboBoxModel<Character>();
+        modelDoencaCondicao = new ObjectComboBoxModel<DoencaCondicao>();
 
         modelEscolha.setFormatter(new EscolhaFormatter());
+        modelDoencaCondicao.setFormatter(new DoencaCondicaoFormatter());
 
         List<Character> lis= new ArrayList<Character>();
         lis.add(new Character('S'));
         lis.add(new Character('N'));
         modelEscolha.setData(lis);
+        modelDoencaCondicao.setData(DoencaCondicao.LIST);
+        
         jCbalfabetizado.setModel(modelEscolha);
+        jCbDoencaCondicao.setModel(modelDoencaCondicao);
+        
+        
+        jTxtDataNascimento.setDocument(new DataDocument());
+        
     }
      
     private void initInstances(){
@@ -78,7 +93,6 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
         jLabel2 = new javax.swing.JLabel();
         jCbalfabetizado = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        jFTxtDataNascimento = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jTxtNome = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -88,7 +102,6 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
         jLabel7 = new javax.swing.JLabel();
         jTxtOcupacao = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTxtDoencaCondicao = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTxtFamilia = new javax.swing.JTextField();
         jBtFamilia = new javax.swing.JButton();
@@ -98,6 +111,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
         jBtCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbPacientes = new javax.swing.JTable();
+        jCbDoencaCondicao = new javax.swing.JComboBox();
+        jTxtDataNascimento = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -149,6 +164,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
         ));
         jScrollPane1.setViewportView(jTbPacientes);
 
+        jCbDoencaCondicao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -156,7 +173,6 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(32, 32, 32)
@@ -172,13 +188,17 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jBtConfirmar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtCancelar))
+                                .addComponent(jBtCancelar)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTxtFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jBtFamilia)
                                 .addGap(6, 6, 6)
-                                .addComponent(jLabel8))))
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCbDoencaCondicao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -198,11 +218,9 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFTxtDataNascimento))
-                            .addComponent(jTxtOcupacao, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(412, 412, 412)
-                                .addComponent(jTxtDoencaCondicao))))
+                                .addComponent(jTxtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jTxtOcupacao, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(25, 25, 25)
@@ -229,7 +247,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
                     .addComponent(jLabel2)
                     .addComponent(jCbalfabetizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jFTxtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -240,7 +258,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
                     .addComponent(jTxtFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtFamilia)
                     .addComponent(jLabel8)
-                    .addComponent(jTxtDoencaCondicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCbDoencaCondicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtNovo)
@@ -306,10 +324,10 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
     private javax.swing.JButton jBtEditar;
     private javax.swing.JButton jBtFamilia;
     private javax.swing.JButton jBtNovo;
+    @Bindable(field="doencaCondicao",formatter=DoencaCondicaoFormatter.class)
+    private javax.swing.JComboBox jCbDoencaCondicao;
     @Bindable(field="alfabetizado",formatter=EscolhaFormatter.class)
     private javax.swing.JComboBox jCbalfabetizado;
-    @Bindable(field="dataNascimento")
-    private javax.swing.JFormattedTextField jFTxtDataNascimento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -323,8 +341,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
     private javax.swing.JTable jTbPacientes;
     @Bindable(field="cns")
     private javax.swing.JTextField jTxtCns;
-    @Bindable(field="doencaCondicao")
-    private javax.swing.JTextField jTxtDoencaCondicao;
+    @Bindable(field="dataNascimento")
+    private javax.swing.JTextField jTxtDataNascimento;
     @Bindable(field="familia.id",formatter=IntFormatter.class)
     private javax.swing.JTextField jTxtFamilia;
     @Bindable(field="idade",formatter=IntFormatter.class)
@@ -337,7 +355,54 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
     private javax.swing.JTextField jTxtSexo;
     // End of variables declaration//GEN-END:variables
     private ObjectComboBoxModel<Character> modelEscolha;
+    private ObjectComboBoxModel<DoencaCondicao> modelDoencaCondicao;
 
+    @Override
+    public boolean validaCamposVazios() {
+      boolean verifica = false;   
+      Component[] componentes = this.getContentPane().getComponents();  
+        for (int i = 0; i < componentes.length; i++) {  
+            if (componentes[i] instanceof JTextField) {  
+                JTextField field = (JTextField)componentes[i];  
+                field.setBackground(Color.white);
+                
+                //se o campo estiver vazio colore o campo de vermelho
+                if(field.getText().equals("")){
+                   //field.requestFocusInWindow();
+                   field.setBackground(Color.red);
+                   verifica  = true;
+                   
+                }  
+            }else{
+                        if (componentes[i] instanceof JComboBox) {  
+                            JComboBox fieldC = (JComboBox)componentes[i];
+                            fieldC.setBackground(Color.gray);
+                            //se o campo estiver vazio colore o campo de vermelho
+                            if(fieldC.getSelectedItem().equals("")){
+                                //fieldC.requestFocusInWindow();
+                                fieldC.setBackground(Color.red);
+                                verifica  = true;
+                        }
+                }
+                    
+            }  
+            
+             
+        }
+        if(verifica){
+            return false;
+        }
+        return true;
+    }
+        
+    @Override
+    public String getCns(){
+        return this.jTxtCns.getText();
+    }
+    @Override
+    public String getDataNascimento(){
+        return this.jTxtDataNascimento.getText().replaceAll("[/]","");
+    }
     @Override
     public void setSelecionarLinhaJTableActionListener(MouseListener listener) {
         this.jTbPacientes.addMouseListener(listener);
@@ -438,7 +503,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
 
     @Override
     public void enableTxtDataNascimento(boolean arg) {
-       this.jFTxtDataNascimento.setEnabled(arg);
+       this.jTxtDataNascimento.setEnabled(arg);
     }
 
     @Override
@@ -452,8 +517,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
     }
 
     @Override
-    public void enableTxtDoencaCondicao(boolean arg) {
-        this.jTxtDoencaCondicao.setEnabled(arg);
+    public void enableCbDoencaCondicao(boolean arg) {
+        this.jCbDoencaCondicao.setEnabled(arg);
     }
 
   @Override
@@ -475,6 +540,11 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
     public void enableBtnCancelar(boolean arg) {
         this.jBtCancelar.setEnabled(arg);
     }
+    
+    @Override
+    public void enableBtnFamilia(boolean arg) {
+        this.jBtFamilia.setEnabled(arg);
+    }
 
     @Override
     public void setNovoActionListener(ActionListener listener) {
@@ -495,6 +565,11 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
     public void setCancelarActionListener(ActionListener listener) {
         this.jBtCancelar.addActionListener(listener);
     }
+    
+    @Override
+    public void setFamiliaActionListener(ActionListener listener) {
+        this.jBtFamilia.addActionListener(listener);
+    }
 
     @Override
     public Character getAlfabetizado() {
@@ -506,5 +581,77 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView{
         return Integer.parseInt(this.jTxtFamilia.getText());
     }
     
+    @Override
+    public void setSelectedAlfabetizado(Character c){
+        this.modelEscolha.setSelectedObject(c);
+    }
+    
+    
+    @Override
+    public void setSelectedIndexAlfabetizado(int i){
+        this.jCbalfabetizado.setSelectedIndex(i);
+    }
+    
+    @Override
+    public void setSelectedDoencaCondicao(DoencaCondicao c){
+        this.modelDoencaCondicao.setSelectedObject(c);
+    }
+    
+    
+    @Override
+    public void setSelectedIndexDoencaCondicao(int i){
+        this.jCbDoencaCondicao.setSelectedIndex(i);
+    }
+    @Override
+    public void setTxtCnsDocument(Document d){
+        this.jTxtCns.setDocument(d);
+    }
+    @Override
+    public void setTxtNomeDocument(Document d){
+        this.jTxtNome.setDocument(d);
+    }
+    @Override
+    public void setTxtIdadeDocument(Document d){
+        this.jTxtIdade.setDocument(d);
+    }
+    @Override
+    public void setTxtSexoDocument(Document d){
+        this.jTxtSexo.setDocument(d);
+    }
+    @Override
+    public void setTxtOcupacaoDocument(Document d){
+        this.jTxtOcupacao.setDocument(d);
+    }
+    
+    
+    @Override
+    public void setTxtCnsVerifier(InputVerifier verifier){
+        this.jTxtCns.setInputVerifier(verifier);
+    }
+    
+    @Override
+    public void setTxtDatanascimentoVerifier(InputVerifier verifier){
+        this.jTxtDataNascimento.setInputVerifier(verifier);
+    }
+
+    @Override
+    public void update(Subject sub, Object arg) {
+        if(arg!=null){
+            if(arg instanceof Integer){
+                //atualiza o valor do campo com o valor vindo do observado
+                this.jTxtFamilia.setText(String.valueOf(arg));
+            }
+        }
+    }
+
+    @Override
+    public void setTxtDataNascimentoDocument(Document d) {
+        this.jTxtDataNascimento.setDocument(d);
+    }
+    
+    @Override
+    public void setCnsFocusListener(FocusListener listener){
+        this.jTxtCns.addFocusListener(listener);
+    }
     
 }
