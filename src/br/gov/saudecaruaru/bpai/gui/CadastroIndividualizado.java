@@ -119,7 +119,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         //this.setExtendedState(Frame.MAXIMIZED_BOTH);
         //inicializa as opcoes do JOptionPane
         UIManager.put("OptionPane.yesButtonText", "Sim");     
-        UIManager.put("OptionPane.noButtonText", "NÃ£o");   
+        UIManager.put("OptionPane.noButtonText", "Não");   
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");
 
         this.objectComboBoxModelRacaCor= new ObjectComboBoxModel<Diversas>();
@@ -1117,6 +1117,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel6.setText("Folha");
 
+        jTextFieldNomeProfiss.setToolTipText("Nome do profissional");
+
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel7.setText(" /");
 
@@ -1131,6 +1133,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel10.setText("Nome ");
+
+        jTextFieldUsuarioNome.setToolTipText("Nome do paciente. F3 para pegar o último nome digitado.");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel4.setText("Sexo");
@@ -1168,6 +1172,17 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jTextFieldUsarioDatNasc.setToolTipText("Data de nascimento do paciente.F3 para pegar a última data digitada.");
+
+        jTextFieldUsuarioCns.setToolTipText("CNS do paciente. Aperte F5 para dados globalizados. F3 para pegar o último CNS ou F1 para pesquisar.");
+
+        jTextFieldUsuarioSexo.setToolTipText("Sexo do Paciente. F3 para pegar o último sexo digitado.");
+
+        jTextFieldUsuarioCodMunicip.setToolTipText("Cidade do paciente. F3 para pegar a última cidade digitada ou F1 para pesquisar.");
+
+        jTextFieldUsuarioCodNac.setToolTipText("Nacionalidade do paciente. F3 para pegar a última nacionalidade digitada ou F1 para pesquisar.");
+
+        jTextFieldUsuarioCodEtnia.setToolTipText("Etnia do paciente. F3 para pegar a última etnia digitada ou F1 para pesquisar.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1287,6 +1302,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel20.setText("Dt. Atendimento");
 
+        jTextFieldProcQuant.setToolTipText("Quantidade realizada. F3 para pegar a última quantidade digitada.");
+
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel22.setText("Quantidade");
 
@@ -1310,6 +1327,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonIncluir.setText("Incluir");
+        jButtonIncluir.setToolTipText("Salva os dados digitados na folha");
         jButtonIncluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonIncluirMouseClicked(evt);
@@ -1323,6 +1341,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jButtonLimpar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonLimpar.setText("Limpar");
+        jButtonLimpar.setToolTipText("Limpa todos os campos.");
         jButtonLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonLimparMouseClicked(evt);
@@ -1362,8 +1381,11 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jTextFieldProcDataAtend.setToolTipText("Data de atendimento. F3 para pegar a última data digitada.");
 
+        jButtonSair.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonSair.setText("Sair");
+        jButtonSair.setToolTipText("Fecha a janela.");
         jButtonSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonSairMouseClicked(evt);
@@ -1382,7 +1404,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonAtualizar.setText("Atualizar");
-        jButtonAtualizar.setToolTipText("");
+        jButtonAtualizar.setToolTipText("Atualiza os dados na folha");
         jButtonAtualizar.setEnabled(false);
         jButtonAtualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1397,12 +1419,19 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
         jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setToolTipText("Cancela a atualização");
         jButtonCancelar.setEnabled(false);
         jButtonCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonCancelarMouseClicked(evt);
             }
         });
+
+        jTextFieldProcCod.setToolTipText("Código do Procedimento. F3 para pegar o último código digitado ou F1 para pesquisar.");
+
+        jTextFieldProcCID.setToolTipText("CID do procedimento. F3 para pegar o último CID digitado ou F1 para pesquisar.");
+
+        jTextFieldProcNumAut.setToolTipText("Número de autorização. F3 para pegar o último número de autorização digitado.");
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel30.setText("CNPJ");
@@ -1412,6 +1441,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jTextFieldProcedimentoCnpj.setToolTipText("CNPJ da instituição. F3 para pegar o último CNPJ digitado.");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1544,11 +1574,23 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         jLabel21.setText("CBO");
 
         jComboBoxEquipe.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxEquipe.setToolTipText("Equipe");
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel25.setText("Equipe");
 
+        jTextFieldCnsProfiss.setToolTipText("CNS do profissional");
+
+        jTextFieldFolha.setToolTipText("Número da folha. De 1 a 999.");
+
+        jTextFieldCnes.setToolTipText("CNES da unidade");
+
+        jTextFieldMes.setToolTipText("Mês da competência");
+
+        jTextFieldAno.setToolTipText("Ano da competência");
+
         jTextFieldCBO.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jTextFieldCBO.setToolTipText("CBO do profissional");
         jTextFieldCBO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCBOActionPerformed(evt);
@@ -1607,7 +1649,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)

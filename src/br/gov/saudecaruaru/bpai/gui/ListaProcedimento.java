@@ -47,9 +47,11 @@ import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -93,7 +95,8 @@ public class ListaProcedimento extends javax.swing.JFrame {
         this.login();
     }
     private void myInitComponents(){
-        
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.biProcedimentoRealizadoController= new BIProcedimentoRealizadoController();
         this.gestorCompetenciaController = new BIGestorCompetenciaController();
         this.listenerFieldsChangeBackground = new ChangeBackgroundFieldFocusListener();
@@ -115,6 +118,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
 
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
+                        dispose();
                         System.exit(0);
                     }
                 });
@@ -294,6 +298,8 @@ public class ListaProcedimento extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableHeader.setToolTipText("Folhas digitadas");
+        jTableHeader.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableHeader.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableHeaderMouseClicked(evt);
@@ -322,6 +328,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
 
         jbtnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jbtnPesquisar.setText("Pesquisar");
+        jbtnPesquisar.setToolTipText("Pesquisa as folhas de acordo com o tipo de pesquisa e o filtro");
         jbtnPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtnPesquisarMouseClicked(evt);
@@ -342,10 +349,12 @@ public class ListaProcedimento extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableBody.setToolTipText("Dados da folha selecionada");
         jScrollPane2.setViewportView(jTableBody);
 
-        jbtnIncluirFolha.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jbtnIncluirFolha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbtnIncluirFolha.setText("Incluir folha");
+        jbtnIncluirFolha.setToolTipText("Abre uma nova folha");
         jbtnIncluirFolha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtnIncluirFolhaMouseClicked(evt);
@@ -354,6 +363,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
 
         jbtnSair.setFont(new java.awt.Font("Tahoma", 0, 14));
         jbtnSair.setText("Sair");
+        jbtnSair.setToolTipText("Termina o programa");
         jbtnSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtnSairMouseClicked(evt);
@@ -362,6 +372,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
 
         jButtonAtualizar.setFont(new java.awt.Font("Tahoma", 0, 14));
         jButtonAtualizar.setText("Atualizar");
+        jButtonAtualizar.setToolTipText("Atualiza a listagem de folhas da produção");
         jButtonAtualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonAtualizarMouseClicked(evt);
@@ -803,8 +814,10 @@ public class ListaProcedimento extends javax.swing.JFrame {
         ex.setTitle("Envio da produção via Arquivo.");
         ex.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         ex.setLocationRelativeTo(null);
+        JOptionPane.showMessageDialog(ex, "Toda a produção que existir para a competência e unidade\n que você escolher será excluída do servidor central.");
         ex.setModal(true);
         ex.setVisible(true);
+        
     }
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         CadastroFamiliaPresenter familiaPresenter = new CadastroFamiliaPresenter();
