@@ -90,7 +90,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     }
      
     private void initInstances(){
-        //centralizará a tela
+        //centralizarÃ¡ a tela
         this.setLocationRelativeTo(null);
         this.binder=new AnnotatedBinder(this);
     }
@@ -483,13 +483,13 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         columnModel.getColumn(1).setHeaderValue("Segmento");  
         columnModel.getColumn(1).setPreferredWidth(200);  
         
-        columnModel.getColumn(2).setHeaderValue("Área");  
+        columnModel.getColumn(2).setHeaderValue("Ã�rea");  
         columnModel.getColumn(2).setPreferredWidth(200);  
         
         columnModel.getColumn(3).setHeaderValue("Microarea");  
         columnModel.getColumn(3).setPreferredWidth(200);  
         
-        columnModel.getColumn(4).setHeaderValue("Família");  
+        columnModel.getColumn(4).setHeaderValue("FamÃ­lia");  
         columnModel.getColumn(4).setPreferredWidth(200);  
     }
     

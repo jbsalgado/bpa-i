@@ -54,7 +54,7 @@ public class BuscaFamiliaPresenter{
         this.novaFamilia();
         //cria o DAO
         this.familiaDao = new BIFamiliaDAO();
-        this.desabilitaCabecalho();
+       // this.desabilitaCabecalho();
         this.setVerifiers();
         this.setDocuments();
         this.setUpViewListeners();  
@@ -63,7 +63,7 @@ public class BuscaFamiliaPresenter{
         this.view.enableBtnNovo(false);
         this.view.enableBtnCancelar(false);
         this.view.visibleBtnBuscar(true);
-        this.view.enableTxtFamilia(false);
+        //this.view.enableTxtFamilia(false);
         this.initDadosJTable();
         //this.view.setVerifiers();
         //this.view.setDocuments();
@@ -74,6 +74,12 @@ public class BuscaFamiliaPresenter{
     private void setUpViewListeners(){
           this.view.setSelecionarLinhaJTableActionListener(this.selecionarLinhaMouseListener);
           this.view.setBuscarActionListener(new BuscaFamiliaActionListener.BuscaActionListener(this));
+          
+          //listeners para completar com zeros a esquerda
+          this.view.setSegmentoFocusListener(new BuscaFamiliaFocusListener.CompletarComZerosFocusListener("2"));
+          this.view.setAreaFocusListener(new BuscaFamiliaFocusListener.CompletarComZerosFocusListener("3"));
+          this.view.setMicroareaFocusListener(new BuscaFamiliaFocusListener.CompletarComZerosFocusListener("2"));
+          this.view.setFamiliaFocusListener(new BuscaFamiliaFocusListener.CompletarComZerosFocusListener("3"));
     }
      public void setDocuments(){
         this.view.setTxtSegmentoDocument(new OnlyNumbersDocument(2));
