@@ -4,7 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.business.presenter.principal;
 
-import br.gov.saudecaruaru.bpai.gui.ListaProcedimento;
+import br.gov.saudecaruaru.bpai.gui.BPAPrincipal;
 import br.gov.saudecaruaru.bpai.gui.PacienteWindow;
 import br.gov.saudecaruaru.bpai.gui.PrincipalWindow;
 import br.gov.saudecaruaru.bpai.gui.interfaces.PrincipalView;
@@ -46,7 +46,7 @@ public class PrincipalPresenter {
      * Abre o módulo BPAI
      */
     protected void abrirBPAI(){
-        ListaProcedimento tela= new ListaProcedimento();
+        BPAPrincipal tela= new BPAPrincipal();
         tela.setVisible(true);
         
     }

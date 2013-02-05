@@ -8,7 +8,7 @@ import br.gov.saudecaruaru.bpai.business.controller.SistemaController;
 import br.gov.saudecaruaru.bpai.business.presenter.principal.PrincipalPresenter;
 import br.gov.saudecaruaru.bpai.data.*;
 import br.gov.saudecaruaru.bpai.gui.EscolhaBanco;
-import br.gov.saudecaruaru.bpai.gui.ListaProcedimento;
+import br.gov.saudecaruaru.bpai.gui.BPAPrincipal;
 import br.gov.saudecaruaru.bpai.gui.SearchGeneric;
 import br.gov.saudecaruaru.bpai.util.Recurso;
 import com.sun.jersey.api.client.Client;

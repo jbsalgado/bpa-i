@@ -4,7 +4,7 @@
  */
 
 /*
- * ListaProcedimento.java
+ * BPAPrincipal.java
  *
  * Created on 07/09/2012, 22:03:00
  */
@@ -61,7 +61,7 @@ import javax.swing.table.TableColumnModel;
  *
  * @author Albuquerque
  */
-public class ListaProcedimento extends javax.swing.JFrame {
+public class BPAPrincipal extends javax.swing.JFrame {
     
     private static final String COMPETENCIA="COMPETÊNCIA";
     private static final String CNS="CNS DO PROFISSIONAL";
@@ -80,13 +80,13 @@ public class ListaProcedimento extends javax.swing.JFrame {
     static{
         mapFiltro.put("COMPETÊNCIA","competencia");
     }
-    /** Creates new form ListaProcedimento */
-    public ListaProcedimento(java.awt.Frame parent, boolean modal) {
+    /** Creates new form BPAPrincipal */
+    public BPAPrincipal(java.awt.Frame parent, boolean modal) {
         //super(parent);
         this.initComponents();
         this.myInitComponents();
     }
-    public ListaProcedimento() {
+    public BPAPrincipal() {
         //super(parent);
         this.initComponents();
         this.myInitComponents();
@@ -104,10 +104,10 @@ public class ListaProcedimento extends javax.swing.JFrame {
         this.initJTableBody();
         this.initJTableHeader();
         
-        jcomboBoxFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[]{ListaProcedimento.CNS,
-                                                                                    ListaProcedimento.CNES,
-                                                                                    ListaProcedimento.COMPETENCIA,
-                                                                                    ListaProcedimento.CBO}));
+        jcomboBoxFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[]{BPAPrincipal.CNS,
+                                                                                    BPAPrincipal.CNES,
+                                                                                    BPAPrincipal.COMPETENCIA,
+                                                                                    BPAPrincipal.CBO}));
         
         if(!this.gestorCompetenciaController.haveCompetencia()){
              AlteraCompetencia alt = new AlteraCompetencia(this, true);
@@ -159,32 +159,32 @@ public class ListaProcedimento extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 //as mudanÃ§as da seleÃ§Ã£o ainda estÃ£o ocorrendo
                 if(!e.getValueIsAdjusting()){
-                    int row=ListaProcedimento.this.jTableHeader.getSelectedRow();
+                    int row=BPAPrincipal.this.jTableHeader.getSelectedRow();
                     //tem linha selecionada
                     if(row>=0){
 
                         //Pega o procedimento realizado de acordo com a linha selecionada na tabela
-                        ProcedimentoRealizado pro=ListaProcedimento.this.tableModelHeader.getProcedimentoRealizado(row);
+                        ProcedimentoRealizado pro=BPAPrincipal.this.tableModelHeader.getProcedimentoRealizado(row);
                         //zera a quantidade padrÃ£o
                         pro.setQuantidadeRealizada(null);
                         //substitui a lista
                         BIProcedimentoRealizado bp= new BIProcedimentoRealizado(pro);
-                        List<BIProcedimentoRealizado> l=ListaProcedimento.this.biProcedimentoRealizadoController.findAllEqualOrderBy(bp,"biProcedimentoRealizadoPK.sequenciaFolha");
+                        List<BIProcedimentoRealizado> l=BPAPrincipal.this.biProcedimentoRealizadoController.findAllEqualOrderBy(bp,"biProcedimentoRealizadoPK.sequenciaFolha");
                         
-                        final List<ProcedimentoRealizado> lista=ListaProcedimento.this.biProcedimentoRealizadoController.parserBIProcedimentoRealizadoToProcedimentoRealizado(l);
+                        final List<ProcedimentoRealizado> lista=BPAPrincipal.this.biProcedimentoRealizadoController.parserBIProcedimentoRealizadoToProcedimentoRealizado(l);
                         SwingUtilities.invokeLater(new Runnable() {
 
                             @Override
                             public void run() {
-                                ListaProcedimento.this.tableModelBody.clean();
-                                ListaProcedimento.this.tableModelBody.replaceAllProcedimentoRealizado(lista);
+                                BPAPrincipal.this.tableModelBody.clean();
+                                BPAPrincipal.this.tableModelBody.replaceAllProcedimentoRealizado(lista);
                             }
                         });
                         l.clear();
                     }
                     //coloca uma lista vazia
                     else{
-                        ListaProcedimento.this.tableModelBody.replaceAllProcedimentoRealizado(new ArrayList<ProcedimentoRealizado>());
+                        BPAPrincipal.this.tableModelBody.replaceAllProcedimentoRealizado(new ArrayList<ProcedimentoRealizado>());
                     }
                 }
                
@@ -572,7 +572,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
 
     
     private void abrirTelaCadastroIndividualizado(){
-        int row=ListaProcedimento.this.jTableHeader.getSelectedRow();
+        int row=BPAPrincipal.this.jTableHeader.getSelectedRow();
         //tem linha selecionada
         if(row>=0){
             CadastroIndividualizado cad=new CadastroIndividualizado(this);
@@ -703,18 +703,18 @@ public class ListaProcedimento extends javax.swing.JFrame {
         BIProcedimentoRealizado bipr = new BIProcedimentoRealizado(biPK);
         
         String competencia = competenciaController.getCompetenciaAtual();
-        if(itemBusca.equals(ListaProcedimento.COMPETENCIA)){
+        if(itemBusca.equals(BPAPrincipal.COMPETENCIA)){
            biPK.setCompetencia(jTextFieldPesquisa.getText());
         }
-        if(itemBusca.equals(ListaProcedimento.CNS)){
+        if(itemBusca.equals(BPAPrincipal.CNS)){
            biPK.setCompetencia(competencia); 
            biPK.setCnsMedico(jTextFieldPesquisa.getText());
         }
-        if(itemBusca.equals(ListaProcedimento.CNES)){
+        if(itemBusca.equals(BPAPrincipal.CNES)){
            biPK.setCompetencia(competencia);  
            biPK.setCnesUnidade(jTextFieldPesquisa.getText());
         }
-        if(itemBusca.equals(ListaProcedimento.CBO)){
+        if(itemBusca.equals(BPAPrincipal.CBO)){
            biPK.setCompetencia(competencia);  
            biPK.setCboMedico(jTextFieldPesquisa.getText());
         }
@@ -740,7 +740,7 @@ public class ListaProcedimento extends javax.swing.JFrame {
         }
         
          if ( evt.getKeyCode() == KeyEvent.VK_DELETE ){
-             int row=ListaProcedimento.this.jTableHeader.getSelectedRow();
+             int row=BPAPrincipal.this.jTableHeader.getSelectedRow();
                 if(row>=0){
                     ProcedimentoRealizado pro=this.tableModelHeader.getProcedimentoRealizado(row);
                    
