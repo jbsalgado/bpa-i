@@ -4,9 +4,12 @@
  */
 package br.gov.saudecaruaru.bpai.business.controller;
 
+import br.gov.saudecaruaru.bpai.business.service.SMessageWebService;
 import br.gov.saudecaruaru.bpai.data.HibernateUtil;
 import br.gov.saudecaruaru.bpai.data.RecursoXML;
 import br.gov.saudecaruaru.bpai.util.Recurso;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
@@ -24,23 +27,26 @@ import java.io.Reader;
 import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.FormBodyPart;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpParams;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.exception.GenericJDBCException;
-import org.hibernate.lob.ReaderInputStream;
-import sun.util.BuddhistCalendar;
 
 /**
  *
@@ -49,7 +55,10 @@ import sun.util.BuddhistCalendar;
 public class SistemaController {
 
     private static SistemaController instance = new SistemaController();
-    
+    private static String APPLICATION_JSON = "application/json";
+    private static HttpClient client = new DefaultHttpClient();
+    public static final String PASSWORD = "1234";
+    public static final String USER = "CESAR";
     public static final Logger logger = Logger.getLogger(SistemaController.class);
     /*
      * Endereço do servidor onde os dados serão enviado e recuperados
@@ -155,7 +164,7 @@ public class SistemaController {
 
         } catch (IOException exc) {
             logger.error("Erro ao tentar executar o método createConfiguration " + exc.getMessage());
-           // logger.logException(exc, Level.SEVERE);
+            // logger.logException(exc, Level.SEVERE);
         }
     }
 
@@ -199,7 +208,7 @@ public class SistemaController {
             out.close();
         } catch (IOException exc) {
             logger.error("Erro ao tentar executar o método updateConfigurations " + exc.getMessage());
-           // logger.logException(exc, Level.SEVERE);
+            // logger.logException(exc, Level.SEVERE);
         }
     }
 
@@ -236,45 +245,79 @@ public class SistemaController {
      * @return String com uma mensagem, se algum erro ocorrer devolve null
      * 
      */
-    public String enviarProducaoParaServidor(File file) {
-        String msg=null;
+    public SMessageWebService[] enviarProducaoParaServidor(File file, String competenciaMovimento, String unidadeCnes) {
+        SMessageWebService[] msg = null;
+        SMessageWebService m = null;
+        HttpPost httppost = new HttpPost();
         try {
-            URI url = new URI(HOST_SERVIDOR + "/index.php/bpa/procedimentorealizado/envio");
-            //new URI
-            //HttpParams params=
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(url);;
+            URI uri = new URI(HOST_SERVIDOR + "/index.php/bpa/procedimentorealizado/envio");
+            httppost.setURI(uri);
             FileBody fileContent = new FileBody(file);
             //StringBody comment = new StringBody("Filename: " + fileName);
             MultipartEntity reqEntity = new MultipartEntity();
+            //seta os parametros
+            FormBodyPart form = new FormBodyPart("competencia", new StringBody(competenciaMovimento));
+            reqEntity.addPart(form);
+            form = new FormBodyPart("unidade", new StringBody(unidadeCnes));
+            reqEntity.addPart(form);
+            form = new FormBodyPart("usuario", new StringBody(USER));
+            reqEntity.addPart(form);
+            form = new FormBodyPart("senha", new StringBody(PASSWORD));
+            reqEntity.addPart(form);
+            //fim dos parâmetros
             reqEntity.addPart(file.getName(), fileContent);
             httppost.setEntity(reqEntity);
-            HttpResponse response = httpclient.execute(httppost);
-            if (response != null) {
+            //httppost.se
+            HttpResponse response = client.execute(httppost);
 
-                HttpEntity resEntity = response.getEntity();
-                resEntity.getContent();
-                BufferedReader r=new BufferedReader(new InputStreamReader(resEntity.getContent()));
-                StringBuilder builder= new StringBuilder();
-                while (r.ready()){
-                    builder.append(r.readLine());
-                    builder.append("\n");
+            //verifica se a resposta não é nulla
+            if (response != null) {
+                //verifica se o servidor mandou uma respsota (200)
+                if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                    HttpEntity resEntity = response.getEntity();
+                    BufferedReader r = new BufferedReader(new InputStreamReader(resEntity.getContent()));
+                    StringBuilder builder = new StringBuilder();
+                    while (r.ready()) {
+                        builder.append(r.readLine());
+                    }
+                    r.close();
+
+                    //verifica se o content-type é application/json
+                    if (resEntity.getContentType().getValue().equals(APPLICATION_JSON)) {
+                        //pega os dados recebido em json e deserializa
+                        Gson parser = new GsonBuilder().create();
+                        msg = parser.fromJson(builder.toString(), SMessageWebService[].class);
+                    } else {
+                         m = new SMessageWebService("BPADADOS11", "O programa não pode ler os dados recebidos do servidor. Informe o erro aos desenvolvedores do sistema.", "0");
+                        logger.error(" falha ao executar o método enviarProducaoParaServidor. Resposta recebida: " + builder.toString());
+                    }
+                }//código http da resposta é diferente de 200
+                else {
+                     m = new SMessageWebService("BPARESPOSTA12", "Ops! O Programa recebeu uma resposta diferente do que esperava. Informe o erro aos desenvolvedores do sistema.", "0");
+                     logger.error(" falha ao executar o método enviarProducaoParaServidor. CÓDIDO DA RESPSOTA: " + response.getStatusLine());
                 }
-                r.close();
-                msg=builder.toString();
-               // r.
+            } //response é nulla
+            else {
+                 m = new SMessageWebService("BPARESPONSE13", "Ops! O Programa não recebeu nenhuma resposta do servidor. Informe o erro aos desenvolvedores do sistema.", "0");
             }
         } catch (URISyntaxException ex) {
             logger.error("Erro ao tentar executar o método enviarProducaoParaServidor " + ex.getMessage());
+            m = new SMessageWebService("BPAIURI01", "A URI comtém erros. Informe o erro aos desenvolvedores do sistema.", "0");
             //logger.logException(ex, Level.SEVERE);
         } catch (ConnectException ex) {
             logger.error("Erro ao tentar executar o método enviarProducaoParaServidor " + ex.getMessage());
+            m = new SMessageWebService("BPAICONEXAO02", "Não foi possível estabelecer conexão com o servidor. Informe o erro aos desenvolvedores do sistema.", "0");
             //logger.logException(ex, Level.SEVERE);
         } catch (IOException ex) {
             logger.error("Erro ao tentar executar o método enviarProducaoParaServidor " + ex.getMessage());
             //logger.logException(ex, Level.SEVERE);
-        }
-        finally{
+            m = new SMessageWebService("BPAIARQUIVO03", "Problemas na geração do arquivo de exportação. Informe o erro aos desenvolvedores do sistema.", "0");
+        } finally {
+            httppost.releaseConnection();
+            if (msg == null && m != null) {
+                msg = new SMessageWebService[1];
+                msg[0] = m;
+            }
             return msg;
         }
     }
