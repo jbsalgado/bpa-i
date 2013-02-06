@@ -4,6 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.business.model;
 
+import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -23,19 +24,24 @@ public class Paciente implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "CNS")
+    @SerializedName("cns")
     private String cns;
     
     @Basic(optional = false)
     @Column(name = "NOME")
+    @SerializedName("nome")
     private String nome;
     
     @Column(name = "DTNASC")
+    @SerializedName("data_nascimento")
     private String dataNascimento;
     
     @Column(name = "SEXO")
+    @SerializedName("sexo")
     private Character sexo;
     
     @Column(name = "RACA")
+    @SerializedName("raca")
     private String raca;
     
     @Column(name = "MAEPCN")
@@ -57,12 +63,15 @@ public class Paciente implements Serializable {
     private String numeroResidencia;
     
     @Column(name = "IBGE")
+    @SerializedName("cidade")
     private String codigoIbgeCidade;
     
     @Column(name = "ETNIA")
+    @SerializedName("etnia")
     private String etnia;
     
     @Column(name = "NACIONALIDADE")
+    @SerializedName("nacionalidade")
     private String nacionalidade;
 
     public Paciente() {
