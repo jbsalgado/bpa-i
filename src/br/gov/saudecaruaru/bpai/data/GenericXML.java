@@ -4,7 +4,6 @@
  */
 package br.gov.saudecaruaru.bpai.data;
 
-import br.gov.saudecaruaru.bpai.business.model.XMLAlias;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.io.BufferedReader;
@@ -16,8 +15,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,6 +24,7 @@ import java.util.logging.Logger;
 public class GenericXML<T extends Serializable >  {
     
     private XStream stream= new XStream(new DomDriver());
+    private Logger logger;
     private Class<T> classType;
     
     public GenericXML(){
@@ -33,6 +32,7 @@ public class GenericXML<T extends Serializable >  {
       this.stream.alias(classType.getSimpleName().toLowerCase()+"_lista", List.class);
      this.stream.alias(classType.getSimpleName(), classType);
      this.stream.processAnnotations(classType);
+     this.logger=Logger.getLogger(classType);
     }
     
     public boolean salvar(List<T> object,String filePath){
@@ -43,10 +43,10 @@ public class GenericXML<T extends Serializable >  {
             out.close();
             sucess=true;
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(GenericXML.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("erro ao exceutar o o método salvar(List<T> object,String filePath) "+ex.getMessage());
             return false;
         }catch (IOException ex) {
-            Logger.getLogger(GenericXML.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("erro ao exceutar o o método salvar(List<T> object,String filePath) "+ex.getMessage());
         }
         
         finally{
@@ -61,9 +61,9 @@ public class GenericXML<T extends Serializable >  {
             list= (List<T>)this.stream.fromXML(input);
             input.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(GenericXML.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("erro ao exceutar o o método carregar(String filePath) "+ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(GenericXML.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("erro ao exceutar o o método carregar(String filePath) "+ex.getMessage());
         }
         finally{
             return list;
