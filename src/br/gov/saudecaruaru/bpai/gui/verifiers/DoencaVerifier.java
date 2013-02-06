@@ -12,7 +12,7 @@ import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoenca;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoencaPK;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
-import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
+import br.gov.saudecaruaru.bpai.gui.interfaces.TelaCadastroI;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.awt.Color;
 import java.awt.Component;

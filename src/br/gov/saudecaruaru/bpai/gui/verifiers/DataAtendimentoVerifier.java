@@ -7,7 +7,7 @@ package br.gov.saudecaruaru.bpai.gui.verifiers;
 
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
-import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
+import br.gov.saudecaruaru.bpai.gui.interfaces.TelaCadastroI;
 import br.gov.saudecaruaru.bpai.util.DateUtil;
 import java.awt.Color;
 import java.awt.Component;
