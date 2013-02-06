@@ -4,6 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.business.presenter.principal;
 
+import br.gov.saudecaruaru.bpai.business.presenter.bpaprincipal.SIABPrincipalPresenter;
 import br.gov.saudecaruaru.bpai.gui.BPAPrincipal;
 import br.gov.saudecaruaru.bpai.gui.PacienteWindow;
 import br.gov.saudecaruaru.bpai.gui.PrincipalWindow;
@@ -55,7 +56,8 @@ public class PrincipalPresenter {
      * Abre o módulo SIAB
      */
     protected void abrirSIAB(){
-    
+        SIABPrincipalPresenter siab= new SIABPrincipalPresenter();
+        siab.createView();
     }
     /**
      * Abre uma tela que fornece informações sobre o sistema
