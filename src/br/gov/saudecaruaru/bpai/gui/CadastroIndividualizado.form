@@ -473,7 +473,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldUsuarioCns">
           <Properties>
-            <Property name="toolTipText" type="java.lang.String" value="CNS do paciente. Aperte F5 para dados globalizados. F3 para pegar o &#xfa;ltimo CNS ou F1 para pesquisar."/>
+            <Property name="toolTipText" type="java.lang.String" value="F1 para pesquisar. F2 &#xfa;ltimo paciente digitado. F3 &#xfa;ltimo CNS digitado. F5 para dados globalizados. "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldUsuarioSexo">
