@@ -10,7 +10,7 @@ import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoController;
 import br.gov.saudecaruaru.bpai.business.controller.SistemaController;
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.gui.MessagesErrors;
-import br.gov.saudecaruaru.bpai.gui.TelaCadastroI;
+import br.gov.saudecaruaru.bpai.gui.interfaces.TelaCadastroI;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.awt.Color;
 import java.awt.Component;
