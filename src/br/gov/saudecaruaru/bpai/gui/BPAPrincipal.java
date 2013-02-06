@@ -119,7 +119,6 @@ public class BPAPrincipal extends javax.swing.JFrame {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         dispose();
-                        System.exit(0);
                     }
                 });
         
@@ -278,9 +277,6 @@ public class BPAPrincipal extends javax.swing.JFrame {
         jMenuItemExportarAtualizacao = new javax.swing.JMenuItem();
         jMenuItemAlteraCompetencia = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -352,7 +348,7 @@ public class BPAPrincipal extends javax.swing.JFrame {
         jTableBody.setToolTipText("Dados da folha selecionada");
         jScrollPane2.setViewportView(jTableBody);
 
-        jbtnIncluirFolha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtnIncluirFolha.setFont(new java.awt.Font("Tahoma", 0, 14));
         jbtnIncluirFolha.setText("Incluir folha");
         jbtnIncluirFolha.setToolTipText("Abre uma nova folha");
         jbtnIncluirFolha.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -463,26 +459,6 @@ public class BPAPrincipal extends javax.swing.JFrame {
         jMenuOperacao.add(jMenuItem2);
 
         jMenuBar1.add(jMenuOperacao);
-
-        jMenu2.setText("Cadastro");
-
-        jMenuItem3.setText("Familia");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem3);
-
-        jMenuItem4.setText("Paciente");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem4);
-
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -819,27 +795,14 @@ public class BPAPrincipal extends javax.swing.JFrame {
         ex.setVisible(true);
         
     }
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        CadastroFamiliaPresenter familiaPresenter = new CadastroFamiliaPresenter();
-        familiaPresenter.createView();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        CadastroPacientePresenter pacientePresenter = new CadastroPacientePresenter();
-        pacientePresenter.createView();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtualizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelTipoPesquisa;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItemAlteraCompetencia;
     private javax.swing.JMenuItem jMenuItemExportarAtualizacao;
     private javax.swing.JMenuItem jMenuItemExportarBPA;

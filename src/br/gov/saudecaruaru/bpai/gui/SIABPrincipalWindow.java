@@ -10,16 +10,48 @@
  */
 package br.gov.saudecaruaru.bpai.gui;
 
+import br.gov.saudecaruaru.bpai.gui.interfaces.SIABPrincipalView;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
 /**
  *
  * @author Albuquerque
  */
-public class SIABPrincipalWindow extends javax.swing.JFrame {
+public class SIABPrincipalWindow extends javax.swing.JFrame implements SIABPrincipalView{
 
     /** Creates new form SIABPrincipalWindow */
     public SIABPrincipalWindow() {
         initComponents();
+        this.myInitComponents();
     }
+    
+    private void myInitComponents(){
+        this.addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+            
+        });
+        //vai sair do sistema
+        this.setMenuItemSairActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -30,17 +62,46 @@ public class SIABPrincipalWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextField1 = new javax.swing.JTextField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        menuItemSair = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        menuItemFamilia = new javax.swing.JMenuItem();
+        menuItemPaciente = new javax.swing.JMenuItem();
+
+        jTextField1.setText("jTextField1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jMenu1.setText("Sistema");
+
+        menuItemSair.setText("Sair");
+        jMenu1.add(menuItemSair);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Cadastro");
+
+        menuItemFamilia.setText("Família");
+        jMenu2.add(menuItemFamilia);
+
+        menuItemPaciente.setText("Paciente");
+        jMenu2.add(menuItemPaciente);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 572, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 315, Short.MAX_VALUE)
         );
 
         pack();
@@ -82,5 +143,48 @@ public class SIABPrincipalWindow extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JMenuItem menuItemFamilia;
+    private javax.swing.JMenuItem menuItemPaciente;
+    private javax.swing.JMenuItem menuItemSair;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void packAndShow() {
+        this.pack();
+        this.setVisible(true);
+    }
+
+    @Override
+    public void setMenuItemFamiliaActionListener(ActionListener actionListener) {
+        this.menuItemFamilia.addActionListener(actionListener);
+    }
+
+    @Override
+    public void setMenuItemPacienteActionListener(ActionListener actionListener) {
+        this.menuItemPaciente.addActionListener(actionListener);
+    }
+
+    @Override
+    public void setMenuItemFamiliaMouseListener(MouseListener mouseListener) {
+        this.menuItemFamilia.addMouseListener(mouseListener);
+    }
+
+    @Override
+    public void setMenuItemPacienteMouseListener(MouseListener mouseListener) {
+        this.menuItemPaciente.addMouseListener(mouseListener);
+    }
+
+    @Override
+    public void setMenuItemSairActionListener(ActionListener actionListener) {
+        this.menuItemSair.addActionListener(actionListener);
+    }
+
+    @Override
+    public void setMenuItemSairMouseListener(MouseListener mouseListener) {
+        this.menuItemSair.addMouseListener(mouseListener);
+    }
 }
