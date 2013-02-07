@@ -8,7 +8,7 @@ import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
 import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
 import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
 import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
-import br.gov.saudecaruaru.bpai.gui.FamiliaTableModel;
+import br.gov.saudecaruaru.bpai.gui.tablemodel.FamiliaTableModel;
 import br.gov.saudecaruaru.bpai.gui.FamiliaWindow;
 import br.gov.saudecaruaru.bpai.gui.documents.CepDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;

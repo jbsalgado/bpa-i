@@ -4,6 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.gui;
 
+import br.gov.saudecaruaru.bpai.gui.tablemodel.FamiliaTableModel;
 import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
 import br.gov.saudecaruaru.bpai.gui.documents.CepDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;
