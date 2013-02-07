@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.saudecaruaru.bpai.util;
+package br.gov.saudecaruaru.bpai.gui.tablemodel;
 
+import br.gov.saudecaruaru.bpai.util.Search;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

@@ -13,7 +13,7 @@ import br.gov.saudecaruaru.bpai.gui.keylistener.CatchLastValueFieldKeyListener;
 import br.gov.saudecaruaru.bpai.gui.verifiers.*;
 import br.gov.saudecaruaru.bpai.util.DateUtil;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
-import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModel;
+import br.gov.saudecaruaru.bpai.gui.tablemodel.ProcedimentoRealizadoTableModel;
 import br.gov.saudecaruaru.bpai.util.Search;
 import com.towel.swing.combo.ObjectComboBoxModel;
 import java.awt.Color;

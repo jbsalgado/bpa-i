@@ -14,7 +14,7 @@ import br.gov.saudecaruaru.bpai.business.controller.BasecController;
 import br.gov.saudecaruaru.bpai.gui.FocusListener.ChangeBackgroundFieldFocusListener;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import br.gov.saudecaruaru.bpai.util.Search;
-import br.gov.saudecaruaru.bpai.util.SearchTableModel;
+import br.gov.saudecaruaru.bpai.gui.tablemodel.SearchTableModel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;

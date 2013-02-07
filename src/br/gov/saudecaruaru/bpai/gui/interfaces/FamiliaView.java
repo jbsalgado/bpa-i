@@ -4,7 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.gui.interfaces;
 
-import br.gov.saudecaruaru.bpai.gui.FamiliaTableModel;
+import br.gov.saudecaruaru.bpai.gui.tablemodel.FamiliaTableModel;
 import com.towel.bind.Binder;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;

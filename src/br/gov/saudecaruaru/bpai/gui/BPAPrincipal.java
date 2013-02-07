@@ -32,8 +32,8 @@ import br.gov.saudecaruaru.bpai.business.presenter.cadastropaciente.CadastroPaci
 import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
 import br.gov.saudecaruaru.bpai.gui.FocusListener.ChangeBackgroundFieldFocusListener;
 import br.gov.saudecaruaru.bpai.gui.exportacao.ExportacaoCentralViaXML;
-import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelBody;
-import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelHeader;
+import br.gov.saudecaruaru.bpai.gui.tablemodel.ProcedimentoRealizadoTableModelBody;
+import br.gov.saudecaruaru.bpai.gui.tablemodel.ProcedimentoRealizadoTableModelHeader;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
