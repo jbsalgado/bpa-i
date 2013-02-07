@@ -16,6 +16,7 @@ import br.gov.saudecaruaru.bpai.gui.FocusListener.ChangeBackgroundFieldFocusList
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Frame;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -28,53 +29,62 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JDialog {
 
-    private UsuarioController usuarioController =new UsuarioController();
-    private FocusListener listenerFieldsChangeBackground ;
-    
+    private UsuarioController usuarioController = new UsuarioController();
+    private FocusListener listenerFieldsChangeBackground;
+    private boolean loginSucess = false;
+
     /** Creates new form Login */
     public Login(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.myInitComponents();
     }
-    
-    private void myInitComponents(){
+
+    private void myInitComponents() {
         this.addWindowListener(new WindowAdapter() {
-            
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent e) {
-                    cancelar();
-                }
+
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                cancelar();
+            }
         });
-        
+
         this.jPasswordFieldSenha.setDocument(new OnlyUpperLettersDocument());
         this.jTextFieldUsuario.setDocument(new OnlyUpperLettersDocument());
         this.listenerFieldsChangeBackground = new ChangeBackgroundFieldFocusListener();
-        
+
         this.jTextFieldUsuario.addFocusListener(listenerFieldsChangeBackground);
         this.jPasswordFieldSenha.addFocusListener(listenerFieldsChangeBackground);
     }
-    
-    private String login(){
-        Usuario u=new Usuario(this.jTextFieldUsuario.getText());
-        
-        u=this.usuarioController.findEqual(u);
-        
-        if(u== null){
+
+    private String login() {
+        Usuario u = new Usuario(this.jTextFieldUsuario.getText());
+
+        u = this.usuarioController.findEqual(u);
+
+        if (u == null) {
             return "Usuário não encontrado!";
-        }
-        //senhas diferentes
-        else if( ! u.getSenha().equals(new String(this.jPasswordFieldSenha.getPassword()))){
+        } //senhas diferentes
+        else if (!u.getSenha().equals(new String(this.jPasswordFieldSenha.getPassword()))) {
             return "Senha incorreta!";
         }
-        
+        this.loginSucess = true;
         return null;
     }
 
-    private void cancelar(){
-        this.dispose();
-        System.exit(1);
+    public boolean isLoginSucessful() {
+        return this.loginSucess;
     }
+
+    private void cancelar() {
+        this.dispose();
+//        Component c = this.getParent();
+//        //pega a janela pai e fecha também
+//        if (c instanceof Frame) {
+//            ((Frame) c).dispose();
+//        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -214,17 +224,15 @@ public class Login extends javax.swing.JDialog {
 
     private void jButtonLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLoginMouseClicked
         // TODO add your handling code here:
-        String msg=null;
-        if (this.jTextFieldUsuario.getText().isEmpty()){
-            msg="Campo Usuário está vazio.";
-        }
-        else if( (new String(this.jPasswordFieldSenha.getPassword())).isEmpty() ){
-            msg="Campo Senha está vazio!";
-        }
-        else{
+        String msg = null;
+        if (this.jTextFieldUsuario.getText().isEmpty()) {
+            msg = "Campo Usuário está vazio.";
+        } else if ((new String(this.jPasswordFieldSenha.getPassword())).isEmpty()) {
+            msg = "Campo Senha está vazio!";
+        } else {
             //vai chmar o metodo para fazer o login
-            msg=this.login();
-            if ( msg == null){
+            msg = this.login();
+            if (msg == null) {
                 this.dispose();
                 return;
             }
@@ -234,37 +242,35 @@ public class Login extends javax.swing.JDialog {
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
         // TODO add your handling code here:
-        
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
     private void jButtonLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButtonLoginKeyPressed
         // TODO add your handling code here:
-        if( evt.getKeyCode() == KeyEvent.VK_ENTER ){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             this.jButtonLoginMouseClicked(null);
         }
     }//GEN-LAST:event_jButtonLoginKeyPressed
 
     private void jButtonCancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButtonCancelarKeyPressed
         // TODO add your handling code here:
-        if( evt.getKeyCode() == KeyEvent.VK_ENTER ){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             this.cancelar();
         }
     }//GEN-LAST:event_jButtonCancelarKeyPressed
 
     private void jTextFieldUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioKeyPressed
         // TODO add your handling code here:
-        if( evt.getKeyCode() == KeyEvent.VK_ENTER ){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             this.jTextFieldUsuario.transferFocus();
         }
     }//GEN-LAST:event_jTextFieldUsuarioKeyPressed
 
     private void jPasswordFieldSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordFieldSenhaKeyPressed
         // TODO add your handling code here:
-        if( evt.getKeyCode() == KeyEvent.VK_ENTER ){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             this.jButtonLoginMouseClicked(null);
         }
     }//GEN-LAST:event_jPasswordFieldSenhaKeyPressed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonLogin;
