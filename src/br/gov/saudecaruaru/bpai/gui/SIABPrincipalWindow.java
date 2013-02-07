@@ -73,6 +73,7 @@ public class SIABPrincipalWindow extends javax.swing.JFrame implements SIABPrinc
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jMenu1.setText("Sistema");
 

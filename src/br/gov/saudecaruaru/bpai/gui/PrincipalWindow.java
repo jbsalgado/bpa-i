@@ -75,19 +75,20 @@ public class PrincipalWindow extends javax.swing.JFrame implements PrincipalView
         jMenuBar2.add(jMenu4);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jToolBar1.setRollover(true);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14));
         jLabel3.setText("Versão: ");
         jToolBar1.add(jLabel3);
 
-        lblVersao.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblVersao.setFont(new java.awt.Font("Tahoma", 1, 14));
         jToolBar1.add(lblVersao);
 
         jPanel1.setToolTipText("Clique aqui para abrir o BPAI");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36));
         jLabel2.setText("BPAI");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -109,7 +110,7 @@ public class PrincipalWindow extends javax.swing.JFrame implements PrincipalView
 
         jPanel2.setToolTipText("Clique aqui para abrir o SIAB");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36));
         jLabel1.setText("SIAB");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -134,7 +135,7 @@ public class PrincipalWindow extends javax.swing.JFrame implements PrincipalView
         jTextPane2.setBackground(new java.awt.Color(240, 240, 240));
         jTextPane2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTextPane2.setEditable(false);
-        jTextPane2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jTextPane2.setFont(new java.awt.Font("Tahoma", 1, 18));
         jTextPane2.setText("Prefeitura Municipal de Caruaru \nSecretaria de Saúde \nDepartamento de Tecnologia da Informação");
         jTextPane2.setToolTipText("Informações sobre o desenvolvedor do sistema");
         jTextPane2.setEnabled(false);
