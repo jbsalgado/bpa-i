@@ -152,7 +152,7 @@ public class SistemaController {
                 prop.setProperty("bpai.database.path", HibernateUtil.PATH_DATABASE_BPA_I);
                 FileOutputStream out = new FileOutputStream(f);
                 prop.store(out,
-                        "Esse arquivo nÃ£o deve ser modificado!");
+                        "Esse arquivo não deve ser modificado!");
                 out.close();
                 loadConfigurations();
 
@@ -250,7 +250,7 @@ public class SistemaController {
         SMessageWebService m = null;
         HttpPost httppost = new HttpPost();
         try {
-            URI uri = new URI(HOST_SERVIDOR + "/index.php/bpa/procedimentorealizado/envio");
+            URI uri = new URI(HOST_SERVIDOR + "/index.php/bpa/procedimentoRealizado/envio");
             httppost.setURI(uri);
             FileBody fileContent = new FileBody(file);
             //StringBody comment = new StringBody("Filename: " + fileName);
