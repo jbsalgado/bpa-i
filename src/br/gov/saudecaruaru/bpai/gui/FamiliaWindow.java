@@ -131,7 +131,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         jBtBuscar = new javax.swing.JButton();
         jCbUF = new javax.swing.JComboBox();
         jTxtCep = new javax.swing.JTextField();
-        jTxtDataCadastro = new javax.swing.JTextField();
+        jTxtAno = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -155,7 +155,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
 
         jLabel10.setText("UF");
 
-        jLabel11.setText("Data");
+        jLabel11.setText("Ano");
 
         jBtNovo.setText("Novo");
 
@@ -226,17 +226,19 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
                                 .addComponent(jLabel9)
                                 .addGap(168, 168, 168)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel10)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTxtNumero))
-                            .addComponent(jCbUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel7)
-                            .addComponent(jTxtBairro, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel10)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTxtNumero))
+                                    .addComponent(jCbUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jTxtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel11)
-                            .addComponent(jTxtDataCadastro)))
+                            .addComponent(jTxtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBtNovo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -247,7 +249,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
                         .addComponent(jBtCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtBuscar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -258,13 +260,15 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxtSegmento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtMicroArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -279,14 +283,12 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxtMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCbUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtNovo)
@@ -364,14 +366,13 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTbFamilias;
+    private javax.swing.JTextField jTxtAno;
     @Bindable(field="area")
     private javax.swing.JTextField jTxtArea;
     @Bindable(field="bairro")
     private javax.swing.JTextField jTxtBairro;
     @Bindable(field="cep")
     private javax.swing.JTextField jTxtCep;
-    @Bindable(field="dataCadastro")
-    private javax.swing.JTextField jTxtDataCadastro;
     @Bindable(field="familia")
     private javax.swing.JTextField jTxtFamilia;
     @Bindable(field="microArea")
@@ -520,15 +521,9 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     public void setSelectedIndexUF(int i){
         this.jCbUF.setSelectedIndex(i);
     }
-    
     @Override
     public String getCep(){
         return this.jTxtCep.getText().replaceAll("[.,-]", "");
-    }
-    
-    @Override
-    public String getDataCadastro(){
-        return this.jTxtDataCadastro.getText().replaceAll("[/]", "");
     }
   
     @Override
@@ -646,11 +641,6 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     public void setCancelarActionListener(ActionListener listener) {
         this.jBtCancelar.addActionListener(listener);
     }
-
-    @Override
-    public void enableTxtDataCadastro(boolean arg) {
-        this.jTxtDataCadastro.setEnabled(arg);
-    }
     
     @Override
     public void setTxtSegmentoDocument(Document d){
@@ -685,17 +675,13 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     @Override
     public void setTxtBairroDocument(Document d){
         this.jTxtBairro.setDocument(d);
+    
     }
     
-    @Override
     public void setTxtCepDocument(Document d){
         this.jTxtCep.setDocument(d);
     }
     
-    @Override
-    public void setTxtDataCadastroDocument(Document d){
-        this.jTxtDataCadastro.setDocument(d);
-    }
     
     
     
@@ -704,12 +690,6 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         this.jTxtMunicipio.setDocument(d);
     }
     
-    
-    
-    @Override
-    public void setTxtDataCadastroVerifier(InputVerifier verifier){
-        this.jTxtDataCadastro.setInputVerifier(verifier);
-    }
     
     @Override
     public void setTxtCepVerifier(InputVerifier verifier){
@@ -721,5 +701,15 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     @Override
     public void fecharJanela(){
         this.dispose();
+    }
+
+    @Override
+    public void enableTxtAno(boolean arg) {
+        this.jTxtAno.setEnabled(arg);
+    }
+
+    @Override
+    public void setTxtAnoDocument(Document d) {
+       this.jTxtAno.setDocument(d);
     }
 }

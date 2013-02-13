@@ -67,11 +67,10 @@ public class CadastroFamiliaPresenter {
         this.view.setTxtBairroDocument(new OnlyUpperLettersDocument(60));
         this.view.setTxtMunicipioDocument(new OnlyUpperLettersDocument(60));
         this.view.setTxtCepDocument(new CepDocument());
-        this.view.setTxtDataCadastroDocument(new DataDocument());
+        this.view.setTxtAnoDocument(new OnlyNumbersDocument(4));
     }
     
     private void setVerifiers(){
-        this.view.setTxtDataCadastroVerifier(new DataVerifier((Component) this.view, "Data Cadastro"));
         this.view.setTxtCepVerifier(new CepVerifier((Component)this.view,"Cep"));
     }
     
@@ -118,7 +117,7 @@ public class CadastroFamiliaPresenter {
         this.view.enableTxtNumero(arg);
         this.view.enableTxtSegmento(arg);
         this.view.enableCbUF(arg);
-        this.view.enableTxtDataCadastro(arg);
+        this.view.enableTxtAno(arg);
         
         //this.view.setSelectedIndexUF(0);
     }
@@ -161,13 +160,10 @@ public class CadastroFamiliaPresenter {
     private void updateModel(){
         this.getView().getBinder().updateModel(this.familia);
         String cep = this.view.getCep();
-        String dataCadastro = this.view.getDataCadastro();
         if(cep!=null){
             this.familia.setCep(cep);
         }
-        if(dataCadastro!=null){
-            this.familia.setDataCadastro(dataCadastro);
-        }
+        
         
     }
     

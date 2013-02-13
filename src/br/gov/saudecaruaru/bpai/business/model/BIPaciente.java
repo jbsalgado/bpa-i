@@ -5,6 +5,7 @@
 package br.gov.saudecaruaru.bpai.business.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.*;
 /**
  *
@@ -23,7 +24,8 @@ public class BIPaciente implements Serializable {
     private String nome;
    
     @Column(name="data_nascimento",length=10)
-    private String dataNascimento;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataNascimento;
   
     @Column(name="idade")
     private Integer idade;
@@ -74,14 +76,14 @@ public class BIPaciente implements Serializable {
     /**
      * @return the data_nascimento
      */
-    public String getDataNascimento() {
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
     /**
      * @param data_nascimento the data_nascimento to set
      */
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

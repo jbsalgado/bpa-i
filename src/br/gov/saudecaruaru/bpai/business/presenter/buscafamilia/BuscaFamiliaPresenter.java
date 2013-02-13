@@ -4,24 +4,18 @@
  */
 package br.gov.saudecaruaru.bpai.business.presenter.buscafamilia;
 
-import br.gov.saudecaruaru.bpai.business.presenter.cadastrofamilia.*;
 import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
 import br.gov.saudecaruaru.bpai.business.model.Observer;
-import br.gov.saudecaruaru.bpai.business.model.Subject;
 import br.gov.saudecaruaru.bpai.business.presenter.buscafamilia.BuscaFamiliaWindowMouseListener.SelecionarLinhaMouseListener;
 import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
 import br.gov.saudecaruaru.bpai.gui.FamiliaTableModel;
 import br.gov.saudecaruaru.bpai.gui.FamiliaWindow;
 import br.gov.saudecaruaru.bpai.gui.documents.CepDocument;
-import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyNumbersDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
 import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
-import br.gov.saudecaruaru.bpai.gui.interfaces.OperacaoStrategy;
 import br.gov.saudecaruaru.bpai.gui.verifiers.CepVerifier;
-import br.gov.saudecaruaru.bpai.gui.verifiers.DataVerifier;
 import java.awt.Component;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -91,11 +85,10 @@ public class BuscaFamiliaPresenter{
         this.view.setTxtBairroDocument(new OnlyUpperLettersDocument(0));
         this.view.setTxtMunicipioDocument(new OnlyUpperLettersDocument(0));
         this.view.setTxtCepDocument(new CepDocument());
-        this.view.setTxtDataCadastroDocument(new DataDocument());
+        this.view.setTxtAnoDocument(new OnlyNumbersDocument(4));
     }
      
     private void setVerifiers(){
-        this.view.setTxtDataCadastroVerifier(new DataVerifier((Component) this.view, "Data Cadastro"));
         this.view.setTxtCepVerifier(new CepVerifier((Component)this.view,"Cep"));
     }
      private void initDadosJTable(){
@@ -124,7 +117,7 @@ public class BuscaFamiliaPresenter{
         this.view.enableTxtNumero(arg);
         this.view.enableTxtSegmento(arg);
         this.view.enableCbUF(arg);
-        this.view.enableTxtDataCadastro(arg);
+        this.view.enableTxtAno(arg);
     }
     
     private void desabilitaCabecalho(){
@@ -163,13 +156,11 @@ public class BuscaFamiliaPresenter{
     private void updateModel(){
         this.getView().getBinder().updateModel(this.familia);
         String cep = this.view.getCep();
-        String dataCadastro = this.view.getDataCadastro();
         if(cep!=null){
             this.familia.setCep(cep);
         }
-        if(dataCadastro!=null){
-            this.familia.setDataCadastro(dataCadastro);
-        }
+      
+        this.familia.setNullCamposVazios();
         
     }
     public void buscarFamilias(){

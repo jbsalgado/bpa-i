@@ -74,19 +74,23 @@
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel6" max="32767" attributes="0"/>
-                              <Component id="jTxtNumero" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel6" max="32767" attributes="0"/>
+                                      <Component id="jTxtNumero" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="jCbUF" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTxtBairro" min="-2" pref="164" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Component id="jCbUF" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTxtBairro" pref="164" max="32767" attributes="0"/>
                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTxtDataCadastro" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jTxtAno" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
@@ -100,7 +104,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jBtBuscar" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" pref="556" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -115,6 +119,7 @@
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -122,6 +127,7 @@
                   <Component id="jTxtArea" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTxtMicroArea" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTxtFamilia" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTxtAno" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -140,14 +146,12 @@
                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jTxtMunicipio" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jCbUF" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTxtCep" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTxtDataCadastro" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -257,7 +261,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Data"/>
+        <Property name="text" type="java.lang.String" value="Ano"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jBtNovo">
@@ -323,10 +327,7 @@
         <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="@Bindable(field=&quot;cep&quot;)"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTxtDataCadastro">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="@Bindable(field=&quot;dataCadastro&quot;)"/>
-      </AuxValues>
+    <Component class="javax.swing.JTextField" name="jTxtAno">
     </Component>
   </SubComponents>
 </Form>

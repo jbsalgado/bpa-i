@@ -38,7 +38,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import org.apache.log4j.Logger;
-import sun.org.mozilla.javascript.internal.json.JsonParser;
 /**
  *
  * @author Albuquerque

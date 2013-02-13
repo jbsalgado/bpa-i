@@ -11,6 +11,7 @@ import com.towel.bind.Binder;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseListener;
+import java.util.Date;
 import javax.swing.InputVerifier;
 import javax.swing.text.Document;
 
@@ -62,12 +63,13 @@ public interface PacienteView {
     public void setTxtIdadeDocument(Document d);
     public void setTxtSexoDocument(Document d);
     public void setTxtOcupacaoDocument(Document d);
-    public void setTxtDataNascimentoDocument(Document d);
+  //  public void setTxtDataNascimentoDocument(Document d);
     
-    public String getDataNascimento();
-    
+    //public String getDataNascimento();
+    public Date getDataNascimento();
+    public void setDataNascimento(Date dataNascimento);
     public void setTxtCnsVerifier(InputVerifier verifier);
-    public void setTxtDatanascimentoVerifier(InputVerifier verifier);
+    //public void setTxtDatanascimentoVerifier(InputVerifier verifier);
     
     public void setSelectedDoencaCondicao(DoencaCondicao c);
     public void setSelectedIndexDoencaCondicao(int i);
