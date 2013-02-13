@@ -15,7 +15,7 @@ import br.gov.saudecaruaru.bpai.data.GenericDAO;
 import br.gov.saudecaruaru.bpai.gui.FocusListener.ChangeBackgroundFieldFocusListener;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import br.gov.saudecaruaru.bpai.util.Search;
-import br.gov.saudecaruaru.bpai.util.SearchTableModel;
+import br.gov.saudecaruaru.bpai.gui.tablemodel.SearchTableModel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -135,18 +135,19 @@ public class SearchGeneric extends javax.swing.JDialog {
         jLblHint = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setFont(new java.awt.Font("Tahoma", 0, 14));
+        setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         setForeground(java.awt.Color.white);
+        setResizable(false);
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel1.setText("Pesquisar por:");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField1.setToolTipText("");
         jTextField1.setName("textFieldPesquisa"); // NOI18N
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -155,7 +156,7 @@ public class SearchGeneric extends javax.swing.JDialog {
             }
         });
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,7 +164,7 @@ public class SearchGeneric extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel2.setText("Pesquisar");
         jLabel2.setName("lbl_pesquisa"); // NOI18N
 
@@ -204,7 +205,7 @@ public class SearchGeneric extends javax.swing.JDialog {
         jtoolHint.setToolTipText("Testando");
         jtoolHint.setFont(new java.awt.Font("Segoe UI", 0, 14));
 
-        jLblHint.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblHint.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblHint.setText("Enter - Selecionar Código / Duplo click no registro selecionado / ESC - Sair");
         jLblHint.setToolTipText("");
         jtoolHint.add(jLblHint);

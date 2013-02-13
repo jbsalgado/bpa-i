@@ -6,7 +6,7 @@ package br.gov.saudecaruaru.bpai.gui.interfaces;
 
 import br.gov.saudecaruaru.bpai.business.model.Doenca;
 import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
-import br.gov.saudecaruaru.bpai.gui.PacienteTableModel;
+import br.gov.saudecaruaru.bpai.gui.tablemodel.PacienteTableModel;
 import com.towel.bind.Binder;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;

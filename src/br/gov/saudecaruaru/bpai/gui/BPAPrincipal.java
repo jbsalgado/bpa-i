@@ -32,8 +32,8 @@ import br.gov.saudecaruaru.bpai.business.presenter.cadastropaciente.CadastroPaci
 import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
 import br.gov.saudecaruaru.bpai.gui.FocusListener.ChangeBackgroundFieldFocusListener;
 import br.gov.saudecaruaru.bpai.gui.exportacao.ExportacaoCentralViaXML;
-import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelBody;
-import br.gov.saudecaruaru.bpai.util.ProcedimentoRealizadoTableModelHeader;
+import br.gov.saudecaruaru.bpai.gui.tablemodel.ProcedimentoRealizadoTableModelBody;
+import br.gov.saudecaruaru.bpai.gui.tablemodel.ProcedimentoRealizadoTableModelHeader;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
@@ -56,6 +56,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableColumnModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -67,6 +68,7 @@ public class BPAPrincipal extends javax.swing.JFrame {
     private static final String CNS="CNS DO PROFISSIONAL";
     private static final String CNES= "CNES";
     private static final String CBO="CBO";
+    private static Logger logger=Logger.getLogger(BPAPrincipal.class);
     
     
     private ProcedimentoRealizadoTableModelHeader tableModelHeader;
@@ -89,10 +91,9 @@ public class BPAPrincipal extends javax.swing.JFrame {
     public BPAPrincipal() {
         //super(parent);
         this.initComponents();
+        //vai pedir o login
         this.myInitComponents();
         
-        //vai pedir o login
-        this.login();
     }
     private void myInitComponents(){
         this.setLocationRelativeTo(null);
@@ -131,17 +132,11 @@ public class BPAPrincipal extends javax.swing.JFrame {
         try{
             this.bIProcedimentoController.insereProcedimentosSemReferencia();
         }catch(Exception ex){
-            ex.printStackTrace();
+            logger.error("erro na execução do método myInitComponents() "+ex.getMessage());
         }
     }
 
-  
-    private void login(){
-        Login login= new Login(this, true);
-        login.setLocationRelativeTo(null);
-        login.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        login.setVisible(true);
-    }
+
     /**
      * Configura a tabela que armazena o cabeÃ§alho
      */
@@ -279,6 +274,7 @@ public class BPAPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);

@@ -35,9 +35,10 @@ public class Home extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jMenu1.setText("BPA");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14));
 
         jMenuItem1.setText("Produção Individualizada");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {

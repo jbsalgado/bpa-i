@@ -4,6 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.gui;
 
+import br.gov.saudecaruaru.bpai.gui.tablemodel.FamiliaTableModel;
 import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
 import br.gov.saudecaruaru.bpai.gui.documents.CepDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;
@@ -134,6 +135,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         jTxtAno = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setText("Segmento");
 
@@ -200,8 +202,8 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                             .addComponent(jTxtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jTxtMunicipio))
-                                        .addComponent(jTxtendereco, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTxtMunicipio, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
+                                        .addComponent(jTxtendereco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel1)
@@ -247,7 +249,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
                         .addComponent(jBtConfirmar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
                         .addComponent(jBtBuscar))
                     .addComponent(jScrollPane1))
                 .addContainerGap())

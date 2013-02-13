@@ -5,6 +5,7 @@
 package br.gov.saudecaruaru.bpai.gui;
 
 
+import br.gov.saudecaruaru.bpai.gui.tablemodel.PacienteTableModel;
 import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
 import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
 import br.gov.saudecaruaru.bpai.business.model.Escolha;
@@ -113,6 +114,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         jDtCDataNascimento = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setText("CNS: ");
 
@@ -183,7 +185,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                                 .addComponent(jBtConfirmar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtCancelar)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 314, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTxtFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -191,7 +193,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                                 .addGap(6, 6, 6)
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCbDoencaCondicao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jCbDoencaCondicao, 0, 201, Short.MAX_VALUE))))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)

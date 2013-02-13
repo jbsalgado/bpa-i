@@ -15,6 +15,7 @@ import br.gov.saudecaruaru.bpai.gui.documents.SexoDocument;
 import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
 import br.gov.saudecaruaru.bpai.gui.interfaces.OperacaoStrategy;
 import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
+import br.gov.saudecaruaru.bpai.gui.tablemodel.PacienteTableModel;
 import br.gov.saudecaruaru.bpai.gui.verifiers.CnesVerifier;
 import br.gov.saudecaruaru.bpai.gui.verifiers.CnsVerifier;
 import br.gov.saudecaruaru.bpai.gui.verifiers.DataVerifier;
