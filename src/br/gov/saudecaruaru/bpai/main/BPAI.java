@@ -6,9 +6,8 @@ package br.gov.saudecaruaru.bpai.main;
 
 import br.gov.saudecaruaru.bpai.business.controller.SistemaController;
 import br.gov.saudecaruaru.bpai.business.presenter.principal.PrincipalPresenter;
-import br.gov.saudecaruaru.bpai.data.*;
+import br.gov.saudecaruaru.bpai.data.HibernateUtil;
 import br.gov.saudecaruaru.bpai.gui.EscolhaBanco;
-import br.gov.saudecaruaru.bpai.gui.BPAPrincipal;
 import br.gov.saudecaruaru.bpai.gui.SearchGeneric;
 import br.gov.saudecaruaru.bpai.util.Recurso;
 import com.sun.jersey.api.client.Client;
@@ -16,7 +15,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.log4j.PropertyConfigurator;
 
