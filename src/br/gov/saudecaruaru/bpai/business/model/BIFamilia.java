@@ -61,8 +61,8 @@ public class BIFamilia implements Serializable {
     @Column(name="uf",length=2)
     private String uf;
     
-    @Column(name="data_cadastro",length=8)
-    private String dataCadastro;
+    @Column(name="ano",length=4)
+    private String ano;
     
     @OneToMany(mappedBy="familia",fetch=FetchType.LAZY )
     @Fetch(FetchMode.SELECT)
@@ -95,9 +95,9 @@ public class BIFamilia implements Serializable {
                 this.cep = null;
             }
          }
-        if(this.dataCadastro!=null){  
-            if(this.dataCadastro.equals("")){
-                this.dataCadastro = null;
+        if(this.ano!=null){  
+            if(this.ano.equals("")){
+                this.ano = null;
             }
         }
         if(this.endereco!=null){ 
@@ -289,15 +289,15 @@ public class BIFamilia implements Serializable {
     /**
      * @return the data
      */
-    public String getDataCadastro() {
-        return dataCadastro;
+    public String getAno() {
+        return ano;
     }
 
     /**
-     * @param data the data to set
+     * @param ano the data to set
      */
-    public void setDataCadastro(String data) {
-        this.dataCadastro = data;
+    public void setAno(String ano) {
+        this.ano = ano;
     }
 
     

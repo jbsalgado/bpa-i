@@ -7,10 +7,8 @@ package br.gov.saudecaruaru.bpai.business.presenter.principal;
 import br.gov.saudecaruaru.bpai.business.presenter.bpaprincipal.SIABPrincipalPresenter;
 import br.gov.saudecaruaru.bpai.gui.BPAPrincipal;
 import br.gov.saudecaruaru.bpai.gui.Login;
-import br.gov.saudecaruaru.bpai.gui.PacienteWindow;
 import br.gov.saudecaruaru.bpai.gui.PrincipalWindow;
 import br.gov.saudecaruaru.bpai.gui.interfaces.PrincipalView;
-import java.awt.Component;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 

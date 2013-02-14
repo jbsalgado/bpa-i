@@ -5,9 +5,7 @@
 package br.gov.saudecaruaru.bpai.business.presenter.cadastropaciente;
 
 import br.gov.saudecaruaru.bpai.business.presenter.buscafamilia.BuscaFamiliaPresenter;
-import br.gov.saudecaruaru.bpai.business.presenter.cadastrofamilia.CadastroFamiliaPresenter;
 import br.gov.saudecaruaru.bpai.gui.PacienteWindow;
-import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
 import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
 import java.awt.Component;
 import java.awt.event.ActionEvent;

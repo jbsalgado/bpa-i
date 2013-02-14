@@ -7,10 +7,7 @@ package br.gov.saudecaruaru.bpai.business.presenter.cadastropaciente;
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
 import br.gov.saudecaruaru.bpai.data.BIPacienteDAO;
-import br.gov.saudecaruaru.bpai.gui.tablemodel.FamiliaTableModel;
-import br.gov.saudecaruaru.bpai.gui.FamiliaWindow;
-import br.gov.saudecaruaru.bpai.gui.tablemodel.PacienteTableModel;
-import br.gov.saudecaruaru.bpai.gui.PacienteWindow;
+import br.gov.saudecaruaru.bpai.gui.*;
 import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyNumbersDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
@@ -18,11 +15,16 @@ import br.gov.saudecaruaru.bpai.gui.documents.SexoDocument;
 import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
 import br.gov.saudecaruaru.bpai.gui.interfaces.OperacaoStrategy;
 import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
+import br.gov.saudecaruaru.bpai.gui.tablemodel.PacienteTableModel;
 import br.gov.saudecaruaru.bpai.gui.verifiers.CnesVerifier;
 import br.gov.saudecaruaru.bpai.gui.verifiers.CnsVerifier;
 import br.gov.saudecaruaru.bpai.gui.verifiers.DataVerifier;
+import br.gov.saudecaruaru.bpai.util.Search;
 import java.awt.Component;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -79,12 +81,12 @@ public class CadastroPacientePresenter {
         this.view.setTxtSexoDocument(new OnlyUpperLettersDocument(1));
         this.view.setTxtOcupacaoDocument(new OnlyUpperLettersDocument(45));
         this.view.setTxtSexoDocument(new SexoDocument());
-        this.view.setTxtDataNascimentoDocument(new DataDocument());
+       // this.view.setTxtDataNascimentoDocument(new DataDocument());
     }
     
     private void setVerifiers(){
         this.view.setTxtCnsVerifier(new CnsVerifier((Component) this.view,"CNS"));
-        this.view.setTxtDatanascimentoVerifier(new DataVerifier((Component) this.view, "Data de Nascimento"));
+        //this.view.setTxtDatanascimentoVerifier(new DataVerifier((Component) this.view, "Data de Nascimento"));
     }
      private void initDadosJTable(){
       
@@ -157,17 +159,22 @@ public class CadastroPacientePresenter {
          //this.paciente.setAlfabetizado(this.view.getAlfabetizado());
          this.paciente.setFamilia(new BIFamilia());
          this.paciente.getFamilia().setId(this.view.getIdFamilia());
-         
-         String dataNascimento = this.view.getDataNascimento();
-         if(dataNascimento!=null){
+         Date  dataNascimento = this.view.getDataNascimento();
+          if(dataNascimento!=null){
              this.paciente.setDataNascimento(dataNascimento);
          }
+         //String dataNascimento = this.view.getDataNascimento();
+//         if(dataNascimento!=null){
+//             this.paciente.setDataNascimento(dataNascimento);
+//         }
      }
      
      private void updateView(){
           this.getView().getBinder().updateView(this.paciente);
           this.getView().setSelectedAlfabetizado(this.paciente.getAlfabetizado());
           this.getView().setSelectedDoencaCondicao(DoencaCondicao.MAP.get(this.paciente.getDoencaCondicao()));
+          //atualiza o campo data nascimento
+          this.getView().setDataNascimento(this.paciente.getDataNascimento());
           
      }
     public void atualizarPaciente(){
@@ -203,6 +210,20 @@ public class CadastroPacientePresenter {
         BIPaciente p = new BIPaciente();
         p.setCns(cns);
         return this.pacienteDao.findEqual(p);
+    }
+    
+    public void selecionaOcupacao(){
+//         Search model= SearchGeneric.getInstance().initModeSearch(this.pacienteDao, "codigo", "nome", "Código", "Descrição", new HashMap<String,Object>());
+//        if ( model != null){
+//            ProcedimentoMedicoPresenter.this.view.setProcedimentoAmbulatorialCodigo(model.getId());
+//            ProcedimentoMedicoPresenter.this.view.setProcedimentoAmbulatorialNome(model.getDescription());
+//            //agora vai buscar no banco de dados
+//            Map<String,Object> res=new HashMap<String, Object>();
+//            res.put("codigo", model.getId());
+//            ProcedimentoAmbulatorial pro=ProcedimentoMedicoPresenter.this.procedimentoAmbulatorialDAO.findEqual(res);
+//            ProcedimentoMedicoPresenter.this.
+//                    procedimentoMedico.setProcedimentoAmbulatorial(pro);
+//        }
     }
      
 }

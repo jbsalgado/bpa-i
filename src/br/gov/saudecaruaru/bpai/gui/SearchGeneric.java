@@ -11,6 +11,7 @@
 package br.gov.saudecaruaru.bpai.gui;
 
 import br.gov.saudecaruaru.bpai.business.controller.BasecController;
+import br.gov.saudecaruaru.bpai.data.GenericDAO;
 import br.gov.saudecaruaru.bpai.gui.FocusListener.ChangeBackgroundFieldFocusListener;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import br.gov.saudecaruaru.bpai.util.Search;
@@ -70,6 +71,9 @@ public class SearchGeneric extends javax.swing.JDialog {
     public static SearchGeneric instance=null;
     //controlador utilizado para realizar a pesquisa
     private BasecController basicController=null;
+    
+     //DAO utilizado para realizar a pesquisa
+    private GenericDAO genericDAO=null;
     
     private FocusListener listenerFieldsChangeBackground ;
  
@@ -441,6 +445,58 @@ public class SearchGeneric extends javax.swing.JDialog {
         //inicia algumas oncfigurações da tabela
         this.initTable();
         HashSet<Search > set=new HashSet<Search>(ModelUtil.getListSearch( this.basicController.findAllEqual(restrictions),fieldId,FieldDescription));
+        this.listAll=new ArrayList<Search>(set);
+        this.tableModel.addSearchAll(this.listAll);
+        
+        //coloca a pesquisa pelo campo descrição
+        this.jComboBox1.setSelectedIndex(0);
+        //coloca o foco no campo de pesquisa
+        //this.jComboBox1.transferFocus();
+        //this.jTextField1.requestFocus();
+        this.jTextField1.requestFocus();
+        //seleciona o primeiro elemento da tabela
+        if (this.tableLista.getModel().getRowCount() > 0){
+            this.tableLista.setRowSelectionInterval(0, 0);
+        }
+        
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.setModal(true);
+        this.setVisible(true);
+        //quando terminar vai retornar o valor da seleção
+        return this.selectedSearch;
+    }
+    
+    
+      /**
+     * Método que inicializa a tela de pesquisa.
+     * Qualquer objeto que seja persistido no banco pode ser pesquisado, desde que tenha um controlador.
+     * @param genericDAO controlador utilizado para buscar os dados
+     * @param fieldId atributo do objeto que representa uma chave ou um valor a ser retornado
+     * @param FieldDescription atributo do objeto que representa ums descrição dele
+     * @param labelFieldId um label do para o atributo fieldId
+     * @param labelFieldDescription um label para o atributo fieldDescription
+     * @return devolve um objeto Search, caso o usuário tenha pesquisado e selecionado algum, senão, devolve null
+     */
+    public Search initModeSearch(GenericDAO genericDAO,String fieldId,String FieldDescription, String labelFieldId,String labelFieldDescription, Map<String, Object> restrictions){
+        this.selectedSearch=null;
+        this.jTextField1.setText(null);
+        //monta o cabeçalho da tabela
+        this.header[1]=labelFieldId;
+        this.header[0]=labelFieldDescription;
+        
+        //preenche o camboobs de seleção
+        ComboBoxModel model=new DefaultComboBoxModel(new String[]{labelFieldDescription,labelFieldId});
+        this.fieldDescription=FieldDescription;
+        this.fieldId=fieldId;
+        this.jComboBox1.setModel(model);
+        
+        this.genericDAO=genericDAO;
+        //cria um modelo de tabela 
+        this.tableModel=new SearchTableModel(labelFieldId, labelFieldDescription);
+        this.tableLista.setModel(this.tableModel);
+        //inicia algumas oncfigurações da tabela
+        this.initTable();
+        HashSet<Search > set=new HashSet<Search>(ModelUtil.getListSearch( this.genericDAO.findAllEqual(restrictions),fieldId,FieldDescription));
         this.listAll=new ArrayList<Search>(set);
         this.tableModel.addSearchAll(this.listAll);
         
