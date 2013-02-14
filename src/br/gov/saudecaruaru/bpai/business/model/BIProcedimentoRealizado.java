@@ -7,6 +7,8 @@ package br.gov.saudecaruaru.bpai.business.model;
 import br.gov.saudecaruaru.bpai.business.service.SPaciente;
 import br.gov.saudecaruaru.bpai.business.service.SProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -40,46 +42,66 @@ public class BIProcedimentoRealizado implements Serializable{
     
     @XStreamAlias("chave_primaria")
     @EmbeddedId
+    @SerializedName("chave_primaria")
+    @Expose
     private BIProcedimentoRealizadoPK biProcedimentoRealizadoPK;
     
     @XStreamAlias("codigo_procedimento")
     @Column(name = "PRD_PA")
+    @SerializedName("codigo_procedimento")
+    @Expose
     private String codigoProcedimento;
     
     @XStreamAlias("data_atendimento")
     @Column(name = "PRD_DTATEN")
+    @SerializedName("data_atendimento")
+    @Expose
     private String dataAtendimento;
     
     @XStreamAlias("cns_paciente")
     @Column(name = "PRD_CNSPAC")
+    @SerializedName("cns_paciente")
+    @Expose
     private String cnsPaciente;
     
     @XStreamAlias("nome_paciente")
     @Basic(optional = false)
     @Column(name = "PRD_NMPAC")
+    @SerializedName("nome_paciente")
+    @Expose
     private String nomePaciente;
     
     @XStreamAlias("data_nascimento_paciente")
     @Basic(optional = false)
     @Column(name = "PRD_DTNASC")
+    @SerializedName("data_nascimento_paciente")
+    @Expose
     private String dataNascimentoPaciente;
     
     @XStreamAlias("sexo_paciente")
     @Basic(optional = false)
     @Column(name = "PRD_SEXO")
+    @SerializedName("sexo_paciente")
+    @Expose
     private String sexoPaciente;
     
     @XStreamAlias("cidade_paciente")
     @Basic(optional = false)
     @Column(name = "PRD_IBGE")
+    @SerializedName("cidade_paciente")
+    @Expose
     private String codigoIBGECidadePaciente;
     
     @XStreamAlias("cid_procedimento")
     @Column(name = "PRD_CID")
+    @SerializedName("cid_procedimento")
+    @Expose
     private String cidDoencaprocedimento;
     
     @XStreamAlias("idade_paciente")
     @Column(name = "PRD_IDADE")
+    @SerializedName("idade_paciente")
+    @Expose
     private String idadePaciente;
     
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -87,23 +109,33 @@ public class BIProcedimentoRealizado implements Serializable{
     @XStreamAlias("quantidade_realizada")
     @Basic(optional = false)
     @Column(name = "PRD_QT_P")
+    @SerializedName("quantidade_realizada")
+    @Expose
     private Double quantidadeRealizada;
     
     @XStreamAlias("carater_atendimento")
     @Basic(optional = false)
     @Column(name = "PRD_CATEN")
+    @SerializedName("carater_atendimento")
+    @Expose
     private String caracterizacaoAtendimento;
     
     @XStreamAlias("numero_autorizacao")
     @Column(name = "PRD_NAUT")
+    @SerializedName("numero_autorizacao")
+    @Expose
     private String numeroAutorizacao;
     
     @XStreamAlias("origem_procedimento")
     @Column(name = "PRD_ORG")
+    @SerializedName("origem_procedimento")
+    @Expose
     private String origemProcedimento;
     
     @XStreamAlias("competencia_movimento")
     @Column(name = "PRD_MVM")
+    @SerializedName("competencia_movimento")
+    @Expose
     private String competenciaMovimento;
     
     @XStreamAlias("ignore_prd_flpa")
@@ -141,15 +173,21 @@ public class BIProcedimentoRealizado implements Serializable{
     @XStreamAlias("raca_paciente")
     @Basic(optional = false)
     @Column(name = "PRD_RACA")
+    @SerializedName("raca_paciente")
+    @Expose
     private String racaPaciente;
     
     @XStreamAlias("etnia_paciente")
     @Column(name = "PRD_ETNIA")
+    @SerializedName("etnia_paciente")
+    @Expose
     private String etniaPaciente;
     
     @XStreamAlias("nacionalidade_paciente")
     @Basic(optional = false)
     @Column(name = "PRD_NAC")
+    @SerializedName("nacionalidade_paciente")
+    @Expose
     private String nacionalidadePaciente;
     
     @XStreamAlias("ignore_prd_advqt")
@@ -158,14 +196,20 @@ public class BIProcedimentoRealizado implements Serializable{
 
     @XStreamAlias("codigo_servico")
     @Column(name = "PRD_SERVICO")
+    @SerializedName("codigo_servico")
+    @Expose
     private String codigoServico;
     
     @XStreamAlias("codigo_classificao_servico")
     @Column(name = "PRD_CLASSIFICACAO")
+    @SerializedName("codigo_classificacao")
+    @Expose
     private String codigoClassificacaoServico;
     
     @XStreamAlias("equipe")
     @Column(name = "PRD_EQUIPE")
+    @SerializedName("equipe")
+    @Expose
     private String equipe;
     
     @XStreamAlias("ignore_enviado")
@@ -178,14 +222,20 @@ public class BIProcedimentoRealizado implements Serializable{
     
     @XStreamAlias("cnpj")
     @Column(name = "PRD_CNPJ")
+    @SerializedName("cnpj")
+    @Expose
     private String cnpj;
     
     @XStreamAlias("equipe_area")
     @Column(name = "PRD_EQP_AREA")
+    @SerializedName("equipe_area")
+    @Expose
     private String equipeArea;
     
     @XStreamAlias("equipe_sequencia")
     @Column(name = "PRD_EQP_SEQ")
+    @SerializedName("equipe_sequencia")
+    @Expose
     private String equipeSequencia;
     
     public BIProcedimentoRealizado() {

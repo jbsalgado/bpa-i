@@ -4,6 +4,8 @@
  */
 package br.gov.saudecaruaru.bpai.business.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -21,30 +23,42 @@ public class BIProcedimentoRealizadoPK implements Serializable{
     @XStreamAlias("cnes_unidade")
     @Basic(optional = false)
     @Column(name = "PRD_UID")
+    @SerializedName("cnes_unidade")
+    @Expose
     private String cnesUnidade;
     
     @XStreamAlias("competencia")
     @Basic(optional = false)
     @Column(name = "PRD_CMP")
+    @SerializedName("competencia")
+    @Expose
     private String competencia;
     
     @XStreamAlias("cns_profissional")
     @Basic(optional = false)
     @Column(name = "PRD_CNSMED")
+    @SerializedName("cns_profissional")
+    @Expose
     private String cnsMedico;
     
     @XStreamAlias("cbo_profissional")
     @Column(name = "PRD_CBO")
+    @SerializedName("cbo_profissional")
+    @Expose
     private String cboMedico;
     
     @XStreamAlias("numero_folha")
     @Basic(optional = false)
     @Column(name = "PRD_FLH")
+    @SerializedName("numero_folha")
+    @Expose
     private String numeroFolha;
     
     @XStreamAlias("sequencia_folha")
     @Basic(optional = false)
     @Column(name = "PRD_SEQ")
+    @SerializedName("sequencia_folha")
+    @Expose
     private String sequenciaFolha;
 
     public BIProcedimentoRealizadoPK() {
