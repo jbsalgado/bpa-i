@@ -8,6 +8,7 @@ import br.gov.saudecaruaru.bpai.business.service.ServicoControllerPortTypeProxy;
 import br.gov.saudecaruaru.bpai.business.service.SUsuarioDesktop;
 import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.business.controller.EquipeController;
+import br.gov.saudecaruaru.bpai.business.controller.PacienteController;
 import br.gov.saudecaruaru.bpai.business.controller.SProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.business.controller.SistemaController;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
@@ -21,6 +22,8 @@ import br.gov.saudecaruaru.bpai.data.DiversasDAO;
 import br.gov.saudecaruaru.bpai.data.HibernateUtil;
 import br.gov.saudecaruaru.bpai.gui.exportacao.ExportacaoCentralEnvio;
 import br.gov.saudecaruaru.bpai.gui.interfaces.IExportacaoStrategy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -38,7 +41,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import org.apache.log4j.Logger;
-import sun.org.mozilla.javascript.internal.json.JsonParser;
 /**
  *
  * @author Albuquerque
@@ -46,7 +48,7 @@ import sun.org.mozilla.javascript.internal.json.JsonParser;
 public class Teste {
     public static void main(String[] args){
         SistemaController.loadConfigurations();
-        try {
+        
             //        HibernateUtil.createIndices();
             //        testeExportacaoProcedimentosIndividuais();
             //        testeExportacaoProcedimentosCosolidados();
@@ -59,10 +61,9 @@ public class Teste {
                     //testeExportacaoProcedimentosCosolidados();
                     //testarProcedimentoSemreferencia();
                     //testarRestFul();
-                    testarEnvioRest();
-        } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                    //testarEnvioRest();
+            //testarPacienteRest();
+        testeJson();
     }
     
     public static void testeDiversasServicos(){
@@ -85,6 +86,30 @@ public class Teste {
 
         
     }
+    
+   public static void testeJson() {
+       Gson gson=new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+       List<BIProcedimentoRealizado> lis=new BIProcedimentoRealizadoController().findAll();
+       FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(new File("teste.json"));
+        } catch (FileNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            out.write(gson.toJson(lis).getBytes());
+            //System.out.println(gson.toJson(lis));
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            try {
+                out.close();
+            } catch (IOException ex) {
+                java.util.logging.Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+   }
     
     public static void testeExportacaoProcedimentosIndividuais(){
         BIProcedimentoRealizadoController con= new BIProcedimentoRealizadoController();
@@ -244,5 +269,10 @@ public class Teste {
      //        } catch (Exception ex) {
      //        }
      //        }
+   }
+   
+   public static void testarPacienteRest(){
+       PacienteController pac=new PacienteController();
+       System.out.println(pac.findInWebService("898003432647753"));
    }
 }
