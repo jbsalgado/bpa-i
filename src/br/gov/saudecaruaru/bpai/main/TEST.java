@@ -7,6 +7,7 @@ package br.gov.saudecaruaru.bpai.main;
 
 import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoDoencaController;
 import br.gov.saudecaruaru.bpai.business.controller.SistemaController;
+import br.gov.saudecaruaru.bpai.business.model.ArquivoCnes;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoenca;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoencaPK;
 import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
@@ -56,31 +57,34 @@ public class TEST {
         SistemaController.updateConfigurations();
     }
     public static void main(String[] args){
-       BPAI.initDatabaseConfiguration();
-       String msg ="";
-       ProcedimentoRealizado p = new ProcedimentoRealizado();
-       p.setCodigoProcedimento("0701090090");
-       p.getProcedimentoRealizadoPK().setCboMedico("223505");
-       p.setIdadePaciente("11");
-       p.getProcedimentoRealizadoPK().setCompetencia("201212");
-       p.setEtniaPaciente("123456");
-       p.setCidDoencaprocedimento("A000");
-       p.setCodigoIBGECidadePaciente("260410");
-       p.setNacionalidadePaciente("010");
-       p.setQuantidadeRealizada(23.0);
-       
-       
-       ProcedimentoRealizadoValidator prv = new ProcedimentoRealizadoValidator(p);
-       List<String> list = prv.runValidate();
-       if(!list.isEmpty()){
-           for(String m:list){
-               msg+=m+"\n";
-           }
-           System.out.println("ERRO: "+msg);
-       }else
-           System.out.println(msg+"CORRETO, PARABÉNS!");
-      
-       
+        
+        ArquivoCnes arquivoCnes = new ArquivoCnes("C:\\Users\\juniorpires\\Documents\\Trabalho\\BPA\\SIAB\\TXT_SIAB\\CN201212.txt");
+        arquivoCnes.salvarDadosSiab();
+//       BPAI.initDatabaseConfiguration();
+//       String msg ="";
+//       ProcedimentoRealizado p = new ProcedimentoRealizado();
+//       p.setCodigoProcedimento("0701090090");
+//       p.getProcedimentoRealizadoPK().setCboMedico("223505");
+//       p.setIdadePaciente("11");
+//       p.getProcedimentoRealizadoPK().setCompetencia("201212");
+//       p.setEtniaPaciente("123456");
+//       p.setCidDoencaprocedimento("A000");
+//       p.setCodigoIBGECidadePaciente("260410");
+//       p.setNacionalidadePaciente("010");
+//       p.setQuantidadeRealizada(23.0);
+//       
+//       
+//       ProcedimentoRealizadoValidator prv = new ProcedimentoRealizadoValidator(p);
+//       List<String> list = prv.runValidate();
+//       if(!list.isEmpty()){
+//           for(String m:list){
+//               msg+=m+"\n";
+//           }
+//           System.out.println("ERRO: "+msg);
+//       }else
+//           System.out.println(msg+"CORRETO, PARABÉNS!");
+//      
+//       
        
 //       msg += prv.existeCBO()+"\n";
 //       msg+=prv.existeProcedimento()+"\n";
