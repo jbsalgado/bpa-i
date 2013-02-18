@@ -67,7 +67,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         jCbalfabetizado.setModel(modelEscolha);
         jCbDoencaCondicao.setModel(modelDoencaCondicao);
         
-        this.jDtCDataNascimento.setDateFormatString("dd/MM/yyyy");
+       //this.jDtCDataNascimento.setDateFormatString("dd/MM/yyyy");
         //jTxtDataNascimento.setDocument(new DataDocument());
         
     }
@@ -111,10 +111,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbPacientes = new javax.swing.JTable();
         jCbDoencaCondicao = new javax.swing.JComboBox();
-        jDtCDataNascimento = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
 
         jLabel1.setText("CNS: ");
 
@@ -185,7 +183,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                                 .addComponent(jBtConfirmar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtCancelar)
-                                .addGap(0, 314, Short.MAX_VALUE))
+                                .addGap(0, 325, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTxtFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -193,12 +191,12 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                                 .addGap(6, 6, 6)
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCbDoencaCondicao, 0, 201, Short.MAX_VALUE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+                                .addComponent(jCbDoencaCondicao, 0, 212, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(25, 25, 25)
-                        .addComponent(jTxtNome))
+                        .addComponent(jTxtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -223,10 +221,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jCbalfabetizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDtCDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jLabel3)))
+                        .addGap(294, 294, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -241,23 +237,18 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                     .addComponent(jLabel4)
                     .addComponent(jTxtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jTxtIdade)
-                            .addComponent(jLabel6)
-                            .addComponent(jTxtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(jCbalfabetizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jTxtOcupacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jDtCDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTxtIdade)
+                    .addComponent(jLabel6)
+                    .addComponent(jTxtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jCbalfabetizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jTxtOcupacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -334,7 +325,6 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     private javax.swing.JComboBox jCbDoencaCondicao;
     @Bindable(field="alfabetizado",formatter=EscolhaFormatter.class)
     private javax.swing.JComboBox jCbalfabetizado;
-    private com.toedter.calendar.JDateChooser jDtCDataNascimento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -411,12 +401,12 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     
     @Override
     public Date getDataNascimento(){
-        return this.jDtCDataNascimento.getDate();
+        return null;//return this.jDtCDataNascimento.getDate();
     }
     
     @Override
     public void setDataNascimento(Date dataNascimento){
-        this.jDtCDataNascimento.setDate(dataNascimento);
+        //this.jDtCDataNascimento.setDate(dataNascimento);
     }
     @Override
     public void setSelecionarLinhaJTableActionListener(MouseListener listener) {
@@ -519,7 +509,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     @Override
     public void enableTxtDataNascimento(boolean arg) {
        //this.jTxtDataNascimento.setEnabled(arg);
-       this.jDtCDataNascimento.setEnabled(arg); 
+       //this.jDtCDataNascimento.setEnabled(arg); 
     }
 
     @Override

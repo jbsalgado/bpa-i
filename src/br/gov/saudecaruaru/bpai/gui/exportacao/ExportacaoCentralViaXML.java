@@ -10,7 +10,10 @@ import br.gov.saudecaruaru.bpai.business.service.SMessageWebService;
 import br.gov.saudecaruaru.bpai.data.BIProcedimentoRealizadoDAO;
 import br.gov.saudecaruaru.bpai.data.BIProcedimentoRealizadoXML;
 import br.gov.saudecaruaru.bpai.gui.interfaces.IExportacaoStrategy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,9 +41,15 @@ public class ExportacaoCentralViaXML implements IExportacaoStrategy {
             List<BIProcedimentoRealizado> list = this.bIProcedimentoRealizadoDAO.findAllEqual(rest);
             //agora cria o arquivo
             String fileName = SistemaController.DIRETORIO_PRINCIPAL + "/exportacao.xml";
-            this.bIProcedimentoRealizadoXML.salvar(list, fileName);
+//            this.bIProcedimentoRealizadoXML.salvar(list, fileName);
+            Gson gson=new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+            File file=new File(fileName);
+            FileOutputStream out=new FileOutputStream(file);
+            out.write(gson.toJson(list).getBytes());
+            out.close();
+            //file.
             //exporta para o servidor.
-            SMessageWebService[] m = SistemaController.getnstance().enviarProducaoParaServidor(new File(fileName),competenciaMovimento,cnesUnidade);
+            SMessageWebService[] m = SistemaController.getnstance().enviarProducaoParaServidor(file,competenciaMovimento,cnesUnidade);
             if (m == null) {
                 msg = "Erro ao exportar o arquivo. Verifique sua coneção com a internet.";
             }

@@ -273,7 +273,7 @@ public class SistemaController {
             //verifica se a resposta não é nulla
             if (response != null) {
                 //verifica se o servidor mandou uma respsota (200)
-                if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                //if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                     HttpEntity resEntity = response.getEntity();
                     BufferedReader r = new BufferedReader(new InputStreamReader(resEntity.getContent()));
                     StringBuilder builder = new StringBuilder();
@@ -281,21 +281,21 @@ public class SistemaController {
                         builder.append(r.readLine());
                     }
                     r.close();
-
+                    String s=builder.toString();
                     //verifica se o content-type é application/json
                     if (resEntity.getContentType().getValue().equals(APPLICATION_JSON)) {
                         //pega os dados recebido em json e deserializa
                         Gson parser = new GsonBuilder().create();
-                        msg = parser.fromJson(builder.toString(), SMessageWebService[].class);
+                        msg = parser.fromJson(s, SMessageWebService[].class);
                     } else {
                          m = new SMessageWebService("BPADADOS11", "O programa não pode ler os dados recebidos do servidor. Informe o erro aos desenvolvedores do sistema.", "0");
-                        logger.error(" falha ao executar o método enviarProducaoParaServidor. Resposta recebida: " + builder.toString());
+                        logger.error(" falha ao executar o método enviarProducaoParaServidor. Resposta recebida: " + s);
                     }
-                }//código http da resposta é diferente de 200
-                else {
-                     m = new SMessageWebService("BPARESPOSTA12", "Ops! O Programa recebeu uma resposta diferente do que esperava. Informe o erro aos desenvolvedores do sistema.", "0");
-                     logger.error(" falha ao executar o método enviarProducaoParaServidor. CÓDIDO DA RESPSOTA: " + response.getStatusLine());
-                }
+//                }//código http da resposta é diferente de 200
+//                else {
+//                     m = new SMessageWebService("BPARESPOSTA12", "Ops! O Programa recebeu uma resposta diferente do que esperava. Informe o erro aos desenvolvedores do sistema.", "0");
+//                     logger.error(" falha ao executar o método enviarProducaoParaServidor. CÓDIDO DA RESPSOTA: " + response.getStatusLine());
+//                }
             } //response é nulla
             else {
                  m = new SMessageWebService("BPARESPONSE13", "Ops! O Programa não recebeu nenhuma resposta do servidor. Informe o erro aos desenvolvedores do sistema.", "0");
