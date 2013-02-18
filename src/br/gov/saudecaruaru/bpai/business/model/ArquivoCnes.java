@@ -26,7 +26,10 @@ public class ArquivoCnes{
         this.arquivo = new File(path);
     }
     
-    public void salvarDadosSiab(){
+    public String salvarDadosSiab(){
+        
+        boolean flag = true;
+        
         List<BICnesArea> areas = new ArrayList<BICnesArea>();
         List<BICnesMicroarea> microareas = new ArrayList<BICnesMicroarea>();
         
@@ -41,7 +44,7 @@ public class ArquivoCnes{
                 areaDAO.merge(bICnesArea);
             }catch(Exception ex){
                 Logger.getLogger(ArquivoCnes.class.getName()).log(Level.SEVERE, bICnesArea.getCnes(), ex);
-                
+                flag = false;
             }
         }
         
@@ -53,9 +56,18 @@ public class ArquivoCnes{
                  microareaDAO.merge(bICnesMicroarea);
             }catch(Exception ex){
                 Logger.getLogger(ArquivoCnes.class.getName()).log(Level.SEVERE, bICnesMicroarea.getCodigoMicroarea(), ex);
-                
+                flag=false;
             }
         }
+        
+        String msg ="";
+        if(flag){
+            msg = "Importação realizada com sucesso!";
+        }else{
+            msg = "Um erro ocorreu, contate os desenvolvedores";
+        }
+        
+        return msg;
     }
     private void lerArquivoSiab(List<BICnesArea> areas,List<BICnesMicroarea> microareas){
         //List<BICnesArea> areas = new ArrayList<BICnesArea>();

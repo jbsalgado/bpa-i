@@ -54,9 +54,7 @@ public class SIABPrincipalActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-           SIABPrincipalWindow view = (SIABPrincipalWindow) this.presenter.getView();
-           String msg =  this.presenter.escolherImportarArquivoCnes();
-           JOptionPane.showMessageDialog(view,msg);
+          this.presenter.abrirImportacaoCnes();
         }
         
         

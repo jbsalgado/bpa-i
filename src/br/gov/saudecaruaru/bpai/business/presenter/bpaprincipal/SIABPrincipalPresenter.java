@@ -7,8 +7,10 @@ package br.gov.saudecaruaru.bpai.business.presenter.bpaprincipal;
 import br.gov.saudecaruaru.bpai.business.model.ArquivoCnes;
 import br.gov.saudecaruaru.bpai.business.presenter.cadastrofamilia.CadastroFamiliaPresenter;
 import br.gov.saudecaruaru.bpai.business.presenter.cadastropaciente.CadastroPacientePresenter;
+import br.gov.saudecaruaru.bpai.business.presenter.importacaoarquivocnes.ImportacaoArquivoCnesPresenter;
 import br.gov.saudecaruaru.bpai.gui.SIABPrincipalWindow;
 import br.gov.saudecaruaru.bpai.gui.interfaces.SIABPrincipalView;
+import java.awt.Frame;
 import javax.swing.JFileChooser;
 
 /**
@@ -76,5 +78,13 @@ public class SIABPrincipalPresenter {
     public void abrirCadastroFamilia(){
         CadastroFamiliaPresenter familiaPresenter = new CadastroFamiliaPresenter();
         familiaPresenter.createView();
+    }
+    
+     /**
+     * Abre uma nova janela para importacao do arquivo cnes
+     */
+    public void abrirImportacaoCnes(){
+        ImportacaoArquivoCnesPresenter cnesPresenter = new ImportacaoArquivoCnesPresenter();
+        cnesPresenter.createView((Frame)this.getView(), true);
     }
 }
