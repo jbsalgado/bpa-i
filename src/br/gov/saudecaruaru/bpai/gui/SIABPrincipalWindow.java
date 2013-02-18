@@ -69,6 +69,8 @@ public class SIABPrincipalWindow extends javax.swing.JFrame implements SIABPrinc
         jMenu2 = new javax.swing.JMenu();
         menuItemFamilia = new javax.swing.JMenuItem();
         menuItemPaciente = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        MenuItemImportarCnes = new javax.swing.JMenuItem();
 
         jTextField1.setText("jTextField1");
 
@@ -91,6 +93,13 @@ public class SIABPrincipalWindow extends javax.swing.JFrame implements SIABPrinc
         jMenu2.add(menuItemPaciente);
 
         jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Operações");
+
+        MenuItemImportarCnes.setText("Importar Arquivo Cnes");
+        jMenu3.add(MenuItemImportarCnes);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -144,8 +153,10 @@ public class SIABPrincipalWindow extends javax.swing.JFrame implements SIABPrinc
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MenuItemImportarCnes;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JMenuItem menuItemFamilia;
@@ -187,5 +198,10 @@ public class SIABPrincipalWindow extends javax.swing.JFrame implements SIABPrinc
     @Override
     public void setMenuItemSairMouseListener(MouseListener mouseListener) {
         this.menuItemSair.addMouseListener(mouseListener);
+    }
+    
+     @Override
+    public void setMenuItemImportarCnesActionListener(ActionListener actionListener) {
+        this.MenuItemImportarCnes.addActionListener(actionListener);
     }
 }
