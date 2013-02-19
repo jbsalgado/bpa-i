@@ -63,6 +63,7 @@ public interface PacienteView {
     public void setTxtIdadeDocument(Document d);
     public void setTxtSexoDocument(Document d);
     public void setTxtOcupacaoDocument(Document d);
+    
   //  public void setTxtDataNascimentoDocument(Document d);
     
     //public String getDataNascimento();
