@@ -241,11 +241,13 @@ public class SistemaController {
 
     /**
      * Envia um arquivo XML com a produção dos dados
-     *@param file arquivo XML
-     * @return String com uma mensagem, se algum erro ocorrer devolve null
-     * 
+     * @param file arquivo XML
+     * @param competenciaMovimento a competência
+     * @param unidadeCnes cnes da unidade
+     * @param token token para validar os dados
+     * @return SMessageWebService[] com as mensagens recebidas do servidor
      */
-    public SMessageWebService[] enviarProducaoParaServidor(File file, String competenciaMovimento, String unidadeCnes) {
+    public SMessageWebService[] enviarProducaoParaServidor(File file, String competenciaMovimento, String unidadeCnes,String token) {
         SMessageWebService[] msg = null;
         SMessageWebService m = null;
         HttpPost httppost = new HttpPost();
@@ -263,6 +265,8 @@ public class SistemaController {
             form = new FormBodyPart("usuario", new StringBody(USER));
             reqEntity.addPart(form);
             form = new FormBodyPart("senha", new StringBody(PASSWORD));
+            reqEntity.addPart(form);
+            form = new FormBodyPart("token", new StringBody(token));
             reqEntity.addPart(form);
             //fim dos parâmetros
             reqEntity.addPart(file.getName(), fileContent);
