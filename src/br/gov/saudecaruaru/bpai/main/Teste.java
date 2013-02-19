@@ -22,6 +22,7 @@ import br.gov.saudecaruaru.bpai.data.DiversasDAO;
 import br.gov.saudecaruaru.bpai.data.HibernateUtil;
 import br.gov.saudecaruaru.bpai.gui.exportacao.ExportacaoCentralEnvio;
 import br.gov.saudecaruaru.bpai.gui.interfaces.IExportacaoStrategy;
+import br.gov.saudecaruaru.bpai.util.Criptografia;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sun.jersey.api.client.Client;
@@ -63,7 +64,7 @@ public class Teste {
                     //testarRestFul();
                     //testarEnvioRest();
             //testarPacienteRest();
-        testeJson();
+        //testeJson();
     }
     
     public static void testeDiversasServicos(){

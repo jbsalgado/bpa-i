@@ -936,7 +936,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         res.put("diversasPK.codigoTabela", Diversas.TABELA_PROFISSAO);
         return SearchGeneric.getInstance().initModeSearch(CadastroIndividualizado.this.diversasController,
                 "diversasPK.codigoItemTabela", "descricaoItemTabela",
-                "CÃ³digo", "ProfissÃ£o", res);
+                "Cóigo", "Profissão", res);
     }
 
     /**
@@ -2223,39 +2223,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
                 //se o prÃ³ximo componente for um Component
                 if (e.getOppositeComponent() instanceof Component) {
                     String folha = jTextFieldFolha.getText();
-                    if (!folha.equals("")) {
-                        //completa com zeros caso precise
-                        folha = String.format("%03d", Integer.parseInt(folha));
-                        jTextFieldFolha.setText(folha);
-
-                        //pega o nÃºmero da folha
-                        procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(((JTextField) e.getComponent()).getText());
-
-                        if (textFieldVerifier(getListFieldsHeader())) {
-                            //desabilita os campos do cabeÃ§alho da tela que sÃ£o 
-                            //referentes as informaÃ§Ãµes da unidade e do usuÃ¡rio
-                            disableFieldsHeader();
-                            enableFieldsProcedimento();
-                            CadastroIndividualizado.this.jTextFieldUsuarioCns.requestFocusInWindow();
-
-                        }
-                        try {
-                            //vai pegar a folha caso exista
-                            ProcedimentoRealizado pr = (ProcedimentoRealizado) CadastroIndividualizado.this.procedimentoRealizado.clone();
-                            //coloca a origem
-                            pr.setOrigemProcedimento(ProcedimentoRealizado.ORIGEM_INDIVIDUALIZADO);
-                            //retira a nacionalidade
-                            pr.setNacionalidadePaciente(null);
-                            pr.setQuantidadeRealizada(null);
-                            //pr.getProcedimentoRealizadoPK().setCompetencia();
-                            //retira a sequÃªncia
-                            pr.getProcedimentoRealizadoPK().setSequenciaFolha(null);
-                            CadastroIndividualizado.this.findAllProcedimentosFolha(pr);
-
-
-                        } catch (CloneNotSupportedException ex) {
-                            logger.error(ex);
-                        }
+                    if (FolhaVerifier.validarFolha(folha)) {
+                        CadastroIndividualizado.this.folhaFocusLost(folha);
 
                     }
                 }
@@ -3140,6 +3109,49 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         } catch (Exception ex) {
             //outra exceção desconhecida
             logger.error("erro ao tentar executar o método buscarPacienteServidroCentralEPreencherCampos(String cns) " + ex);
+        }
+    }
+
+    /**
+     * Completa a folha, preenche o objeto procedimentoRealizado e verifica se o cabeçalho
+     * está preenchido, após isso, abilita os campos do paciente e desabilita os cmapos do cabeçalho,
+     * caso a folha já existe, carrega os dados.
+     * @param folha numero da folha
+     */
+    private void folhaFocusLost(String folha) {
+        //completa com zeros caso precise
+        folha = String.format("%03d", Integer.parseInt(folha));
+        jTextFieldFolha.setText(folha);
+
+        //pega o nÃºmero da folha
+        procedimentoRealizado.getProcedimentoRealizadoPK().setNumeroFolha(folha);
+
+        if (textFieldVerifier(getListFieldsHeader())) {
+            //desabilita os campos do cabeÃ§alho da tela que sÃ£o 
+            //referentes as informaÃ§Ãµes da unidade e do usuÃ¡rio
+            disableFieldsHeader();
+
+            enableFieldsProcedimento();
+            CadastroIndividualizado.this.jTextFieldUsuarioCns.requestFocusInWindow();
+
+            try {
+                //vai pegar a folha caso exista
+                ProcedimentoRealizado pr = (ProcedimentoRealizado) CadastroIndividualizado.this.procedimentoRealizado.clone();
+                //coloca a origem
+                pr.setOrigemProcedimento(ProcedimentoRealizado.ORIGEM_INDIVIDUALIZADO);
+                //retira a nacionalidade
+                pr.setNacionalidadePaciente(null);
+                pr.setQuantidadeRealizada(null);
+                //pr.getProcedimentoRealizadoPK().setCompetencia();
+                //retira a sequÃªncia
+                pr.getProcedimentoRealizadoPK().setSequenciaFolha(null);
+                CadastroIndividualizado.this.findAllProcedimentosFolha(pr);
+
+
+            } catch (CloneNotSupportedException ex) {
+                logger.error(ex);
+            }
+
         }
     }
 

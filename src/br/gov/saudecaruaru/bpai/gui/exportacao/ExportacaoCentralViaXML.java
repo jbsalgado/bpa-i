@@ -4,6 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.gui.exportacao;
 
+import br.gov.saudecaruaru.bpai.business.controller.BIProcedimentoRealizadoController;
 import br.gov.saudecaruaru.bpai.business.controller.SistemaController;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.service.SMessageWebService;
@@ -47,9 +48,9 @@ public class ExportacaoCentralViaXML implements IExportacaoStrategy {
             FileOutputStream out=new FileOutputStream(file);
             out.write(gson.toJson(list).getBytes());
             out.close();
-            //file.
+            String token=BIProcedimentoRealizadoController.calcularToken(list);
             //exporta para o servidor.
-            SMessageWebService[] m = SistemaController.getnstance().enviarProducaoParaServidor(file,competenciaMovimento,cnesUnidade);
+            SMessageWebService[] m = SistemaController.getnstance().enviarProducaoParaServidor(file,competenciaMovimento,cnesUnidade,token);
             if (m == null) {
                 msg = "Erro ao exportar o arquivo. Verifique sua coneção com a internet.";
             }
