@@ -4,10 +4,14 @@
  */
 package br.gov.saudecaruaru.bpai.business.presenter.bpaprincipal;
 
+import br.gov.saudecaruaru.bpai.business.model.ArquivoCnes;
 import br.gov.saudecaruaru.bpai.business.presenter.cadastrofamilia.CadastroFamiliaPresenter;
 import br.gov.saudecaruaru.bpai.business.presenter.cadastropaciente.CadastroPacientePresenter;
+import br.gov.saudecaruaru.bpai.business.presenter.importacaoarquivocnes.ImportacaoArquivoCnesPresenter;
 import br.gov.saudecaruaru.bpai.gui.SIABPrincipalWindow;
 import br.gov.saudecaruaru.bpai.gui.interfaces.SIABPrincipalView;
+import java.awt.Frame;
+import javax.swing.JFileChooser;
 
 /**
  * Presenter da View SIABPrincipal
@@ -27,7 +31,9 @@ public class SIABPrincipalPresenter {
         this.setUpListeners();
         this.view.packAndShow();
     }
-    
+    public SIABPrincipalView getView(){
+        return this.view;
+    }
     /**
      * Inicia todos os listeners
      */
@@ -35,7 +41,29 @@ public class SIABPrincipalPresenter {
         //actionListener
         this.view.setMenuItemFamiliaActionListener(new SIABPrincipalActionListener.MenuItemFamiliaActionListener(this));
         this.view.setMenuItemPacienteActionListener(new SIABPrincipalActionListener.MenuItemPacienteActionListener(this));
+        this.view.setMenuItemImportarCnesActionListener(new SIABPrincipalActionListener.MenuItemImportarCnesActionListener(this));
     }
+    
+    private String importarArquivoCnes(String path){
+        ArquivoCnes arquivoCnes = new ArquivoCnes(path);
+        arquivoCnes.salvarDadosSiab();
+        return "OK";
+    }
+     public String escolherImportarArquivoCnes(){
+         // TODO add your handling code here:
+        JFileChooser fil= new JFileChooser();
+        //fil.setDialogType(JFileChooser.OPEN_DIALOG);
+        //fil.setFileFilter(new FileNameExtensionFilter("xml", ".xml"));
+        fil.showSaveDialog((SIABPrincipalWindow)this.view);
+        //arquivo foi encontrado
+        String path=fil.getSelectedFile() != null ? fil.getSelectedFile().getAbsolutePath() : null;
+        if( path!=null){
+            return importarArquivoCnes(path);
+        }
+        
+        return "ARQUIVO INVÁLIDO";
+     
+     }
     /**
      * Abre uma nova janela para cadastro de paciente
      */
@@ -50,5 +78,13 @@ public class SIABPrincipalPresenter {
     public void abrirCadastroFamilia(){
         CadastroFamiliaPresenter familiaPresenter = new CadastroFamiliaPresenter();
         familiaPresenter.createView();
+    }
+    
+     /**
+     * Abre uma nova janela para importacao do arquivo cnes
+     */
+    public void abrirImportacaoCnes(){
+        ImportacaoArquivoCnesPresenter cnesPresenter = new ImportacaoArquivoCnesPresenter();
+        cnesPresenter.createView((Frame)this.getView(), true);
     }
 }

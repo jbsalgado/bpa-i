@@ -5,6 +5,7 @@
 package br.gov.saudecaruaru.bpai.main;
 
 import br.gov.saudecaruaru.bpai.business.controller.SistemaController;
+import br.gov.saudecaruaru.bpai.business.model.ArquivoCnes;
 import br.gov.saudecaruaru.bpai.business.presenter.principal.PrincipalPresenter;
 import br.gov.saudecaruaru.bpai.data.HibernateUtil;
 import br.gov.saudecaruaru.bpai.gui.EscolhaBanco;
@@ -97,6 +98,8 @@ public class BPAI {
     public static void main(String[] args) {
         BPAI home= new BPAI();
         home.start();
+        //ArquivoCnes arquivoCnes = new ArquivoCnes("C:\\Users\\juniorpires\\Documents\\Trabalho\\BPA\\SIAB\\TXT_SIAB\\CN201212.txt");
+        //arquivoCnes.salvarDadosSiab();
         
     }
     
