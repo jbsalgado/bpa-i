@@ -640,6 +640,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
 //        this.jTxtDataNascimento.setInputVerifier(verifier);
 //    }
 
+    
+    
     @Override
     public void update(Subject sub, Object arg) {
         if(arg!=null){
