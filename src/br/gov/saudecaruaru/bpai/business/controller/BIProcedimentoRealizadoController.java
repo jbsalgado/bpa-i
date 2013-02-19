@@ -303,13 +303,18 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
      * @param list
      * @return um md5 se a lista passada não for nulla ou vazia, caso contrário devolve null
      */
-    public String calcularToken(List<BIProcedimentoRealizado> list) {
+    public static String calcularToken(List<BIProcedimentoRealizado> list) {
         if (list == null ? false : !list.isEmpty()) {
             StringBuilder sb = new StringBuilder();
+            double soma=0;
             for (BIProcedimentoRealizado pro : list) {
                 sb.append(pro.getCodigoProcedimento());
+                soma+=pro.getQuantidadeRealizada();
             }
+            //quantidade dos registros
             sb.append(list.size());
+            //total de procedimentos realizados
+            sb.append(soma);
             return Criptografia.md5(sb.toString());
         }
         return null;
