@@ -67,8 +67,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         jCbalfabetizado.setModel(modelEscolha);
         jCbDoencaCondicao.setModel(modelDoencaCondicao);
         
-       //this.jDtCDataNascimento.setDateFormatString("dd/MM/yyyy");
-        //jTxtDataNascimento.setDocument(new DataDocument());
+        this.jDtCDataNascimento.setDateFormatString("dd/MM/yyyy");
+        jTxtDataNascimento.setDocument(new DataDocument());
         
     }
      
@@ -394,19 +394,19 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     public String getCns(){
         return this.jTxtCns.getText();
     }
-//    @Override
-//    public String getDataNascimento(){
-//        return this.jTxtDataNascimento.getText().replaceAll("[/]","");
-//    }
+    @Override
+    public String getDataNascimento(){
+        return this.jTxtDataNascimento.getText().replaceAll("[/]","");
+    }
     
     @Override
     public Date getDataNascimento(){
-        return null;//return this.jDtCDataNascimento.getDate();
+        return this.jDtCDataNascimento.getDate();
     }
     
     @Override
     public void setDataNascimento(Date dataNascimento){
-        //this.jDtCDataNascimento.setDate(dataNascimento);
+        this.jDtCDataNascimento.setDate(dataNascimento);
     }
     @Override
     public void setSelecionarLinhaJTableActionListener(MouseListener listener) {
@@ -508,8 +508,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
 
     @Override
     public void enableTxtDataNascimento(boolean arg) {
-       //this.jTxtDataNascimento.setEnabled(arg);
-       //this.jDtCDataNascimento.setEnabled(arg); 
+      this.jTxtDataNascimento.setEnabled(arg);
+       this.jDtCDataNascimento.setEnabled(arg); 
     }
 
     @Override
@@ -635,10 +635,10 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         this.jTxtCns.setInputVerifier(verifier);
     }
     
-//    @Override
-//    public void setTxtDatanascimentoVerifier(InputVerifier verifier){
-//        this.jTxtDataNascimento.setInputVerifier(verifier);
-//    }
+    @Override
+    public void setTxtDatanascimentoVerifier(InputVerifier verifier){
+        this.jTxtDataNascimento.setInputVerifier(verifier);
+    }
 
     @Override
     public void update(Subject sub, Object arg) {
@@ -650,10 +650,10 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         }
     }
 
-//    @Override
-//    public void setTxtDataNascimentoDocument(Document d) {
-//        this.jTxtDataNascimento.setDocument(d);
-//    }
+    @Override
+    public void setTxtDataNascimentoDocument(Document d) {
+        this.jTxtDataNascimento.setDocument(d);
+    }
     
     @Override
     public void setCnsFocusListener(FocusListener listener){
