@@ -8,10 +8,8 @@ package br.gov.saudecaruaru.bpai.gui;
 import br.gov.saudecaruaru.bpai.gui.tablemodel.PacienteTableModel;
 import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
 import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
-import br.gov.saudecaruaru.bpai.business.model.Escolha;
 import br.gov.saudecaruaru.bpai.business.model.Observer;
 import br.gov.saudecaruaru.bpai.business.model.Subject;
-import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.*;
 import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
 import com.towel.bind.Binder;
@@ -67,8 +65,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         jCbalfabetizado.setModel(modelEscolha);
         jCbDoencaCondicao.setModel(modelDoencaCondicao);
         
-        this.jDtCDataNascimento.setDateFormatString("dd/MM/yyyy");
-        jTxtDataNascimento.setDocument(new DataDocument());
+       this.jDtCDataNascimento.setDateFormatString("dd/MM/yyyy");
+        
         
     }
      
@@ -111,6 +109,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbPacientes = new javax.swing.JTable();
         jCbDoencaCondicao = new javax.swing.JComboBox();
+        jDtCDataNascimento = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -183,7 +182,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                                 .addComponent(jBtConfirmar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtCancelar)
-                                .addGap(0, 325, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTxtFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -192,37 +191,37 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jCbDoencaCondicao, 0, 212, Short.MAX_VALUE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(25, 25, 25)
-                        .addComponent(jTxtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE))
+                        .addComponent(jTxtNome))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(32, 32, 32)
+                        .addComponent(jTxtCns, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(32, 32, 32)
-                                .addComponent(jTxtCns, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTxtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTxtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jTxtOcupacao))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCbalfabetizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTxtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel3)))
-                        .addGap(294, 294, Short.MAX_VALUE)))
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTxtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTxtOcupacao))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCbalfabetizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDtCDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -237,18 +236,23 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                     .addComponent(jLabel4)
                     .addComponent(jTxtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTxtIdade)
-                    .addComponent(jLabel6)
-                    .addComponent(jTxtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jCbalfabetizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTxtOcupacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jTxtIdade)
+                            .addComponent(jLabel6)
+                            .addComponent(jTxtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jCbalfabetizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jTxtOcupacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jDtCDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -325,6 +329,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     private javax.swing.JComboBox jCbDoencaCondicao;
     @Bindable(field="alfabetizado",formatter=EscolhaFormatter.class)
     private javax.swing.JComboBox jCbalfabetizado;
+    private com.toedter.calendar.JDateChooser jDtCDataNascimento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -394,10 +399,10 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     public String getCns(){
         return this.jTxtCns.getText();
     }
-    @Override
-    public String getDataNascimento(){
-        return this.jTxtDataNascimento.getText().replaceAll("[/]","");
-    }
+//    @Override
+//    public String getDataNascimento(){
+//        return this.jTxtDataNascimento.getText().replaceAll("[/]","");
+//    }
     
     @Override
     public Date getDataNascimento(){
@@ -508,7 +513,6 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
 
     @Override
     public void enableTxtDataNascimento(boolean arg) {
-      this.jTxtDataNascimento.setEnabled(arg);
        this.jDtCDataNascimento.setEnabled(arg); 
     }
 
@@ -635,12 +639,6 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         this.jTxtCns.setInputVerifier(verifier);
     }
     
-    @Override
-    public void setTxtDatanascimentoVerifier(InputVerifier verifier){
-        this.jTxtDataNascimento.setInputVerifier(verifier);
-    }
-
-    
     
     @Override
     public void update(Subject sub, Object arg) {
@@ -652,10 +650,6 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         }
     }
 
-    @Override
-    public void setTxtDataNascimentoDocument(Document d) {
-        this.jTxtDataNascimento.setDocument(d);
-    }
     
     @Override
     public void setCnsFocusListener(FocusListener listener){
