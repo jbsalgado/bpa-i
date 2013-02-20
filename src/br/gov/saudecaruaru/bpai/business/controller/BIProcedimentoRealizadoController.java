@@ -306,7 +306,7 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
     public static String calcularToken(List<BIProcedimentoRealizado> list) {
         if (list == null ? false : !list.isEmpty()) {
             StringBuilder sb = new StringBuilder();
-            double soma=0;
+            long soma=0;
             for (BIProcedimentoRealizado pro : list) {
                 sb.append(pro.getCodigoProcedimento());
                 soma+=pro.getQuantidadeRealizada();

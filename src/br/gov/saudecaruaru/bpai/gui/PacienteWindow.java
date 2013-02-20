@@ -8,10 +8,8 @@ package br.gov.saudecaruaru.bpai.gui;
 import br.gov.saudecaruaru.bpai.gui.tablemodel.PacienteTableModel;
 import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
 import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
-import br.gov.saudecaruaru.bpai.business.model.Escolha;
 import br.gov.saudecaruaru.bpai.business.model.Observer;
 import br.gov.saudecaruaru.bpai.business.model.Subject;
-import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.*;
 import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
 import com.towel.bind.Binder;
@@ -641,12 +639,6 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         this.jTxtCns.setInputVerifier(verifier);
     }
     
-//    @Override
-//    public void setTxtDatanascimentoVerifier(InputVerifier verifier){
-//        this.jTxtDataNascimento.setInputVerifier(verifier);
-//    }
-
-    
     
     @Override
     public void update(Subject sub, Object arg) {
@@ -658,10 +650,6 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         }
     }
 
-//    @Override
-//    public void setTxtDataNascimentoDocument(Document d) {
-//        this.jTxtDataNascimento.setDocument(d);
-//    }
     
     @Override
     public void setCnsFocusListener(FocusListener listener){
