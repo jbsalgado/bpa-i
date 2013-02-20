@@ -48,6 +48,11 @@
                 <Property name="text" type="java.lang.String" value="Importar Arquivo Cnes"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItemImportarOcupacao">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Importar Arquivo Ocupa&#xe7;&#xe3;o"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>

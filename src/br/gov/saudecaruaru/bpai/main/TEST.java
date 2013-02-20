@@ -7,10 +7,7 @@ package br.gov.saudecaruaru.bpai.main;
 
 import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoDoencaController;
 import br.gov.saudecaruaru.bpai.business.controller.SistemaController;
-import br.gov.saudecaruaru.bpai.business.model.ArquivoCnes;
-import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoenca;
-import br.gov.saudecaruaru.bpai.business.model.ProcedimentoDoencaPK;
-import br.gov.saudecaruaru.bpai.business.model.ProcedimentoRealizado;
+import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.business.validators.ProcedimentoRealizadoValidator;
 import br.gov.saudecaruaru.bpai.data.HibernateUtil;
 import br.gov.saudecaruaru.bpai.gui.EscolhaBanco;
@@ -57,9 +54,10 @@ public class TEST {
         SistemaController.updateConfigurations();
     }
     public static void main(String[] args){
-        
-        ArquivoCnes arquivoCnes = new ArquivoCnes("C:\\Users\\juniorpires\\Documents\\Trabalho\\BPA\\SIAB\\TXT_SIAB\\CN201212.txt");
-        arquivoCnes.salvarDadosSiab();
+        ArquivoOcupacao ocupacao = new ArquivoOcupacao("C:\\Users\\juniorpires\\Documents\\Trabalho\\BPA\\SIAB\\Arquivos SIAB\\SIABMUNsecundaria\\TABOCU.DBF");
+        ocupacao.lerArquivoOcupacao();
+        //ArquivoCnes arquivoCnes = new ArquivoCnes("C:\\Users\\juniorpires\\Documents\\Trabalho\\BPA\\SIAB\\TXT_SIAB\\CN201212.txt");
+        //arquivoCnes.salvarDadosSiab();
 //       BPAI.initDatabaseConfiguration();
 //       String msg ="";
 //       ProcedimentoRealizado p = new ProcedimentoRealizado();

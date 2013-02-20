@@ -8,6 +8,7 @@ import br.gov.saudecaruaru.bpai.business.model.ArquivoCnes;
 import br.gov.saudecaruaru.bpai.business.presenter.cadastrofamilia.CadastroFamiliaPresenter;
 import br.gov.saudecaruaru.bpai.business.presenter.cadastropaciente.CadastroPacientePresenter;
 import br.gov.saudecaruaru.bpai.business.presenter.importacaoarquivocnes.ImportacaoArquivoCnesPresenter;
+import br.gov.saudecaruaru.bpai.business.presenter.importacaoarquivoocupacao.ImportacaoArquivoOcupacaoPresenter;
 import br.gov.saudecaruaru.bpai.gui.SIABPrincipalWindow;
 import br.gov.saudecaruaru.bpai.gui.interfaces.SIABPrincipalView;
 import java.awt.Frame;
@@ -42,6 +43,7 @@ public class SIABPrincipalPresenter {
         this.view.setMenuItemFamiliaActionListener(new SIABPrincipalActionListener.MenuItemFamiliaActionListener(this));
         this.view.setMenuItemPacienteActionListener(new SIABPrincipalActionListener.MenuItemPacienteActionListener(this));
         this.view.setMenuItemImportarCnesActionListener(new SIABPrincipalActionListener.MenuItemImportarCnesActionListener(this));
+        this.view.setMenuItemImportarOcupacaoActionListener(new SIABPrincipalActionListener.MenuItemImportarOcupacaoActionListener(this));
     }
     
     private String importarArquivoCnes(String path){
@@ -61,7 +63,7 @@ public class SIABPrincipalPresenter {
             return importarArquivoCnes(path);
         }
         
-        return "ARQUIVO INVÁLIDO";
+        return "ARQUIVO INVÃ�LIDO";
      
      }
     /**
@@ -73,7 +75,7 @@ public class SIABPrincipalPresenter {
     }
     
     /**
-     * Abre uma nova janela para cadastro de família
+     * Abre uma nova janela para cadastro de famÃ­lia
      */
     public void abrirCadastroFamilia(){
         CadastroFamiliaPresenter familiaPresenter = new CadastroFamiliaPresenter();
@@ -86,5 +88,13 @@ public class SIABPrincipalPresenter {
     public void abrirImportacaoCnes(){
         ImportacaoArquivoCnesPresenter cnesPresenter = new ImportacaoArquivoCnesPresenter();
         cnesPresenter.createView((Frame)this.getView(), true);
+    }
+    
+    /**
+     * Abre uma nova janela para importacao do arquivo ocupacao
+     */
+    public void abrirImportacaoOcupacao(){
+        ImportacaoArquivoOcupacaoPresenter ocupacaoPresenter = new ImportacaoArquivoOcupacaoPresenter();
+        ocupacaoPresenter.createView((Frame)this.getView(), true);
     }
 }

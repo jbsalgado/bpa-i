@@ -28,5 +28,6 @@ public interface SIABPrincipalView {
     public void setMenuItemPacienteMouseListener(MouseListener mouseListener);
     
     public void setMenuItemImportarCnesActionListener(ActionListener actionListener);
+    public void setMenuItemImportarOcupacaoActionListener(ActionListener actionListener);
     
 }

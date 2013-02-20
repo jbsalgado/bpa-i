@@ -59,4 +59,19 @@ public class SIABPrincipalActionListener {
         
         
     }
+     
+      public static class MenuItemImportarOcupacaoActionListener implements ActionListener{
+        private SIABPrincipalPresenter presenter;
+
+        public MenuItemImportarOcupacaoActionListener(SIABPrincipalPresenter presenter) {
+            this.presenter = presenter;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          this.presenter.abrirImportacaoOcupacao();
+        }
+        
+        
+    }
 }
