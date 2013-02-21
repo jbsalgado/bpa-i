@@ -10,6 +10,7 @@ import br.gov.saudecaruaru.bpai.gui.tablemodel.PacienteTableModel;
 import com.towel.bind.Binder;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.Date;
 import javax.swing.InputVerifier;
@@ -76,6 +77,9 @@ public interface PacienteView {
     public void setSelectedIndexDoencaCondicao(int i);
     
     public String getCns();
+    public void setCodigoOcupacao(String codigo);
+    
     public void setCnsFocusListener(FocusListener listener);
     public boolean validaCamposVazios();
+    public void setCodigoOcupacaoKeyListener(KeyListener listener);
 }

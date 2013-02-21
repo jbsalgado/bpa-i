@@ -6,6 +6,7 @@ package br.gov.saudecaruaru.bpai.business.presenter.cadastropaciente;
 
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
+import br.gov.saudecaruaru.bpai.data.BIOcupacaoDAO;
 import br.gov.saudecaruaru.bpai.data.BIPacienteDAO;
 import br.gov.saudecaruaru.bpai.gui.*;
 import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;
@@ -72,6 +73,8 @@ public class CadastroPacientePresenter {
         this.view.setFamiliaActionListener(new CadastroPacienteActionListener.FamiliaActionListener(this));
         this.view.setCancelarActionListener(new CadastroPacienteActionListener.CancelarActionListener(this));
         this.view.setCnsFocusListener(new CadastroPacienteFocusListener.CnsFocusListener(this));
+        
+        this.view.setCodigoOcupacaoKeyListener(new CadastroPacienteKeyListener.OcupacaoKeyListener(this));
     }
     
     private void setDocuments(){
@@ -79,7 +82,7 @@ public class CadastroPacientePresenter {
         this.view.setTxtNomeDocument(new OnlyUpperLettersDocument(45));
         this.view.setTxtIdadeDocument(new OnlyNumbersDocument(3));
         this.view.setTxtSexoDocument(new OnlyUpperLettersDocument(1));
-        this.view.setTxtOcupacaoDocument(new OnlyUpperLettersDocument(45));
+        this.view.setTxtOcupacaoDocument(new OnlyNumbersDocument(3));
         this.view.setTxtSexoDocument(new SexoDocument());
        // this.view.setTxtDataNascimentoDocument(new DataDocument());
     }
@@ -212,18 +215,12 @@ public class CadastroPacientePresenter {
         return this.pacienteDao.findEqual(p);
     }
     
-    public void selecionaOcupacao(){
-//         Search model= SearchGeneric.getInstance().initModeSearch(this.pacienteDao, "codigo", "nome", "Código", "Descrição", new HashMap<String,Object>());
-//        if ( model != null){
-//            ProcedimentoMedicoPresenter.this.view.setProcedimentoAmbulatorialCodigo(model.getId());
-//            ProcedimentoMedicoPresenter.this.view.setProcedimentoAmbulatorialNome(model.getDescription());
-//            //agora vai buscar no banco de dados
-//            Map<String,Object> res=new HashMap<String, Object>();
-//            res.put("codigo", model.getId());
-//            ProcedimentoAmbulatorial pro=ProcedimentoMedicoPresenter.this.procedimentoAmbulatorialDAO.findEqual(res);
-//            ProcedimentoMedicoPresenter.this.
-//                    procedimentoMedico.setProcedimentoAmbulatorial(pro);
-//        }
+    public void selecionarOcupacao(){
+        Search model= SearchGeneric.getInstance().initModeSearch(new BIOcupacaoDAO(), "codigo", "nome", "Código", "Descrição", new HashMap<String,Object>());
+        if ( model != null){
+            this.view.setCodigoOcupacao(model.getId());
+           
+        }
     }
      
 }

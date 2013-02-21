@@ -39,4 +39,59 @@ public class CadastroFamiliaKeyListener {
         }
     
     }
+    
+    
+    static class TxtMicroareaKeyKistener implements KeyListener{
+        CadastroFamiliaPresenter presenter;
+
+        public TxtMicroareaKeyKistener(CadastroFamiliaPresenter presenter) {
+            this.presenter = presenter;
+        }
+        
+        
+        @Override
+        public void keyTyped(KeyEvent e) {
+           
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+          if(e.getKeyCode()==KeyEvent.VK_F1){
+              this.presenter.selecionarMicroarea();
+          }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+           
+        }
+    
+    }
+    
+     static class TxtSegmentoKeyKistener implements KeyListener{
+        CadastroFamiliaPresenter presenter;
+
+        public TxtSegmentoKeyKistener(CadastroFamiliaPresenter presenter) {
+            this.presenter = presenter;
+        }
+        
+        
+        @Override
+        public void keyTyped(KeyEvent e) {
+           
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+          if(e.getKeyCode()==KeyEvent.VK_F1){
+              this.presenter.selecionarSegmento();
+          }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+           
+        }
+    
+    }
 }

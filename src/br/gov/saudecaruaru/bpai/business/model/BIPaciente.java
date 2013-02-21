@@ -36,8 +36,8 @@ public class BIPaciente implements Serializable {
     @Column(name = "alfabetizado",length=1)
     private Character alfabetizado;
    
-    @Column(name="ocupacao",length=45)
-    private String ocupacao;
+    @Column(name="ocupacao",length=3)
+    private String codigoOcupacao;
     
     @Column(name="doenca_condicao",length=3)
     private String doencaCondicao;
@@ -132,15 +132,15 @@ public class BIPaciente implements Serializable {
     /**
      * @return the ocupacao
      */
-    public String getOcupacao() {
-        return ocupacao;
+    public String getCodigoOcupacao() {
+        return codigoOcupacao;
     }
 
     /**
      * @param ocupacao the ocupacao to set
      */
-    public void setOcupacao(String ocupacao) {
-        this.ocupacao = ocupacao;
+    public void setCodigoOcupacao(String ocupacao) {
+        this.codigoOcupacao = ocupacao;
     }
 
     /**

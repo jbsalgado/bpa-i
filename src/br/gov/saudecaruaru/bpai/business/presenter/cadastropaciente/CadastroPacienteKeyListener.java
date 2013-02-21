@@ -14,7 +14,13 @@ import java.awt.event.KeyListener;
 public class CadastroPacienteKeyListener {
     
     static class OcupacaoKeyListener implements KeyListener{
+        CadastroPacientePresenter presenter;
 
+        public OcupacaoKeyListener(CadastroPacientePresenter presenter) {
+            this.presenter = presenter;
+        }
+        
+        
         @Override
         public void keyTyped(KeyEvent e) {
             
@@ -22,8 +28,8 @@ public class CadastroPacienteKeyListener {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            if(e.getKeyCode()==KeyEvent.VK_F2){
-                
+            if(e.getKeyCode()==KeyEvent.VK_F1){
+                this.presenter.selecionarOcupacao();
             }
         }
 
