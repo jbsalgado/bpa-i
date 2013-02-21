@@ -4,10 +4,9 @@
  */
 package br.gov.saudecaruaru.bpai.business.presenter.cadastrofamilia;
 
-import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
-import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
-import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
+import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.data.BICnesAreaDAO;
+import br.gov.saudecaruaru.bpai.data.BICnesMicroareaDAO;
 import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
 import br.gov.saudecaruaru.bpai.gui.tablemodel.FamiliaTableModel;
 import br.gov.saudecaruaru.bpai.gui.FamiliaWindow;
@@ -50,23 +49,20 @@ public class CadastroFamiliaPresenter {
         this.novaFamilia();
         //cria o DAO
         this.familiaDao = new BIFamiliaDAO();
-        this.setVerifiers();
         this.view.setDocuments();
         this.setUpViewListeners();  
         this.habilitarEdicao(false);
         this.view.enableBtnEditar(false);
         this.view.visibleBtnBuscar(false);
         this.initDadosJTable();
-        //this.view.setVerifiers();
+        this.view.setVerifiers();
         //this.view.setDocuments();
         this.view.packAndShow();
     }  
     
     
     
-    private void setVerifiers(){
-        this.view.setTxtCepVerifier(new CepVerifier((Component)this.view,"Cep"));
-    }
+   
     
     private void setUpViewListeners(){
         this.view.setNovoActionListener(new CadastroFamiliaActionListener.NovoActionListener(this));
@@ -86,6 +82,8 @@ public class CadastroFamiliaPresenter {
         
         //key listeners
         this.view.setAreaKeyListener(new CadastroFamiliaKeyListener.TxtAreaKeyKistener(this));
+        this.view.setMicroareaKeyListener(new CadastroFamiliaKeyListener.TxtMicroareaKeyKistener(this));
+        this.view.setSegmentoKeyListener(new CadastroFamiliaKeyListener.TxtSegmentoKeyKistener(this));
     }
     
      private void initDadosJTable(){
@@ -218,18 +216,40 @@ public class CadastroFamiliaPresenter {
         return this.familiaDao.findAllEqual(p);
     }
     
-    
+    protected void selecionarSegmento(){
+        Search model= SearchGeneric.getInstance().initModeSearch(Segmento.LIST, "codigo", "nome", "Código", "Descrição", new HashMap<String,Object>());
+        if ( model != null){
+                CadastroFamiliaPresenter.this.view.setSegmento(model.getId());
+        }
+        
+    }
     
     protected void selecionarArea(){
-            Search model= SearchGeneric.getInstance().initModeSearch(new BICnesAreaDAO(), "codigoArea", "nomeArea", "Código", "Descrição", new HashMap<String,Object>());
-            if ( model != null){
+        HashMap<String, Object> restrictions = new HashMap<String,Object>();
+        if(!this.view.getSegmento().isEmpty()){
+            restrictions.put("codigoSegmento",this.view.getSegmento());
+        }
+        Search model= SearchGeneric.getInstance().initModeSearch(new BICnesAreaDAO(), "codigoArea", "nomeArea", "Código", "Descrição",restrictions);
+        if ( model != null){
                 CadastroFamiliaPresenter.this.view.setArea(model.getId());
-                //agora vai buscar no banco de dados
-//                Map<String,Object> res=new HashMap<String, Object>();
-//                res.put("codigo_area", model.getId());
-//                ProcedimentoAmbulatorial pro=ProcedimentoMedicoPresenter.this.procedimentoAmbulatorialDAO.findEqual(res);
-//                ProcedimentoMedicoPresenter.this.
-//                        procedimentoMedico.setProcedimentoAmbulatorial(pro);
+        }
+        
+    }
+    
+    protected void selecionarMicroarea(){
+        HashMap<String, Object> restrictions = new HashMap<String,Object>();
+        if(!this.view.getArea().isEmpty()){
+            BICnesAreaDAO cnesAreaDAO = new BICnesAreaDAO();
+            BICnesArea area = new BICnesArea();
+            area.setCodigoArea(this.view.getArea());
+            BICnesArea findEqualArea = cnesAreaDAO.findEqual(area);
+            if(findEqualArea!=null){
+                restrictions.put("cnesArea", new BICnesArea(findEqualArea.getCnes()));
+            }
+        }
+        Search model= SearchGeneric.getInstance().initModeSearch(new BICnesMicroareaDAO(), "codigoMicroarea", "nomeMicroarea", "Código", "Descrição",restrictions);
+        if ( model != null){
+                CadastroFamiliaPresenter.this.view.setMicroarea(model.getId());
         }
         
     }

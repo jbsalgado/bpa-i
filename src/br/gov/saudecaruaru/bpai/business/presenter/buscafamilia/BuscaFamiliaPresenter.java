@@ -49,7 +49,7 @@ public class BuscaFamiliaPresenter{
         //cria o DAO
         this.familiaDao = new BIFamiliaDAO();
        // this.desabilitaCabecalho();
-        this.setVerifiers();
+      
         this.view.setDocuments();
         this.setUpViewListeners();  
         this.view.enableBtnEditar(false);
@@ -59,7 +59,7 @@ public class BuscaFamiliaPresenter{
         this.view.visibleBtnBuscar(true);
         //this.view.enableTxtFamilia(false);
         this.initDadosJTable();
-        //this.view.setVerifiers();
+        this.view.setVerifiers();
         //this.view.setDocuments();
         this.view.packAndShow();
     }  
@@ -77,9 +77,7 @@ public class BuscaFamiliaPresenter{
     }
     
      
-    private void setVerifiers(){
-        this.view.setTxtCepVerifier(new CepVerifier((Component)this.view,"Cep"));
-    }
+   
      private void initDadosJTable(){
       
         try {

@@ -13,6 +13,9 @@ import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.EscolhaFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.UFFormatter;
 import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
+import br.gov.saudecaruaru.bpai.gui.verifiers.CepVerifier;
+import br.gov.saudecaruaru.bpai.gui.verifiers.OnlyNumbers;
+import br.gov.saudecaruaru.bpai.gui.verifiers.OnlyNumbersExZero;
 import com.towel.bind.Binder;
 import com.towel.bind.annotation.AnnotatedBinder;
 import com.towel.bind.annotation.Bindable;
@@ -414,6 +417,14 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     public void setArea(String area){
         this.jTxtArea.setText(area);
     }
+    @Override
+    public void setMicroarea(String microarea){
+        this.jTxtMicroArea.setText(microarea);
+    }
+    @Override
+    public void setSegmento(String segmento){
+        this.jTxtSegmento.setText(segmento);
+    }
     
     @Override
     public void setSelecionarLinhaJTableActionListener(MouseListener listener) {
@@ -528,6 +539,10 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     @Override
     public void setMicroareaKeyListener(KeyListener listener){
         this.jTxtMicroArea.addKeyListener(listener);
+    }
+    @Override
+    public void setSegmentoKeyListener(KeyListener listener){
+        this.jTxtSegmento.addKeyListener(listener);
     }
    
     @Override
@@ -663,9 +678,14 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     
    
     
+    
     @Override
-    public void setTxtCepVerifier(InputVerifier verifier){
-        this.jTxtCep.setInputVerifier(verifier);
+    public void setVerifiers(){
+        this.jTxtMicroArea.setInputVerifier(new OnlyNumbersExZero(this, "Microarea"));
+        this.jTxtArea.setInputVerifier(new OnlyNumbersExZero(this, "Area"));
+        this.jTxtSegmento.setInputVerifier(new OnlyNumbersExZero(this, "Segmento"));
+        this.jTxtFamilia.setInputVerifier(new OnlyNumbersExZero(this, "Familia"));
+        this.jTxtCep.setInputVerifier(new CepVerifier(this, "CEP"));
     }
     
     

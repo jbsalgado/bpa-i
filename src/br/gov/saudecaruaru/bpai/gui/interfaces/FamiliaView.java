@@ -49,6 +49,7 @@ public interface FamiliaView {
     public void setCancelarActionListener(ActionListener listener);
     public void setAreaKeyListener(KeyListener listener);
     public void setMicroareaKeyListener(KeyListener listener);
+    public void setSegmentoKeyListener(KeyListener listener);
     
     public void visibleBtnBuscar(boolean arg);
     public void setBuscarActionListener(ActionListener listener);
@@ -57,7 +58,7 @@ public interface FamiliaView {
     public String getCep();
    
     
-    public void setTxtCepVerifier(InputVerifier verifier);
+   
     
     public void setSelectedUF(String uf);
     public void setSelectedIndexUF(int i);
@@ -74,7 +75,10 @@ public interface FamiliaView {
     public String getMicroarea();
     public String getFamilia();
     public void setArea(String area);
+    public void setMicroarea(String microarea);
+    public void setSegmento(String segmento);
     public boolean validaCamposVazios();
     
     public void setDocuments();
+    public void setVerifiers();
 }
