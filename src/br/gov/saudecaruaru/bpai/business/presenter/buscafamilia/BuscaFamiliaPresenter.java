@@ -50,7 +50,7 @@ public class BuscaFamiliaPresenter{
         this.familiaDao = new BIFamiliaDAO();
        // this.desabilitaCabecalho();
         this.setVerifiers();
-        this.setDocuments();
+        this.view.setDocuments();
         this.setUpViewListeners();  
         this.view.enableBtnEditar(false);
         this.view.enableBtnConfirmar(false);
@@ -75,18 +75,7 @@ public class BuscaFamiliaPresenter{
           this.view.setMicroareaFocusListener(new BuscaFamiliaFocusListener.CompletarComZerosFocusListener("2"));
           this.view.setFamiliaFocusListener(new BuscaFamiliaFocusListener.CompletarComZerosFocusListener("3"));
     }
-     public void setDocuments(){
-        this.view.setTxtSegmentoDocument(new OnlyNumbersDocument(2));
-        this.view.setTxtAreaDocument(new OnlyNumbersDocument(3));
-        this.view.setTxtMicroareaDocument(new OnlyNumbersDocument(2));
-        this.view.setTxtFamiliaDocument(new OnlyNumbersDocument(3));
-        this.view.setTxtEnderecoDocument(new OnlyUpperLettersDocument(0));
-        this.view.setTxtNumeroDocument(new OnlyNumbersDocument(0));
-        this.view.setTxtBairroDocument(new OnlyUpperLettersDocument(0));
-        this.view.setTxtMunicipioDocument(new OnlyUpperLettersDocument(0));
-        this.view.setTxtCepDocument(new CepDocument());
-        this.view.setTxtAnoDocument(new OnlyNumbersDocument(4));
-    }
+    
      
     private void setVerifiers(){
         this.view.setTxtCepVerifier(new CepVerifier((Component)this.view,"Cep"));

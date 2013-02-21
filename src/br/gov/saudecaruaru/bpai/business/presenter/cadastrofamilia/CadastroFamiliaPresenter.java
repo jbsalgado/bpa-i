@@ -7,9 +7,11 @@ package br.gov.saudecaruaru.bpai.business.presenter.cadastrofamilia;
 import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
 import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
 import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
+import br.gov.saudecaruaru.bpai.data.BICnesAreaDAO;
 import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
 import br.gov.saudecaruaru.bpai.gui.tablemodel.FamiliaTableModel;
 import br.gov.saudecaruaru.bpai.gui.FamiliaWindow;
+import br.gov.saudecaruaru.bpai.gui.SearchGeneric;
 import br.gov.saudecaruaru.bpai.gui.documents.CepDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyNumbersDocument;
@@ -18,8 +20,11 @@ import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
 import br.gov.saudecaruaru.bpai.gui.interfaces.OperacaoStrategy;
 import br.gov.saudecaruaru.bpai.gui.verifiers.CepVerifier;
 import br.gov.saudecaruaru.bpai.gui.verifiers.DataVerifier;
+import br.gov.saudecaruaru.bpai.util.Search;
 import java.awt.Component;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -46,7 +51,7 @@ public class CadastroFamiliaPresenter {
         //cria o DAO
         this.familiaDao = new BIFamiliaDAO();
         this.setVerifiers();
-        this.setDocuments();
+        this.view.setDocuments();
         this.setUpViewListeners();  
         this.habilitarEdicao(false);
         this.view.enableBtnEditar(false);
@@ -57,18 +62,7 @@ public class CadastroFamiliaPresenter {
         this.view.packAndShow();
     }  
     
-    private void setDocuments(){
-        this.view.setTxtSegmentoDocument(new OnlyNumbersDocument(2));
-        this.view.setTxtAreaDocument(new OnlyNumbersDocument(3));
-        this.view.setTxtMicroareaDocument(new OnlyNumbersDocument(2));
-        this.view.setTxtFamiliaDocument(new OnlyNumbersDocument(3));
-        this.view.setTxtEnderecoDocument(new OnlyUpperLettersDocument(60));
-        this.view.setTxtNumeroDocument(new OnlyNumbersDocument(4));
-        this.view.setTxtBairroDocument(new OnlyUpperLettersDocument(60));
-        this.view.setTxtMunicipioDocument(new OnlyUpperLettersDocument(60));
-        this.view.setTxtCepDocument(new CepDocument());
-        this.view.setTxtAnoDocument(new OnlyNumbersDocument(4));
-    }
+    
     
     private void setVerifiers(){
         this.view.setTxtCepVerifier(new CepVerifier((Component)this.view,"Cep"));
@@ -83,12 +77,15 @@ public class CadastroFamiliaPresenter {
         
         //listeners para completar com zeros a esquerda
         this.view.setSegmentoFocusListener(new CadastroFamiliaFocusListener.CompletarComZerosFocusListener("2"));
-        this.view.setAreaFocusListener(new CadastroFamiliaFocusListener.CompletarComZerosFocusListener("3"));
+        this.view.setAreaFocusListener(new CadastroFamiliaFocusListener.CompletarComZerosFocusListener("4"));
         this.view.setMicroareaFocusListener(new CadastroFamiliaFocusListener.CompletarComZerosFocusListener("2"));
         this.view.setFamiliaFocusListener(new CadastroFamiliaFocusListener.CompletarComZerosFocusListener("3"));
         
         // esse listener tem que ser adicionado depois dos listeneres de completar com zero
         this.view.setFamiliaFocusListener(new CadastroFamiliaFocusListener.FamiliaFocusListener(this));
+        
+        //key listeners
+        this.view.setAreaKeyListener(new CadastroFamiliaKeyListener.TxtAreaKeyKistener(this));
     }
     
      private void initDadosJTable(){
@@ -219,6 +216,22 @@ public class CadastroFamiliaPresenter {
     
     private List<BIFamilia> buscaFamilia(BIFamilia p){
         return this.familiaDao.findAllEqual(p);
+    }
+    
+    
+    
+    protected void selecionarArea(){
+            Search model= SearchGeneric.getInstance().initModeSearch(new BICnesAreaDAO(), "codigoArea", "nomeArea", "Código", "Descrição", new HashMap<String,Object>());
+            if ( model != null){
+                CadastroFamiliaPresenter.this.view.setArea(model.getId());
+                //agora vai buscar no banco de dados
+//                Map<String,Object> res=new HashMap<String, Object>();
+//                res.put("codigo_area", model.getId());
+//                ProcedimentoAmbulatorial pro=ProcedimentoMedicoPresenter.this.procedimentoAmbulatorialDAO.findEqual(res);
+//                ProcedimentoMedicoPresenter.this.
+//                        procedimentoMedico.setProcedimentoAmbulatorial(pro);
+        }
+        
     }
      
 }

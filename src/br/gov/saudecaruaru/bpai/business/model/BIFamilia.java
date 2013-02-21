@@ -31,7 +31,7 @@ public class BIFamilia implements Serializable {
     @Basic(optional=false)
     private String segmento;
     
-    @Column(name="area", length=3)
+    @Column(name="area", length=4)
     @Basic(optional=false)
     private String area;
     

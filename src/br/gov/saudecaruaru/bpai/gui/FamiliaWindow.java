@@ -8,6 +8,8 @@ import br.gov.saudecaruaru.bpai.gui.tablemodel.FamiliaTableModel;
 import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
 import br.gov.saudecaruaru.bpai.gui.documents.CepDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;
+import br.gov.saudecaruaru.bpai.gui.documents.OnlyNumbersDocument;
+import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.EscolhaFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.UFFormatter;
 import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
@@ -20,6 +22,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -408,6 +411,11 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     }
     
     @Override
+    public void setArea(String area){
+        this.jTxtArea.setText(area);
+    }
+    
+    @Override
     public void setSelecionarLinhaJTableActionListener(MouseListener listener) {
         this.jTbFamilias.addMouseListener(listener);
     }
@@ -513,6 +521,15 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         this.jTxtFamilia.addFocusListener(listener);
     } 
     
+    @Override
+    public void setAreaKeyListener(KeyListener listener){
+        this.jTxtArea.addKeyListener(listener);
+    }
+    @Override
+    public void setMicroareaKeyListener(KeyListener listener){
+        this.jTxtMicroArea.addKeyListener(listener);
+    }
+   
     @Override
     public void setSelectedUF(String uf){
         this.modelUF.setSelectedObject(uf);
@@ -644,54 +661,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         this.jBtCancelar.addActionListener(listener);
     }
     
-    @Override
-    public void setTxtSegmentoDocument(Document d){
-        this.jTxtSegmento.setDocument(d);
-    }
-    
-    @Override
-    public void setTxtAreaDocument(Document d){
-        this.jTxtArea.setDocument(d);
-    }
-    
-    @Override
-    public void setTxtMicroareaDocument(Document d){
-        this.jTxtMicroArea.setDocument(d);
-    }
-    
-    @Override
-    public void setTxtFamiliaDocument(Document d){
-        this.jTxtFamilia.setDocument(d);
-    }
-    
-    @Override
-    public void setTxtEnderecoDocument(Document d){
-        this.jTxtendereco.setDocument(d);
-    }
-    
-    @Override
-    public void setTxtNumeroDocument(Document d){
-        this.jTxtNumero.setDocument(d);
-    }
-    
-    @Override
-    public void setTxtBairroDocument(Document d){
-        this.jTxtBairro.setDocument(d);
-    
-    }
-    
-    public void setTxtCepDocument(Document d){
-        this.jTxtCep.setDocument(d);
-    }
-    
-    
-    
-    
-    @Override
-    public void setTxtMunicipioDocument(Document d){
-        this.jTxtMunicipio.setDocument(d);
-    }
-    
+   
     
     @Override
     public void setTxtCepVerifier(InputVerifier verifier){
@@ -709,9 +679,18 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     public void enableTxtAno(boolean arg) {
         this.jTxtAno.setEnabled(arg);
     }
-
+    
     @Override
-    public void setTxtAnoDocument(Document d) {
-       this.jTxtAno.setDocument(d);
+    public void setDocuments(){
+        this.jTxtSegmento.setDocument(new OnlyNumbersDocument(2));
+        this.jTxtArea.setDocument(new OnlyNumbersDocument(4));
+        this.jTxtMicroArea.setDocument(new OnlyNumbersDocument(2));
+        this.jTxtFamilia.setDocument(new OnlyNumbersDocument(3));
+        this.jTxtendereco.setDocument(new OnlyUpperLettersDocument(60));
+        this.jTxtNumero.setDocument(new OnlyNumbersDocument(4));
+        this.jTxtBairro.setDocument(new OnlyUpperLettersDocument(60));
+        this.jTxtMunicipio.setDocument(new OnlyUpperLettersDocument(60));
+        this.jTxtCep.setDocument(new CepDocument());
+        this.jTxtAno.setDocument(new OnlyNumbersDocument(4));
     }
 }

@@ -8,6 +8,7 @@ import br.gov.saudecaruaru.bpai.gui.tablemodel.FamiliaTableModel;
 import com.towel.bind.Binder;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import javax.swing.InputVerifier;
 import javax.swing.text.Document;
@@ -46,21 +47,13 @@ public interface FamiliaView {
     public void setEditarActionListener(ActionListener listener);
     public void setConfirmarActionListener(ActionListener listener);
     public void setCancelarActionListener(ActionListener listener);
+    public void setAreaKeyListener(KeyListener listener);
+    public void setMicroareaKeyListener(KeyListener listener);
     
     public void visibleBtnBuscar(boolean arg);
     public void setBuscarActionListener(ActionListener listener);
     public void fecharJanela();
-    
-    public void setTxtSegmentoDocument(Document d);
-    public void setTxtAreaDocument(Document d);
-    public void setTxtMicroareaDocument(Document d);
-    public void setTxtFamiliaDocument(Document d);
-    public void setTxtEnderecoDocument(Document d);
-    public void setTxtNumeroDocument(Document d);
-    public void setTxtBairroDocument(Document d);
-    public void setTxtCepDocument(Document d);
-    public void setTxtMunicipioDocument(Document d);
-    public void setTxtAnoDocument(Document d);
+   
     public String getCep();
    
     
@@ -80,6 +73,8 @@ public interface FamiliaView {
     public String getArea();
     public String getMicroarea();
     public String getFamilia();
-    
+    public void setArea(String area);
     public boolean validaCamposVazios();
+    
+    public void setDocuments();
 }
