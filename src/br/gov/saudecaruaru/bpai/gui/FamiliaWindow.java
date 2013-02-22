@@ -13,9 +13,7 @@ import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
 import br.gov.saudecaruaru.bpai.gui.formatter.EscolhaFormatter;
 import br.gov.saudecaruaru.bpai.gui.formatter.UFFormatter;
 import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
-import br.gov.saudecaruaru.bpai.gui.verifiers.CepVerifier;
-import br.gov.saudecaruaru.bpai.gui.verifiers.OnlyNumbers;
-import br.gov.saudecaruaru.bpai.gui.verifiers.OnlyNumbersExZero;
+import br.gov.saudecaruaru.bpai.gui.verifiers.*;
 import com.towel.bind.Binder;
 import com.towel.bind.annotation.AnnotatedBinder;
 import com.towel.bind.annotation.Bindable;
@@ -686,6 +684,7 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
         this.jTxtSegmento.setInputVerifier(new OnlyNumbersExZero(this, "Segmento"));
         this.jTxtFamilia.setInputVerifier(new OnlyNumbersExZero(this, "Familia"));
         this.jTxtCep.setInputVerifier(new CepVerifier(this, "CEP"));
+        this.jTxtAno.setInputVerifier(new AnoVerifier(this, "Ano"));
     }
     
     
