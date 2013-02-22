@@ -20,6 +20,7 @@ import br.gov.saudecaruaru.bpai.gui.tablemodel.PacienteTableModel;
 import br.gov.saudecaruaru.bpai.gui.verifiers.CnesVerifier;
 import br.gov.saudecaruaru.bpai.gui.verifiers.CnsVerifier;
 import br.gov.saudecaruaru.bpai.gui.verifiers.DataVerifier;
+import br.gov.saudecaruaru.bpai.util.DateUtil;
 import br.gov.saudecaruaru.bpai.util.Search;
 import java.awt.Component;
 import java.util.Date;
@@ -55,6 +56,7 @@ public class CadastroPacientePresenter {
         this.setDocuments();
         this.setUpViewListeners();  
         this.habilitarEdicao(false);
+        this.view.editableIdade(false);
         this.view.enableBtnEditar(false);
         this.view.enableBtnFamilia(false);
         this.view.enableTxtFamilia(false);
@@ -75,6 +77,7 @@ public class CadastroPacientePresenter {
         this.view.setCnsFocusListener(new CadastroPacienteFocusListener.CnsFocusListener(this));
         
         this.view.setCodigoOcupacaoKeyListener(new CadastroPacienteKeyListener.OcupacaoKeyListener(this));
+        this.view.setIdadeFocusListener(new CadastroPacienteFocusListener.IdadeFocusListener(this));
     }
     
     private void setDocuments(){
@@ -221,6 +224,19 @@ public class CadastroPacientePresenter {
             this.view.setCodigoOcupacao(model.getId());
            
         }
+    }
+    
+    
+    public void insereIdade(){
+        Date dataNascimento = this.view.getDataNascimento();
+            if(dataNascimento!=null){
+                //calcula a idade
+                int idade = DateUtil.getAge(dataNascimento, new Date());
+                //seta a idade no campo idade
+                this.view.setIdade(idade);
+            }else{
+                this.view.setIdade("");
+            }
     }
      
 }

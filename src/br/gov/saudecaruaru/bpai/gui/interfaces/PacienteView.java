@@ -49,6 +49,8 @@ public interface PacienteView {
     public void enableBtnConfirmar(boolean arg);
     public void enableBtnCancelar(boolean arg);
     public void enableBtnFamilia(boolean arg);
+    public void editableIdade(boolean arg);
+    
     public void setNovoActionListener(ActionListener listener);
     public void setEditarActionListener(ActionListener listener);
     public void setConfirmarActionListener(ActionListener listener);
@@ -78,8 +80,12 @@ public interface PacienteView {
     
     public String getCns();
     public void setCodigoOcupacao(String codigo);
+    public void setIdade(String idade);
+    public void setIdade(int idade);
     
     public void setCnsFocusListener(FocusListener listener);
     public boolean validaCamposVazios();
     public void setCodigoOcupacaoKeyListener(KeyListener listener);
+    public void setDataNascimentoFocusListener(FocusListener listener);
+    public void setIdadeFocusListener(FocusListener listener);
 }
