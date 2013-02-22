@@ -18,11 +18,11 @@ import javax.swing.JTextField;
  *
  * @author Junior Pires
  */
-public class OnlyNumbers extends InputVerifier{
+public class OnlyNumbersVerifier extends InputVerifier{
     private String fieldName; 
     private Component component;
 
-    public OnlyNumbers(Component component,String fieldName) {
+    public OnlyNumbersVerifier(Component component,String fieldName) {
         this.fieldName = fieldName;
         this.component = component;
     }

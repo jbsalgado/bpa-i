@@ -18,11 +18,11 @@ import javax.swing.JTextField;
  *
  * @author Junior Pires
  */
-public class OnlyNumbersExZero extends InputVerifier{
+public class OnlyNumbersExZeroVerifier extends InputVerifier{
     private String fieldName; 
     private Component component;
 
-    public OnlyNumbersExZero(Component component,String fieldName) {
+    public OnlyNumbersExZeroVerifier(Component component,String fieldName) {
         this.fieldName = fieldName;
         this.component = component;
     }
@@ -34,7 +34,7 @@ public class OnlyNumbersExZero extends InputVerifier{
        JTextField txtField = (JTextField) input;
        String valor = txtField.getText();
        
-       Pattern p = Pattern.compile("0?[0]+?[1-9][0-9]?|[1-9][0-9]+?"); 
+       Pattern p = Pattern.compile("0?[0]+?[1-9][0-9]?|[1-9](?:[0-9]+)?"); 
        Matcher m = p.matcher(valor);
        if(!m.find()){
            MessagesErrors.erro(component,txtField,fieldName+" VALOR INCORRETO!"); 
