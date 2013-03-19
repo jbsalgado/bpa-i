@@ -6,7 +6,9 @@ package br.gov.saudecaruaru.bpai.main;
 
 import br.gov.saudecaruaru.bpai.business.controller.SistemaController;
 import br.gov.saudecaruaru.bpai.business.model.ArquivoCnes;
+import br.gov.saudecaruaru.bpai.business.model.BIDoencaCondicao;
 import br.gov.saudecaruaru.bpai.business.presenter.principal.PrincipalPresenter;
+import br.gov.saudecaruaru.bpai.data.BIDoencaCondicaoDAO;
 import br.gov.saudecaruaru.bpai.data.HibernateUtil;
 import br.gov.saudecaruaru.bpai.gui.EscolhaBanco;
 import br.gov.saudecaruaru.bpai.gui.SearchGeneric;
@@ -100,7 +102,27 @@ public class BPAI {
         home.start();
         //ArquivoCnes arquivoCnes = new ArquivoCnes("C:\\Users\\juniorpires\\Documents\\Trabalho\\BPA\\SIAB\\TXT_SIAB\\CN201212.txt");
         //arquivoCnes.salvarDadosSiab();
-        
+//        BIDoencaCondicao doencaCondicao1 = new BIDoencaCondicao("ALC", "Alcoolismo");
+//        BIDoencaCondicao doencaCondicao2 = new BIDoencaCondicao("CHA", "Chagas");
+//        BIDoencaCondicao doencaCondicao3 = new BIDoencaCondicao("DEF", "Deficiência");
+//        BIDoencaCondicao doencaCondicao4 = new BIDoencaCondicao("DIA", "Diabetes");
+//        BIDoencaCondicao doencaCondicao5 = new BIDoencaCondicao("EPI", "Eplepsia");
+//        BIDoencaCondicao doencaCondicao6 = new BIDoencaCondicao("GES", "Gestação");
+//        BIDoencaCondicao doencaCondicao7 = new BIDoencaCondicao("HA", "Hipertensão Arterial");
+//        BIDoencaCondicao doencaCondicao8 = new BIDoencaCondicao("TB", "Turbeculose");
+//        BIDoencaCondicao doencaCondicao9 = new BIDoencaCondicao("HAN", "Hanseníase");
+//        BIDoencaCondicao doencaCondicao10 = new BIDoencaCondicao("MAL", "Malária");
+//        BIDoencaCondicaoDAO dao = new BIDoencaCondicaoDAO();
+//        dao.save(doencaCondicao1);
+//        dao.save(doencaCondicao2);
+//        dao.save(doencaCondicao3);
+//        dao.save(doencaCondicao4);
+//        dao.save(doencaCondicao5);
+//        dao.save(doencaCondicao6);
+//        dao.save(doencaCondicao7);
+//        dao.save(doencaCondicao8);
+//        dao.save(doencaCondicao9);
+//        dao.save(doencaCondicao10);
     }
     
     public void start(){

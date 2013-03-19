@@ -5,6 +5,8 @@
 package br.gov.saudecaruaru.bpai.business.model;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import javax.persistence.*;
 /**
@@ -41,6 +43,12 @@ public class BIPaciente implements Serializable {
     
     @Column(name="doenca_condicao",length=3)
     private String doencaCondicao;
+    
+    @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name="PACIENTE_DOENCA_CONDICAO",
+            joinColumns=@JoinColumn(name="paciente_id"),inverseJoinColumns=@JoinColumn(name="doenca_condicao_id"))
+    private Collection<BIDoencaCondicao> doencaCondicaoList;
     
     @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name="familia_id",referencedColumnName="id")
@@ -196,6 +204,20 @@ public class BIPaciente implements Serializable {
      */
     public void setFamilia(BIFamilia familia) {
         this.familia = familia;
+    }
+
+    /**
+     * @return the doencaCondicaoList
+     */
+    public Collection<BIDoencaCondicao> getDoencaCondicaoList() {
+        return doencaCondicaoList;
+    }
+
+    /**
+     * @param doencaCondicaoList the doencaCondicaoList to set
+     */
+    public void setDoencaCondicaoList(Collection<BIDoencaCondicao> doencaCondicaoList) {
+        this.doencaCondicaoList = doencaCondicaoList;
     }
     
     

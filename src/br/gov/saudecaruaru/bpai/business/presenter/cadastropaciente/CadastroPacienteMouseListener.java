@@ -14,7 +14,7 @@ import java.awt.event.MouseListener;
  *
  * @author Junior Pires
  */
-public class CadastroPacienteWindowMouseListener {
+public class CadastroPacienteMouseListener {
     
     static class SelecionarLinhaMouseListener implements MouseListener{
         private CadastroPacientePresenter presenter;
@@ -33,6 +33,44 @@ public class CadastroPacienteWindowMouseListener {
             view.enableBtnNovo(false);
             view.enableBtnConfirmar(false);
             view.enableTxtCns(false);
+            }
+        
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+           
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+           
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+           
+        }
+    
+    }
+    
+    static class ListDoencaCondicao2MouseListener implements MouseListener{
+        private CadastroPacientePresenter presenter;
+
+          
+        public ListDoencaCondicao2MouseListener(CadastroPacientePresenter presenter) {  
+            this.presenter = presenter;  
+        }
+        @Override
+        public void mouseClicked(MouseEvent e) {
+//            PacienteView view = this.presenter.getView();
+//            if(e.getClickCount()==2){
+//                this.presenter.selecionarDoencaCondicao();
+//            }
             }
         
 
