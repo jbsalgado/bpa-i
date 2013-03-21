@@ -82,13 +82,14 @@ public class AlteraCompetencia extends javax.swing.JDialog {
      private void selectItemJComboBoxCompetenciaMes(String codigoItem){
           Mes m= new Mes(codigoItem, "");   
           this.objectComboBoxModelMes.setSelectedObject(m);
+
      }
 
   
     private void initCombobox(){
         objectComboBoxModelMes.setData(Mes.getLIST());
         this.jComboBoxCompetenciaMes.setModel(objectComboBoxModelMes);
-        this.jComboBoxCompetenciaMes.setSelectedIndex(0);
+  
     }
     /**
      * This method is called from within the constructor to initialize the form.

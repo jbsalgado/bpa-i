@@ -83,7 +83,6 @@ public class Mes {
     public int hashCode() {
         int hash = 0;
         hash += (codigo != null ? codigo.hashCode() : 0);
-        hash += (descricao!= null ? descricao.hashCode() : 0);
         return hash;
     }
 
