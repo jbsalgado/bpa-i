@@ -1692,7 +1692,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
 
                     // metodo que pega os valores dos campos e adiciona-os ao modelo
                     this.getValuesToModel();
-                    String errors = procedimentoRealizadoController.validateProcedimento(procedimentoRealizado);
+                    String errors = "";//procedimentoRealizadoController.validateProcedimento(procedimentoRealizado);
                     if (!errors.equals("")) {
                         JOptionPane.showMessageDialog(this, errors);
                     } else {
@@ -2717,8 +2717,8 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         }
         String competenciaMvm = gestorCompetenciaController.getCompetenciaAtual();
         if (competenciaMvm != null) {
-            //seta competencia movimento
-            procedimentoRealizado.setCompetenciaMovimento(competencia);
+            //seta competencia movimento (ERRO CORRIGIDO, ESTAVA SENDO PASSADO A COMPETENCIA EM VEZ DA COMPETENCIA MOVIMENTO)
+            procedimentoRealizado.setCompetenciaMovimento(competenciaMvm);
         }
 
         //obtem a idade do paciente
