@@ -679,10 +679,10 @@ public class FamiliaWindow extends javax.swing.JFrame implements FamiliaView{
     
     @Override
     public void setVerifiers(){
-        this.jTxtMicroArea.setInputVerifier(new OnlyNumbersExZero(this, "Microarea"));
-        this.jTxtArea.setInputVerifier(new OnlyNumbersExZero(this, "Area"));
-        this.jTxtSegmento.setInputVerifier(new OnlyNumbersExZero(this, "Segmento"));
-        this.jTxtFamilia.setInputVerifier(new OnlyNumbersExZero(this, "Familia"));
+        this.jTxtMicroArea.setInputVerifier(new OnlyNumbersExZeroVerifier(this, "Microarea"));
+        this.jTxtArea.setInputVerifier(new OnlyNumbersExZeroVerifier(this, "Area"));
+        this.jTxtSegmento.setInputVerifier(new OnlyNumbersExZeroVerifier(this, "Segmento"));
+        this.jTxtFamilia.setInputVerifier(new OnlyNumbersExZeroVerifier(this, "Familia"));
         this.jTxtCep.setInputVerifier(new CepVerifier(this, "CEP"));
         this.jTxtAno.setInputVerifier(new AnoVerifier(this, "Ano"));
     }

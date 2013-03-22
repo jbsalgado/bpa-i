@@ -9,8 +9,11 @@ import br.gov.saudecaruaru.bpai.business.controller.ProcedimentoDoencaController
 import br.gov.saudecaruaru.bpai.business.controller.SistemaController;
 import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.business.validators.ProcedimentoRealizadoValidator;
+import br.gov.saudecaruaru.bpai.data.BIPacienteDAO;
 import br.gov.saudecaruaru.bpai.data.HibernateUtil;
 import br.gov.saudecaruaru.bpai.gui.EscolhaBanco;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -54,8 +57,11 @@ public class TEST {
         SistemaController.updateConfigurations();
     }
     public static void main(String[] args){
-        ArquivoOcupacao ocupacao = new ArquivoOcupacao("C:\\Users\\juniorpires\\Documents\\Trabalho\\BPA\\SIAB\\Arquivos SIAB\\SIABMUNsecundaria\\TABOCU.DBF");
-        ocupacao.lerArquivoOcupacao();
+        TEST.initDatabaseConfiguration();
+        BIPacienteDAO bIPacienteDAO = new BIPacienteDAO();
+        System.out.println(new ArrayList<BIPaciente>(new HashSet<BIPaciente>( bIPacienteDAO.findAll())));
+       // ArquivoOcupacao ocupacao = new ArquivoOcupacao("C:\\Users\\juniorpires\\Documents\\Trabalho\\BPA\\SIAB\\Arquivos SIAB\\SIABMUNsecundaria\\TABOCU.DBF");
+       // ocupacao.lerArquivoOcupacao();
         //ArquivoCnes arquivoCnes = new ArquivoCnes("C:\\Users\\juniorpires\\Documents\\Trabalho\\BPA\\SIAB\\TXT_SIAB\\CN201212.txt");
         //arquivoCnes.salvarDadosSiab();
 //       BPAI.initDatabaseConfiguration();

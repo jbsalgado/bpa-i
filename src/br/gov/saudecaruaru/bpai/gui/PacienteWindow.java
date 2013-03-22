@@ -5,11 +5,8 @@
 package br.gov.saudecaruaru.bpai.gui;
 
 
+import br.gov.saudecaruaru.bpai.business.model.*;
 import br.gov.saudecaruaru.bpai.gui.tablemodel.PacienteTableModel;
-import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
-import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
-import br.gov.saudecaruaru.bpai.business.model.Observer;
-import br.gov.saudecaruaru.bpai.business.model.Subject;
 import br.gov.saudecaruaru.bpai.gui.formatter.*;
 import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
 import com.towel.bind.Binder;
@@ -19,6 +16,7 @@ import com.towel.bind.annotation.Form;
 import com.towel.swing.combo.ObjectComboBoxModel;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
@@ -52,22 +50,26 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         this.initInstances();
         
         modelEscolha = new ObjectComboBoxModel<Character>();
-        modelDoencaCondicao = new ObjectComboBoxModel<DoencaCondicao>();
+
 
         modelEscolha.setFormatter(new EscolhaFormatter());
-        modelDoencaCondicao.setFormatter(new DoencaCondicaoFormatter());
+     
 
         List<Character> lis= new ArrayList<Character>();
         lis.add(new Character('S'));
         lis.add(new Character('N'));
         modelEscolha.setData(lis);
-        modelDoencaCondicao.setData(DoencaCondicao.LIST);
         
         jCbalfabetizado.setModel(modelEscolha);
-        jCbDoencaCondicao.setModel(modelDoencaCondicao);
         
-       this.jDtCDataNascimento.setDateFormatString("dd/MM/yyyy");
+        this.jDtCDataNascimento.setDateFormatString("dd/MM/yyyy");
         
+        this.jListDoencaCondicao.setModel(listModel); 
+        this.jListDoencaCondicao2.setModel(listModel2); 
+          //  listModel.addElement(new BIDoencaCondicao("ALC", "Alcool"));
+      
+       
+       
         
     }
      
@@ -75,6 +77,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         //centralizarÃ¡ a tela
         this.setLocationRelativeTo(null);
         this.binder=new AnnotatedBinder(this);
+        this.listModel = new DefaultListModel();
+        this.listModel2 = new DefaultListModel();
     }
 
     /**
@@ -109,8 +113,12 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         jBtCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbPacientes = new javax.swing.JTable();
-        jCbDoencaCondicao = new javax.swing.JComboBox();
         jDtCDataNascimento = new com.toedter.calendar.JDateChooser();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jListDoencaCondicao = new javax.swing.JList();
+        jBtDoencaCondicao = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jListDoencaCondicao2 = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -162,7 +170,11 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         ));
         jScrollPane1.setViewportView(jTbPacientes);
 
-        jCbDoencaCondicao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jScrollPane2.setViewportView(jListDoencaCondicao);
+
+        jBtDoencaCondicao.setText("<<");
+
+        jScrollPane3.setViewportView(jListDoencaCondicao2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,62 +183,63 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jBtNovo)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBtEditar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jBtConfirmar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jBtCancelar)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTxtFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBtFamilia)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel8)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCbDoencaCondicao, 0, 244, Short.MAX_VALUE)))))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(35, 35, 35)
-                                .addComponent(jTxtCns, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTxtOcupacao, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(28, 28, 28)
-                                .addComponent(jTxtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDtCDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTxtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCbalfabetizado, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(28, 28, 28)
-                        .addComponent(jTxtNome))))
+                        .addComponent(jTxtNome))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTxtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDtCDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTxtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(43, 43, 43)
+                                        .addComponent(jBtNovo)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jBtEditar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jBtConfirmar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jBtCancelar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(35, 35, 35)
+                                        .addComponent(jTxtCns, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTxtOcupacao, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTxtFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jBtFamilia))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jBtDoencaCondicao)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(73, 73, 73)))
+                        .addComponent(jCbalfabetizado, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,25 +263,29 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                         .addComponent(jLabel2)
                         .addComponent(jCbalfabetizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTxtOcupacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTxtOcupacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(jTxtFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtFamilia)
-                    .addComponent(jLabel8)
-                    .addComponent(jCbDoencaCondicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtFamilia))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtNovo)
-                    .addComponent(jBtEditar)
-                    .addComponent(jBtConfirmar)
-                    .addComponent(jBtCancelar))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtDoencaCondicao)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel8)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(63, 63, 63)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBtNovo)
+                            .addComponent(jBtEditar)
+                            .addComponent(jBtConfirmar)
+                            .addComponent(jBtCancelar))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -323,11 +340,10 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtConfirmar;
+    private javax.swing.JButton jBtDoencaCondicao;
     private javax.swing.JButton jBtEditar;
     private javax.swing.JButton jBtFamilia;
     private javax.swing.JButton jBtNovo;
-    @Bindable(field="doencaCondicao",formatter=DoencaCondicaoFormatter.class)
-    private javax.swing.JComboBox jCbDoencaCondicao;
     @Bindable(field="alfabetizado",formatter=EscolhaFormatter.class)
     private javax.swing.JComboBox jCbalfabetizado;
     private com.toedter.calendar.JDateChooser jDtCDataNascimento;
@@ -340,7 +356,11 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JList jListDoencaCondicao;
+    private javax.swing.JList jListDoencaCondicao2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTbPacientes;
     @Bindable(field="cns")
     private javax.swing.JTextField jTxtCns;
@@ -356,8 +376,57 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     private javax.swing.JTextField jTxtSexo;
     // End of variables declaration//GEN-END:variables
     private ObjectComboBoxModel<Character> modelEscolha;
-    private ObjectComboBoxModel<DoencaCondicao> modelDoencaCondicao;
+    private DefaultListModel listModel;
+    private DefaultListModel listModel2;
+    
 
+    
+    
+    @Override
+    public int getSelectedListDoencaCondicao2(){
+       return  this.jListDoencaCondicao2.getSelectedIndex();
+    }
+    
+    @Override
+    public int getSelectedListDoencaCondicao(){
+       return  this.jListDoencaCondicao.getSelectedIndex();
+    }
+    
+    
+   
+    
+    @Override
+    public void changeVisibleListDoencaCondicao2(){
+        if(this.jListDoencaCondicao2.isVisible()){
+            this.jListDoencaCondicao2.setVisible(false);
+        }else{
+            this.jListDoencaCondicao2.setVisible(true);
+        }
+    }
+    
+    @Override
+    public void setListDoencaCondicao2MouseListener(MouseListener listener){
+        this.jListDoencaCondicao2.addMouseListener(listener);
+    }
+    
+    
+    @Override
+    public void removeItemDoencaCondicao(Object item){
+        this.listModel.removeElement(item);
+    }
+    
+    @Override
+    public DefaultListModel getModelListDoencaCondicao(){
+        return this.listModel;
+    }
+    @Override
+    public DefaultListModel getModelListDoencaCondicao2(){
+        return this.listModel2;
+    }
+    
+    public void clearListDoencaCondicao(){
+        this.listModel.removeAllElements();
+    }
     @Override
     public void setCodigoOcupacao(String codigo){
         this.jTxtOcupacao.setText(codigo);
@@ -438,6 +507,10 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         this.jTxtOcupacao.addKeyListener(listener);
     }
     @Override
+    public void setListDoencaCondicaoKeyListener(KeyListener listener){
+        this.jListDoencaCondicao.addKeyListener(listener);
+    }
+    @Override
     public void setDataNascimentoFocusListener(FocusListener listener){
         this.jDtCDataNascimento.addFocusListener(listener);
     }
@@ -460,6 +533,8 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
                 field.setText("");  
             }  
         }  
+        //limpa a lista de doencaCondicao
+        this.clearListDoencaCondicao();
     }
 
     @Override
@@ -558,10 +633,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
        this.jTxtFamilia.setEnabled(arg);
     }
 
-    @Override
-    public void enableCbDoencaCondicao(boolean arg) {
-        this.jCbDoencaCondicao.setEnabled(arg);
-    }
+  
 
   @Override
     public void enableBtnNovo(boolean arg) {
@@ -584,6 +656,20 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     }
     
     @Override
+    public void enableBtnDoencaCondicao(boolean arg) {
+        this.jBtDoencaCondicao.setEnabled(arg);
+    }
+    @Override
+    public void enableListDoencaCondicao(boolean arg) {
+        this.jListDoencaCondicao.setEnabled(arg);
+    }
+    
+    @Override
+    public void enableListDoencaCondicao2(boolean arg) {
+        this.jListDoencaCondicao2.setEnabled(arg);
+    }
+    
+    @Override
     public void enableBtnFamilia(boolean arg) {
         this.jBtFamilia.setEnabled(arg);
     }
@@ -592,6 +678,12 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
     public void setNovoActionListener(ActionListener listener) {
         this.jBtNovo.addActionListener(listener);
     }
+    
+     @Override
+    public void setDoencaCondicaoActionListener(ActionListener listener) {
+        this.jBtDoencaCondicao.addActionListener(listener);
+    }
+
 
     @Override
     public void setEditarActionListener(ActionListener listener) {
@@ -634,16 +726,7 @@ public class PacienteWindow extends javax.swing.JFrame implements PacienteView,O
         this.jCbalfabetizado.setSelectedIndex(i);
     }
     
-    @Override
-    public void setSelectedDoencaCondicao(DoencaCondicao c){
-        this.modelDoencaCondicao.setSelectedObject(c);
-    }
     
-    
-    @Override
-    public void setSelectedIndexDoencaCondicao(int i){
-        this.jCbDoencaCondicao.setSelectedIndex(i);
-    }
     @Override
     public void setTxtCnsDocument(Document d){
         this.jTxtCns.setDocument(d);

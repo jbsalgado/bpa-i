@@ -41,13 +41,11 @@ public class BIPaciente implements Serializable {
     @Column(name="ocupacao",length=3)
     private String codigoOcupacao;
     
-    @Column(name="doenca_condicao",length=3)
-    private String doencaCondicao;
     
-    @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(targetEntity=br.gov.saudecaruaru.bpai.business.model.BIDoencaCondicao.class,fetch=FetchType.EAGER)
     @JoinTable(
             name="PACIENTE_DOENCA_CONDICAO",
-            joinColumns=@JoinColumn(name="paciente_id"),inverseJoinColumns=@JoinColumn(name="doenca_condicao_id"))
+            joinColumns={@JoinColumn(name="paciente_id")},inverseJoinColumns={@JoinColumn(name="doenca_condicao_id")})
     private Collection<BIDoencaCondicao> doencaCondicaoList;
     
     @ManyToOne(fetch= FetchType.EAGER)
@@ -151,19 +149,6 @@ public class BIPaciente implements Serializable {
         this.codigoOcupacao = ocupacao;
     }
 
-    /**
-     * @return the doencaCondicao
-     */
-    public String getDoencaCondicao() {
-        return doencaCondicao;
-    }
-
-    /**
-     * @param doencaCondicao the doencaCondicao to set
-     */
-    public void setDoencaCondicao(String doencaCondicao) {
-        this.doencaCondicao = doencaCondicao;
-    }
     
     @Override
     public int hashCode() {

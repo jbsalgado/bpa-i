@@ -4,29 +4,27 @@
  */
 package br.gov.saudecaruaru.bpai.business.presenter.cadastropaciente;
 
-import br.gov.saudecaruaru.bpai.business.model.*;
-import br.gov.saudecaruaru.bpai.data.BIFamiliaDAO;
+import br.gov.saudecaruaru.bpai.business.model.BIDoencaCondicao;
+import br.gov.saudecaruaru.bpai.business.model.BIFamilia;
+import br.gov.saudecaruaru.bpai.business.model.BIPaciente;
+import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
+import br.gov.saudecaruaru.bpai.data.BIDoencaCondicaoDAO;
 import br.gov.saudecaruaru.bpai.data.BIOcupacaoDAO;
 import br.gov.saudecaruaru.bpai.data.BIPacienteDAO;
-import br.gov.saudecaruaru.bpai.gui.*;
-import br.gov.saudecaruaru.bpai.gui.documents.DataDocument;
+import br.gov.saudecaruaru.bpai.gui.PacienteWindow;
+import br.gov.saudecaruaru.bpai.gui.SearchGeneric;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyNumbersDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.OnlyUpperLettersDocument;
 import br.gov.saudecaruaru.bpai.gui.documents.SexoDocument;
-import br.gov.saudecaruaru.bpai.gui.interfaces.FamiliaView;
 import br.gov.saudecaruaru.bpai.gui.interfaces.OperacaoStrategy;
 import br.gov.saudecaruaru.bpai.gui.interfaces.PacienteView;
 import br.gov.saudecaruaru.bpai.gui.tablemodel.PacienteTableModel;
-import br.gov.saudecaruaru.bpai.gui.verifiers.CnesVerifier;
 import br.gov.saudecaruaru.bpai.gui.verifiers.CnsVerifier;
-import br.gov.saudecaruaru.bpai.gui.verifiers.DataVerifier;
 import br.gov.saudecaruaru.bpai.util.DateUtil;
 import br.gov.saudecaruaru.bpai.util.Search;
 import java.awt.Component;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import javax.swing.DefaultListModel;
 
 
 /**
@@ -60,6 +58,8 @@ public class CadastroPacientePresenter {
         this.view.enableBtnEditar(false);
         this.view.enableBtnFamilia(false);
         this.view.enableTxtFamilia(false);
+        //preenche a lista doencaCondicao
+        this.preencheListDoencaCondicao2();
         this.initDadosJTable();
         //this.view.setVerifiers();
         //this.view.setDocuments();
@@ -70,14 +70,18 @@ public class CadastroPacientePresenter {
     private void setUpViewListeners(){
         this.view.setNovoActionListener(new CadastroPacienteActionListener.NovoActionListener(this));
         this.view.setConfirmarActionListener(new CadastroPacienteActionListener.ConfirmarActionListener(this));
-        this.view.setSelecionarLinhaJTableActionListener(new CadastroPacienteWindowMouseListener.SelecionarLinhaMouseListener(this));
+        this.view.setSelecionarLinhaJTableActionListener(new CadastroPacienteMouseListener.SelecionarLinhaMouseListener(this));
         this.view.setEditarActionListener(new CadastroPacienteActionListener.EditarActionListener(this));
         this.view.setFamiliaActionListener(new CadastroPacienteActionListener.FamiliaActionListener(this));
         this.view.setCancelarActionListener(new CadastroPacienteActionListener.CancelarActionListener(this));
         this.view.setCnsFocusListener(new CadastroPacienteFocusListener.CnsFocusListener(this));
+        this.view.setDoencaCondicaoActionListener(new CadastroPacienteActionListener.DoencaCondicaoActionListener(this));
         
         this.view.setCodigoOcupacaoKeyListener(new CadastroPacienteKeyListener.OcupacaoKeyListener(this));
         this.view.setIdadeFocusListener(new CadastroPacienteFocusListener.IdadeFocusListener(this));
+        
+        this.view.setListDoencaCondicao2MouseListener(new CadastroPacienteMouseListener.ListDoencaCondicao2MouseListener(this));
+        this.view.setListDoencaCondicaoKeyListener(new CadastroPacienteKeyListener.ListDoencaCondicaoKeyListener(this));
     }
     
     private void setDocuments(){
@@ -97,7 +101,9 @@ public class CadastroPacientePresenter {
      private void initDadosJTable(){
       
         try {
-            list= this.pacienteDao.findAll();
+            //List<String> groupByList = new ArrayList<String>();
+            //groupByList.add("cns");
+            list= new ArrayList<BIPaciente>(new HashSet<BIPaciente>( this.pacienteDao.findAll()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,7 +118,6 @@ public class CadastroPacientePresenter {
     public void habilitarEdicao(boolean arg){
         this.view.enableTxtCns(arg);
         this.view.enableTxtDataNascimento(arg);
-        this.view.enableCbDoencaCondicao(arg);
         //this.view.enableTxtFamilia(arg);
         this.view.enableTxtIdade(arg);
         this.view.enableTxtNome(arg);
@@ -122,6 +127,9 @@ public class CadastroPacientePresenter {
         //this.view.setSelectedIndexAlfabetizado(0);
         //this.view.setSelectedIndexDoencaCondicao(0);
         this.view.enableBtnFamilia(arg);
+        this.view.enableBtnDoencaCondicao(arg);
+        this.view.enableListDoencaCondicao(arg);
+        this.view.enableListDoencaCondicao2(arg);
     }
     
     public PacienteView getView(){
@@ -169,19 +177,41 @@ public class CadastroPacientePresenter {
           if(dataNascimento!=null){
              this.paciente.setDataNascimento(dataNascimento);
          }
-         //String dataNascimento = this.view.getDataNascimento();
-//         if(dataNascimento!=null){
-//             this.paciente.setDataNascimento(dataNascimento);
-//         }
-     }
+          //pega o modelo da lista DoencaCondicao
+          DefaultListModel listModel = this.view.getModelListDoencaCondicao();
+          BIDoencaCondicao doencaCondicao =null;
+
+          
+          List<BIDoencaCondicao> doencaCondicaoList= new ArrayList<BIDoencaCondicao>();
+          if(listModel!=null){
+             for(int i=0;i<listModel.size();i++){
+                 doencaCondicao = (BIDoencaCondicao) listModel.getElementAt(i);
+                 if(doencaCondicao!=null){
+                     doencaCondicaoList.add(doencaCondicao);
+                 }
+             }
+          }
+          
+          this.paciente.setDoencaCondicaoList(doencaCondicaoList);
+   }
      
      private void updateView(){
           this.getView().getBinder().updateView(this.paciente);
           this.getView().setSelectedAlfabetizado(this.paciente.getAlfabetizado());
-          this.getView().setSelectedDoencaCondicao(DoencaCondicao.MAP.get(this.paciente.getDoencaCondicao()));
+//          this.getView().setSelectedDoencaCondicao(DoencaCondicao.MAP.get(this.paciente.getDoencaCondicao()));
+          
           //atualiza o campo data nascimento
           this.getView().setDataNascimento(this.paciente.getDataNascimento());
           
+          
+          Collection<BIDoencaCondicao> doencaCondicaoList = this.paciente.getDoencaCondicaoList();
+          DefaultListModel listModel = this.view.getModelListDoencaCondicao();
+          //remove todos os elementos da lista para poder inserir os novos elementos vindos do modelo
+          listModel.removeAllElements();
+          
+          for (BIDoencaCondicao bIDoencaCondicao : doencaCondicaoList) {
+             listModel.addElement(bIDoencaCondicao);
+         }
      }
     public void atualizarPaciente(){
         this.updateModel();
@@ -226,7 +256,44 @@ public class CadastroPacientePresenter {
         }
     }
     
+    public void selecionarDoencaCondicao(){
+            DefaultListModel modelListDoencaCondicao2 = this.view.getModelListDoencaCondicao2();
+            DefaultListModel modelListDoencaCondicao = this.view.getModelListDoencaCondicao();
+            
+            if(this.view.getSelectedListDoencaCondicao2()>=0){
+                BIDoencaCondicao doencaCondicao =(BIDoencaCondicao) modelListDoencaCondicao2.get(this.view.getSelectedListDoencaCondicao2());
+
+                //evita inserir dois registros iguais
+                if(!modelListDoencaCondicao.contains(doencaCondicao)){
+                    modelListDoencaCondicao.addElement(doencaCondicao);
+                }
+            
+            }
+              
+    }
+
     
+    //seta uma lista de BIDoencaCondicao ao model de DoencaCondicao
+    private void setDataListaDoencaCondicao2(List<BIDoencaCondicao> list){
+        DefaultListModel modelListDoencaCondicao2 = this.view.getModelListDoencaCondicao2();
+        for (Object object : list) {
+            modelListDoencaCondicao2.addElement(object);
+        }
+        
+    }
+    public void preencheListDoencaCondicao2(){
+        BIDoencaCondicaoDAO condicaoDAO = new BIDoencaCondicaoDAO();
+        this.setDataListaDoencaCondicao2(condicaoDAO.findAll());
+    }
+    
+    public void removeItemListaDoencaCondicao(){
+        DefaultListModel modelListDoencaCondicao = this.view.getModelListDoencaCondicao();
+        if(this.view.getSelectedListDoencaCondicao()>=0){
+            modelListDoencaCondicao.remove(this.view.getSelectedListDoencaCondicao());
+        }
+    }
+    
+    //metodo que calcula a idade baseado na data de nascimento e insere a idade no campo idade
     public void insereIdade(){
         Date dataNascimento = this.view.getDataNascimento();
             if(dataNascimento!=null){
@@ -238,5 +305,7 @@ public class CadastroPacientePresenter {
                 this.view.setIdade("");
             }
     }
+    
+   
      
 }

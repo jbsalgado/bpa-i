@@ -124,4 +124,22 @@ public class CadastroPacienteActionListener {
                  
         }
     }
+     
+     
+     static class DoencaCondicaoActionListener implements ActionListener{
+        private CadastroPacientePresenter presenter;  
+          
+        public DoencaCondicaoActionListener(CadastroPacientePresenter presenter) {  
+            this.presenter = presenter;  
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          PacienteView view = (PacienteView) this.presenter.getView();
+          this.presenter.selecionarDoencaCondicao();
+              //view.changeVisibleListDoencaCondicao2();
+                 //this.presenter.selecionarDoencaCondicao();
+                 
+                 
+        }
+    }
 }

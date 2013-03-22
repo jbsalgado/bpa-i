@@ -406,7 +406,7 @@ public class CadastroIndividualizado extends javax.swing.JDialog implements Tela
         this.jTextFieldUsuarioSexo.setInputVerifier(new SexoVerifier(this, "Sexo"));
         this.jTextFieldUsuarioCns.setInputVerifier(new CnsUsuarioVerifier(this, "CNS UsuÃ¡rio", this));
         this.jTextFieldCnes.setInputVerifier(new CnesVerifier(this, "CNES"));
-        this.jTextFieldProcQuant.setInputVerifier(new OnlyNumbers(this, "Quantidade"));
+        this.jTextFieldProcQuant.setInputVerifier(new OnlyNumbersVerifier(this, "Quantidade"));
         this.jTextFieldCnsProfiss.setInputVerifier(new CnsVerifier(this, "CNS"));
         this.jTextFieldCBO.setInputVerifier(new CBOVerifier(this, "CBO", this));
         this.jTextFieldUsuarioCodNac.setInputVerifier(new NacionalidadeVerifier(this, "Nacionalidade", jTextFieldUsuarioNomeNac));

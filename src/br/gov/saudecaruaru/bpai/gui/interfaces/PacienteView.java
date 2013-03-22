@@ -4,8 +4,7 @@
  */
 package br.gov.saudecaruaru.bpai.gui.interfaces;
 
-import br.gov.saudecaruaru.bpai.business.model.Doenca;
-import br.gov.saudecaruaru.bpai.business.model.DoencaCondicao;
+import br.gov.saudecaruaru.bpai.business.model.BIDoencaCondicao;
 import br.gov.saudecaruaru.bpai.gui.tablemodel.PacienteTableModel;
 import com.towel.bind.Binder;
 import java.awt.event.ActionListener;
@@ -13,6 +12,8 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.Date;
+import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.InputVerifier;
 import javax.swing.text.Document;
 
@@ -42,7 +43,6 @@ public interface PacienteView {
     public void enableTxtDataNascimento(boolean arg);
     public void enableTxtOcupacao(boolean arg);
     public void enableTxtFamilia(boolean arg);
-    public void enableCbDoencaCondicao(boolean arg);
    
     public void enableBtnNovo(boolean arg);
     public void enableBtnEditar(boolean arg);
@@ -75,8 +75,6 @@ public interface PacienteView {
     public void setTxtCnsVerifier(InputVerifier verifier);
     //public void setTxtDatanascimentoVerifier(InputVerifier verifier);
     
-    public void setSelectedDoencaCondicao(DoencaCondicao c);
-    public void setSelectedIndexDoencaCondicao(int i);
     
     public String getCns();
     public void setCodigoOcupacao(String codigo);
@@ -88,4 +86,20 @@ public interface PacienteView {
     public void setCodigoOcupacaoKeyListener(KeyListener listener);
     public void setDataNascimentoFocusListener(FocusListener listener);
     public void setIdadeFocusListener(FocusListener listener);
+    
+    
+    public void removeItemDoencaCondicao(Object item);
+    public DefaultListModel getModelListDoencaCondicao();
+    public DefaultListModel getModelListDoencaCondicao2();
+    public void setDoencaCondicaoActionListener(ActionListener listener);
+    
+    public void enableBtnDoencaCondicao(boolean arg);
+    public void enableListDoencaCondicao(boolean arg);
+    public void enableListDoencaCondicao2(boolean arg);
+    
+    public int getSelectedListDoencaCondicao2();
+    public int getSelectedListDoencaCondicao();
+    public void changeVisibleListDoencaCondicao2();
+    public void setListDoencaCondicao2MouseListener(MouseListener listener); 
+    public void setListDoencaCondicaoKeyListener(KeyListener listener);
 }
