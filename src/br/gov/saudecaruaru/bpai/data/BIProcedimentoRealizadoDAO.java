@@ -94,8 +94,8 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             //traz somente os procedimentos que devem ser consolidados
             sql.append(" WHERE (pro.origemProcedimento=:origem AND p.exigeIdadeBPA=:exige");
             sql.append(" AND pro.competenciaMovimento=:competenciaMovimento ");
-            sql.append(" AND pro.codigoProcedimento=concat(p.bIprocedimentoPk.id,p.digitoVerificador)");
-            sql.append(" AND pro.competenciaMovimento=p.bIprocedimentoPk.competencia ");
+            sql.append(" AND pro.codigoProcedimento=concat(p.bIprocedimentoPk.id,p.bIprocedimentoPk.digitoVerificador)");
+            //sql.append(" AND pro.competenciaMovimento=p.bIprocedimentoPk.competencia ");
             sql.append(" AND pro.biProcedimentoRealizadoPK.cnesUnidade=:cnesUnidade )");
             //agrupa
 //            sql.append(" GROUP BY pro.biProcedimentoRealizadoPK.competencia,pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
@@ -103,7 +103,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             sql.append(" GROUP BY pro.competenciaMovimento,pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
             sql.append(" pro.codigoProcedimento,pro.biProcedimentoRealizadoPK.competencia");
             //ordena
-            sql.append(" ORDER BY pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico");
+            sql.append(" ORDER BY pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.competencia");
             //it's create query
             Query q = session.createQuery(sql.toString());
             q.setParameter("origem", ProcedimentoRealizado.ORIGEM_CONSOLIDADO);
@@ -163,8 +163,8 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             //traz somente os procedimentos que devem ser consolidados
             sql.append(" WHERE (pro.origemProcedimento=:origem AND p.exigeIdadeBPA=:exige");
             sql.append(" AND pro.competenciaMovimento=:competenciaMovimento ");
-            sql.append(" AND pro.codigoProcedimento=concat(p.bIprocedimentoPk.id,p.digitoVerificador)");
-            sql.append(" AND pro.competenciaMovimento=p.bIprocedimentoPk.competencia ");
+            sql.append(" AND pro.codigoProcedimento=concat(p.bIprocedimentoPk.id,p.bIprocedimentoPk.digitoVerificador)");
+            //sql.append(" AND pro.competenciaMovimento=p.bIprocedimentoPk.competencia ");
             sql.append(" AND pro.biProcedimentoRealizadoPK.cnesUnidade=:cnesUnidade )");
             //agrupa
 //            sql.append(" GROUP BY pro.biProcedimentoRealizadoPK.competencia,pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
@@ -172,7 +172,7 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
             sql.append(" GROUP BY pro.competenciaMovimento,pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico,");
             sql.append(" pro.codigoProcedimento,pro.idadePaciente,pro.biProcedimentoRealizadoPK.competencia");
             //ordena
-            sql.append(" ORDER BY pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.cboMedico");
+            sql.append(" ORDER BY pro.biProcedimentoRealizadoPK.cnesUnidade, pro.biProcedimentoRealizadoPK.competencia");
             //it's create query
             Query q = session.createQuery(sql.toString());
             q.setParameter("origem", ProcedimentoRealizado.ORIGEM_CONSOLIDADO);
@@ -433,10 +433,10 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
 //            query.setParameter("competencia", competencia);
 //            list=query.list();
 //            
-            str.append(" AND (SELECT DISTINCT(p.bIprocedimentoPk.id) FROM BIProcedimento p");
-            str.append(" WHERE pro.codigoProcedimento=concat(p.bIprocedimentoPk.id,p.digitoVerificador) ");
+           // str.append(" AND (SELECT DISTINCT(p.bIprocedimentoPk.id) FROM BIProcedimento p");
+            //str.append(" WHERE pro.codigoProcedimento=concat(p.bIprocedimentoPk.id,p.digitoVerificador) ");
             //str.append(" AND p.bIprocedimentoPk.competencia=:");
-            str.append(" AND pro.biProcedimentoRealizadoPK.competencia=p.bIprocedimentoPk.competencia) IS NULL");
+          //  str.append(" AND pro.competenciaMovimento=p.bIprocedimentoPk.competencia) IS NULL");
 
 
             Query query = session.createQuery(str.toString());
@@ -457,6 +457,23 @@ public class BIProcedimentoRealizadoDAO extends GenericDAO<BIProcedimentoRealiza
                 session.close();
             }
             return list;
+        }
+    }
+    
+     public void mergePaginado(List<BIProcedimentoRealizado> list,int paginacao){
+        if(paginacao<=list.size()){
+            int i=0;
+            while(i<list.size()){
+                if(i+paginacao<=list.size()){
+                    this.merge(list.subList(i,i+paginacao));
+                }else{
+                      this.merge(list.subList(i,list.size()-1));
+                }    
+                i+=paginacao; 
+                
+            }
+        }else{
+            this.merge(list);
         }
     }
 }

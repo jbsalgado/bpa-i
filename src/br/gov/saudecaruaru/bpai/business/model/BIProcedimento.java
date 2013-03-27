@@ -25,8 +25,8 @@ public class BIProcedimento implements Serializable {
     private BIProcedimentoPK bIprocedimentoPk;
     
     @Basic(optional = false)
-    @Column(name = "PA_DV")
-    private char digitoVerificador;
+    @Column(name = "PA_CMP")
+    private String competencia;
     
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "PA_TOTAL")
@@ -98,9 +98,10 @@ public class BIProcedimento implements Serializable {
     }
 
     public BIProcedimento(Procedimento procedimento){
-        this.bIprocedimentoPk=new BIProcedimentoPK(procedimento.getProcedimentoPk());
+        this.bIprocedimentoPk=new BIProcedimentoPK(procedimento);
+        this.competencia = procedimento.getProcedimentoPk().getCompetencia();
         this.setDescricao(procedimento.getDescricao());
-        this.digitoVerificador=procedimento.getDigitoVerificador();
+        //this.digitoVerificador=procedimento.getDigitoVerificador();
         this.exigeCBO=procedimento.getExigeCBO();
         this.exigeIdadeBPA=procedimento.getExigeIdadeBPA();
         this.idadeMaximaPaciente=procedimento.getIdadeMaximaPaciente();
@@ -123,7 +124,7 @@ public class BIProcedimento implements Serializable {
     }
     public BIProcedimento(BIProcedimentoPK bIprocedimentoPk, char digitoVerificador, Double paTotal, String descricao, String paRub, Character paTpcc, String paAux, Double paSp, Double paSa, String paCpx, String paCtf, Character tipoDocumento, Short idadeMaximaPaciente, Short idadeMinimaPaciente, Character sexo, Double quantidadeMaximaExecucao, Character paIdebpa, Character paCnspcn, Character paCnrac, Character maisDeSeisMeses, Character exigeCBO) {
         this.bIprocedimentoPk = bIprocedimentoPk;
-        this.digitoVerificador = digitoVerificador;
+        //this.digitoVerificador = digitoVerificador;
         this.paTotal = paTotal;
         this.descricao = descricao;
         this.paRub = paRub;
@@ -155,14 +156,7 @@ public class BIProcedimento implements Serializable {
         this.descricao = "bugado";//descricao.length() > 59 ? descricao.substring(0,59) : descricao;
     }
 
-    public char getDigitoVerificador() {
-        return digitoVerificador;
-    }
-
-    public void setDigitoVerificador(char digitoVerificador) {
-        this.digitoVerificador = digitoVerificador;
-    }
-
+ 
     public Character getExigeCBO() {
         return exigeCBO;
     }
@@ -352,7 +346,7 @@ public class BIProcedimento implements Serializable {
 
     @Override
     public String toString() {
-        return this.descricao+"/"+this.bIprocedimentoPk.getId()+""+this.bIprocedimentoPk.getCompetencia()+ " ]";
+        return this.descricao+"/"+this.bIprocedimentoPk.getId()+""+ " ]";
     }
     
 }

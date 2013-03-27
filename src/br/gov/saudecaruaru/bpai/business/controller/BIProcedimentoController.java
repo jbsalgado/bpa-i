@@ -8,7 +8,7 @@ import br.gov.saudecaruaru.bpai.business.model.BIProcedimento;
 import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoPK;
 import br.gov.saudecaruaru.bpai.business.model.Procedimento;
 import br.gov.saudecaruaru.bpai.data.BIProcedimentoDAO;
-import br.gov.saudecaruaru.bpai.data.GestorCompetenciaDAO;
+import br.gov.saudecaruaru.bpai.data.BIGestorCompetenciaDAO;
 import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class BIProcedimentoController extends BasecController<BIProcedimento> {
             //map com o nome do campo e os valores que se deseja buscar
             HashMap<String,List<String>> restrictions = new HashMap<String, List<String>>();
             List<String> competencias = new ArrayList<String>();
-            competencias.add(competenciaController.getCompetenciaAtual());
+            competencias.add(ModelUtil.COMPETENCIA_MAIS_RECENTE);
             restrictions.put("procedimentoPk.id",listProcedimentos);
             restrictions.put("procedimentoPk.competencia",competencias);
             
@@ -53,8 +53,8 @@ public class BIProcedimentoController extends BasecController<BIProcedimento> {
                     listBIProcedimentos.add(new BIProcedimento(procedimento));
                 }
 
-                //salva esses procedimentos no banco
-                this.salvar(listBIProcedimentos);
+                //salva ou atualiza esses procedimentos no banco
+                this.merge(listBIProcedimentos);
             }
         }
     }

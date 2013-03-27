@@ -7,8 +7,10 @@ package br.gov.saudecaruaru.bpai.main;
 import br.gov.saudecaruaru.bpai.business.controller.SistemaController;
 import br.gov.saudecaruaru.bpai.business.model.ArquivoCnes;
 import br.gov.saudecaruaru.bpai.business.model.BIDoencaCondicao;
+import br.gov.saudecaruaru.bpai.business.model.BIProcedimentoRealizado;
 import br.gov.saudecaruaru.bpai.business.presenter.principal.PrincipalPresenter;
 import br.gov.saudecaruaru.bpai.data.BIDoencaCondicaoDAO;
+import br.gov.saudecaruaru.bpai.data.BIProcedimentoRealizadoDAO;
 import br.gov.saudecaruaru.bpai.data.HibernateUtil;
 import br.gov.saudecaruaru.bpai.gui.EscolhaBanco;
 import br.gov.saudecaruaru.bpai.gui.SearchGeneric;
@@ -16,6 +18,7 @@ import br.gov.saudecaruaru.bpai.util.Recurso;
 import com.sun.jersey.api.client.Client;
 import java.io.File;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import javax.swing.JOptionPane;
@@ -100,6 +103,12 @@ public class BPAI {
     public static void main(String[] args) {
         BPAI home= new BPAI();
         home.start();
+//        BIProcedimentoRealizadoDAO dao = new BIProcedimentoRealizadoDAO();
+//        List<BIProcedimentoRealizado> list = dao.findAllEqual(new HashMap<String, Object>(), 1364, 1753);
+//        for (BIProcedimentoRealizado bIProcedimentoRealizado : list) {
+//            bIProcedimentoRealizado.setCompetenciaMovimento("201303");
+//        }
+//        dao.mergePaginado(list,250);
         //ArquivoCnes arquivoCnes = new ArquivoCnes("C:\\Users\\juniorpires\\Documents\\Trabalho\\BPA\\SIAB\\TXT_SIAB\\CN201212.txt");
         //arquivoCnes.salvarDadosSiab();
 //        BIDoencaCondicao doencaCondicao1 = new BIDoencaCondicao("ALC", "Alcoolismo");

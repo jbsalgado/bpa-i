@@ -136,7 +136,7 @@ public class BIProcedimentoRealizadoController extends BasecController<BIProcedi
                         folha = Integer.parseInt(procedimentoDao.getNextFolha(p.getCnesUnidade(), p.getCompetencia(), p.getCboMedico()));
                         primeiraVez = false;
                     }
-                    //mudou de CBO ou CNES
+                    //mudou de CBO ou COMPETENCIA
                     if ((CNES == null ? false : !CNES.equals(tCNES)) || (COMPETENCIA == null ? false : !COMPETENCIA.equals(tCompetencia))) {
                         //zera a sequência
                         seq = 1;

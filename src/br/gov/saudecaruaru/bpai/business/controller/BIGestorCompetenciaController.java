@@ -6,8 +6,8 @@ package br.gov.saudecaruaru.bpai.business.controller;
 
 
 import br.gov.saudecaruaru.bpai.business.model.BIGestorCompetencia;
+import br.gov.saudecaruaru.bpai.data.BIGestorCompetenciaDAO;
 import br.gov.saudecaruaru.bpai.data.GestorCompetenciaDAO;
-import br.gov.saudecaruaru.bpai.util.ModelUtil;
 import java.util.List;
 
 /**
@@ -19,7 +19,7 @@ public class BIGestorCompetenciaController extends BasecController<BIGestorCompe
 {
 
     public BIGestorCompetenciaController() {
-        super(new GestorCompetenciaDAO());
+        super(new BIGestorCompetenciaDAO());
     }
     
     
@@ -45,7 +45,8 @@ public class BIGestorCompetenciaController extends BasecController<BIGestorCompe
     }
     
     public boolean comparaCompetencias(){
-        if(!this.getCompetenciaAtual().equals(ModelUtil.COMPETENCIA_MAIS_RECENTE)){
+        
+        if(!this.getCompetenciaAtual().equals(new GestorCompetenciaDAO().getCompetenciaMovimento())){
             return false;
         }
         return true;
